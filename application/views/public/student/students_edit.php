@@ -127,7 +127,7 @@
                 </td>
                   <td><?php echo $count++; ?></td>
                   <td><?php echo $student->student_class_no; ?>
-                    <input style="width:80px !important" onkeyup="update_student_info('<?php echo $student->student_id; ?>')" id="student_class_no_<?php echo $student->student_id; ?>" type="number" name="student_class_no" value="<?php echo $student->student_class_no; ?>" /></td>
+                    <input style="width:40px !important" onkeyup="update_student_info('<?php echo $student->student_id; ?>')" id="student_class_no_<?php echo $student->student_id; ?>" type="number" name="student_class_no" value="<?php echo $student->student_class_no; ?>" /></td>
                     
                      <td><?php echo $student->student_admission_no; ?>
                     <input onkeyup="update_student_admission_no('<?php echo $student->student_id; ?>')" id="student_admission_no_<?php echo $student->student_id; ?>" type="number" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" /></td>
