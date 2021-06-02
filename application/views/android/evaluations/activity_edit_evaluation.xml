@@ -1,0 +1,134 @@
+
+<TextView
+android:id="@+id/title_evaluations"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:text="Edit"
+android:textStyle="normal|bold"
+android:textAlignment="center"
+android:textColor="@android:color/background_light"
+android:layout_centerHorizontal="true"
+android:textSize="40dp"
+android:paddingTop="60dp" />
+		
+						<EditText
+						android:id="@+id/academical_evaluation_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Academical Evaluation Id"
+						android:inputType="textEditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/evaluations"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/class_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Class Id"
+						android:inputType="textEditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/academical_evaluation_id"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/section_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Section Id"
+						android:inputType="textEditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/class_id"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/subject_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Subject Id"
+						android:inputType="textEditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/section_id"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/kpi_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Kpi Id"
+						android:inputType="textEditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/subject_id"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/rate"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Rate"
+						android:inputType="textText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/kpi_id"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/teacher_name"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Teacher Name"
+						android:inputType="textText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/rate"
+						android:layout_marginTop="42dp"/>
+						
+						
+						<EditText
+						android:id="@+id/evaluator"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Evaluator"
+						android:inputType="textText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:padding="12dp"
+						android:layout_below="@+id/teacher_name"
+						android:layout_marginTop="42dp"/>
+						
+						
+<Button
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Update"
+android:id="@+id/btn_update_evaluations"
+android:background="@xml/btnselector"
+android:textColor="@android:color/background_light"
+/>

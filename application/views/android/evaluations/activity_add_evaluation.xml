@@ -1,0 +1,149 @@
+
+<TextView
+android:id="@+id/title_evaluations"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:text="Add"
+android:textStyle="normal|bold"
+android:textAlignment="center"
+android:textColor="@android:color/background_light"
+android:layout_centerHorizontal="true"
+android:textSize="40dp" />
+		
+						<EditText
+						android:id="@+id/academical_evaluation_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Academical Evaluation Id"
+						android:inputType="EditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/evaluations"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/class_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Class Id"
+						android:inputType="EditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/academical_evaluation_id"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/section_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Section Id"
+						android:inputType="EditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/class_id"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/subject_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Subject Id"
+						android:inputType="EditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/section_id"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/kpi_id"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Kpi Id"
+						android:inputType="EditText"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/subject_id"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/rate"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Rate"
+						android:inputType="text"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/kpi_id"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/teacher_name"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Teacher Name"
+						android:inputType="text"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/rate"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+						<EditText
+						android:id="@+id/evaluator"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Evaluator"
+						android:inputType="text"
+						android:ems="10"
+						android:singleLine="true"
+						android:maxLength="30"
+						android:layout_marginTop="10dp"
+						android:layout_below="@+id/teacher_name"
+						android:layout_alignParentLeft="true"
+        				android:layout_alignParentStart="true" 
+						/>
+						
+						
+<Button
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Add"
+android:id="@+id/btn_add_evaluations"
+android:textColor="@android:color/background_light"
+android:layout_below="@+id/evaluator"
+/>
