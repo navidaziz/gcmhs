@@ -70,7 +70,7 @@
                 </h3>
 
               </div>
-              <table class="table table-bordered " style="font-size:12px !important">
+              <table class="table table-bordered " id="<?php echo $section_name  ?>" style="font-size:12px !important">
                 <thead>
                   <tr>
                     <td colspan="2"><?php
@@ -170,6 +170,14 @@
                 </tbody>
               </table>
             </div>
+            <script>
+              $(document).ready(function() {
+                $('#<?php echo $section_name  ?>').DataTable({
+                  "pageLength": 50,
+                  "lengthChange": false
+                });
+              });
+            </script>
           <?php } ?>
           <?php echo $pagination; ?>
         </div>
@@ -224,13 +232,6 @@
   }
 </script>
 
-<script>
-  $(document).ready(function() {
-    $('.table').DataTable({
-      "pageLength": 13,
-      "lengthChange": false
-    });
-  });
-</script>
+
 
 <link href="<?php echo site_url(); ?>/assets/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
