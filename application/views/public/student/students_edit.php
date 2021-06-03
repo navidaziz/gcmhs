@@ -1,5 +1,7 @@
 <!-- PAGE HEADER-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <div class="row">
   <div class="col-sm-12">
     <div class="page-header">
@@ -220,6 +222,15 @@
     });
 
   }
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('.table').DataTable({
+      "pageLength": 13,
+      "lengthChange": false
+    });
+  });
 </script>
 
 <link href="<?php echo site_url(); ?>/assets/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
