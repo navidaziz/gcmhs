@@ -70,7 +70,7 @@
                 </h3>
 
               </div>
-              <table class="table table-bordered " id="<?php echo $section_name  ?>" style="font-size:12px !important">
+              <table class="table table-bordered " style="font-size:12px !important">
                 <thead>
                   <tr>
                     <td colspan="2"><?php
@@ -98,7 +98,7 @@
                 </thead>
               </table>
 
-              <table class="table table-bordered " style="font-size:12px !important">
+              <table class="table table-bordered " id="<?php echo $section_name  ?>" style="font-size:12px !important">
                 <thead>
 
                   <tr>
