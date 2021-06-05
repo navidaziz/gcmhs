@@ -156,7 +156,7 @@
                         $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
 
                         ?>
-                        <form action="<?php echo site_url("student/update_student_section") ?>" method="post">
+                        <form target="_blank" action="<?php echo site_url("student/update_student_section") ?>" method="post">
                           <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
                           <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
                           <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
