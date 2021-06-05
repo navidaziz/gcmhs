@@ -201,8 +201,8 @@
         student_name: student_name
       }
     }).done(function(msg) {
-      $('#class_number').html(student_class_no);
-      $('#count_number').html(student_class_no);
+      $('#class_number').html(student_id);
+      $('#count_number').html(student_id);
       $("#message").html(msg);
       $("#message").fadeIn('slow');
       $("#message").delay(5000).fadeOut('slow');
