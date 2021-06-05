@@ -137,9 +137,9 @@
 
 
                       </td>
-                      <td class="class_number"><?php echo $count++; ?></td>
+                      <td id="count_number"><?php echo $count++; ?></td>
                       <td>
-                        <span class="class_number"><?php echo $student->student_class_no; ?></span>
+                        <span id="class_number"><?php echo $student->student_class_no; ?></span>
 
                         <input style="width:40px !important" onkeyup="update_student_info('<?php echo $student->student_id; ?>')" id="student_class_no_<?php echo $student->student_id; ?>" type="number" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
                       </td>
@@ -201,10 +201,12 @@
         student_name: student_name
       }
     }).done(function(msg) {
+      $('#class_number').html(student_class_no);
+      $('#count_number').html(student_class_no);
       $("#message").html(msg);
       $("#message").fadeIn('slow');
       $("#message").delay(5000).fadeOut('slow');
-      $('.class_number').html(student_class_no);
+
     });
 
   }
