@@ -46,9 +46,125 @@
 
 			</div>-->
       </div>
+
+
+
+
+
       <div class="box-body">
         <div class="table-responsive">
           <div id="message"> </div>
+
+          <div class="col-md-12">
+            <div>
+              <h3>
+                <style>
+                  .dot {
+                    height: 25px;
+                    width: 25px;
+                    background-color: #bbb;
+                    border-radius: 50%;
+                    display: inline-block;
+                  }
+                </style>
+
+              </h3>
+
+            </div>
+
+            <table class="table table-bordered " id="main_table" style="font-size:12px !important">
+              <thead>
+
+                <tr>
+                  <td></td>
+
+                  <td>#</td>
+                  <td>Section</td>
+                  <th><?php echo $this->lang->line('student_class_no'); ?></th>
+                  <th><?php echo $this->lang->line('student_admission_no'); ?></th>
+                  <th><?php echo $this->lang->line('student_name'); ?></th>
+
+                  <!-- <th><?php echo $this->lang->line('student_father_name'); ?></th>
+                <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
+                <th><?php echo $this->lang->line('student_address'); ?></th>
+                <th><?php echo $this->lang->line('student_admission_no'); ?></th>
+                <th><?php echo $this->lang->line('student_image'); ?></th>
+                <th><?php echo $this->lang->line('Class_title'); ?></th>-->
+                  <th><?php echo $this->lang->line('section_title'); ?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $students = array();
+                foreach ($sections as $section_name => $students) {
+                  $count = 1;
+                  foreach ($students as $student) :
+                ?>
+                    <tr <?php if ($student->status == 0) { ?>style="background-color: coral;" <?php } ?>>
+                      <td>
+                        <!-- <a class="btn btn-danger btn-sm" onclick="return confirm('are you sure? may remove student over data?')" href="<?php echo site_url(ADMIN_DIR . "students/remove_student/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id/$student->student_id") ?>" >Remove student</a> -->
+
+                        <?php if ($student->status == 0) { ?>
+                          <a href="<?php echo site_url("student/active_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-undo"></i></a>
+                        <?php } else { ?>
+
+                          <a href="<?php echo site_url("student/dormant_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-times"></i></a>
+                        <?php   } ?>
+
+
+
+                      </td>
+                      <td id="count_number"><?php echo $count++; ?></td>
+                      <td><span class="dot" style="background:<?php echo $section_name  ?>;  "></span><?php echo $section_name ?></td>
+                      <td>
+                        <span id="class_number"><?php echo $student->student_class_no; ?></span>
+
+                        <input style="width:40px !important" onkeyup="update_student_info('<?php echo $student->student_id; ?>')" id="student_class_no_<?php echo $student->student_id; ?>" type="number" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
+                      </td>
+
+                      <td><?php echo $student->student_admission_no; ?>
+                        <input style="width:100px !important" onkeyup="update_student_admission_no('<?php echo $student->student_id; ?>')" id="student_admission_no_<?php echo $student->student_id; ?>" type="number" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" />
+                      </td>
+
+                      <td><?php echo $student->student_name; ?>
+                        <input onkeyup="update_student_info('<?php echo $student->student_id; ?>')" id="student_name_<?php echo $student->student_id; ?>" type="text" name="student_name" value="<?php echo $student->student_name; ?>" />
+                      </td>
+
+                      <td><?php echo $student->section_title; ?>
+                        <?php
+
+                        $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+                        ?>
+                        <form target="_blank" action="<?php echo site_url("student/update_student_section") ?>" method="post">
+                          <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
+                          <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
+                          <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
+                          <?php
+                          echo form_dropdown("student_section_id", array("0" => "Select Section") + $sections, "", "class=\"for m-control\" style=\"width:60px !important\" required  onchange=\"this.form.submit()\" ");
+                          ?>
+                        </form>
+                      </td>
+                    </tr>
+                  <?php endforeach;  ?>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <script>
+            $(document).ready(function() {
+              $('#main_table').DataTable({
+                "pageLength": 50,
+                "lengthChange": false
+              });
+            });
+          </script>
+
+
+
+
+
+
           <?php
           $students = array();
           foreach ($sections as $section_name => $students) {
