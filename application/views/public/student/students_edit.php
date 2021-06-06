@@ -93,6 +93,7 @@
               <tbody>
                 <?php
                 $students = array();
+                $all_sections = $sections;
                 foreach ($sections as $section_name => $students) {
                   $count = 1;
                   foreach ($students as $student) :
@@ -165,7 +166,7 @@
 
           <?php
           $students = array();
-          foreach ($sections as $section_name => $students) {
+          foreach ($all_sections as $section_name => $students) {
 
           ?>
             <div class="col-md-6">
@@ -315,8 +316,8 @@
         student_name: student_name
       }
     }).done(function(msg) {
-      $('#class_number').html(student_id);
-      $('#count_number').html(student_id);
+      $('#class_number').html(student_class_no);
+      $('#count_number').html(student_class_no);
       $("#message").html(msg);
       $("#message").fadeIn('slow');
       $("#message").delay(5000).fadeOut('slow');
