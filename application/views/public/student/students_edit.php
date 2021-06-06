@@ -46,14 +46,11 @@
 
 			</div>-->
       </div>
-
-
-
-
-
       <div class="box-body">
         <div class="table-responsive">
           <div id="message"> </div>
+
+
 
           <div class="col-md-12">
             <div>
@@ -159,6 +156,7 @@
               });
             });
           </script>
+
 
 
 
