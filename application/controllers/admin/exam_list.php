@@ -1184,6 +1184,7 @@ class Exam_list extends Admin_Controller
 						WHERE `students`.`section_id` = `sections`.`section_id`
 						AND `students`.`class_id` =" . $classe->class_id . " 
 						AND `sections`.`status`=1
+						AND `students`.`status` =1
 						Order By `sections`.`section_title` ASC";
 
 			$result = $this->db->query($query);
