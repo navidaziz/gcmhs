@@ -252,7 +252,7 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 
 			echo '<li class="list-group-item" 
 					style="background-color:' . $teacher_class->color . '">
-					' . $teacher_class->Class_title . '-' . $teacher_class->section_title . ' ' . $teacher_class->subject_title . ' ' . $teacher_class->total_class_week;
+					' . $teacher_class->Class_title . '-' . $teacher_class->section_title . ' ' . $teacher_class->subject_title . ' ' . $teacher_class->class_section_subject_teacher_id . ' ' . $teacher_class->total_class_week;
 
 			if ($teacher_class->assinged == 0) {
 				if (!in_array($teacher_class->class_section_id, $assigned_sections_subjects)) {
