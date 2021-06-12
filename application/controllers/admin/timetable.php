@@ -267,7 +267,8 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 										`teachers`.`teacher_name`
 										, `class_subjects`.`total_class_week`
 										, `subjects`.`subject_title`
-										, `subjects`.`short_title`
+										, `subjects`.`short_title`,
+										`class_section_subject_teachers`.`class_section_subject_teacher_id`
 									FROM
 									`period_subjects`,
 									`class_section_subject_teachers`,
@@ -310,7 +311,7 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 
 						echo '<strong><span class="pull-right" style="color:white !important">Assinged (
 
-											' . $already_assinged_class->teacher_name . ' - ' . $already_assinged_class->subject_title . ' ' . $already_assinged_class->total_class_week . '
+											' . $already_assinged_class->teacher_name . ' - ' . $already_assinged_class->subject_title . ' ' . $already_assinged_class->total_class_week . ' ' . $already_assinged_class->class_section_subject_teacher_id . '
 
 										)</span></strong><br />';
 					}
