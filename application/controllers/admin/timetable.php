@@ -301,7 +301,7 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 
 					foreach ($already_assinged_classes as $already_assinged_class) {
 
-						if ($teacher_class->class_section_subject_teacher_id == 199) {
+						if ($teacher_class->class_section_subject_teacher_id == 199 and $teacher_class->class_section_subject_teacher_id == 20) {
 							echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
 									<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 									<input type="hidden" name="period_id" value="' . $period_id . '" />
