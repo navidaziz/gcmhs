@@ -299,6 +299,15 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 
 
 					foreach ($already_assinged_classes as $already_assinged_class) {
+
+						if ($teacher_class->class_section_subject_teacher_id == 199) {
+							echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
+									<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
+									<input type="hidden" name="period_id" value="' . $period_id . '" />
+									<input type="hidden" name="class_section_subject_teacher_id" value="' . $teacher_class->class_section_subject_teacher_id . '" /> 
+									<input onclick="this.form.submit()" type="radio"  /></form>';
+						}
+
 						echo '<strong><span class="pull-right" style="color:white !important">Assinged (
 
 											' . $already_assinged_class->teacher_name . ' - ' . $already_assinged_class->subject_title . ' ' . $already_assinged_class->total_class_week . '
