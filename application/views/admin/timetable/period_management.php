@@ -230,8 +230,8 @@
                       <tr <?php if ($teacher->total_class_assigned == $teacher->period_assinged) { ?> style="background-color: #EAEAEA;" <?php } ?>>
                         <td><?php echo $count++; ?></td>
                         <td><?php echo $teacher->teacher_name;  ?>
-                        <br />
-                        <?php echo $teacher->teacher_designation; ?>
+                          <br />
+                          <?php echo $teacher->teacher_designation; ?>
                         </td>
                         <td><?php echo $teacher->class_total;  ?></td>
                         <?php foreach ($periods as $period) { ?>
@@ -283,43 +283,45 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
                               ">
                                   <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week; */ ?>
-        <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
+                                  <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week;  ?>
-                                  <?php //if ($period_subject->total_class_week != 6) { ?>
-                                    <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i> 
-                                    <a href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher_subject_period/$period_subject->period_subject_id"); ?>">x</a>
+                                  <?php //if ($period_subject->total_class_week != 6) { 
+                                  ?>
+                                  <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i>
+                                  <a href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher_subject_period/$period_subject->period_subject_id"); ?>">x</a>
 
 
-                                    </span>
-                              <?php //} ?>
+                                </span>
+                                <?php //} 
+                                ?>
 
-                              
-                            
+
+
+                              <?php } ?>
+
+
+
+                              <?php if ($subject_count < 6) { ?> <br />
+                                <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
+
+
+                              <?php } ?>
+
+
+
+
+
+                            <?php  } else { ?>
+                              <?php if ($period->period_id != 1 and  $period->period_id != 7) { ?>
+
+
+                                <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
+                              <?php } else { ?>
+                                <p style="text-align:center">-</p>
+                              <?php } ?>
+
                             <?php } ?>
-
-
-
-                            <?php if ($subject_count < 6) { ?> <br />
-                              <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
-
-
-                            <?php } ?>
-
-
-
-
-
-                          <?php  } else { ?>
-                            <?php if ($period->period_id != 1 and  $period->period_id != 7) { ?>
-
-
-                              <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
-                            <?php } else { ?>
-                              <p style="text-align:center">-</p>
-                            <?php } ?>
-
                           <?php } ?>
-                        <?php } ?>
                           </td>
 
 
@@ -440,18 +442,18 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
         </div>
       </div>
       <script>
-        $(document).ready(function(){
-  $('#example').DataTable({
-	   
-                "bPaginate": false,
-				 dom: 'Bfrtip',
-        buttons: [
-            'print'
-        ],
-		"order": [[ 0, 'asc' ]]
-		
-            });
-});
+        //         $(document).ready(function(){
+        //   $('#example').DataTable({
+
+        //                 "bPaginate": false,
+        // 				 dom: 'Bfrtip',
+        //         buttons: [
+        //             'print'
+        //         ],
+        // 		"order": [[ 0, 'asc' ]]
+
+        //             });
+        // });
 
 
         $(document).ready(function() {
