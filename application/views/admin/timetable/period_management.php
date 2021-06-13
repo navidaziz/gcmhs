@@ -289,7 +289,32 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
                                   ?>
                                   <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i>
                                   <a href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher_subject_period/$period_subject->period_subject_id"); ?>">x</a>
+                                  <?php if ($period_subject->total_class_week < 6) {
+                                    $query = "SELECT * FROM `period_subjects` WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
+                                    $period_weeks = $this->db->query($query)->result();
+                                    foreach ($period_weeks as $weeks) {
+                                      if ($weeks->mon) {
+                                        echo "Mon-";
+                                      }
+                                      if ($weeks->tue) {
+                                        echo "Tue-";
+                                      }
+                                      if ($weeks->wed) {
+                                        echo "Wed-";
+                                      }
+                                      if ($weeks->thu) {
+                                        echo "Thu-";
+                                      }
+                                      if ($weeks->fri) {
+                                        echo "Fri-";
+                                      }
+                                      if ($weeks->sat) {
+                                        echo "Sat";
+                                      }
+                                    }
+                                  ?>
 
+                                  <?php } ?>
 
                                 </span>
                                 <?php //} 
