@@ -515,7 +515,7 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
         });
       </script>
       <script type="text/javascript" src="http://gcmhsb.chitral.com.pk/assets/admin/datatable/jquery.dataTables.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="http://gcmhsb.chitral.com.pk/assets/admin/datatable/jquery.dataTables.min.css" />
+      <link rel="stylesheet" type="text/css" href="http://gcmhsb.chitral.com.pk/assets/admin/datatable/jquery.data Tables.min.css" />
       <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
