@@ -344,7 +344,18 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
 
                                 <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
                               <?php } else { ?>
-                                <p style="text-align:center">-</p>
+                                <p style="text-align:center">
+                                  <?php if ($period->period_id = 1) { ?>
+                                    <span style="color:<?php echo $period_subject[1]->color; ?>;  ">
+                                      <?php echo str_replace("th", "", $period_subject[1]->Class_title); ?>
+                                    </span>
+
+                                  <?php } else { ?>
+
+
+                                    -
+                                  <?php } ?>
+                                </p>
                               <?php } ?>
 
                             <?php } ?>
