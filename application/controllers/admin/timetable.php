@@ -315,7 +315,7 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 									<input onclick="this.form.submit()" type="radio"  /></form>';
 					}
 
-					echo '<strong><span class="pull-right" style="color:white !important">Assinged (
+					echo '<strong><span class="pull-right" style="color:black !important">Assinged (
 
 											' . $already_assinged_class->teacher_name . ' - ' . $already_assinged_class->subject_title . ' ' . $already_assinged_class->total_class_week . '
 
