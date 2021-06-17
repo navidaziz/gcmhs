@@ -346,8 +346,8 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
                               <?php } else { ?>
                                 <p style="text-align:center">
                                   <?php if ($period->period_id = 1) { ?>
-                                    <span style="color:<?php echo $period_subject[1]->color; ?>;  ">
-                                      <?php echo str_replace("th", "", $period_subject[1]->Class_title); ?>
+                                    <span style="color:<?php echo @$period_subject[1]->color; ?>;  ">
+                                      <?php echo str_replace("th", "", @$period_subject[1]->Class_title); ?>
                                     </span>
 
                                   <?php } else { ?>
