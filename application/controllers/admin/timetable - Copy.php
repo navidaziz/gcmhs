@@ -255,21 +255,15 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 					' . $teacher_class->Class_title . '-' . $teacher_class->section_title . ' ' . $teacher_class->subject_title . ' ' . $teacher_class->total_class_week;
 
 			if ($teacher_class->assinged == 0) {
-			} else {
-
-				echo '   <i class="fa fa-check-circle" style="color: red !important;
-							text-shadow: 1px 1px 1px #ccc;
-							font-size: 1.5em;"></i>';
-			}
-			if (!in_array($teacher_class->class_section_id, $assigned_sections_subjects)) {
-				echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
+				if (!in_array($teacher_class->class_section_id, $assigned_sections_subjects)) {
+					echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
 							<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 							<input type="hidden" name="period_id" value="' . $period_id . '" />
 							<input type="hidden" name="class_section_subject_teacher_id" value="' . $teacher_class->class_section_subject_teacher_id . '" /> 
 							<input onclick="this.form.submit()" type="radio"  /></form>';
-			} else {
-				//get teacher and subject name that assinged in this period
-				$query = "SELECT
+				} else {
+					//get teacher and subject name that assinged in this period
+					$query = "SELECT
 										`teachers`.`teacher_name`
 										, `class_subjects`.`total_class_week`
 										, `subjects`.`subject_title`
@@ -287,42 +281,47 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 									AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 									AND `class_section_subject_teachers`.`class_section_id`= $teacher_class->class_section_id
 									AND `period_subjects`.`period_id`=$period_id";
-				$result = $this->db->query($query);
-				$already_assinged_classes = $result->result();
-				$count_assigned_class_days = 0;
-				foreach ($already_assinged_classes as $already_assinged_class) {
-					$count_assigned_class_days += $already_assinged_class->total_class_week;
-				}
+					$result = $this->db->query($query);
+					$already_assinged_classes = $result->result();
+					$count_assigned_class_days = 0;
+					foreach ($already_assinged_classes as $already_assinged_class) {
+						$count_assigned_class_days += $already_assinged_class->total_class_week;
+					}
 
 
-				if ($teacher_class->total_class_week + $count_assigned_class_days == 6) {
-					echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
+					if ($teacher_class->total_class_week + $count_assigned_class_days == 6) {
+						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
 												<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 												<input type="hidden" name="period_id" value="' . $period_id . '" />
 												<input type="hidden" name="class_section_subject_teacher_id" value="' . $teacher_class->class_section_subject_teacher_id . '" /> 
 												<input onclick="this.form.submit()" type="radio"  /></form>';
-				}
+					}
 
 
 
-				foreach ($already_assinged_classes as $already_assinged_class) {
+					foreach ($already_assinged_classes as $already_assinged_class) {
 
-					if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
-						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
+						if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
+							echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
 									<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 									<input type="hidden" name="period_id" value="' . $period_id . '" />
 									<input type="hidden" name="class_section_subject_teacher_id" value="' . $teacher_class->class_section_subject_teacher_id . '" /> 
 									<input onclick="this.form.submit()" type="radio"  /></form>';
-					}
+						}
 
-					echo '<strong><span class="pull-right" style="color:white !important">Assinged (
+						echo '<strong><span class="pull-right" style="color:white !important">Assinged (
 
 											' . $already_assinged_class->teacher_name . ' - ' . $already_assinged_class->subject_title . ' ' . $already_assinged_class->total_class_week . '
 
 										)</span></strong><br />';
+					}
 				}
-			}
+			} else {
 
+				echo '   <i class="fa fa-check-circle" style="color: red !important;
+							text-shadow: 1px 1px 1px #ccc;
+							font-size: 1.5em;"></i>';
+			}
 
 
 			echo '</li>';
