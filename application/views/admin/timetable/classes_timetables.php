@@ -237,13 +237,13 @@
                                       <?php foreach ($teacher_subjects as $teacher_subject) { ?>
 
                                         <?php echo $teacher_subject->teacher_name ?> <br />
-                                        <?php echo $teacher_subject->subject_title ?>
+                                        <strong><?php echo $teacher_subject->subject_title ?><strong><br />
 
-                                      <?php } ?>
+                                          <?php } ?>
 
-                                    <?php } else { ?>
-                                      -
-                                    <?php } ?>
+                                        <?php } else { ?>
+                                          -
+                                        <?php } ?>
                                   </td>
                                 <?php } ?>
                               </tr>
