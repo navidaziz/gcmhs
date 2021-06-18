@@ -77,10 +77,9 @@
                       if ($teacher_subjects) { ?>
                         <td>
                           <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                            <span style="background-color:  <?php echo $teacher_subject->short_title ?>;">
-                              <strong>
-                                <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->Class_title;  ?>
-                              </strong><br />
+                            <span style="background-color:  <?php echo $teacher_subject->color ?>;">
+                              <?php echo $teacher_subject->short_title ?>-<?php echo $teacher_subject->Class_title;  ?>
+                              <br />
                             </span>
                           <?php } ?>
                         </td>
