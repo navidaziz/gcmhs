@@ -46,7 +46,7 @@
                   <th colspan="11"><?php echo $teacher->teacher_name; ?></th>
                 </tr>
                 <tr>
-                  <th>#</th>
+                  <th>Days</th>
                   <?php foreach ($periods as $period) { ?>
                     <th><?php echo $period->period_title;  ?></th>
                   <?php } ?>
@@ -78,7 +78,7 @@
                         <td>
                           <?php foreach ($teacher_subjects as $teacher_subject) { ?>
                             <div style="background-color:  <?php echo $teacher_subject->color ?>;">
-                              <?php echo $teacher_subject->short_title ?>-<?php echo $teacher_subject->Class_title;  ?>
+                              <?php echo $teacher_subject->short_title ?>-<?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section, 0, 1);  ?>
                               <br />
                             </div>
                           <?php } ?>
