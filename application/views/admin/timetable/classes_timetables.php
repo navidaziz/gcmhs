@@ -242,11 +242,7 @@
                                       <?php } ?>
 
                                     <?php } else { ?>
-
-                                      <?php echo $teacher_subject->teacher_name ?> <br />
-                                      <?php echo $teacher_subject->subject_title ?>
-
-
+                                      -
                                     <?php } ?>
                                   </td>
                                 <?php } ?>
