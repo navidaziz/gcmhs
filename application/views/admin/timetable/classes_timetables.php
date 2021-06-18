@@ -225,7 +225,7 @@
                               <tr>
                                 <td><?php echo $week; ?></td>
                                 <?php foreach ($periods as $period) {
-                                  if ($period->period_id != 1 and $period->period_id != 7) {
+                                  if ($period->period_id != 1 or $period->period_id != 7) {
                                     $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
