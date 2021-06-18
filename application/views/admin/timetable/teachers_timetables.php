@@ -197,7 +197,7 @@
                     <?php foreach ($teachers as $teacher) { ?>
                       <h3><?php echo $teacher->teacher_name; ?> </h3>
 
-                      <table id="example" class="table table-bordered" style="font-size:10px !important">
+                      <table id="example" class="table table-bordered" style="font-size:10px !important; width: 14% !important;">
                         <thead>
                           <th>#</th>
                           <?php foreach ($periods as $period) { ?>
