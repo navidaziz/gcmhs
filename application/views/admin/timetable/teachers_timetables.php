@@ -184,15 +184,15 @@
                         AND `teacher_id` = '" . $teacher->teacher_id . "'";
                     $teacher_subjects = $this->db->query($query)->result();
                     if ($teacher_subjects) { ?>
+                      <td style="background-color:  <?php echo $teacher_subject->color ?>;">
+                        <?php foreach ($teacher_subjects as $teacher_subject) { ?>
 
-                      <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                        <td style="background-color:  <?php echo $teacher_subject->color ?>;">
                           <strong>
-                            <?php echo $teacher_subject->subject_title ?>-<?php $teacher_subject->Class_title;  ?>
+                            <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->Class_title;  ?>
                           </strong><br />
-                        </td>
-                      <?php } ?>
 
+                        <?php } ?>
+                      </td>
                     <?php } else { ?>
                       <td>-</td>
                     <?php } ?>
