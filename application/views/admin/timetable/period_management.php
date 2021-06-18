@@ -242,7 +242,7 @@
                         $class_teacher = $this->db->query($query)->result();
                         if ($class_teacher) {
                           echo '<td style="background-color:' . $period_subject->color . '">';
-                          echo str_replace("th", "", $class_teacher[0]->Class_title) . "-" . substr($class_teacher[0]->section_title0, 1);
+                          echo str_replace("th", "", $class_teacher[0]->Class_title) . "-" . substr($class_teacher[0]->section_title, 0, 1);
                           echo '</td>';
                         } else {
                           echo '<td></td>';
