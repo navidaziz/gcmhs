@@ -222,7 +222,7 @@
                             );
                             foreach ($weeks as $w_index => $week) { ?>
                               <td><?php echo $week; ?></td>
-                              <?php $query = "SELECT * FROM `classes_time_tables` 
+                              <?php echo $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->id . "'
                                             AND `" . $w_index . "` = '" . $w_index . "'
                                             AND `class_id` = '" . $class->id . "' 
