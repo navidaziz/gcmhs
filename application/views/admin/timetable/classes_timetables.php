@@ -233,14 +233,19 @@
                                             AND `section_id` = '" . $section->section_id . "'";
                                   $teacher_subjects = $this->db->query($query)->result();
                                   if ($teacher_subjects) { ?>
-                                    <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                                      <td>
+                                    <td>
+                                      <?php foreach ($teacher_subjects as $teacher_subject) { ?>
+
                                         <?php echo $teacher_subject->teacher_name ?> <br />
                                         <?php echo $teacher_subject->subject_title ?>
-                                      </td>
-                                    <?php } ?>
+
+                                      <?php } ?>
+                                    </td>
                                   <?php } else { ?>
-                                    <td>-</td>
+                                    <td>
+                                      <?php echo $teacher_subject->teacher_name ?> <br />
+                                      <?php echo $teacher_subject->subject_title ?>
+                                    </td>
 
                                   <?php } ?>
                                 <?php } ?>
