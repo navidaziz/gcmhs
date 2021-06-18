@@ -204,8 +204,6 @@
                         <table id="example" class="table table-bordered" style="font-size:10px !important">
                           <thead>
                             <th>#</th>
-                            <th>Teacher Name</th>
-                            <th>Total Classes</th>
                             <?php foreach ($periods as $period) { ?>
                               <th><?php echo $period->period_title;  ?></th>
                             <?php } ?>
