@@ -211,6 +211,31 @@
                           </thead>
                           <tbody>
 
+                            <?php
+                            $weeks = array(
+                              "mon" => "Monday",
+                              "tue" => "Tuesday",
+                              "wed" => "Wednesday",
+                              "thu" => "Thursday",
+                              "fri" => "Friday",
+                              "sat" => "Saturday",
+                            );
+                            foreach ($weeks as $w_index => $week) { ?>
+                              <td><?php echo $week; ?></td>
+                              <?php $query = "SELECT * FROM `classes_time_tables` 
+                                            WHERE period_id='" . $period->id . "'
+                                            AND `" . $w_index . "` = '" . $w_index . "'
+                                            AND `class_id` = '" . $class->id . "' 
+                                            AND `section_id` = '" . $section->id . "'";
+                              $teacher_subjects = $this->db->query()->result();
+                              if ($teacher_subjects) { ?>
+                                <?php foreach ($teacher_subjects as $teacher_subject) { ?>
+                                  <?php echo $teacher_subject->teacher_name ?> <br />
+                                  <?php echo $teacher_subject->subject_title ?>
+                                <?php } ?>
+                              <?php } ?>
+                            <?php } ?>
+
                           </tbody>
                         </table>
 
