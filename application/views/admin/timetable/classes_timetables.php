@@ -224,21 +224,24 @@
                             foreach ($weeks as $w_index => $week) { ?>
                               <tr>
                                 <td><?php echo $week; ?></td>
-                                <?php foreach ($periods as $period) { ?>
-
-                                  <?php $query = "SELECT * FROM `classes_time_tables` 
+                                <?php foreach ($periods as $period) {
+                                  if ($period->period_id != 1 and $period->period_id != 7) {
+                                    $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
                                             AND `class_id` = '" . $class->class_id . "' 
                                             AND `section_id` = '" . $section->section_id . "'";
-                                  $teacher_subjects = $this->db->query($query)->result();
-                                  if ($teacher_subjects) { ?>
-                                    <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                                      <td>
-                                        <?php echo $teacher_subject->teacher_name ?> <br />
-                                        <?php echo $teacher_subject->subject_title ?>
-                                      </td>
-                                    <?php } ?>
+                                    $teacher_subjects = $this->db->query($query)->result();
+                                    if ($teacher_subjects) {
+                                      foreach ($teacher_subjects as $teacher_subject) { ?>
+                                        <td>
+                                          <?php echo $teacher_subject->teacher_name ?> <br />
+                                          <?php echo $teacher_subject->subject_title ?>
+                                        </td>
+                                    <?php }
+                                    } ?>
+                                  <?php } else { ?>
+                                    <td>-</td>
                                   <?php } ?>
                                 <?php } ?>
                               </tr>
