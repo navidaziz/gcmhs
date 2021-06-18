@@ -19,6 +19,43 @@ class Timetable extends Admin_Controller
 	//---------------------------------------------------------------
 
 
+	public function teacher_timetables()
+	{
+
+
+
+
+		$query = "SELECT
+					`teachers`.`teacher_name`
+					, `teachers`.`teacher_id`
+					, `teachers`.`teacher_designation`
+					, SUM(`class_subjects`.`total_class_week`) AS `class_total`
+					, COUNT(`class_subjects`.`total_class_week`) AS `total_class_assigned`
+					, (SELECT COUNT(*) FROM `period_subjects` WHERE `period_subjects`.`teacher_id` = `teachers`.`teacher_id`) AS period_assinged
+				FROM
+					`class_section_subject_teachers`
+					RIGHT JOIN `teachers` 
+						ON (`class_section_subject_teachers`.`teacher_id` = `teachers`.`teacher_id`)
+					LEFT JOIN `class_subjects` 
+						ON (`class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id`)
+				GROUP BY `teachers`.`teacher_id`
+				ORDER BY `teachers`.`order` ASC;";
+		$result = $this->db->query($query);
+		$teachers = $result->result();
+
+		$query = "SELECT * FROM `periods`";
+		$result = $this->db->query($query);
+		$periods = $result->result();
+
+
+
+		$this->data['teachers'] = $teachers;
+		$this->data["title"] = $this->lang->line('Teachers Time Tables');
+		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
+		//$this->load->view(ADMIN_DIR."layout", $this->data);
+		$this->load->view(ADMIN_DIR . "timetable/teachers_timetables", $this->data);
+	}
+
 
 
 
