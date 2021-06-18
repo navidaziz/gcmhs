@@ -40,7 +40,7 @@
 
           <?php foreach ($teachers as $teacher) { ?>
 
-            <table id="example" class="table table-border" cellspacing="0" width="23%" style="float:left; font-size:11px">
+            <table id="example" class="table table-border" cellspacing="0" width="45%" style="float:left; font-size:11px">
               <thead>
                 <tr>
                   <th colspan="11"><?php echo $teacher->teacher_name; ?></th>
