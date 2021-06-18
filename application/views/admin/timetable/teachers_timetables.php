@@ -142,123 +142,72 @@
   <section id="page">
 
     <div class="container">
-      <!--<div class="row">
-  <div class="col-sm-12">
-    <div class="page-header"> 
-     
-      <ul class="breadcrumb">
-        <li> <i class="fa fa-home"></i> <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"><?php echo $this->lang->line('Home'); ?></a> </li>
-        <li> <i class="fa fa-table"></i> <a href="<?php echo site_url(ADMIN_DIR . "exams/view/"); ?>"><?php echo $this->lang->line('Exams'); ?></a> </li>
-        <li><?php echo $title; ?></li>
-      </ul>
-     
-      <div class="row">
-        <div class="col-md-6">
-          <div class="clearfix">
-            <h3 class="content-title pull-left"><?php echo $title; ?></h3>
-          </div>
-          <div class="description"><?php echo $title; ?></div>
-        </div>
-        <div class="col-md-6">
-          <div class="pull-right"> <a target="new" class="btn btn-primary btn-sm" href="<?php echo site_url(ADMIN_DIR . "exam_list/paper_collection_report/" . $exams[0]->exam_id); ?>">Print</a> </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-      <!-- /PAGE HEADER -->
+      <div class="col-md-12">
 
 
-      <div class="row">
-        <div class="col-sm-12">
+        <div id="error"></div>
 
-        </div>
-      </div>
-      <!-- /PAGE HEADER -->
+        <?php foreach ($teachers as $teacher) { ?>
+          <h3><?php echo $teacher->teacher_name; ?> </h3>
 
-      <!-- PAGE MAIN CONTENT -->
-      <div class="row">
-        <!-- MESSENGER -->
-        <div class="col-md-12">
-          <div class="box border blue" id="messenger" style="margin-top:5px !important">
-            <div class="box-title">
-              <h4><i class="fa fa-bell"></i>Class Time Tables</h4>
+          <table id="example" class="table table-bordered" style="font-size:10px !important; width: 14% !important;">
+            <thead>
+              <th>#</th>
+              <?php foreach ($periods as $period) { ?>
+                <th><?php echo $period->period_title;  ?></th>
+              <?php } ?>
 
-            </div>
-            <div class="box-body">
-              <div class="table-responsive" style="font-size:11px !important;">
-                <div class="row">
+            </thead>
+            <tbody>
 
-                  <div class="col-md-12">
+              <?php
+              error_reporting(14);
+              $weeks = array(
+                "mon" => "Monday",
+                "tue" => "Tuesday",
+                "wed" => "Wednesday",
+                "thu" => "Thursday",
+                "fri" => "Friday",
+                "sat" => "Saturday",
+              );
+              foreach ($weeks as $w_index => $week) { ?>
+                <tr>
+                  <td><?php echo $week; ?></td>
+                  <?php foreach ($periods as $period) { ?>
 
+                    <?php $query = "SELECT * FROM `classes_time_tables` 
+                        WHERE period_id='" . $period->period_id . "'
+                        AND `" . $w_index . "` = '1'
+                        AND `teacher_id` = '" . $teacher->teacher_id . "'";
+                    $teacher_subjects = $this->db->query($query)->result();
+                    if ($teacher_subjects) { ?>
 
-                    <div id="error"></div>
+                      <?php foreach ($teacher_subjects as $teacher_subject) { ?>
+                        <td style="background-color:  <?php echo $teacher_subject->color ?>;">
+                          <strong>
+                            <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->per_week_class ?>
+                          </strong><br />
+                        </td>
+                      <?php } ?>
 
-                    <?php foreach ($teachers as $teacher) { ?>
-                      <h3><?php echo $teacher->teacher_name; ?> </h3>
-
-                      <table id="example" class="table table-bordered" style="font-size:10px !important; width: 14% !important;">
-                        <thead>
-                          <th>#</th>
-                          <?php foreach ($periods as $period) { ?>
-                            <th><?php echo $period->period_title;  ?></th>
-                          <?php } ?>
-
-                        </thead>
-                        <tbody>
-
-                          <?php
-                          error_reporting(14);
-                          $weeks = array(
-                            "mon" => "Monday",
-                            "tue" => "Tuesday",
-                            "wed" => "Wednesday",
-                            "thu" => "Thursday",
-                            "fri" => "Friday",
-                            "sat" => "Saturday",
-                          );
-                          foreach ($weeks as $w_index => $week) { ?>
-                            <tr>
-                              <td><?php echo $week; ?></td>
-                              <?php foreach ($periods as $period) { ?>
-                                <td>
-                                  <?php $query = "SELECT * FROM `classes_time_tables` 
-                                            WHERE period_id='" . $period->period_id . "'
-                                            AND `" . $w_index . "` = '1'
-                                            AND `teacher_id` = '" . $teacher->teacher_id . "'";
-                                  $teacher_subjects = $this->db->query($query)->result();
-                                  if ($teacher_subjects) { ?>
-
-                                    <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-
-                                      <strong><?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->per_week_class ?><strong><br />
-
-                                        <?php } ?>
-
-                                      <?php } else { ?>
-                                        -
-                                      <?php } ?>
-                                </td>
-                              <?php } ?>
-                            </tr>
-                          <?php } ?>
-
-                        </tbody>
-                      </table>
-
-
+                    <?php } else { ?>
+                      <td> -</td>
                     <?php } ?>
 
+                  <?php } ?>
+                </tr>
+              <?php } ?>
 
-                  </div>
+            </tbody>
+          </table>
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /MESSENGER -->
+
+        <?php } ?>
+
+
       </div>
+    </div>
+  </section>
 </body>
 
 </html>
