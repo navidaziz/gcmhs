@@ -158,7 +158,6 @@ FROM
 `subjects` 
 WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
 AND `class_subjects`.`class_id` = '" . $class->class_id . "'
-AND `subjects`.`subject_id` NOT IN (2)
 Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`  ASC
 ";
 
