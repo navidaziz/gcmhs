@@ -19,7 +19,7 @@ class Timetable extends Admin_Controller
 	//---------------------------------------------------------------
 
 
-	public function teacher_timetables()
+	public function teachers_timetables()
 	{
 
 
