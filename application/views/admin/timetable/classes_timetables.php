@@ -224,7 +224,7 @@
                               <td><?php echo $week; ?></td>
                               <?php echo $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->id . "'
-                                            AND `" . $w_index . "` = '" . $w_index . "'
+                                            AND `" . $w_index . "` = '1'
                                             AND `class_id` = '" . $class->id . "' 
                                             AND `section_id` = '" . $section->id . "'";
                               $teacher_subjects = $this->db->query()->result();
