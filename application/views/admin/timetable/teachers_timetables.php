@@ -78,7 +78,7 @@
                         <td>
                           <?php foreach ($teacher_subjects as $teacher_subject) { ?>
                             <div style="background-color:  <?php echo $teacher_subject->color ?>;">
-                              <?php echo $teacher_subject->short_title ?>-<?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section, 0, 1);  ?>
+                              <?php echo $teacher_subject->short_title ?>-<?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
                               <br />
                             </div>
                           <?php } ?>
