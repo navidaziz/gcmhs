@@ -150,7 +150,7 @@
         <?php foreach ($teachers as $teacher) { ?>
           <h3><?php echo $teacher->teacher_name; ?> </h3>
 
-          <table id="example" class="table table-bordered" style="font-size:10px !important; width: 14% !important;">
+          <table id="example" class="table table-bordered" style="font-size:10px !important; width: 10% !important; float: left;">
             <thead>
               <th>#</th>
               <?php foreach ($periods as $period) { ?>
@@ -185,13 +185,13 @@
                       <?php foreach ($teacher_subjects as $teacher_subject) { ?>
                         <td style="background-color:  <?php echo $teacher_subject->color ?>;">
                           <strong>
-                            <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->per_week_class ?>
+                            <?php echo $teacher_subject->subject_title ?>
                           </strong><br />
                         </td>
                       <?php } ?>
 
                     <?php } else { ?>
-                      <td> -</td>
+                      <td>-</td>
                     <?php } ?>
 
                   <?php } ?>
