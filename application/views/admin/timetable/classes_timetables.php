@@ -212,6 +212,7 @@
                           <tbody>
 
                             <?php
+                            error_reporting(14);
                             $weeks = array(
                               "mon" => "Monday",
                               "tue" => "Tuesday",
