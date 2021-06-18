@@ -223,7 +223,7 @@
                             );
                             foreach ($weeks as $w_index => $week) { ?>
                               <td><?php echo $week; ?></td>
-                              <?php echo $query = "SELECT * FROM `classes_time_tables` 
+                              <?php $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
                                             AND `class_id` = '" . $class->class_id . "' 
@@ -231,8 +231,10 @@
                               $teacher_subjects = $this->db->query($query)->result();
                               if ($teacher_subjects) { ?>
                                 <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                                  <?php echo $teacher_subject->teacher_name ?> <br />
-                                  <?php echo $teacher_subject->subject_title ?>
+                                  <td>
+                                    <?php echo $teacher_subject->teacher_name ?> <br />
+                                    <?php echo $teacher_subject->subject_title ?>
+                                  </td>
                                 <?php } ?>
                               <?php } ?>
                             <?php } ?>
