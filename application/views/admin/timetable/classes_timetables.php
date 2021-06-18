@@ -224,10 +224,10 @@
                             foreach ($weeks as $w_index => $week) { ?>
                               <td><?php echo $week; ?></td>
                               <?php echo $query = "SELECT * FROM `classes_time_tables` 
-                                            WHERE period_id='" . $period->id . "'
+                                            WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
-                                            AND `class_id` = '" . $class->id . "' 
-                                            AND `section_id` = '" . $section->id . "'";
+                                            AND `class_id` = '" . $class->class_id . "' 
+                                            AND `section_id` = '" . $section->section_id . "'";
                               $teacher_subjects = $this->db->query()->result();
                               if ($teacher_subjects) { ?>
                                 <?php foreach ($teacher_subjects as $teacher_subject) { ?>
