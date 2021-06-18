@@ -215,7 +215,7 @@
                   <thead>
                     <th>#</th>
                     <th>Teacher Name</th>
-                    <th>Incharge</th>
+                    <th>inch</th>
                     <th>Total Classes</th>
                     <?php
 
