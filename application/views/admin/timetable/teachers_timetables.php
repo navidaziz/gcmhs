@@ -149,7 +149,7 @@
 
         <?php foreach ($teachers as $teacher) { ?>
 
-          <table id="example" class="table table-bordered" style="font-size:10px !important; width: 10% !important; float: left;">
+          <table id="example" class="" style="font-size:10px !important; width: 10% !important; float: left;">
             <thead>
               <tr>
                 <th colspan="11"><?php echo $teacher->teacher_name; ?></th>
@@ -186,11 +186,11 @@
                     if ($teacher_subjects) { ?>
                       <td>
                         <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-
-                          <strong style="background-color:  <?php echo $teacher_subject->short_title ?>;">
-                            <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->Class_title;  ?>
-                          </strong><br />
-
+                          <span style="background-color:  <?php echo $teacher_subject->short_title ?>;">
+                            <strong>
+                              <?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->Class_title;  ?>
+                            </strong><br />
+                          </span>
                         <?php } ?>
                       </td>
                     <?php } else { ?>
