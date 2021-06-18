@@ -237,7 +237,7 @@
                                       <?php foreach ($teacher_subjects as $teacher_subject) { ?>
 
                                         <?php echo $teacher_subject->teacher_name ?> <br />
-                                        <strong><?php echo $teacher_subject->subject_title ?><strong><br />
+                                        <strong><?php echo $teacher_subject->subject_title ?>-<?php echo $teacher_subject->per_week_class ?><strong><br />
 
                                           <?php } ?>
 
