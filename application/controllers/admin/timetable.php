@@ -50,6 +50,7 @@ class Timetable extends Admin_Controller
 
 
 		$this->data['teachers'] = $teachers;
+		$this->data['periods'] = $periods;
 		$this->data["title"] = $this->lang->line('Teachers Time Tables');
 		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
 		//$this->load->view(ADMIN_DIR."layout", $this->data);
