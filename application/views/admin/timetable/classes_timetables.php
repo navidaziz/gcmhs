@@ -199,7 +199,7 @@
                       <div id="error"></div>
 
                       <?php foreach ($class->sections as $section) { ?>
-                        <h3><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
+                        <h3><?php echo $class->Class_title; ?> <?php echo $class->class_id; ?> <?php echo $section->section_title; ?> <?php echo $section->section_id; ?></h3>
 
                         <table id="example" class="table table-bordered" style="font-size:10px !important">
                           <thead>
