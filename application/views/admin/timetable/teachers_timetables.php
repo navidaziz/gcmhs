@@ -66,7 +66,7 @@
                 );
                 foreach ($weeks as $w_index => $week) { ?>
                   <tr>
-                    <td><?php echo $week; ?></td>
+                    <td><?php echo strtoupper(substr($week, 0, 3)); ?></td>
                     <?php foreach ($periods as $period) { ?>
 
                       <?php $query = "SELECT * FROM `classes_time_tables` 
