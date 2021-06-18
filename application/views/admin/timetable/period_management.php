@@ -355,7 +355,7 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
 
 
                             <?php  } else { ?>
-                              <?php if ($period->period_id != 1 and  $period->period_id != 7) { ?>
+                              <?php if ($period->period_id != 7) { ?>
 
 
                                 <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
