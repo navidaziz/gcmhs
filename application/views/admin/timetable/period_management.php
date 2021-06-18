@@ -215,6 +215,7 @@
                   <thead>
                     <th>#</th>
                     <th>Teacher Name</th>
+                    <th>Incharge</th>
                     <th>Total Classes</th>
                     <?php
 
@@ -232,6 +233,17 @@
                         <td><?php echo $teacher->teacher_name;  ?>
                           <br />
                           <?php echo $teacher->teacher_designation; ?>
+                        </td>
+                        <td>
+                          <?php $query = "SELECT Class_title, section_title 
+                                          FROM `classes_time_tables`  
+                                          WHERE `classes_time_tables`.`class_teacher`='1' 
+                                          and teacher_id='" . $teacher->teacher_id . "'";
+                          $class_teacher = $this->db->query($query)->result();
+                          if ($class_teacher) {
+                            echo $class_teacher[0]->Class_title . "-" . $class_teacher[0]->section_title;
+                          }
+                          ?>
                         </td>
                         <td><?php echo $teacher->class_total;  ?></td>
                         <?php foreach ($periods as $period) { ?>
