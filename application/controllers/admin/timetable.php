@@ -289,7 +289,7 @@ class Timetable extends Admin_Controller
 	public function period_management_print()
 	{
 
-
+  
 		$query = "SELECT
 					`teachers`.`teacher_name`
 					, `teachers`.`teacher_id`
