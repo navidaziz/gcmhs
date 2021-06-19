@@ -39,7 +39,8 @@
                         <h4>Class Teacher:
                           <?php $query = "SELECT teacher_name
                           FROM `classes_time_tables`
-                          WHERE `classes_time_tables`.`class_id`='" . $class->class_id . "'
+                          WHERE `classes_time_tables`.`class_teacher`='1' 
+                          AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                           AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
                           $class_teacher = $this->db->query($query)->result();
                           if ($class_teacher) {
@@ -80,24 +81,26 @@
                           if ($period->period_id != 7) {
                         ?>
                             <td style="text-align: center;">
-                              <?php $query = "SELECT * FROM `classes_time_tables` 
+                              <h5>
+                                <?php $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
                                             AND `class_id` = '" . $class->class_id . "' 
                                             AND `section_id` = '" . $section->section_id . "'";
-                              $teacher_subjects = $this->db->query($query)->result();
-                              if ($teacher_subjects) { ?>
+                                $teacher_subjects = $this->db->query($query)->result();
+                                if ($teacher_subjects) { ?>
 
-                                <?php foreach ($teacher_subjects as $teacher_subject) { ?>
+                                  <?php foreach ($teacher_subjects as $teacher_subject) { ?>
 
-                                  <?php echo $teacher_subject->teacher_name ?> <br />
-                                  <strong><?php echo $teacher_subject->short_title ?></strong><br />
+                                    <?php echo $teacher_subject->teacher_name ?> <br />
+                                    <strong><?php echo $teacher_subject->short_title ?></strong><br />
 
+                                  <?php } ?>
+
+                                <?php } else { ?>
+                                  -
                                 <?php } ?>
-
-                              <?php } else { ?>
-                                -
-                              <?php } ?>
+                              </h5>
                             </td>
                           <?php } else { ?>
                             <td></td>
