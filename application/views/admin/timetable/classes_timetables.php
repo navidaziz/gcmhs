@@ -15,27 +15,7 @@
     <div class="col-md-12">
       <div class="container">
         <section contenteditable="true">
-          <style>
-            table {
-              border-collapse: collapse;
-              margin: 5px;
-              margin-left: 10px;
-              font-family: Verdana, Geneva, sans-serif !important;
-              width: 100%;
 
-            }
-
-            thead {
-              font-weight: bold;
-            }
-
-            table,
-            th,
-            td {
-              border: 1px solid black;
-              height: 17px;
-            }
-          </style>
           <div class="col-md-12">
             <?php foreach ($classes as $class) { ?>
 
