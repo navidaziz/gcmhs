@@ -31,7 +31,7 @@
 
 
                 <h5>
-                  <table id="example" class="table table-bordered">
+                  <table id="example" class="table table-bordered" style="margin-bottom: 15px !important;">
                     <thead>
                       <tr>
                         <th colspan="11" style="text-align: center;">
