@@ -21,6 +21,7 @@
               margin: 5px;
               margin-left: 10px;
               font-family: Verdana, Geneva, sans-serif !important;
+              width: 100%;
 
             }
 
@@ -40,18 +41,23 @@
             <div class="col-md-12">
 
 
-              <div id="error"></div>
-
               <?php foreach ($class->sections as $section) { ?>
-                <h3><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
 
-                <table id="example" class="table table-bordered" style="font-size:10px !important">
+
+                <table id="example" class="table table-bordered">
+
                   <thead>
-                    <th>#</th>
-                    <?php foreach ($periods as $period) { ?>
-                      <th><?php echo $period->period_title;  ?></th>
-                    <?php } ?>
-
+                    <tr>
+                      <th colspan="10">
+                        <h3><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>#</th>
+                      <?php foreach ($periods as $period) { ?>
+                        <th><?php echo $period->period_title;  ?></th>
+                      <?php } ?>
+                    </tr>
                   </thead>
                   <tbody>
 
