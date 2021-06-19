@@ -40,9 +40,9 @@
 <table id="example" class="table table-bordered" style="font-size:10px !important">
                   <thead>
                     <th>#</th>
-                    <th>Teacher Name</th>
+                    <th>Teacher</th>
                     <th>inch</th>
-                    <th>Total Classes</th>
+                    <th>Tol</th>
                     <?php
 
                     foreach ($periods as $period) { ?>
@@ -183,9 +183,7 @@
                             <?php  } else { ?>
                               <?php if ($period->period_id != 7) { ?>
 
-
-                                <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
-                              <?php } else { ?>
+<?php } else { ?>
                                 <p style="text-align:center">-</p>
                               <?php } ?>
 
