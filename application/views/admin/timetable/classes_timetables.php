@@ -9,7 +9,7 @@
 <head>
 </head>
 
-<body>
+<body style="background-color: white;">
 
   <!-- /PAGE HEADER -->
 
@@ -24,64 +24,64 @@
             <?php foreach ($classes as $class) { ?>
 
 
-
-              <table id="example" class="table table-bordered">
-
-                <?php foreach ($class->sections as $section) { ?>
+              <h5>
+                <table id="example" class="table table-bordered">
 
 
+                  <?php foreach ($class->sections as $section) { ?>
 
-                  <thead>
-                    <tr>
-                      <th colspan="11" style="text-align: center;">
-                        <h2>Government Centennial Model High School, Boys Chitral</h2>
-                        <h3>Time Table: <?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
-                        <h4>Class Teacher:
-                          <?php $query = "SELECT teacher_name
+
+
+                    <thead>
+                      <tr>
+                        <th colspan="11" style="text-align: center;">
+                          <h2>Government Centennial Model High School, Boys Chitral</h2>
+                          <h3>Time Table: <?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
+                          <h4>Class Teacher:
+                            <?php $query = "SELECT teacher_name
                           FROM `classes_time_tables`
                           WHERE `classes_time_tables`.`class_teacher`='1' 
                           AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                           AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
-                          $class_teacher = $this->db->query($query)->result();
-                          if ($class_teacher) {
-                            echo $class_teacher[0]->teacher_name;
-                          }
-                          ?>
+                            $class_teacher = $this->db->query($query)->result();
+                            if ($class_teacher) {
+                              echo $class_teacher[0]->teacher_name;
+                            }
+                            ?>
 
-                        </h4>
-                      </th>
-                    </tr>
-                    <tr>
-                      <th>#</th>
-                      <?php foreach ($periods as $period) { ?>
-                        <?php if ($period->period_id != 7) { ?>
-                          <th><?php echo $period->period_title;  ?></th>
-                        <?php } else { ?>
-                          <th rowspan="6"><?php echo $period->period_title;  ?></th>
-                        <?php } ?>
-                      <?php } ?>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php
-                    error_reporting(14);
-                    $weeks = array(
-                      "mon" => "Monday",
-                      "tue" => "Tuesday",
-                      "wed" => "Wednesday",
-                      "thu" => "Thursday",
-                      "fri" => "Friday",
-                      "sat" => "Saturday",
-                    );
-                    foreach ($weeks as $w_index => $week) { ?>
+                          </h4>
+                        </th>
+                      </tr>
                       <tr>
-                        <td><?php echo $week; ?></td>
-                        <?php foreach ($periods as $period) {
-                          if ($period->period_id != 7) {
-                        ?>
-                            <td style="text-align: center;">
-                              <h5>
+                        <th>Days</th>
+                        <?php foreach ($periods as $period) { ?>
+                          <?php if ($period->period_id != 7) { ?>
+                            <th><?php echo $period->period_title;  ?></th>
+                          <?php } else { ?>
+                            <th rowspan="6"><?php echo $period->period_title;  ?></th>
+                          <?php } ?>
+                        <?php } ?>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
+                      error_reporting(14);
+                      $weeks = array(
+                        "mon" => "Monday",
+                        "tue" => "Tuesday",
+                        "wed" => "Wednesday",
+                        "thu" => "Thursday",
+                        "fri" => "Friday",
+                        "sat" => "Saturday",
+                      );
+                      foreach ($weeks as $w_index => $week) { ?>
+                        <tr>
+                          <td><?php echo $week; ?></td>
+                          <?php foreach ($periods as $period) {
+                            if ($period->period_id != 7) {
+                          ?>
+                              <td style="text-align: center;">
                                 <?php $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
@@ -100,23 +100,23 @@
                                 <?php } else { ?>
                                   -
                                 <?php } ?>
-                              </h5>
-                            </td>
-                          <?php } else { ?>
-                            <td></td>
+
+                              </td>
+                            <?php } else { ?>
+                              <td></td>
+                            <?php } ?>
                           <?php } ?>
-                        <?php } ?>
-                      </tr>
-                    <?php } ?>
+                        </tr>
+                      <?php } ?>
 
-                  </tbody>
-
+                    </tbody>
 
 
-                <?php } ?>
 
-              </table>
+                  <?php } ?>
 
+                </table>
+              </h5>
             <?php } ?>
           </div>
         </section>
