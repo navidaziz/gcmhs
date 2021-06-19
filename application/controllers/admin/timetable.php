@@ -117,6 +117,62 @@ class Timetable extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "timetable/classes_timetables", $this->data);
 	}
 
+	public function sections_timetables()
+	{
+
+
+
+
+		$query = "SELECT * FROM `periods`";
+		$result = $this->db->query($query);
+		$periods = $result->result();
+		$query = "SELECT  `Class_title`, `class_id`
+					FROM
+					`classes` 
+					WHERE `class_id` IN(2,3,4,5,6)";
+
+		$result = $this->db->query($query);
+		$classes = $result->result();
+		foreach ($classes as $class) {
+			$query = "SELECT
+				`sections`.`section_title`
+				, `sections`.`section_id`
+			FROM
+			`class_sections`,
+			`sections`
+			WHERE `class_sections`.`section_id` = `sections`.`section_id` 
+				AND `class_sections`.`class_id` = '" . $class->class_id . "'";
+
+			$result = $this->db->query($query);
+			$class->sections = $result->result();
+
+			$query = "SELECT
+				`subjects`.`subject_title`
+				, `subjects`.`short_title`
+				, `subjects`.`subject_id`
+				, `class_subjects`.`total_class_week`
+				, `class_subjects`.`class_subject_id`
+			FROM
+			`class_subjects`,
+			`subjects` 
+			WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
+			AND `class_subjects`.`class_id` = '" . $class->class_id . "'
+			AND `subjects`.`subject_id` NOT IN (2)
+			Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`  ASC
+			";
+
+			$result = $this->db->query($query);
+			$class->subjects = $result->result();
+		}
+
+
+		$this->data['classes'] = $classes;
+		$this->data['periods'] = $periods;
+		$this->data["title"] = $this->lang->line('Classes Time Tables');
+		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
+		//$this->load->view(ADMIN_DIR."layout", $this->data);
+		$this->load->view(ADMIN_DIR . "timetable/sections_timetables", $this->data);
+	}
 
 
 
