@@ -36,15 +36,16 @@
               height: 17px;
             }
           </style>
-          <?php foreach ($classes as $class) { ?>
-
-            <div class="col-md-12">
-
-
-              <?php foreach ($class->sections as $section) { ?>
+          <div class="col-md-12">
+            <?php foreach ($classes as $class) { ?>
 
 
-                <table id="example" class="table table-bordered">
+
+              <table id="example" class="table table-bordered">
+
+                <?php foreach ($class->sections as $section) { ?>
+
+
 
                   <thead>
                     <tr>
@@ -100,14 +101,15 @@
                     <?php } ?>
 
                   </tbody>
-                </table>
 
 
-              <?php } ?>
 
+                <?php } ?>
 
-            </div>
-          <?php } ?>
+              </table>
+
+            <?php } ?>
+          </div>
         </section>
       </div>
     </div>
