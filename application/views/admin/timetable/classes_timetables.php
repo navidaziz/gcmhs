@@ -56,10 +56,10 @@
                     <tr>
                       <th>#</th>
                       <?php foreach ($periods as $period) { ?>
-                      <?php if ($period->period_id != 7) { ?>
-                        <th><?php echo $period->period_title;  ?></th>
-                        <?php }else?>
-                        <th rowspan="6"><?php echo $period->period_title;  ?></th>
+                        <?php if ($period->period_id != 7) { ?>
+                          <th><?php echo $period->period_title;  ?></th>
+                        <?php } else { ?>
+                          <th rowspan="6"><?php echo $period->period_title;  ?></th>
                         <?php } ?>
                       <?php } ?>
                     </tr>
