@@ -113,13 +113,17 @@
 
                     </tbody>
                   </table>
-
-
-                <?php } ?>
-
-
                 </h5>
+                <br />
+                <br />
+                <br />
+                <br />
+
               <?php } ?>
+
+
+
+            <?php } ?>
           </div>
         </section>
       </div>
