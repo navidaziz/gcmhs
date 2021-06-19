@@ -49,14 +49,18 @@
 
                   <thead>
                     <tr>
-                      <th colspan="10">
+                      <th colspan="11">
                         <h3><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
                       </th>
                     </tr>
                     <tr>
                       <th>#</th>
                       <?php foreach ($periods as $period) { ?>
+                      <?php if ($period->period_id != 7) { ?>
                         <th><?php echo $period->period_title;  ?></th>
+                        <?php }else?>
+                        <th rowspan="6"><?php echo $period->period_title;  ?></th>
+                        <?php } ?>
                       <?php } ?>
                     </tr>
                   </thead>
@@ -75,27 +79,30 @@
                     foreach ($weeks as $w_index => $week) { ?>
                       <tr>
                         <td><?php echo $week; ?></td>
-                        <?php foreach ($periods as $period) { ?>
-                          <td>
-                            <?php $query = "SELECT * FROM `classes_time_tables` 
+                        <?php foreach ($periods as $period) {
+                          if ($period->period_id != 7) {
+                        ?>
+                            <td style="text-align: center;">
+                              <?php $query = "SELECT * FROM `classes_time_tables` 
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `" . $w_index . "` = '1'
                                             AND `class_id` = '" . $class->class_id . "' 
                                             AND `section_id` = '" . $section->section_id . "'";
-                            $teacher_subjects = $this->db->query($query)->result();
-                            if ($teacher_subjects) { ?>
+                              $teacher_subjects = $this->db->query($query)->result();
+                              if ($teacher_subjects) { ?>
 
-                              <?php foreach ($teacher_subjects as $teacher_subject) { ?>
+                                <?php foreach ($teacher_subjects as $teacher_subject) { ?>
 
-                                <?php echo $teacher_subject->teacher_name ?> <br />
-                                <strong><?php echo $teacher_subject->short_title ?></strong><br />
+                                  <?php echo $teacher_subject->teacher_name ?> <br />
+                                  <strong><?php echo $teacher_subject->short_title ?></strong><br />
 
+                                <?php } ?>
+
+                              <?php } else { ?>
+                                -
                               <?php } ?>
-
-                            <?php } else { ?>
-                              -
-                            <?php } ?>
-                          </td>
+                            </td>
+                          <?php } ?>
                         <?php } ?>
                       </tr>
                     <?php } ?>
