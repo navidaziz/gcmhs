@@ -1,6 +1,7 @@
 <!-- PAGE HEADER-->
 <!DOCTYPE html>
 <html lang="en" dir="<?php echo $this->lang->line('direction'); ?>" />
+<script src="<?php echo site_url("assets/" . ADMIN_DIR . "bootstrap-dist/js/bootstrap.min.js"); ?>"></script>
 
 <head>
 </head>
