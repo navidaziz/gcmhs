@@ -130,7 +130,7 @@ class Timetable extends Admin_Controller
 		$query = "SELECT  `Class_title`, `class_id`
 					FROM
 					`classes` 
-					WHERE `class_id` IN(2,3,4,5,6)";
+					WHERE `class_id` IN(2,3,4,5)";
 
 		$result = $this->db->query($query);
 		$classes = $result->result();
@@ -144,10 +144,10 @@ class Timetable extends Admin_Controller
 			WHERE `class_sections`.`section_id` = `sections`.`section_id` 
 				AND `class_sections`.`class_id` = '" . $class->class_id . "'";
 
-						$result = $this->db->query($query);
-						$class->sections = $result->result();
+			$result = $this->db->query($query);
+			$class->sections = $result->result();
 
-						$query = "SELECT
+			$query = "SELECT
 				`subjects`.`subject_title`
 				, `subjects`.`short_title`
 				, `subjects`.`subject_id`
@@ -289,7 +289,7 @@ class Timetable extends Admin_Controller
 	public function period_management_print()
 	{
 
-  
+
 		$query = "SELECT
 					`teachers`.`teacher_name`
 					, `teachers`.`teacher_id`
