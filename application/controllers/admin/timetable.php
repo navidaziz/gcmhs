@@ -136,30 +136,30 @@ class Timetable extends Admin_Controller
 		$classes = $result->result();
 		foreach ($classes as $class) {
 			$query = "SELECT
-    `sections`.`section_title`
-    , `sections`.`section_id`
-FROM
-`class_sections`,
-`sections`
-WHERE `class_sections`.`section_id` = `sections`.`section_id` 
-	  AND `class_sections`.`class_id` = '" . $class->class_id . "'";
+				`sections`.`section_title`
+				, `sections`.`section_id`
+			FROM
+			`class_sections`,
+			`sections`
+			WHERE `class_sections`.`section_id` = `sections`.`section_id` 
+				AND `class_sections`.`class_id` = '" . $class->class_id . "'";
 
-			$result = $this->db->query($query);
-			$class->sections = $result->result();
+						$result = $this->db->query($query);
+						$class->sections = $result->result();
 
-			$query = "SELECT
-    `subjects`.`subject_title`
-    , `subjects`.`short_title`
-    , `subjects`.`subject_id`
-	, `class_subjects`.`total_class_week`
-	, `class_subjects`.`class_subject_id`
-FROM
-`class_subjects`,
-`subjects` 
-WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
-AND `class_subjects`.`class_id` = '" . $class->class_id . "'
-Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`  ASC
-";
+						$query = "SELECT
+				`subjects`.`subject_title`
+				, `subjects`.`short_title`
+				, `subjects`.`subject_id`
+				, `class_subjects`.`total_class_week`
+				, `class_subjects`.`class_subject_id`
+			FROM
+			`class_subjects`,
+			`subjects` 
+			WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
+			AND `class_subjects`.`class_id` = '" . $class->class_id . "'
+			Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`  ASC
+			";
 
 			$result = $this->db->query($query);
 			$class->subjects = $result->result();
@@ -284,6 +284,42 @@ Order By `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`su
 		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
 		//$this->load->view(ADMIN_DIR."layout", $this->data);
 		$this->load->view(ADMIN_DIR . "timetable/period_management", $this->data);
+	}
+
+	public function period_management_print()
+	{
+
+
+		$query = "SELECT
+					`teachers`.`teacher_name`
+					, `teachers`.`teacher_id`
+					, `teachers`.`teacher_designation`
+					, SUM(`class_subjects`.`total_class_week`) AS `class_total`
+					, COUNT(`class_subjects`.`total_class_week`) AS `total_class_assigned`
+					, (SELECT COUNT(*) FROM `period_subjects` WHERE `period_subjects`.`teacher_id` = `teachers`.`teacher_id`) AS period_assinged
+				FROM
+					`class_section_subject_teachers`
+					RIGHT JOIN `teachers` 
+						ON (`class_section_subject_teachers`.`teacher_id` = `teachers`.`teacher_id`)
+					LEFT JOIN `class_subjects` 
+						ON (`class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id`)
+				GROUP BY `teachers`.`teacher_id`
+				ORDER BY `teachers`.`order` ASC;";
+		$result = $this->db->query($query);
+		$teachers = $result->result();
+
+		$query = "SELECT * FROM `periods`";
+		$result = $this->db->query($query);
+		$periods = $result->result();
+
+
+
+		$this->data['teachers'] = $teachers;
+		$this->data['periods'] = $periods;
+		$this->data["title"] = $this->lang->line('Time Table');
+		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
+		//$this->load->view(ADMIN_DIR."layout", $this->data);
+		$this->load->view(ADMIN_DIR . "timetable/period_management_print", $this->data);
 	}
 
 
