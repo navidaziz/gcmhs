@@ -72,7 +72,7 @@ class Timetable extends Admin_Controller
 		$query = "SELECT  `Class_title`, `class_id`
 					FROM
 					`classes` 
-					WHERE `class_id` IN(2,3,4,5,6)";
+					WHERE `class_id` IN(2,3,4,5)";
 
 		$result = $this->db->query($query);
 		$classes = $result->result();
