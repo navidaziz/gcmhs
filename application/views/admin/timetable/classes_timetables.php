@@ -33,7 +33,8 @@
 
                   <thead>
                     <tr>
-                      <th colspan="11">
+                      <th colspan="11" style="text-align: center;">
+                        <h2>Government Centennial Model High School, Boys Chitral</h2>
                         <h3><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
                       </th>
                     </tr>
