@@ -102,6 +102,8 @@
                                 -
                               <?php } ?>
                             </td>
+                          <?php } else { ?>
+                            <td></td>
                           <?php } ?>
                         <?php } ?>
                       </tr>
