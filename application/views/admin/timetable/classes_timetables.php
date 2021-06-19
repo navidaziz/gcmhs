@@ -35,7 +35,7 @@
                     <thead>
                       <tr>
                         <th colspan="11" style="text-align: center;">
-                          <div style="margin: 5px !important;">
+                          <div style="margin-top: 20px !important;">
                             <h2>Government Centennial Model High School, Boys Chitral</h2>
                             <h3>Time Table: <?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
                             <h4>Class Teacher:
