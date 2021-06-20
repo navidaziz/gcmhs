@@ -25,8 +25,8 @@
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
-              <div class="col-md-6">
-                <table id="example" class="table table-border" cellspacing="0" width="45%" style="float:left; font-size:11px">
+              <div style="width: 46%; float: left;">
+                <table id="example" class="table table-bordered" cellspacing="0" width="100%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
                       <th colspan="11">
