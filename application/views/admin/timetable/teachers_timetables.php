@@ -31,14 +31,14 @@
             table,
             th,
             td {
-              border: 1px solid black;
+              border: 1px solid gray;
               height: 17px;
             }
           </style>
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
-              <div style="width: 46%; float: left;">
+              <div style="width: 46%; float: left; margin: 5px; margin-left: 5px;">
                 <table id="example" class="table table-bordered" cellspacing="0" width="100%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
