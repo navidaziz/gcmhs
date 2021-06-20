@@ -21,13 +21,14 @@
         <section contenteditable="true">
 
           <div class="col-md-12">
-            <h5>
+            <h6>
               <table id="example" class="table table-bordered" style="margin-bottom: 15px !important;">
                 <thead>
                   <tr>
                     <th colspan="11" style="text-align: center;">
-                      <div style="margin-top: 20px !important;">
-                        Classes and section timetable
+                      <div style="margin-top: 20px !important; text-align: center;">
+                        <h2>Government Centennial Model High School, Boys Chitral</h2>
+                        <h2>General Time Table for Session 2021-2022</h2>
                       </div>
                     </th>
                   </tr>
@@ -81,7 +82,7 @@
                   <?php } ?>
                 </tbody>
               </table>
-
+            </h6>
 
           </div>
         </section>
