@@ -20,12 +20,12 @@
       <div class="container">
         <section contenteditable="true">
 
-          <div class="col-md-12">
 
-            <h6>
 
-              <?php foreach ($teachers as $teacher) { ?>
+          <h6>
 
+            <?php foreach ($teachers as $teacher) { ?>
+              <div class="col-md-4">
                 <table id="example" class="table table-border" cellspacing="0" width="45%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
@@ -38,8 +38,8 @@
                                           and teacher_id='" . $teacher->teacher_id . "'";
                           $class_teacher = $this->db->query($query)->result();
                           if ($class_teacher) {
-                            echo '<span style="float:right">';
-                            echo str_replace("th", "", $class_teacher[0]->Class_title) . "-" . substr($class_teacher[0]->section_title, 0, 1);
+                            echo '<span style="float:right"> Incharge Teacher Class: ';
+                            echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title, 0, 1;
                             echo '</span>';
                           }
                           ?>
@@ -94,12 +94,12 @@
 
                   </tbody>
                 </table>
+              </div>
 
+            <?php } ?>
 
-              <?php } ?>
+          </h6>
 
-            </h6>
-          </div>
         </section>
       </div>
     </div>
