@@ -30,16 +30,16 @@
             table,
             th,
             td {
-              border: 1px solid black;
+              border: 1px solid gray;
               height: 17px;
             }
           </style>
-          <table id="example" class="table table-bordered" style="font-size:10px !important">
+          <table class="table table-bordered" style="font-size:10px !important; width: 100%;">
             <thead>
               <th>#</th>
               <th>Teacher</th>
               <th>inch</th>
-              <th>Tol</th>
+              <th>Tot</th>
               <?php
 
               foreach ($periods as $period) { ?>
