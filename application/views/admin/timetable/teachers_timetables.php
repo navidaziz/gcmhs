@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="<?php echo $this->lang->line('direction'); ?>" />
 
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/cloud-admin.css"); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
+
 <head>
 </head>
 
@@ -93,11 +97,11 @@
                               <?php foreach ($teacher_subjects as $teacher_subject) { ?>
                                 <div style="background-color:  <?php echo $teacher_subject->color ?>;">
                                   <?php if ($teacher_subject->short_title != 'Nazira') { ?>
-                                    <?php echo $teacher_subject->short_title ?>
+                                    <?php echo substr($teacher_subject->short_title, 0, 4); ?>-
                                   <?php } ?>
 
 
-                                  -<?php echo substr(str_replace("th", "", $teacher_subject->Class_title), 0, 4);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
+                                  <?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
                                   <br />
                                 </div>
                               <?php } ?>
