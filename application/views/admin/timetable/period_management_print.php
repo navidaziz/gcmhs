@@ -34,7 +34,12 @@
               height: 17px;
             }
           </style>
-          <table class="table table-bordered" style="font-size:10px !important; width: 100%;">
+
+          <div style="margin-top: 20px !important; text-align: center;">
+            <h3>Government Centennial Model High School, Boys Chitral</h2>
+              <h4>Teacher Wise General Time Table for Session 2021-2022</h2>
+          </div>
+          <table class="table table-bordered" style="font-size:10px !important; width: 95%; margin: 5px;">
             <thead>
               <th>#</th>
               <th>Teacher</th>
