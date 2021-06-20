@@ -25,7 +25,7 @@
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <table id="example" class="table table-border" cellspacing="0" width="45%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
