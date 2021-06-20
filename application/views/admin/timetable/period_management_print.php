@@ -1,8 +1,5 @@
 <!-- PAGE HEADER-->
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/cloud-admin.css"); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
 
 <head>
 </head>
@@ -129,8 +126,6 @@
                                   - " . $period_subject->total_class_week;  ?>
                             <?php //if ($period_subject->total_class_week != 6) { 
                             ?>
-                            <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i>
-                            <a href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher_subject_period/$period_subject->period_subject_id"); ?>">x</a>
                             <?php if ($period_subject->total_class_week < 6) {
                               echo '<br /><small>';
                               $query = "SELECT * FROM `period_subjects` WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
@@ -170,11 +165,6 @@
 
 
 
-                        <?php if ($subject_count < 6) { ?> <br />
-                          <a style="margin-left:5px;" href="javascript:return false;" onClick="add_subject('<?php echo $teacher->teacher_name . " - " . $teacher->teacher_designation; ?>', '<?php echo $teacher->teacher_id; ?>', '<?php echo $period->period_id; ?>')">+</a>
-
-
-                        <?php } ?>
 
 
 
