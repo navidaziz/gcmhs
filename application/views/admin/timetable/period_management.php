@@ -485,9 +485,7 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
         </div>
       </div>
       <script>
-        $("#myModal").draggable({
-          handle: ".modal-header"
-        });
+        $("#myModal").draggable({});
 
 
         //         $(document).ready(function(){
