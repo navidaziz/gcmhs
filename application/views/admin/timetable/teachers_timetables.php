@@ -43,7 +43,7 @@
                 <table id="example" class="table table-bordered" cellspacing="0" width="100%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
-                      <th colspan="11">
+                      <th colspan="11" style="text-align: left !important;">
                         <strong><?php echo $teacher->teacher_name; ?> - <?php echo $teacher->teacher_designation; ?></strong>
                         <span style="float: right;">
                           <?php $query = "SELECT Class_title, section_title, color 
