@@ -43,7 +43,22 @@
             <table id="example" class="table table-border" cellspacing="0" width="45%" style="float:left; font-size:11px">
               <thead>
                 <tr>
-                  <th colspan="11"><?php echo $teacher->teacher_name; ?></th>
+                  <th colspan="11">
+                    <strong><?php echo $teacher->teacher_name; ?> - <?php echo $teacher->teacher_designation; ?></strong>
+                    <span style="float: right;">
+                      <?php $query = "SELECT Class_title, section_title, color 
+                                          FROM `classes_time_tables`  
+                                          WHERE `classes_time_tables`.`class_teacher`='1' 
+                                          and teacher_id='" . $teacher->teacher_id . "'";
+                      $class_teacher = $this->db->query($query)->result();
+                      if ($class_teacher) {
+                        echo '<span style="float:right">';
+                        echo str_replace("th", "", $class_teacher[0]->Class_title) . "-" . substr($class_teacher[0]->section_title, 0, 1);
+                        echo '</span>';
+                      }
+                      ?>
+                    </span>
+                  </th>
                 </tr>
                 <tr>
                   <th>Days</th>
