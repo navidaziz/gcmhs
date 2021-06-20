@@ -52,8 +52,8 @@
                               and teacher_id='" . $teacher->teacher_id . "'";
                           $class_teacher = $this->db->query($query)->result();
                           if ($class_teacher) {
-                            echo '<span style="float:right"> Incharge Teacher Class: ';
-                            echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title, 0, 1;
+                            echo '<span style="float:right"> Incharge Teacher: Class ';
+                            echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title;
                             echo '</span>';
                           }
                           ?>
