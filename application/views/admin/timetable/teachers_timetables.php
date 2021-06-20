@@ -2,14 +2,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="<?php echo $this->lang->line('direction'); ?>" />
 
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/cloud-admin.css"); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
-
 <head>
 </head>
 
-<body style="background-color: white;">
+<body>
 
   <!-- /PAGE HEADER -->
 
@@ -18,10 +14,27 @@
     <!-- MESSENGER -->
     <div class="col-md-12">
       <div class="container">
-        <section contenteditable="true">
+        <section>
+          <style>
+            table {
+              border-collapse: collapse;
+              margin: 5px;
+              margin-left: 10px;
+              font-family: Verdana, Geneva, sans-serif !important;
 
+            }
 
+            thead {
+              font-weight: bold;
+            }
 
+            table,
+            th,
+            td {
+              border: 1px solid black;
+              height: 17px;
+            }
+          </style>
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
@@ -33,9 +46,9 @@
                         <strong><?php echo $teacher->teacher_name; ?> - <?php echo $teacher->teacher_designation; ?></strong>
                         <span style="float: right;">
                           <?php $query = "SELECT Class_title, section_title, color 
-                                          FROM `classes_time_tables`  
-                                          WHERE `classes_time_tables`.`class_teacher`='1' 
-                                          and teacher_id='" . $teacher->teacher_id . "'";
+                              FROM `classes_time_tables`  
+                              WHERE `classes_time_tables`.`class_teacher`='1' 
+                              and teacher_id='" . $teacher->teacher_id . "'";
                           $class_teacher = $this->db->query($query)->result();
                           if ($class_teacher) {
                             echo '<span style="float:right"> Incharge Teacher Class: ';
@@ -71,9 +84,9 @@
                         <?php foreach ($periods as $period) { ?>
 
                           <?php $query = "SELECT * FROM `classes_time_tables` 
-                      WHERE period_id='" . $period->period_id . "'
-                      AND `" . $w_index . "` = '1'
-                      AND `teacher_id` = '" . $teacher->teacher_id . "'";
+          WHERE period_id='" . $period->period_id . "'
+          AND `" . $w_index . "` = '1'
+          AND `teacher_id` = '" . $teacher->teacher_id . "'";
                           $teacher_subjects = $this->db->query($query)->result();
                           if ($teacher_subjects) { ?>
                             <td>
@@ -99,7 +112,6 @@
             <?php } ?>
 
           </h6>
-
         </section>
       </div>
     </div>
