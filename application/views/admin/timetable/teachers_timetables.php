@@ -39,8 +39,8 @@
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
-              <div style="width: 100%; float: left; margin: 5px; margin-left: 5px; margin-bottom:10px !important">
-                <table id="example" class="table table-bordered" cellspacing="0" width="100%" style="float:left; font-size:11px">
+              <div style="width: 95%; float: left; margin: 5px; margin-left: 5px; margin-bottom:10px !important">
+                <table id="example" class="table table-bordered" cellspacing="0" width="86%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
                       <th colspan="11" style="text-align: left !important;">
