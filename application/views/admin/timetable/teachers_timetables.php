@@ -5,7 +5,7 @@
 <head>
 </head>
 
-<body>
+<body contentEditable="true">
 
   <!-- /PAGE HEADER -->
 
