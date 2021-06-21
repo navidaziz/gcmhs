@@ -130,27 +130,27 @@
                             <?php //if ($period_subject->total_class_week != 6) { 
                             ?>
                             <?php if ($period_subject->total_class_week < 6) {
-                              echo '<br /><small>';
+                              echo '<small> ';
                               $query = "SELECT * FROM `period_subjects` WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
                               $period_weeks = $this->db->query($query)->result();
                               foreach ($period_weeks as $weeks) {
                                 if ($weeks->mon) {
-                                  echo "Mon-";
+                                  echo "M-";
                                 }
                                 if ($weeks->tue) {
-                                  echo "Tue-";
+                                  echo "T-";
                                 }
                                 if ($weeks->wed) {
-                                  echo "Wed-";
+                                  echo "W-";
                                 }
                                 if ($weeks->thu) {
-                                  echo "Thu-";
+                                  echo "T-";
                                 }
                                 if ($weeks->fri) {
-                                  echo "Fri-";
+                                  echo "F-";
                                 }
                                 if ($weeks->sat) {
-                                  echo "Sat";
+                                  echo "S";
                                 }
                               }
                               echo '</small>'
