@@ -39,7 +39,7 @@
           <h6>
 
             <?php foreach ($teachers as $teacher) { ?>
-              <div style="width: 46%; float: left; margin: 5px; margin-left: 5px;">
+              <div style="width: 46%; float: left; margin: 5px; margin-left: 5px; margin-bottom:10px !important">
                 <table id="example" class="table table-bordered" cellspacing="0" width="100%" style="float:left; font-size:11px">
                   <thead>
                     <tr>
