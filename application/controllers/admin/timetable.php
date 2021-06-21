@@ -360,7 +360,7 @@ class Timetable extends Admin_Controller
 					LEFT JOIN `class_subjects` 
 						ON (`class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id`)
 				GROUP BY `teachers`.`teacher_id`
-				ORDER BY `teachers`.`teacher_name` ASC;";
+				ORDER BY `teachers`.`teacher_designation` ASC;";
 		$result = $this->db->query($query);
 		$teachers = $result->result();
 
