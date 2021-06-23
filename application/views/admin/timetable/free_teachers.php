@@ -52,7 +52,7 @@
                           $teacher_count = 1;
                           foreach ($free_teachers as $free_teacher) { ?>
 
-                            <small> <?php echo $teacher_count++ ?> - <?php echo $free_teacher->teacher_name ?> </small><br />
+                            <small style="color:black"> <?php echo $teacher_count++ ?> - <?php echo $free_teacher->teacher_name ?> - <?php echo $free_teacher->total_classes ?> </small><br />
 
                           <?php } ?>
 
