@@ -174,7 +174,22 @@ class Timetable extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "timetable/sections_timetables", $this->data);
 	}
 
+	public function free_teachers()
+	{
 
+
+
+
+		$query = "SELECT * FROM `periods`";
+		$result = $this->db->query($query);
+		$periods = $result->result();
+
+		$this->data['periods'] = $periods;
+		$this->data["title"] = $this->lang->line('Free Teachers');
+		//$this->data["view"] = ADMIN_DIR."timetable/timetable";
+		//$this->load->view(ADMIN_DIR."layout", $this->data);
+		$this->load->view(ADMIN_DIR . "timetable/free_teachers", $this->data);
+	}
 
 	/**
 	 * Default action to be called
