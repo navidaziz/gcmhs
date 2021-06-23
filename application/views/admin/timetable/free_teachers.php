@@ -26,7 +26,7 @@
                 <h3>Government Centennial Model High School, Boys Chitral</h2>
                   <h4>Free Teachers</h2>
               </div>
-              <table id="example" class="table table-bordered" style="margin-bottom: 15px !important; font-size: 10px !important;">
+              <table id="example" class="table table-bordered" style="margin-bottom: 15px !important; font-size: 7px !important;">
                 <thead>
 
                   <tr>
