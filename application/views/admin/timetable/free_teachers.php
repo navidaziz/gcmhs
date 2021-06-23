@@ -54,7 +54,7 @@
                             $teacher_count = 1;
                             foreach ($free_teachers as $free_teacher) { ?>
                               <small style="color:black">
-                                <tr>
+                                <tr style="font-size: smaller;">
                                   <td><?php echo $teacher_count++ ?></td>
                                   <td><?php echo $free_teacher->teacher_name ?></td>
                                   <td> <?php echo $free_teacher->total_classes ?></td>
