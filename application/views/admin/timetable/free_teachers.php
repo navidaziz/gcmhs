@@ -44,15 +44,15 @@
                   <?php foreach ($periods as $period) {
                     if ($period->period_id != 7) {  ?>
                       <td style="text-align: center;">
-                        <?php $query = "SELECT * FROM teachers 
-                                        WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` 
-                                        WHERE period_id='" . $period->period_id . "')";
+                        <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`) FROM `class_section_subject_teachers`, `class_subjects` WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` AND `class_section_subject_teachers`.`teacher_id`=teachers.teacher_id) as total_classes FROM teachers WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` WHERE period_id='" . $period->period_id . "') ORDER BY total_classes ASC)";
                         $free_teachers = $this->db->query($query)->result();
                         if ($free_teachers) { ?>
 
-                          <?php foreach ($free_teachers as $free_teacher) { ?>
+                          <?php
+                          $teacher_count = 1;
+                          foreach ($free_teachers as $free_teacher) { ?>
 
-                            <?php echo $free_teacher->teacher_name ?> <br />
+                            <small> <?php echo $teacher_count++ ?> - <?php echo $free_teacher->teacher_name ?> </small><br />
 
                           <?php } ?>
 
