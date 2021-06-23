@@ -26,7 +26,7 @@
                 <h3>Government Centennial Model High School, Boys Chitral</h2>
                   <h4>Free Teachers</h2>
               </div>
-              <table id="example" class="table table-bordered" style="margin-bottom: 15px !important; font-size: 7px !important;">
+              <table id="example" class="table table-bordered" style="margin-bottom: 15px !important; font-size: 10px !important;">
                 <thead>
 
                   <tr>
@@ -54,7 +54,7 @@
                             $teacher_count = 1;
                             foreach ($free_teachers as $free_teacher) { ?>
                               <small style="color:black">
-                                <tr style="font-size: 7px;">
+                                <tr>
                                   <td><?php echo $teacher_count++ ?></td>
                                   <td><?php echo $free_teacher->teacher_name ?></td>
                                   <td> <?php echo $free_teacher->total_classes ?></td>
