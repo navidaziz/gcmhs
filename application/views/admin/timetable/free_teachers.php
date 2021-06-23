@@ -46,7 +46,7 @@
                       <td style="text-align: center;">
                         <?php $query = "SELECT * FROM teachers 
                                         WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` 
-                                        WHERE period_id='" . $period->period_id . "'";
+                                        WHERE period_id='" . $period->period_id . "')";
                         $free_teachers = $this->db->query($query)->result();
                         if ($free_teachers) { ?>
 
