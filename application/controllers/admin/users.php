@@ -306,7 +306,9 @@ class Users extends Admin_Controller{
                     "role_homepage_uri" => $homepage_path,
                     "ngo_id" => $user->ngo_id,
 					"user_image" => $user->user_image ,
-                    "logged_in" => TRUE
+                    "logged_in" => TRUE,
+                    "teacher_id" => $user->teacher_id,
+
                 );
                 
                 //add to session

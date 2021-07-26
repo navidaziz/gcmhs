@@ -65,12 +65,7 @@ spl_autoload_register(function($classname) {
 
 */
 
-//$config['base_url']	= 'http://172.16.10.136/sap';
-
-//$config['base_url']	= 'http://localhost/audios';
-//$config['base_url']	= 'http://192.168.0.100/gcmhsb';
-$config['base_url']	= 'http://gcmhsb.chitral.com.pk/';
-//$config['base_url']	= 'http://192.168.10.11/gcmhsb';
+$config['base_url']	= 'http://localhost/gcmhs/';
 /*
 
 |--------------------------------------------------------------------------
