@@ -97,16 +97,52 @@
 
 
 
+  <!--<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/my_fucking_style.css"); ?>" />-->
+  <header class="navbar clearfix" id="header">
+    <div class="container">
+      <table style="width: 100%;">
+        <tr>
+          <td><a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
+              <img style="margin-right: 5px;
+    border-radius: 99px;
+    height: 50px;
+    width: 50px;" src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>"></a>
+          </td>
+          <td>
+            <ul class="nav navba r-nav pull-right">
 
+
+              <li style="float:right;" class="dropdown user" id="header-user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img alt="" src="<?php echo site_url("assets/uploads/" . $this->session->userdata("user_image")); ?>" />
+                  <span class="username"><?php echo $this->session->userdata("user_title"); ?></span>
+                  <i class="fa fa-angle-down"></i> </a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo site_url(ADMIN_DIR . "users/update_profile"); ?>"><i class="fa fa-user"></i> Update Profile</a></li>
+                  <li><a href="<?php echo site_url(ADMIN_DIR . "users/logout"); ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+                </ul>
+              </li>
+
+
+
+              <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+          </td>
+        </tr>
+      </table>
+
+
+      <!-- BEGIN TOP NAVIGATION MENU -->
+
+      <!-- END TOP NAVIGATION MENU -->
+    </div>
+  </header>
+  <!--/HEADER -->
+
+  <!-- PAGE -->
   <section id="page">
 
-
-
-    <?php
-
-
-    $this->load->view(ADMIN_DIR . "components/nav.php"); ?>
-    <div id="main-c ontent" <?php if ($this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'group_dashboard'  or $this->router->fetch_class() == 'meetings' or $this->router->fetch_class() == 'sm_dashboard' or $this->router->fetch_class() == 'results' or $this->router->fetch_class() == 'exam_list') { ?> class="margin-left-50" <?php } ?>>
+    <div>
       <div class="container">
         <div class="row">
           <div id="content" class="col-lg-12">

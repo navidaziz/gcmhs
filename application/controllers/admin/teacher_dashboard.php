@@ -56,7 +56,7 @@ class Teacher_dashboard extends Admin_Controller
         $this->data['periods'] = $periods;
 
 
-        $this->data["title"] = "Teacher Name";
+        $this->data["title"] = "Teacher Dashboard";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/dashboard";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
