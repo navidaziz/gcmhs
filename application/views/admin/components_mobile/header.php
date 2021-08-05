@@ -105,8 +105,8 @@
           <td><a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
               <img style="margin-right: 5px;
     border-radius: 99px;
-    height: 50px;
-    width: 50px;" src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>"></a>
+    height: 35px;
+    width: 35px;" src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>"></a>
           </td>
           <td>
             <ul class="nav navba r-nav pull-right">
