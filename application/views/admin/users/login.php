@@ -45,8 +45,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <div style="text-align:center !important" class="hidden-sm">
-              <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" weight="100">
+            <div style="text-align:center !important">
+              <div class="hidden-sm hidden-xs">
+                <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" weight="100">
+              </div>
+
               <h2 class="bigintro" style="color:black !important; text-shadow:#999;"><?php echo $system_global_settings[0]->system_title ?></h2>
               <h4 style="color:black"><?php echo $system_global_settings[0]->system_sub_title ?></h4>
 
