@@ -593,6 +593,22 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 
 
+	function update_student_record()
+	{
+
+		$student_id = (int) $this->input->post('student_id');;
+		$field = $this->input->post('field');
+		$value = $this->db->escape($this->input->post('value'));
+
+		$query = "UPDATE `students` SET `" . $field . "`=" . $value . "
+			     WHERE `student_id` =$student_id;";
+		if ($this->db->query($query)) {
+			echo $value;
+		} else {
+			echo "Error";
+		}
+	}
+
 
 	function update_student_admission_no($student_id)
 	{
