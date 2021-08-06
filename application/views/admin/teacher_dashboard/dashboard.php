@@ -6,7 +6,7 @@
                     <i class="fa fa-home"></i>
                     <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"><?php echo $this->lang->line('Home'); ?></a>
                 </li>
-                <li><?php echo $title; ?></li>
+                <li><?php echo $teachers[0]->teacher_name; ?> - <?php echo $teachers[0]->teacher_designation; ?></li>
             </ul>
 
 
@@ -16,35 +16,34 @@
 <!-- /PAGE HEADER -->
 
 <!-- PAGE MAIN CONTENT -->
-<div class="row">
+<div class="row" style="margin-left: -25px; margin-right: -23px;">
     <!-- MESSENGER -->
     <div class="col-md-12">
-        <div class="box-body" style="background-color: white !important;">
+        <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center;">
 
+            <div style="padding-top: 15px;">
+
+                <?php $query = "SELECT `class_id`, `section_id`, Class_title, section_title, color 
+                                        FROM `classes_time_tables`  
+                                        WHERE `classes_time_tables`.`class_teacher`='1' 
+                                        and teacher_id='" . $this->session->userdata('teacher_id') . "'";
+                $class_teacher = $this->db->query($query)->result();
+                if ($class_teacher) {
+                    echo '<a href="add_student_attendance/' . $class_teacher[0]->class_id . '/' . $class_teacher[0]->section_id . '" ><div class="btn btn-warning btn-sm">Add ';
+                    echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title;
+                    echo ' Attendance </div></a>';
+                }
+                ?>
+
+                <div class="btn btn-success btn-sm"> Add Test / Exam Result </div>
+            </div>
             <h6>
 
                 <?php foreach ($teachers as $teacher) { ?>
-                    <div class="table-res ponsive">
+                    <div class="table-res ponsive" style="padding: 5px;">
                         <table id="example" class="table table-bordered" cellspacing="0" width="100%">
                             <thead>
-                                <tr>
-                                    <th colspan="11" style="text-align: left !important;">
-                                        <strong><?php echo $teacher->teacher_name; ?> - <?php echo $teacher->teacher_designation; ?></strong>
-                                        <span style="float: right;">
-                                            <?php $query = "SELECT Class_title, section_title, color 
-                                        FROM `classes_time_tables`  
-                                        WHERE `classes_time_tables`.`class_teacher`='1' 
-                                        and teacher_id='" . $teacher->teacher_id . "'";
-                                            $class_teacher = $this->db->query($query)->result();
-                                            if ($class_teacher) {
-                                                echo '<span style="float:right"> Incharge Teacher: Class ';
-                                                echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title;
-                                                echo '</span>';
-                                            }
-                                            ?>
-                                        </span>
-                                    </th>
-                                </tr>
+                                <h5>Time Table</h5>
                                 <tr>
                                     <th>Days</th>
                                     <?php

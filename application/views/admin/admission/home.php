@@ -1,22 +1,104 @@
+<!-- PAGE HEADER-->
 <div class="row">
-  <div class="col-md-2">
-    <div class="row">
-      <!-- MESSENGER -->
+  <div class="col-sm-12">
+    <div class="page-header" style="min-height: 30px;">
+      <!-- STYLER -->
 
-      <?php foreach ($classes as $class) { ?>
-        <div class="col-md-12">
-          <h3><?php echo $class->Class_title; ?></h3>
-          <div class="list-group">
-            <?php foreach ($class->sections as $section) { ?>
-              <a class="list-group-item" href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
-                <?php echo $section->section_title; ?></a>
-            <?php } ?>
+      <!-- /STYLER -->
+      <!-- BREADCRUMBS -->
+      <ul class="breadcrumb">
+        <li>
+          <i class="fa fa-home"></i>
+          <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"><?php echo $this->lang->line('Home'); ?></a>
+        </li>
+        <li><?php echo $title; ?></li>
+      </ul>
 
-          </div>
-        </div>
-      <?php } ?>
 
     </div>
-
   </div>
+</div>
+<!-- /PAGE HEADER -->
+
+<!-- PAGE MAIN CONTENT -->
+<div class="row">
+  <!-- MESSENGER -->
+  <div class="col-md-12">
+    <div class="box border blue" id="messenger">
+      <div class="box-title">
+        <h4><i class="fa fa-bell"></i> <?php echo $title; ?></h4>
+        <!--<div class="tools">
+            
+				<a href="#box-config" data-toggle="modal" class="config">
+					<i class="fa fa-cog"></i>
+				</a>
+				<a href="javascript:;" class="reload">
+					<i class="fa fa-refresh"></i>
+				</a>
+				<a href="javascript:;" class="collapse">
+					<i class="fa fa-chevron-up"></i>
+				</a>
+				<a href="javascript:;" class="remove">
+					<i class="fa fa-times"></i>
+				</a>
+				
+
+			</div>-->
+      </div>
+      <div class="box-body">
+
+        <div class="table-responsive">
+          <div class="row">
+            <div class="col-md-5">
+              <!-- MESSENGER -->
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Classes</th>
+                    <th>Sections</th>
+                    <th>Update Students</th>
+                    <th>Promote Students</th>
+                  </tr>
+                </thead>
+                </body>
+                <?php foreach ($classes as $class) { ?>
+
+                  <?php
+                  $count = 1;
+                  foreach ($class->sections as $section) { ?>
+                    <tr>
+                      <?php if ($count == 1) { ?>
+                        <th style="text-align: center;" rowspan="<?php echo count($class->sections); ?>"><?php echo $class->Class_title; ?></th>
+                      <?php
+                        $count++;
+                      } ?>
+                      <td style="background-color: <?php echo $section->color; ?>;"><?php echo $section->section_title; ?></td>
+                      <td>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
+                          Update Students</a>
+                      </td>
+                      <td>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
+                          Promote Students</a>
+                      </td>
+                    </tr>
+                  <?php } ?>
+
+
+                <?php } ?>
+              </table>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <!-- /MESSENGER -->
 </div>

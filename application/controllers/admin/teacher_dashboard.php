@@ -50,6 +50,9 @@ class Teacher_dashboard extends Admin_Controller
         $result = $this->db->query($query);
         $periods = $result->result();
 
+        $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 1";
+        $this->data['exams'] = $this->db->query($query)->result();
+
 
 
         $this->data['teachers'] = $teachers;
@@ -59,5 +62,40 @@ class Teacher_dashboard extends Admin_Controller
         $this->data["title"] = "Teacher Dashboard";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/dashboard";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
+
+    public function add_student_attendance($class, $section)
+    {
+        $this->data['class_id'] = $class = (int) $class;
+        $this->data['section_id'] = $section = (int) $section;
+
+        $query = "SELECT * FROM students WHERE status=1 and section_id ='" . $section . "' and class_id='" . $class . "'
+        ORDER BY student_class_no ASC";
+        $this->data['students'] = $this->db->query($query)->result();
+        $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
+        $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;
+
+        $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance";
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
+    public function add_attendance()
+    {
+        $class_id = $this->input->post('class_id');
+        $section_id = $this->input->post('section_id');
+        $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' ";
+        $today_attendance = $this->db->query($query)->result()[0]->total;
+        if ($today_attendance) {
+            $this->session->set_flashdata("msg_error", "Today Attendance is already added.");
+        } else {
+            $students_attendance = $this->input->post('attendance');
+            foreach ($students_attendance as $student_id => $attendance) {
+                $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`) 
+            VALUES ('" . $student_id . "','" . $class_id . "','" . $section_id . "','" . $this->session->userdata('teacher_id') . "','" . $attendance . "','" . date("y-m-d") . "')";
+                $this->db->query($query);
+            }
+            $this->session->set_flashdata("msg_success", "Attendance Add Successfully.");
+        }
+        redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
     }
 }

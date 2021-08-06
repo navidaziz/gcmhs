@@ -57,12 +57,7 @@ class Admission extends Public_Controller
 		/*var_dump($this->session->userdata('student_name'));
 		exit();
 		*/
-		$query = "SELECT
-						DISTINCT `classes`.`Class_title`, `classes`.`class_id`
-					FROM
-					`students`,
-					`classes` 
-					WHERE `students`.`class_id` = `classes`.`class_id`";
+		$query = "SELECT * FROM `classes` WHERE status=1 ORDER BY class_id DESC";
 
 		$result = $this->db->query($query);
 		$classes = $result->result();
@@ -71,11 +66,13 @@ class Admission extends Public_Controller
 		foreach ($classes as $classe) {
 			$query = "SELECT DISTINCT 
 						  `sections`.`section_id`,
-						  `sections`.`section_title` 
+						  `sections`.`section_title`,
+						  `sections`.`color` 
 						FROM
 						  `students`,
 						  `sections` 
 						WHERE `students`.`section_id` = `sections`.`section_id`
+						AND `students`.`status` =1
 						AND `students`.`class_id` =" . $classe->class_id;
 
 			$result = $this->db->query($query);
@@ -91,20 +88,6 @@ class Admission extends Public_Controller
 
 	public function students_list($class_id, $section_id)
 	{
-		/*$class_and_section = $this->input->post('class_and_section');
-		$temp_var = explode("_", $class_and_section);
-		$class_id = $temp_var[0];
-		$section_id = $temp_var[1];*/
-
-		//var_dump($this->session->userdata);
-
-
-
-		/*if($this->session->userdata('logged_in')){
-		$main_page=base_url().$this->router->fetch_class()."/view_student/".$this->session->userdata('student_id');
-  		redirect($main_page); 
-		exit();
-		}*/
 
 
 		$class_id = (int) $class_id;
@@ -114,11 +97,36 @@ class Admission extends Public_Controller
 		$this->data["students"] = $this->student_model->get_student_list($where, FALSE);
 
 		$this->data["pagination"] = "";
-		$this->data["title"] = "Students";
+		$this->data["title"] = "Update Students";
 
 		$this->data["view"] = PUBLIC_DIR . "student/students";
 		$this->load->view(PUBLIC_DIR . "layout", $this->data);
 	}
+
+	public function promote_students($class_id, $section_id)
+	{
+		$this->data['class_id']  = $class_id = (int) $class_id;
+		$this->data['section_id']  = $section_id = (int) $section_id;
+		$where = "`students`.`status` IN (1,0) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
+		ORDER BY `section_id`, `student_class_no` ASC";
+		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
+		$sections = array();
+
+
+
+		foreach ($students as $student) {
+			$sections[$student->section_title][] = $student;
+		}
+		$this->data["sections"] = $sections;
+		$this->data["pagination"] = "";
+
+		$this->data["pagination"] = "";
+		$this->data["title"] = "Promote Students";
+
+		$this->data["view"] = ADMIN_DIR . "admission/promote_students";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
 
 
 
