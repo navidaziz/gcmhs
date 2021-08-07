@@ -157,7 +157,7 @@
                                     } ?>
                                 </tr>
                             <?php } ?>
-                            <?php if ($today_attendance) { ?>
+                            <?php if ($today_attendance == 0) { ?>
                                 <tr>
                                     <td colspan="7" style="text-align:center">
                                         <input class="btn btn-success btn-sm" type="submit" name="Add Today Attendance" value="Add Today Attendance" />
