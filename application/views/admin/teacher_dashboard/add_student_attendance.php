@@ -81,7 +81,7 @@
                                         </a>
                                     </td>
                                     <!-- <td><?php echo $student->student_father_name; ?></td> -->
-                                    <?php if ($today_attendance) { ?>
+                                    <?php if ($today_attendance == 0) { ?>
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" checked="checked" value="P" /></td>
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="CL" /></td>
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
