@@ -49,6 +49,7 @@
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
+                                    <th>Y</th>
                                     <th>P</th>
                                     <th>CL</th>
                                     <th>L</th>
@@ -82,6 +83,45 @@
                                     </td>
                                     <!-- <td><?php echo $student->student_father_name; ?></td> -->
                                     <?php if ($today_attendance == 0) { ?>
+                                        <?php
+                                        $query = "SELECT `attendance`
+                                        FROM students_attendance
+                                        WHERE student_id = '" . $student->student_id . "'
+                                        AND section_id = '" . $section_id . "'
+                                        AND class_id = '" . $class_id . "'
+                                        AND date = DATE_SUB(CURDATE(),INTERVAL 1 DAY)";
+                                        $query_result = $this->db->query($query)->result();
+                                        if ($query_result) { ?>
+                                        <td style="text-align:center">
+                                            <?php
+                                            $other_arrtibute = "";
+                                            $color = "black";
+                                            if ($query_result[0]->attendance == 'A') {
+                                                $color = "red";
+                                                $other_arrtibute = "display: inline-block;
+                                                        min-width: 10px;
+                                                        padding: 1px 3px;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        color: #ffffff;
+                                                        line-height: 1;
+                                                        vertical-align: baseline;
+                                                        white-space: nowrap;
+                                                        text-align: center;
+                                                        background-color: red;
+                                                        border-radius: 10px;";
+                                            } ?>
+                                            <?php if ($query_result[0]->attendance == 'L') {
+                                                $color = "green";
+                                            } ?>
+                                            <?php if ($query_result[0]->attendance == 'C' or $query_result[0]->attendance == 'CL') {
+                                                $color = "gray";
+                                            } ?>
+                                            <strong style="  color: <?php echo $color ?>; <?php echo $other_arrtibute; ?>">
+                                                <?php echo $query_result[0]->attendance; ?>
+                                            </strong>
+                                        </td>
+
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" checked="checked" value="P" /></td>
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="CL" /></td>
                                         <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
