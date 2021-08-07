@@ -32,7 +32,8 @@
             $today_attendance = 1;
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
             AND date = DATE(NOW())";
-            $today_attendance = $this->db->query($query)->result()[0]->total;
+            echo $today_attendance = $this->db->query($query)->result()[0]->total;
+            exit();
             if ($today_attendance) {
                 $today_attendance = 0;
             }
