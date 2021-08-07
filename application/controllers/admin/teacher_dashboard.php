@@ -83,7 +83,9 @@ class Teacher_dashboard extends Admin_Controller
     {
         $class_id = $this->input->post('class_id');
         $section_id = $this->input->post('section_id');
-        $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' ";
+        $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
+        AND date = DATE(NOW())
+        ";
         $today_attendance = $this->db->query($query)->result()[0]->total;
         if ($today_attendance) {
             $this->session->set_flashdata("msg_error", "Today Attendance is already added.");
