@@ -29,13 +29,12 @@
             <h5><?php echo date("d M, Y") ?> <?php echo $title; ?> </h5>
 
             <?php
-            $today_attendance = 1;
+            $today_attendance = 0;
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
             AND date = DATE(NOW())";
-            echo $today_attendance = $this->db->query($query)->result()[0]->total;
-            exit();
+            $today_attendance = $this->db->query($query)->result()[0]->total;
             if ($today_attendance) {
-                $today_attendance = 0;
+                $today_attendance = 1;
             }
             ?>
             <div class="table-res ponsive" style="padding: 5px;">
@@ -49,7 +48,7 @@
                                 <th>Add No.</th>
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
-                                <?php if ($today_attendance) { ?>
+                                <?php if ($today_attendance == 0) { ?>
                                     <th>P</th>
                                     <th>CL</th>
                                     <th>L</th>
