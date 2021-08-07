@@ -31,6 +31,38 @@
 <div class="row">
   <!-- MESSENGER -->
   <div class="col-md-12" style="background-color: white; padding: 5px;">
+    <div style="text-align: center; margin: 5px; padding:3px;">
+      <form action="<?php echo site_url(ADMIN_DIR . "admission/promote_to_next_section") ?>" method="post">
+        <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+        <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+
+        <?php  ?>
+        Promote Class <?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> Session
+        <?php
+        $classes = $this->student_model->getList("sessions", "session_id", "session", $where = "`sessions`.`status` = 0");
+        echo form_dropdown("current_session", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+        ?>
+
+        Student
+        To Class: <?php
+                  $classes = $this->student_model->getList("classes", "class_id", "Class_title", $where = "class_id = '" . ($class_id + 1) . "'");
+                  echo form_dropdown("to_class", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+                  ?>
+        Section
+        <?php
+        $classes = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+        echo form_dropdown("to_section", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+        ?>
+
+        having session <?php
+                        $classes = $this->student_model->getList("sessions", "session_id", "session", $where = "`sessions`.`status` IN(0,1)");
+                        echo form_dropdown("new_session", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+                        ?>
+
+        <input type="submit" value="Promote" name="Promote" />
+      </form>
+    </div>
+    </form>
     <table class="table table-bordered" id="main_table" style="font-size:12px !important">
       <thead>
 

@@ -112,6 +112,8 @@ class Admission extends Public_Controller
 		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
 		$sections = array();
 
+		//$this->data["sections"] = $this->student_model->getList("sections", "section_id", "section_title", $where ="");
+		//var_dump($this->data["classes"]);
 
 
 		foreach ($students as $student) {
@@ -125,6 +127,36 @@ class Admission extends Public_Controller
 
 		$this->data["view"] = ADMIN_DIR . "admission/promote_students";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
+	public function promote_to_next_section()
+	{
+
+
+		$class_id = (int) $this->input->post("class_id");
+		$section_id = (int) $this->input->post("section_id");
+		$current_session = (int) $this->input->post("current_session");
+		$to_class = (int) $this->input->post("to_class");
+		$to_section = (int) $this->input->post("to_section");
+		$new_session = (int) $this->input->post("new_session");
+		$query = "SELECT * FROM students WHERE students.status = 1
+		          AND students.class_id = '" . $class_id . "'
+				  AND students.section_id = '" . $section_id . "'
+				  AND students.session_id = '" . $current_session . "'
+				";
+		$students = $this->db->query($query)->result();
+		foreach ($students as $student) {
+			$query = "UPDATE students set class_id = '" . $to_class . "', section_id = '" . $to_section . "', session_id = '" . $new_session . "'
+			          WHERE student_id = '" . $student->student_id . "'";
+			if ($this->db->query($query)) {
+				$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
+				          VALUES ('" . $student->student_id . "','" . $student->student_admission_no . "','" . $student->session_id . "','" . $student->class_id . "','" . $student->section_id . "','Promoted','Promoted to next class.', '" . $this->session->userdata('user_id') . "')";
+				$this->db->query($query);
+			}
+		}
+
+		$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+		redirect(ADMIN_DIR . "admission/promote_students/$class_id/$section_id");
 	}
 
 
