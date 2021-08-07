@@ -49,7 +49,7 @@
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
-                                    <th>Yesterday</th>
+                                    <th>Y.day</th>
                                     <th>P</th>
                                     <th>CL</th>
                                     <th>L</th>
