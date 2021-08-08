@@ -88,7 +88,9 @@ class Teacher_dashboard extends Admin_Controller
 				FROM
 				  `subjects`,
 				  `class_subjects` 
-				WHERE `subjects`.`subject_id` = `class_subjects`.`subject_id`
+				WHERE 
+                `subjects`.`subject_id` !=2
+                AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				AND `class_subjects`.`class_id` =" . $class_id . "
 				AND `class_subjects`.`subject_id` =" . $subject_id;
         $result = $this->db->query($query);

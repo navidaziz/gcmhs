@@ -46,7 +46,7 @@
                                 <strong>
                                     <a href="<?php echo site_url(ADMIN_DIR) . "/teacher_dashboard/students_result/$exam->exam_id/$teacher_subject->class_id/$teacher_subject->section_id/$teacher_subject->class_subject_id/$teacher_subject->subject_id"; ?>">
                                         <span class="">
-                                            <?php echo $teacher_subject->Class_title . " - " . $teacher_subject->section_title; ?>
+                                            <?php echo $teacher_subject->Class_title . " - " . $teacher_subject->section_title . " " . $teacher_subject->subject_title;; ?>
 
                                         </span>
 
@@ -61,7 +61,7 @@
                                 <strong>
                                     <a href="<?php echo site_url(ADMIN_DIR) . "/teacher_dashboard/students_list/$exam->exam_id/$teacher_subject->class_id/$teacher_subject->section_id/$teacher_subject->class_subject_id/$teacher_subject->subject_id"; ?>">
                                         <span class="">
-                                            <?php echo $teacher_subject->Class_title . " - " . $teacher_subject->section_title; ?>
+                                            <?php echo $teacher_subject->Class_title . " - " . $teacher_subject->section_title . " " . $teacher_subject->subject_title;; ?>
 
                                         </span>
 
