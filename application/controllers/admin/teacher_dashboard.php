@@ -239,7 +239,7 @@ class Teacher_dashboard extends Admin_Controller
                   WHERE ctt.class_id = classes.class_id 
                   AND ctt.section_id = sections.section_id 
                   AND ctt.teacher_id = '" . $this->session->userdata("teacher_id") . "'
-                  ctt.subject_id != 2
+                  AND ctt.subject_id != 2
                   ORDER BY classes.class_id ASC";
         $this->data['teacher_subjects'] = $this->db->query($query)->result();
         $this->data["title"] = "Teacher Dashboard";
