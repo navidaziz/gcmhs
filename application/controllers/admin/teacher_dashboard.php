@@ -89,8 +89,7 @@ class Teacher_dashboard extends Admin_Controller
 				  `subjects`,
 				  `class_subjects` 
 				WHERE 
-                `subjects`.`subject_id` !=2
-                AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
+                 `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				AND `class_subjects`.`class_id` =" . $class_id . "
 				AND `class_subjects`.`subject_id` =" . $subject_id;
         $result = $this->db->query($query);
@@ -240,6 +239,7 @@ class Teacher_dashboard extends Admin_Controller
                   WHERE ctt.class_id = classes.class_id 
                   AND ctt.section_id = sections.section_id 
                   AND ctt.teacher_id = '" . $this->session->userdata("teacher_id") . "'
+                  ctt.subject_id != 2
                   ORDER BY classes.class_id ASC";
         $this->data['teacher_subjects'] = $this->db->query($query)->result();
         $this->data["title"] = "Teacher Dashboard";
