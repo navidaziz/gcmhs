@@ -19,7 +19,7 @@
 <div class="row" style="margin-left: -25px; margin-right: -23px;">
     <!-- MESSENGER -->
     <div class="col-md-12">
-        <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center;">
+        <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center; ">
 
             <div style="padding-top: 15px;">
 
@@ -34,8 +34,9 @@
                     echo ' Attendance </div></a>';
                 }
                 ?>
-
-                <div class="btn btn-success btn-sm"> Add Test / Exam Result </div>
+                <a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/test_exams_list") ?>">
+                    <div class="btn btn-success btn-sm"> Add Test / Exam Result </div>
+                </a>
             </div>
             <h6>
 

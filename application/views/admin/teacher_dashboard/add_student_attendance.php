@@ -33,8 +33,11 @@
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
             AND date = DATE(NOW())";
             $today_attendance = $this->db->query($query)->result()[0]->total;
-            if ($today_attendance) {
+            if ($today_attendance or date('N') == 7) {
                 $today_attendance = 1;
+            }
+            if (date('N') == 7) {
+                echo "<h4 style=\"color:red;\">Sunday ! School off.</h4>";
             }
             ?>
             <div class="table-res ponsive" style="padding: 5px;">
@@ -74,7 +77,7 @@
                                     <td><?php echo $student->student_admission_no; ?></td>
                                     <td>
                                         <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  
-                                        <?php echo $student->student_father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
+                                        <?php echo $student->father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
                                         " tabindex="<?php echo $count++; ?>" role="button" data-toggle="popover" data-trigger="focus" class="pop-top" data-title="Top" data-toggle="popover" data-original-title="" title="<?php echo $student->student_name; ?>">
                                             <?php echo $student->student_name; ?>
 
