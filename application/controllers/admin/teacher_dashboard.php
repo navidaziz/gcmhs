@@ -170,27 +170,27 @@ class Teacher_dashboard extends Admin_Controller
         $this->data['class_subject'] = $result->result()[0]->subject_title;
 
         $query = "SELECT
-        `students`.*
-        , `students_exams_subjects_marks`.`student_exam_subject_mark_id`
-        , `students_exams_subjects_marks`.`exam_id`
-        , `students_exams_subjects_marks`.`class_subjec_id`
-        , `students_exams_subjects_marks`.`obtain_mark`
-        ,`students_exams_subjects_marks`.`total_marks`
-        , `classes`.`Class_title`
-        , `sections`.`section_title`
-    FROM
-        `students`,
-       `students_exams_subjects_marks`,
-       `classes`,
-       `sections`
-       WHERE 
-       `students`.`student_id` = `students_exams_subjects_marks`.`student_id`
-      AND  `classes`.`class_id` = `students`.`class_id`
-       AND `sections`.`section_id` = `students`.`section_id`
-                AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
-                AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
-                AND  `students`.`status`=1
-                and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "' ORDER BY `students`.`student_class_no`";
+                `students`.*
+                , `students_exams_subjects_marks`.`student_exam_subject_mark_id`
+                , `students_exams_subjects_marks`.`exam_id`
+                , `students_exams_subjects_marks`.`class_subjec_id`
+                , `students_exams_subjects_marks`.`obtain_mark`
+                ,`students_exams_subjects_marks`.`total_marks`
+                , `classes`.`Class_title`
+                , `sections`.`section_title`
+            FROM
+                `students`,
+            `students_exams_subjects_marks`,
+            `classes`,
+            `sections`
+            WHERE 
+            `students`.`student_id` = `students_exams_subjects_marks`.`student_id`
+            AND  `classes`.`class_id` = `students`.`class_id`
+            AND `sections`.`section_id` = `students`.`section_id`
+                        AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+                        AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
+                        AND  `students`.`status`=1
+                        and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "' ORDER BY `students`.`student_class_no`";
         $result = $this->db->query($query);
         $this->data['students'] = $result->result();
 
@@ -229,7 +229,7 @@ class Teacher_dashboard extends Admin_Controller
     public function test_exams_list()
     {
         $this->data['exams'] = NULL;
-        $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 2 ";
+        $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 1 ";
         $this->data['exams'] = $this->db->query($query)->result();
 
         $query = "SELECT ctt.subject_id, ctt.class_subject_id, 
