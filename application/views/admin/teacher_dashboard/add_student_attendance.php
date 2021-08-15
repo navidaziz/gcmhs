@@ -44,7 +44,8 @@
             WHERE class_id = '" . $class_id . "' 
             and section_id = '" . $section_id . "' 
             AND date = DATE(NOW())";
-            $today_attendance = $this->db->query($query)->result()[0]->total;
+            echo $today_attendance = $this->db->query($query)->result()[0]->total;
+            exit();
             if ($today_attendance or date('N') == 7) {
                 $today_attendance = 1;
             }
