@@ -44,7 +44,7 @@
             WHERE class_id = '" . $class_id . "' 
             and section_id = '" . $section_id . "' 
             AND date(created_date) = DATE(NOW())";
-            echo $today_attendance = $this->db->query($query)->result()[0]->total;
+            $today_attendance = $this->db->query($query)->result()[0]->total;
             if ($today_attendance or date('N') == 7) {
                 $today_attendance = 1;
             }
@@ -113,7 +113,7 @@
                                             WHERE student_id = '" . $student->student_id . "'
                                             AND section_id = '" . $section_id . "'
                                             AND class_id = '" . $class_id . "'
-                                            AND date = DATE_SUB(CURDATE(),INTERVAL 1 DAY)";
+                                            AND date(created_date) = DATE_SUB(CURDATE(),INTERVAL 1 DAY)";
                                         $query_result = $this->db->query($query)->result();
                                         if ($query_result) { ?>
                                             <td style="text-align:center">
@@ -170,7 +170,7 @@
                                             WHERE student_id = '" . $student->student_id . "'
                                             AND section_id = '" . $section_id . "'
                                             AND class_id = '" . $class_id . "'
-                                            AND date = DATE_SUB(CURDATE(),INTERVAL $i DAY)";
+                                            AND date(created_date) = DATE_SUB(CURDATE(),INTERVAL $i DAY)";
                                             $query_result = $this->db->query($query)->result();
                                             if ($query_result) { ?>
                                                 <td style="text-align:center">
