@@ -279,17 +279,15 @@ class Teacher_dashboard extends Admin_Controller
             $this->session->set_flashdata("msg_success", "Evening Attendance Update Successfully.");
         }
         if ($this->input->post('Add_Today_Attendance')) {
-            echo $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
-        AND date = DATE(NOW())
-        ";
-            echo  $today_attendance = $this->db->query($query)->result()[0]->total;
+            $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '4' and section_id = '3' and date(`date`) = date(NOW())";
+            $today_attendance = $this->db->query($query)->result()[0]->total;
             if ($today_attendance) {
                 $this->session->set_flashdata("msg_error", "Today Attendance is already added.");
             } else {
                 $students_attendance = $this->input->post('attendance');
                 var_dump($students_attendance);
                 foreach ($students_attendance as $student_id => $attendance) {
-                    echo $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`) 
+                    $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`) 
             VALUES ('" . $student_id . "','" . $class_id . "','" . $section_id . "','" . $this->session->userdata('teacher_id') . "','" . $attendance . "','" . date("y-m-d") . "')";
                     $this->db->query($query);
                 }
