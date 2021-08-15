@@ -295,6 +295,7 @@ class Teacher_dashboard extends Admin_Controller
                 $this->session->set_flashdata("msg_success", "Attendance Add Successfully.");
             }
         }
+        exit();
         redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
     }
 }
