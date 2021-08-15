@@ -36,7 +36,7 @@
                     <?php $query = "SELECT * FROM `daily_class_wise_attendance`
                     WHERE class_id = '" . $class_teacher[0]->class_id . "'
                     AND section_id = '" . $class_teacher[0]->section_id . "'
-                    AND DATE(date) = DATE(NOW())";
+                    AND DATE(created_date) = DATE(NOW())";
                     $today_attendance_summary = $this->db->query($query)->result(); ?>
                     Today Attendance Summary
                     <table class="table">
@@ -83,7 +83,7 @@
                     <?php $query = "SELECT * FROM `daily_class_wise_attendance`
                     WHERE class_id = '" . $class_teacher[0]->class_id . "'
                     AND section_id = '" . $class_teacher[0]->section_id . "'
-                    AND DATE(date) = DATE(NOW())";
+                    AND DATE(created_date) = DATE(NOW())";
                     $today_attendance_summary = $this->db->query($query)->result(); ?>
                     Today Attendance Summary
                     <table class="table">
