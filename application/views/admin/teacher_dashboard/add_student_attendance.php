@@ -33,7 +33,7 @@
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
             class_id = '" . $class_id . "' and section_id = '" . $section_id . "'
             AND attendance2 IS NOT NULL  
-            AND date = DATE(NOW())";
+            AND date(created_date) = DATE(NOW())";
             $today_evening_attendance = $this->db->query($query)->result()[0]->total;
 
             if ($today_evening_attendance == 0 and date('N') != 7 and $evening) {
@@ -43,9 +43,8 @@
             $query = "SELECT COUNT(*) as total FROM `students_attendance` 
             WHERE class_id = '" . $class_id . "' 
             and section_id = '" . $section_id . "' 
-            AND date = DATE(NOW())";
+            AND date(created_date) = DATE(NOW())";
             echo $today_attendance = $this->db->query($query)->result()[0]->total;
-            exit();
             if ($today_attendance or date('N') == 7) {
                 $today_attendance = 1;
             }
