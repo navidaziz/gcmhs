@@ -287,6 +287,7 @@ class Teacher_dashboard extends Admin_Controller
                 $this->session->set_flashdata("msg_error", "Today Attendance is already added.");
             } else {
                 $students_attendance = $this->input->post('attendance');
+                var_dump($students_attendance);
                 foreach ($students_attendance as $student_id => $attendance) {
                     $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`) 
             VALUES ('" . $student_id . "','" . $class_id . "','" . $section_id . "','" . $this->session->userdata('teacher_id') . "','" . $attendance . "','" . date("y-m-d") . "')";
