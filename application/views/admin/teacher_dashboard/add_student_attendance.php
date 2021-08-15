@@ -36,7 +36,7 @@
             AND date = DATE(NOW())";
             $today_evening_attendance = $this->db->query($query)->result()[0]->total;
 
-            if ($today_evening_attendance == 0 and date('N') != 7) {
+            if ($today_evening_attendance == 0 and date('N') != 7 and $evening) {
                 $evening_attendance = 1;
             }
             $today_attendance = 0;

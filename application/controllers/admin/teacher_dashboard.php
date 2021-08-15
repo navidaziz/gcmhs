@@ -247,10 +247,11 @@ class Teacher_dashboard extends Admin_Controller
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
-    public function add_student_attendance($class, $section)
+    public function add_student_attendance($class, $section, $evening = false)
     {
         $this->data['class_id'] = $class = (int) $class;
         $this->data['section_id'] = $section = (int) $section;
+        $this->data['evening'] = $evening;
 
         $query = "SELECT * FROM students WHERE status=1 and section_id ='" . $section . "' and class_id='" . $class . "'
         ORDER BY student_class_no ASC";
