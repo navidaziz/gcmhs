@@ -71,7 +71,7 @@
       <tbody>
         <?php
 
-        $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+        $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
 
         ?>
         <?php
@@ -112,7 +112,7 @@
               <td>
 
                 <?php
-                echo form_dropdown("student_section_id", array("0" => "Change Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
                 ?>
 
               </td>
