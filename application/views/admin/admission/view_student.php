@@ -70,6 +70,11 @@
       </thead>
       <tbody>
         <?php
+
+        $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+        ?>
+        <?php
         $students = array();
         $all_sections = $sections;
         foreach ($sections as $section_name => $students) {
@@ -105,11 +110,7 @@
 
               <td><?php echo $student->section_title; ?></td>
               <td>
-                <?php
 
-                $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
-
-                ?>
                 <?php
                 echo form_dropdown("student_section_id", array("0" => "Change Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
                 ?>
