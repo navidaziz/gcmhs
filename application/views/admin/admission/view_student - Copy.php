@@ -110,10 +110,14 @@
                 $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
 
                 ?>
-                <?php
-                echo form_dropdown("student_section_id", array("0" => "Change Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
-                ?>
-
+                <form target="_blank" action="<?php echo site_url(ADMIN_DIR . "admission/update_student_section") ?>" method="post">
+                  <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
+                  <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
+                  <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
+                  <?php
+                  echo form_dropdown("student_section_id", array("0" => "Change Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required  onchange=\"this.form.submit()\" ");
+                  ?>
+                </form>
               </td>
               <td>
                 <span style="display: none;"><?php echo $student->student_name;
