@@ -30,33 +30,42 @@
 <!-- PAGE MAIN CONTENT -->
 <div class="row">
   <!-- MESSENGER -->
+  <style>
+    input {
+      border: 1px solid gray;
+      padding: 0px !important;
+      font-size: 12px;
+    }
+  </style>
   <div class="col-md-12" style="background-color: white; padding: 5px;">
-    <table class="tab le table-bord ered" id="main_table" style="font-size:12px !important">
+    <table class="tab le table-bord ered" id="main_table" style="font-size:13px !important; width: 100%;">
       <thead>
 
         <tr>
           <td></td>
 
           <td>#</td>
-          <th><?php echo $this->lang->line('student_class_no'); ?></th>
-          <th><?php echo $this->lang->line('student_admission_no'); ?></th>
+          <th>CN</th>
+          <th>Add-No</th>
+          <th>Section</th>
+          <th>Change</th>
           <th><?php echo $this->lang->line('student_name'); ?></th>
 
           <th><?php echo $this->lang->line('student_father_name'); ?></th>
           <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
           <th><?php echo $this->lang->line('student_address'); ?></th>
-          <th>Father Mobile No</th>
+          <th>Mobile No</th>
           <th>Father NIC</th>
-          <th>Guardian Occupation</th>
+          <th>Occupation</th>
 
           <th>Religion</th>
           <th>Nationality</th>
-          <th>Admission Date</th>
-          <th>Private / Public School</th>
-          <th>School Name</th>
+          <!-- <th>Admiss. Date</th> -->
+          <th>P/ G </th>
+          <th>School</th>
           <th>Orphan</th>
 
-          <th><?php echo $this->lang->line('section_title'); ?></th>
+
         </tr>
       </thead>
       <tbody>
@@ -86,14 +95,30 @@
                 <span id="class_number"><?php //echo $student->student_class_no;
                                         ?></span>
 
-                <input style="width:40px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>','student_class_no')" id="student_class_no_<?php echo $student->student_id; ?>" type="number" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
+                <input style="width:20px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>','student_class_no')" id="student_class_no_<?php echo $student->student_id; ?>" type="text" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
               </td>
 
               <td><span style="display: none;"><?php echo $student->student_admission_no;
                                                 ?></span>
-                <input style="width:100px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_admission_no')" id="student_admission_no_<?php echo $student->student_id; ?>" type="number" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" />
+                <input style="width:50px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_admission_no')" id="student_admission_no_<?php echo $student->student_id; ?>" type="text" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" />
               </td>
 
+              <td><?php echo $student->section_title; ?></td>
+              <td>
+                <?php
+
+                $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+                ?>
+                <form action="<?php echo site_url(ADMIN_DIR . "admission/update_student_section") ?>" method="post">
+                  <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
+                  <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
+                  <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
+                  <?php
+                  echo form_dropdown("student_section_id", array("0" => "Select Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required  onchange=\"this.form.submit()\" ");
+                  ?>
+                </form>
+              </td>
               <td>
                 <span style="display: none;"><?php echo $student->student_name;
                                               ?></span>
@@ -106,69 +131,53 @@
               </td>
               <td><?php //echo $student->student_data_of_birth; 
                   ?>
-                <input onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
+                <input style="width: 120px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
 
               </td>
               <td><?php //echo $student->student_address; 
                   ?>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_address')" id="student_address_<?php echo $student->student_id; ?>" type="text" name="student_address" value="<?php echo $student->student_address; ?>" />
+                <input style="width: 90px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_address')" id="student_address_<?php echo $student->student_id; ?>" type="text" name="student_address" value="<?php echo $student->student_address; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'father_mobile_number')" id="father_mobile_number_<?php echo $student->student_id; ?>" type="text" name="father_mobile_number" value="<?php echo $student->father_mobile_number; ?>" />
+                <input style="width: 90px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'father_mobile_number')" id="father_mobile_number_<?php echo $student->student_id; ?>" type="text" name="father_mobile_number" value="<?php echo $student->father_mobile_number; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'father_nic')" id="father_nic_<?php echo $student->student_id; ?>" type="text" name="father_nic" value="<?php echo $student->father_nic; ?>" />
+                <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'father_nic')" id="father_nic_<?php echo $student->student_id; ?>" type="text" name="father_nic" value="<?php echo $student->father_nic; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'guardian_occupation')" id="guardian_occupation_<?php echo $student->student_id; ?>" type="text" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" />
+                <input style="width: 70px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'guardian_occupation')" id="guardian_occupation_<?php echo $student->student_id; ?>" type="text" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'religion')" id="religion_<?php echo $student->student_id; ?>" type="text" name="religion" value="<?php echo $student->religion; ?>" />
+                <input style="width: 70px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'religion')" id="religion_<?php echo $student->student_id; ?>" type="text" name="religion" value="<?php echo $student->religion; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nationality')" id="nationality_<?php echo $student->student_id; ?>" type="text" name="nationality" value="<?php echo $student->nationality; ?>" />
+                <input style="width: 70px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nationality')" id="nationality_<?php echo $student->student_id; ?>" type="text" name="nationality" value="<?php echo $student->nationality; ?>" />
+
+              </td>
+              <!-- <td>
+                <input style="width: 125px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
+
+              </td> -->
+
+              <td>
+                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'private_public_school')" id="private_public_school_<?php echo $student->student_id; ?>" type="text" name="private_public_school" value="<?php echo $student->private_public_school; ?>" />
 
               </td>
               <td>
-                <input onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
-
-              </td>
-
-              <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'private_public_school')" id="private_public_school_<?php echo $student->student_id; ?>" type="text" name="private_public_school" value="<?php echo $student->private_public_school; ?>" />
+                <input style="width: 70px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'school_name')" id="school_name_<?php echo $student->student_id; ?>" type="text" name="school_name" value="<?php echo $student->school_name; ?>" />
 
               </td>
               <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'school_name')" id="school_name_<?php echo $student->student_id; ?>" type="text" name="school_name" value="<?php echo $student->school_name; ?>" />
-
-              </td>
-              <td>
-                <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="sorphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
+                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="sorphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
 
               </td>
 
 
-              <td><?php //echo $student->section_title; 
-                  ?>
-                <?php
-
-                $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
-
-                ?>
-                <form target="_blank" action="<?php echo site_url("student/update_student_section") ?>" method="post">
-                  <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
-                  <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
-                  <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
-                  <?php
-                  echo form_dropdown("student_section_id", array("0" => "Select Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required  onchange=\"this.form.submit()\" ");
-                  ?>
-                </form>
-              </td>
             </tr>
           <?php endforeach;  ?>
         <?php } ?>

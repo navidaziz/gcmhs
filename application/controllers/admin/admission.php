@@ -576,7 +576,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 	function update_student_section()
 	{
-		var_dump($_REQUEST);
+		//var_dump($_REQUEST);
 		$section_id = $this->input->post("section_id");
 		$class_id = $this->input->post("class_id");
 		$student_id = $this->input->post("student_id");
@@ -586,7 +586,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		$this->db->query("UPDATE `students` SET `section_id`='" . $student_section_id . "' WHERE `student_id`='" . $student_id . "'");
 
-		$main_page = base_url() . $this->router->fetch_class() . "/edit_students/" . $class_id . "/" . $section_id;
+		$main_page = site_url(ADMIN_DIR . "admission/view_students/" . $class_id . "/" . $section_id);
 		redirect($main_page);
 	}
 
