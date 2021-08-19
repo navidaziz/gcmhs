@@ -29,8 +29,20 @@
             <h5><?php echo date("d M, Y") ?> <?php echo $title; ?> </h5>
 
             <?php
+            $evening_attendance = 0;
+            $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
+            class_id = '" . $class_id . "' and section_id = '" . $section_id . "'
+            AND attendance2 IS NOT NULL  
+            AND date = DATE(NOW())";
+            $today_evening_attendance = $this->db->query($query)->result()[0]->total;
+
+            if ($today_evening_attendance == 0) {
+                $evening_attendance = 1;
+            }
             $today_attendance = 0;
-            $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE class_id = '" . $class_id . "' and section_id = '" . $section_id . "' 
+            $query = "SELECT COUNT(*) as total FROM `students_attendance` 
+            WHERE class_id = '" . $class_id . "' 
+            and section_id = '" . $section_id . "' 
             AND date = DATE(NOW())";
             $today_attendance = $this->db->query($query)->result()[0]->total;
             if ($today_attendance or date('N') == 7) {
@@ -39,8 +51,9 @@
             if (date('N') == 7) {
                 echo "<h4 style=\"color:red;\">Sunday ! School off.</h4>";
             }
+
             ?>
-            <div class="table-res ponsive" style="padding: 5px;">
+            <div class="table-res ponsive" style="padding: 5px;" style="font-size: 9px;">
                 <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_attendance") ?>" method="post">
                     <input type="hidden" name="class_id" value="<?php echo $class_id; ?>" />
                     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
@@ -52,18 +65,26 @@
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
-                                    <th>Y.day</th>
-                                    <th>P</th>
-                                    <th>CL</th>
-                                    <th>L</th>
-                                    <th>A</th>
+                                    <th style="text-align: center;">Y.day</th>
+                                    <th style="text-align: center;">P</th>
+                                    <th style="text-align: center;">CL</th>
+                                    <th style="text-align: center;">L</th>
+                                    <th style="text-align: center;">A</th>
                                     <?php } else {
                                     for ($i = 5; $i >= 0; $i--) {
                                     ?>
+                                        <?php if ($i == 0) { ?>
+                                            <th style="text-align: center;">T.day</th>
+                                        <?php } else { ?>
+                                            <th style="text-align: center;"><?php echo date('d', strtotime("-$i days")); ?></th>
+                                        <?php } ?>
 
-                                        <th><?php echo date('d', strtotime("-$i days")); ?></th>
                                     <?php } ?>
 
+                                <?php } ?>
+                                <?php if ($evening_attendance == 1  and $today_attendance == 1) { ?>
+                                    <th style="text-align: center;">E-P</th>
+                                    <th style="text-align: center;">E-A</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -87,7 +108,7 @@
                                     <!-- <td><?php echo $student->student_father_name; ?></td> -->
                                     <?php if ($today_attendance == 0) { ?>
 
-                                        <?php $query = "SELECT `attendance` 
+                                        <?php $query = "SELECT `attendance`, `student_attendance_id` 
                                             FROM students_attendance
                                             WHERE student_id = '" . $student->student_id . "'
                                             AND section_id = '" . $section_id . "'
@@ -123,18 +144,28 @@
                                                 <strong style="  color: <?php echo $color ?>; <?php echo $other_arrtibute; ?>">
                                                     <?php echo $query_result[0]->attendance; ?>
                                                 </strong>
+
                                             </td>
                                         <?php  } else { ?>
                                             <td style="text-align: center">-</td>
-                                        <?php } ?>
+                                        <?php }
+                                        $present = "";
+                                        $corona_leave = "";
+                                        if ($query_result[0]->attendance == 'P') {
+                                            $corona_leave = 'checked="checked"';
+                                        } else {
+                                            $present = 'checked="checked"';
+                                        }
 
-                                        <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" checked="checked" value="P" /></td>
-                                        <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="CL" /></td>
-                                        <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
-                                        <td><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
+                                        ?>
+
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $present; ?> value="P" /></td>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
                                         <?php } else {
                                         for ($i = 5; $i >= 0; $i--) {
-                                            $query = "SELECT `attendance` 
+                                            $query = "SELECT `attendance`, `student_attendance_id`, `attendance2` 
                                             FROM students_attendance
                                             WHERE student_id = '" . $student->student_id . "'
                                             AND section_id = '" . $section_id . "'
@@ -170,43 +201,35 @@
                                                     <strong style="  color: <?php echo $color ?>; <?php echo $other_arrtibute; ?>">
                                                         <?php echo $query_result[0]->attendance; ?>
                                                     </strong>
+                                                    <?php if ($query_result[0]->attendance2 == 'A') { ?>
+                                                        - <span style="color: red ;"><strong>A</strong></span>
+                                                    <?php } ?>
                                                 </td>
+
                                             <?php  } else { ?>
                                                 <td style="text-align: center">-</td>
                                             <?php } ?>
                                     <?php }
-
-                                        // $query = "SELECT `attendance` 
-                                        // FROM students_attendance
-                                        // WHERE student_id = '" . $student->student_id . "'
-                                        // AND section_id = '" . $section_id . "'
-                                        // AND class_id = '" . $class_id . "'
-                                        // AND date = DATE_SUB(CURDATE(),INTERVAL 1 DAY)";
-                                        // $query_result = $this->db->query($query)->result();
-                                        // if ($query_result) {
-                                        //     echo "<td style=\"text_align:center\">" . $query_result[0]->attendance . "</td>";
-                                        // } else {
-                                        //     echo "<td style=\"text_align:center\">-</td>";
-                                        // }
-                                        // $query = "SELECT `attendance` 
-                                        // FROM students_attendance
-                                        // WHERE student_id = '" . $student->student_id . "'
-                                        // AND section_id = '" . $section_id . "'
-                                        // AND class_id = '" . $class_id . "'
-                                        // AND date = DATE(NOW())";
-                                        // $query_result = $this->db->query($query)->result();
-                                        // if ($query_result) {
-                                        //     echo "<td style=\"text_align:center\">" . $query_result[0]->attendance . "</td>";
-                                        // } else {
-                                        //     echo "<td style=\"text_align:center\">-</td>";
-                                        // }
                                     } ?>
+
+                                    <?php if ($evening_attendance == 1  and $today_attendance == 1 and $query_result[0]->attendance == 'P') { ?>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $query_result[0]->student_attendance_id ?>]" <?php if ($query_result[0]->attendance == 'P') { ?> checked="checked" <?php } ?> value="P" /></td>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $query_result[0]->student_attendance_id ?>]" <?php if ($query_result[0]->attendance == 'A') { ?> checked="checked" <?php } ?> value="A" /></td>
+                                    <?php } ?>
                                 </tr>
                             <?php } ?>
                             <?php if ($today_attendance == 0) { ?>
                                 <tr>
                                     <td colspan="7" style="text-align:center">
-                                        <input class="btn btn-success btn-sm" type="submit" name="Add Today Attendance" value="Add Today Attendance" />
+                                        <input class="btn btn-success btn-sm" type="submit" name="Add_Today_Attendance" value="Add Today Attendance" />
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            <?php
+                            if ($evening_attendance == 1 and $today_attendance == 1) { ?>
+                                <tr>
+                                    <td colspan="10" style="text-align:center">
+                                        <input class="btn btn-danger btn-sm" type="submit" name="Add_Evening_Attendance" value="Add Evening Attendance" />
                                     </td>
                                 </tr>
                             <?php } ?>
