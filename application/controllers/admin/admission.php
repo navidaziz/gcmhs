@@ -46,6 +46,36 @@ class Admission extends Public_Controller
 	}
 	//---------------------------------------------------------------
 
+	public function add_new_student()
+	{
+		$data = array(
+			'class_id' => $this->input->post("class_id"),
+			'section_id' => $this->input->post("section_id"),
+			'session_id' => $this->input->post("session_id"),
+			'student_class_no' => $this->input->post("student_class_no"),
+			'student_name' => $this->input->post("student_name"),
+			'student_father_name' => $this->input->post("student_father_name"),
+			'student_data_of_birth' => $this->input->post("student_data_of_birth"),
+			'student_address' => $this->input->post("student_address"),
+			'student_admission_no' => $this->input->post("student_admission_no"),
+			'religion' => $this->input->post("religion"),
+			'father_nic' => $this->input->post("father_nic"),
+			'nationality' => $this->input->post("nationality"),
+			'guardian_occupation' => $this->input->post("guardian_occupation"),
+			'admission_date' => $this->input->post("admission_date"),
+			'private_public_school' => $this->input->post("private_public_school"),
+			'school_name' => $this->input->post("school_name"),
+			'father_mobile_number' => $this->input->post("father_mobile_number"),
+			'orphan' => $this->input->post("orphan")
+		);
+		if ($this->db->insert('students', $data)) {
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_students/$class_id/$section_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_students/$class_id/$section_id");
+		}
+	}
 
 	/**
 	 * Default action to be called

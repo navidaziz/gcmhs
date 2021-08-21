@@ -37,7 +37,116 @@
       font-size: 12px;
     }
   </style>
+
   <div class="col-md-12" style="background-color: white; padding: 5px;">
+    <h5>Add New Student</h5>
+    <form action="<?php echo site_url(ADMIN_DIR . "admission/add_new_student"); ?>" method="POST">
+      <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+      <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+      <?php
+      $query = "SELECT * FROM `sessions` WHERE status=1";
+      $session_id  = $this->db->query($query)->result()[0]->session_id;
+      ?>
+      <input type="hidden" name="session_id" value="<?php echo $session_id; ?>" />
+
+      <table class="tab le table-bo rdered" style="font-size:13px !important; width: 100%; border: 1px solid gray; padding: 5px; border-radius: 5px;">
+        <thead>
+
+          <tr>
+            <th>CN</th>
+            <th>Add-No</th>
+            <th><?php echo $this->lang->line('student_name'); ?></th>
+
+            <th><?php echo $this->lang->line('student_father_name'); ?></th>
+            <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
+            <th>Add. Date</th>
+            <th><?php echo $this->lang->line('student_address'); ?></th>
+            <th>Mobile No</th>
+            <th>Father NIC</th>
+            <th>Occupation</th>
+
+            <th>Religion</th>
+            <th>Nationality</th>
+            <!-- <th>Admiss. Date</th> -->
+            <th>P/ G </th>
+            <th>School</th>
+            <th>Orphan</th>
+            <th>Add New</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <input style="width:20px !important" type="text" name="student_class_no" value="" />
+            </td>
+
+            <td><input style="width:50px !important" type="text" name="student_admission_no" value="" />
+            </td>
+
+            <td><input type="text" name="student_name" value="" />
+            </td>
+
+            <td><input type="text" name="student_father_name" value="" />
+            </td>
+            <td><input style="width: 100px;" type="date" name="student_data_of_birth" value="" />
+
+            </td>
+            <td><input style="width: 100px;" type="date" name="admission_date" value="" />
+
+            </td>
+
+            <td><input style="width: 90px;" type="text" name="student_address" value="" />
+
+            </td>
+            <td>
+              <input style="width: 90px;" type="text" name="father_mobile_number" value="" />
+
+            </td>
+            <td>
+              <input style="width: 100px;" type="text" name="father_nic" value="" />
+
+            </td>
+            <td>
+              <input style="width: 70px;" type="text" name="guardian_occupation" value="" />
+
+            </td>
+            <td>
+              <input style="width: 70px;" type="text" name="religion" value="" />
+
+            </td>
+            <td>
+              <input style="width: 70px;" type="text" name="nationality" value="" />
+
+            </td>
+
+            <td>
+              <input style="width: 40px;" type="text" name="private_public_school" value="" />
+
+            </td>
+            <td>
+              <input style="width: 70px;" type="text" name="school_name" value="" />
+
+            </td>
+            <td>
+              <input style="width: 40px;" type="text" name="orphan" value="" />
+
+            </td>
+            <td>
+              <input type="submit" name="add new student" value="Add New" />
+
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+
+
+
+  <div class="col-md-12" style="background-color: white; padding: 5px;">
+    <h4>All Students List</h4>
     <table class="tab le table-bord ered" id="main_table" style="font-size:13px !important; width: 100%;">
       <thead>
 
