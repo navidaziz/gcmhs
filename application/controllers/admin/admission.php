@@ -48,7 +48,8 @@ class Admission extends Public_Controller
 
 	public function add_new_student()
 	{
-		error_reporting(14);
+		$class_id = $this->input->post("class_id");
+		$section_id = $this->input->post("section_id");
 		$data = array(
 			'class_id' => $this->input->post("class_id"),
 			'section_id' => $this->input->post("section_id"),
