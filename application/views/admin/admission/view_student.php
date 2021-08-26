@@ -334,28 +334,19 @@
 
     var value = $('#' + field + '_' + student_id).val();
 
-
-    setTimeout(function() {
-
-      $.ajax({
-        type: "POST",
-        url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
-        data: {
-          student_id: student_id,
-          value: value,
-          field: field
-        }
-      }).done(function(msg) {
-        $("#message").html(msg);
-        $("#message").fadeIn('slow');
-        $("#message").delay(5000).fadeOut('slow');
-      });
-
-
-    }, 1000); // 1 sec delay to check.
-
-
-
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+      data: {
+        student_id: student_id,
+        value: value,
+        field: field
+      }
+    }).done(function(msg) {
+      $("#message").html(msg);
+      $("#message").fadeIn('slow');
+      $("#message").delay(5000).fadeOut('slow');
+    });
 
   }
 
