@@ -38,6 +38,36 @@
     }
   </style>
 
+
+  <div class="col-md-12" style="background-color: white; padding: 5px;">
+    <div style="padding: 5px; margin: 5px; border: 1px solid gray; border-radius: 5px;">
+      Search Student from overall data: <input type="text" name="search_student" id="search_student" value="" onkeyup="search_student()" />
+      <div id="student_search_result_list" style="padding: 10px;"></div>
+
+    </div>
+  </div>
+  <script>
+    function search_student() {
+      var search_student = $('#search_student').val();
+      if (search_student != "") {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo site_url(ADMIN_DIR . "admission/search_student") ?>",
+          data: {
+            search_student: search_student
+          }
+        }).done(function(data) {
+          $("#student_search_result_list").html(data);
+        });
+
+      } else {
+        $("#student_search_result_list").html("");
+
+      }
+    }
+  </script>
+
+
   <div class="col-md-12" style="background-color: white; padding: 5px;">
     <h5>Add New Student</h5>
     <form action="<?php echo site_url(ADMIN_DIR . "admission/add_new_student"); ?>" method="POST">

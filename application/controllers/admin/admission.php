@@ -46,6 +46,26 @@ class Admission extends Public_Controller
 	}
 	//---------------------------------------------------------------
 
+	public function search_student()
+	{
+		$search = $this->db->escape("%" . $this->input->post("search_student") . "%");
+		$search2 = $this->db->escape($this->input->post("search_student"));
+		$query = "SELECT s.*, c.class_title, se.section_title
+		        FROM students as s,
+				classes as c,
+				sections as se
+				WHERE s.class_id = c.class_id
+				AND s.section_id = se.section_id
+				AND (s.student_name LIKE $search
+				OR s.student_father_name LIKE $search
+				OR s.student_admission_no = $search2 )
+				LIMIT 20";
+
+		$students_list = $this->db->query($query)->result();
+
+		$this->data['students_list'] = $students_list;
+		$this->load->view(ADMIN_DIR . "admission/student_search_list", $this->data);
+	}
 	public function add_new_student()
 	{
 		$class_id = $this->input->post("class_id");
