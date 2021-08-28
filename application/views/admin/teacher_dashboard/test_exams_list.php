@@ -38,6 +38,7 @@
                         $query = "SELECT COUNT(*) as total FROM students_exams_subjects_marks
                                 WHERE exam_id = '" . $exam->exam_id . "'
                                 AND class_id = '" . $teacher_subject->class_id . "'
+                                AND section_id = '" . $teacher_subject->section_id . "'
                                 AND subject_id = '" . $teacher_subject->subject_id . "'";
                         $result_entered = $this->db->query($query)->result()[0]->total;
                         if ($result_entered) { ?>
