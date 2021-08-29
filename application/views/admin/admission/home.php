@@ -49,13 +49,14 @@
 
         <div class="table-responsive">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
               <!-- MESSENGER -->
               <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Classes</th>
                     <th>Sections</th>
+                    <th>Total Students</th>
                     <th>Update Students</th>
                     <th>Promote Students</th>
                   </tr>
@@ -68,11 +69,35 @@
                   foreach ($class->sections as $section) { ?>
                     <tr>
                       <?php if ($count == 1) { ?>
-                        <th style="text-align: center;" rowspan="<?php echo count($class->sections); ?>"><?php echo $class->Class_title; ?></th>
+                        <th style="text-align: center;" rowspan="<?php echo count($class->sections); ?>"><?php echo $class->Class_title; ?>
+
+
+
+                        </th>
                       <?php
                         $count++;
                       } ?>
+
+
                       <td style="background-color: <?php echo $section->color; ?>;"><?php echo $section->section_title; ?></td>
+                      <td style="text-align: center;"><?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.class_id = $class->class_id
+                              AND s.section_id = $section->section_id
+                              AND s.status = 1";
+                                                      echo $this->db->query($query)->result()[0]->total;
+                                                      ?>
+
+                        /
+
+                        <?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.class_id = $class->class_id
+                              AND s.status = 1";
+                        echo $this->db->query($query)->result()[0]->total;
+                        ?>
+
+                      </td>
+
+
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
                           Update Students</a>
