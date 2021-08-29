@@ -208,6 +208,18 @@ class Teacher_dashboard extends Admin_Controller
         $_POST['class_subjec_id'] = $class_subject_id = (int) $this->input->post("class_subject_id");
         $_POST['total_marks']  = $total_marks =  (int) $this->input->post("total_marks");
 
+        $query = "SELECT COUNT(*) as total FROM students_exams_subjects_marks
+                                WHERE exam_id = '" . $exam_id . "'
+                                AND class_id = '" . $class_id . "'
+                                AND section_id = '" . $section_id . "'
+                                AND subject_id = '" . $subject_id . "'";
+        $result_entered = $this->db->query($query)->result()[0]->total;
+        if ($result_entered) {
+            $this->session->set_flashdata("msg_error", "Result Already Entered");
+            redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
+            exit();
+        }
+
         $query = "SELECT * FROM `teachers` WHERE teacher_id = '" . $this->session->userdata('teacher_id') . "'";
         $teacher = $this->db->query($query)->result()[0];
         $techer_name = $teacher->teacher_name;
@@ -223,7 +235,7 @@ class Teacher_dashboard extends Admin_Controller
             $_POST['obtain_mark'] = $student_mark['marks'];
             $this->student_exam_subject_mark_model->save_data();
         }
-        redirect(ADMIN_DIR . "teacher_dashboard/students_list/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
+        redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
     }
 
     public function test_exams_list()
