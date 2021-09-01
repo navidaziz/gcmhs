@@ -2,15 +2,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Stuck Off Student</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title pull-left" id="sof_model_title">Title</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <br />
             </div>
             <div class="modal-body">
                 <h4 id="struck_off_body">Please Wait .....</h4>
                 <p style="text-align: center;">Stuck Off Reason:
-                <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/struck_off_student") ?>" method="post">
+                <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/struck_off_student") ?>" method="post" style="text-align: center;">
                     <input type="hidden" name="student_id" id="studentID" value="" />
                     <input type="hidden" name="class_id" id="studentID" value="<?php echo $class_id ?>" />
                     <input type="hidden" name="section_id" id="studentID" value="<?php echo $section_id ?>" />
@@ -25,6 +26,7 @@
 </div>
 <script>
     function struck_off_model(student_id, name, father_name, add_no) {
+        $('#sof_model_title').html("Student Stuck Off Form");
         var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
         $('#studentID').val(student_id);
         $('#struck_off_body').html(body);
