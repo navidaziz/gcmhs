@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admission extends Public_Controller
+class Admission extends Admin_Controller
 {
 
 	/**
