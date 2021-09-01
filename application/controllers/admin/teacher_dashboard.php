@@ -265,7 +265,7 @@ class Teacher_dashboard extends Admin_Controller
         $this->data['section_id'] = $section = (int) $section;
         $this->data['evening'] = $evening;
 
-        $query = "SELECT * FROM students WHERE status=1 and section_id ='" . $section . "' and class_id='" . $class . "'
+        $query = "SELECT * FROM students WHERE status IN (1,2) and section_id ='" . $section . "' and class_id='" . $class . "'
         ORDER BY student_class_no ASC";
         $this->data['students'] = $this->db->query($query)->result();
         $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
@@ -307,6 +307,23 @@ class Teacher_dashboard extends Admin_Controller
             }
         }
 
+        redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+    }
+
+    public function struck_off_student()
+    {
+        $student_id = (int) $this->input->post("student_id");
+        $class_id = (int) $this->input->post("class_id");
+        $section_id = (int) $this->input->post("section_id");
+        $struck_off_reason = $this->db->escape($this->input->post("struck_off_reason"));
+        $query = "UPDATE students set `status` = '2' WHERE student_id = '" . $student_id . "'";
+        if ($this->db->query($query)) {
+            $query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+            $student = $this->db->query($query)->result()[0];
+            $query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
+				          VALUES ('" . $student->student_id . "','" . $student->student_admission_no . "','" . $student->session_id . "','" . $student->class_id . "','" . $student->section_id . "','Struck Off'," . $struck_off_reason . ", '" . $this->session->userdata('user_id') . "')";
+            $this->db->query($query);
+        }
         redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
     }
 }

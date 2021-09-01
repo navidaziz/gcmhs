@@ -1,3 +1,37 @@
+<div id="struck_off" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Stuck Off Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="struck_off_body">Please Wait .....</h4>
+                <p style="text-align: center;">Stuck Off Reason:
+                <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/struck_off_student") ?>" method="post">
+                    <input type="hidden" name="student_id" id="studentID" value="" />
+                    <input type="hidden" name="class_id" id="studentID" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" id="studentID" value="<?php echo $section_id ?>" />
+                    <input required type="text" class="form-control" style="margin: 10px;" name="struck_off_reason" />
+                    <input type="submit" class="btn btn-danger btn-sm" value="Struck Off" />
+                </form>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function struck_off_model(student_id, name, father_name, add_no) {
+        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+        $('#studentID').val(student_id);
+        $('#struck_off_body').html(body);
+        $('#struck_off').modal('show')
+    }
+</script>
+
 <div class="row" style="height: 38px !important;">
     <div class="col-sm-12">
         <div class="page-header" style="min-height: 30px !important">
@@ -62,6 +96,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Add No.</th>
+                                <th style="text-align: center;">S-Off</th>
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
@@ -93,9 +128,14 @@
                             <?php
                             $count = 1;
                             foreach ($students as $student) { ?>
-                                <tr>
+                                <tr <?php if ($student->status != 1) { ?>style="text-decoration: line-through !important; <?php } ?>">
                                     <td><?php echo $student->student_class_no; ?></td>
                                     <td><?php echo $student->student_admission_no; ?></td>
+                                    <td style="text-align: center;">
+                                        <?php if ($student->status == 1) { ?>
+                                            <i onclick="struck_off_model('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="fa fa fa-times-circle" aria-hidden="true" style="color:red"></i>
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  
                                         <?php echo $student->father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
@@ -158,11 +198,15 @@
                                         }
 
                                         ?>
+                                        <?php if ($student->status == 1) { ?>
+                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $present; ?> value="P" /></td>
+                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
+                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
+                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
 
-                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $present; ?> value="P" /></td>
-                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
-                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
-                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
+                                        <?php } else { ?>
+                                            <td colspan="4" style="text-align: center;">Struck Off</td>
+                                        <?php } ?>
                                         <?php } else {
                                         for ($i = 5; $i >= 0; $i--) {
                                             $query = "SELECT `attendance`, `student_attendance_id`, `attendance2` 

@@ -94,6 +94,7 @@
               <th>#</th>
               <th>C No.</th>
               <th>Add No.</th>
+              <th>Struck Off</th>
               <th>Name</th>
               <th>Marks</th>
             </tr>
