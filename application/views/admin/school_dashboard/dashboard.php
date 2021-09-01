@@ -58,12 +58,22 @@
                     $count = 1;
                     foreach ($class->sections as $section) { ?>
 
-                      <?php $query = "SELECT * FROM `daily_class_wise_attendance`
+                      <?php
+
+                      $query = "SELECT teacher_name FROM `classes_time_tables` 
+                                WHERE `class_teacher` = 1 
+                                AND class_id = '" . $class->class_id . "'
+                                AND section_id = '" . $section->section_id . "'";
+                      $teacher_name = $this->db->query($query)->result()[0]->teacher_name;
+
+
+                      $query = "SELECT * FROM `daily_class_wise_attendance`
                     WHERE class_id = '" . $class->class_id . "'
                     AND section_id = '" . $section->section_id . "'
                     AND DATE(created_date) = DATE(NOW())";
                       $today_attendance_summary = $this->db->query($query)->result(); ?>
-                      <?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?> Today Attendance Summary
+                      <?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?> Today Attendance Summary <br />
+                      <strong>Teacher: <?php echo $teacher_name; ?></strong>
                       <table class="table" style="background-color: <?php echo $section->color; ?>;">
                         <tr>
                           <th style="text-align: center;">Total</th>
