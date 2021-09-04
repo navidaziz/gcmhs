@@ -265,8 +265,8 @@ class Teacher_dashboard extends Admin_Controller
         $this->data['section_id'] = $section = (int) $section;
         $this->data['evening'] = $evening;
 
-        $query = "SELECT * FROM students WHERE status IN (1,2) and section_id ='" . $section . "' and class_id='" . $class . "'
-        ORDER BY student_class_no ASC";
+        $query = "SELECT * FROM students WHERE `status` IN (1,2) and section_id ='" . $section . "' and class_id='" . $class . "'
+        ORDER BY  `status`, `student_class_no` ASC";
         $this->data['students'] = $this->db->query($query)->result();
         $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
         $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;

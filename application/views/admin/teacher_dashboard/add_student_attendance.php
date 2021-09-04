@@ -131,7 +131,9 @@
                             $count = 1;
                             foreach ($students as $student) { ?>
                                 <tr <?php if ($student->status != 1) { ?>style="text-decoration: line-through !important; <?php } ?>">
-                                    <td><?php echo $student->student_class_no; ?></td>
+                                    <td><?php //echo $student->student_class_no; 
+
+                                        echo $count; ?></td>
                                     <td><?php echo $student->student_admission_no; ?></td>
                                     <td style="text-align: center;">
                                         <?php if ($student->status == 1) { ?>
@@ -264,6 +266,52 @@
                                     <?php } ?>
                                 </tr>
                             <?php } ?>
+
+                            <tr>
+                                <td colspan="4" style="text-align:center">
+                                    Edit Attendance </td>
+
+
+                                <?php if ($today_attendance == 0) { ?>
+                                    <th colspan="4"></th>
+                                    <?php } else {
+                                    for ($i = 5; $i >= 0; $i--) {
+                                    ?>
+                                        <?php if ($i == 0) { ?>
+                                            <th style="text-align: center;"></th>
+                                        <?php } else {
+
+                                            $query = "SELECT COUNT(*) as total 
+                                                          FROM `students_attendance`
+                                                          WHERE `date` = '" . date('Y-m-d', strtotime("-$i days")) . "'
+                                                          AND class_id= $class_id
+                                                          AND section_id = $section_id";
+                                            $attendance_count = $this->db->query($query)->result()[0]->total;
+
+
+                                        ?>
+
+                                            <th style="text-align: center;">
+                                                <?php if ($attendance_count == 0) { ?>
+                                                    <a style="color:green" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                <?php } else { ?>
+                                                    <a style="color:blue" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/edit_student_attendance/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <?php } ?>
+
+                                            </th>
+
+
+
+                                        <?php } ?>
+
+                                    <?php } ?>
+
+                                <?php } ?>
+
+                            </tr>
+
                             <?php if ($today_attendance == 0) { ?>
                                 <tr>
                                     <td colspan="7" style="text-align:center">
