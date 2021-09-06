@@ -60,6 +60,8 @@
                 .table1 tr,
                 td {
                     padding: 1px;
+                    border-collapse: collapse;
+                    border-bottom: 1px solid #D3D3D3;
                 }
             </style>
             <h5>Update <?php echo date("d M, Y", strtotime($attendance_date)) ?> <?php echo $title; ?> </h5>
