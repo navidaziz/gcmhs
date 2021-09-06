@@ -50,6 +50,8 @@
 
               <?php } else { ?> <div class="hidden-sm">
                   <img class="rounded" src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" weight="100">
+                  <!-- <img class="rounded" src="<?php echo site_url("assets/uploads/system_global_settings/gcmhs_logo.svg"); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" weight="100"> -->
+
                 </div>
               <?php } ?>
 
