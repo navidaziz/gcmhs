@@ -13,8 +13,8 @@
                 <p style="text-align: center;">Stuck Off Reason:
                 <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/struck_off_student") ?>" method="post" style="text-align: center;">
                     <input type="hidden" name="student_id" id="studentID" value="" />
-                    <input type="hidden" name="class_id" id="studentID" value="<?php echo $class_id ?>" />
-                    <input type="hidden" name="section_id" id="studentID" value="<?php echo $section_id ?>" />
+                    <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
                     <input required type="text" class="form-control" style="margin: 10px;" name="struck_off_reason" />
                     <input type="submit" class="btn btn-danger btn-sm" value="Struck Off" />
                 </form>

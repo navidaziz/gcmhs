@@ -57,6 +57,7 @@
                     <th>Classes</th>
                     <th>Sections</th>
                     <th>Total Students</th>
+                    <th>Struck Off</th>
                     <th>Update Students</th>
                     <th>Promote Students</th>
                   </tr>
@@ -94,6 +95,17 @@
                               AND s.status = 1";
                         echo $this->db->query($query)->result()[0]->total;
                         ?>
+
+                      </td>
+
+                      <td>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/struck_off_students") . "/$class->class_id/$section->section_id"; ?>">
+                          <?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.class_id = $class->class_id
+                              AND s.section_id = $section->section_id
+                              AND s.status = 2";
+                          echo $this->db->query($query)->result()[0]->total;
+                          ?> View</a>
 
                       </td>
 

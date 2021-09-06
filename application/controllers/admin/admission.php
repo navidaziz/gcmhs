@@ -159,7 +159,7 @@ class Admission extends Admin_Controller
 	{
 		$this->data['class_id']  = $class_id = (int) $class_id;
 		$this->data['section_id']  = $section_id = (int) $section_id;
-		$where = "`students`.`status` IN (1,0) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
+		$where = "`students`.`status` IN (1,0,2) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
 		ORDER BY `section_id`, `student_class_no` ASC";
 		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
 		$sections = array();
@@ -179,6 +179,51 @@ class Admission extends Admin_Controller
 
 		$this->data["view"] = ADMIN_DIR . "admission/promote_students";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+	public function struck_off_students($class_id, $section_id)
+	{
+		$this->data['class_id']  = $class_id = (int) $class_id;
+		$this->data['section_id']  = $section_id = (int) $section_id;
+		$where = "`students`.`status` IN (2) and `students`.`class_id`='" . $class_id . "' 
+		AND `students`.`section_id` ='" . $section_id . "'
+		ORDER BY `section_id`, `student_class_no` ASC";
+		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
+		$sections = array();
+
+		//$this->data["sections"] = $this->student_model->getList("sections", "section_id", "section_title", $where ="");
+		//var_dump($this->data["classes"]);
+
+
+		foreach ($students as $student) {
+			$sections[$student->section_title][] = $student;
+		}
+		$this->data["sections"] = $sections;
+		$this->data["pagination"] = "";
+
+		$this->data["pagination"] = "";
+		$this->data["title"] = "Struck Off Students";
+
+		$this->data["view"] = ADMIN_DIR . "admission/struck_off_students";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
+	public function re_admit_again()
+	{
+		$student_id = (int) $this->input->post("student_id");
+		$class_id = (int) $this->input->post("class_id");
+		$section_id = (int) $this->input->post("section_id");
+		$admission_no = (int) $this->input->post("admission_no");
+		$re_admit_again_reason = $this->db->escape($this->input->post("re_admit_again_reason"));
+		$query = "UPDATE students set `status` = '1',  `student_admission_no` = '" . $admission_no . "' WHERE student_id = '" . $student_id . "'";
+		if ($this->db->query($query)) {
+			$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+			$student = $this->db->query($query)->result()[0];
+			$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
+				          VALUES ('" . $student->student_id . "','" . $admission_no . "','" . $student->session_id . "','" . $student->class_id . "','" . $student->section_id . "','Re Admit'," . $re_admit_again_reason . ", '" . $this->session->userdata('user_id') . "')";
+			$this->db->query($query);
+		}
+		$this->session->set_flashdata("msg_success", "Student Re-Admit Successfully");
+		redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
 	}
 
 	public function promote_to_next_section()
