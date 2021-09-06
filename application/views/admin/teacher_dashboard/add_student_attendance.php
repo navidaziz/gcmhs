@@ -124,6 +124,50 @@
                                     <th style="text-align: center;">E-A</th>
                                 <?php } ?>
                             </tr>
+
+                            <tr>
+                                <td colspan="4" style="text-align:center"> </td>
+
+
+                                <?php if ($today_attendance == 0) { ?>
+                                    <th colspan="4"></th>
+                                    <?php } else {
+                                    for ($i = 5; $i >= 0; $i--) {
+                                    ?>
+                                        <?php if ($i == 0 or date('N', strtotime("-$i days")) == 7) { ?>
+                                            <th style="text-align: center;"></th>
+                                        <?php } else {
+
+                                            $query = "SELECT COUNT(*) as total 
+                                                          FROM `students_attendance`
+                                                          WHERE `date` = '" . date('Y-m-d', strtotime("-$i days")) . "'
+                                                          AND class_id= $class_id
+                                                          AND section_id = $section_id";
+                                            $attendance_count = $this->db->query($query)->result()[0]->total;
+
+
+                                        ?>
+
+                                            <th style="text-align: center;">
+                                                <?php if ($attendance_count == 0) { ?>
+                                                    <a style="color:green" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                <?php } else { ?>
+                                                    <a style="color:blue" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/edit_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <?php } ?>
+
+                                            </th>
+
+
+
+                                        <?php } ?>
+
+                                    <?php } ?>
+
+                                <?php } ?>
+
+                            </tr>
                         </thead>
                         <tbody>
 
@@ -267,50 +311,7 @@
                                 </tr>
                             <?php } ?>
 
-                            <tr>
-                                <td colspan="4" style="text-align:center">
-                                    Edit Attendance </td>
 
-
-                                <?php if ($today_attendance == 0) { ?>
-                                    <th colspan="4"></th>
-                                    <?php } else {
-                                    for ($i = 5; $i >= 0; $i--) {
-                                    ?>
-                                        <?php if ($i == 0 or date('N', strtotime("-$i days")) == 7) { ?>
-                                            <th style="text-align: center;"></th>
-                                        <?php } else {
-
-                                            $query = "SELECT COUNT(*) as total 
-                                                          FROM `students_attendance`
-                                                          WHERE `date` = '" . date('Y-m-d', strtotime("-$i days")) . "'
-                                                          AND class_id= $class_id
-                                                          AND section_id = $section_id";
-                                            $attendance_count = $this->db->query($query)->result()[0]->total;
-
-
-                                        ?>
-
-                                            <th style="text-align: center;">
-                                                <?php if ($attendance_count == 0) { ?>
-                                                    <a style="color:green" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                <?php } else { ?>
-                                                    <a style="color:blue" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/edit_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
-                                                        <i class="fa fa-edit" aria-hidden="true"></i></a>
-                                                <?php } ?>
-
-                                            </th>
-
-
-
-                                        <?php } ?>
-
-                                    <?php } ?>
-
-                                <?php } ?>
-
-                            </tr>
 
                             <?php if ($today_attendance == 0) { ?>
                                 <tr>
