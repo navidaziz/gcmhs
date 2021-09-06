@@ -62,29 +62,28 @@
                     padding: 1px;
                 }
             </style>
-            <h5><?php echo date("d M, Y") ?> <?php echo $title; ?> </h5>
+            <h5><?php echo date("d M, Y", strtotime($attendance_date)) ?> <?php echo $title; ?> </h5>
 
             <?php
             $evening_attendance = 0;
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
             class_id = '" . $class_id . "' and section_id = '" . $section_id . "'
             AND attendance2 IS NOT NULL  
-            AND date(created_date) = DATE(NOW())";
+            AND date(created_date) = $attendance_date";
             $today_evening_attendance = $this->db->query($query)->result()[0]->total;
-
-            if ($today_evening_attendance == 0 and date('N') != 7 and $evening) {
+            if ($today_evening_attendance == 0 and date('N', strtotime($attendance_date)) != 7 and $evening) {
                 $evening_attendance = 1;
             }
             $today_attendance = 0;
             $query = "SELECT COUNT(*) as total FROM `students_attendance` 
             WHERE class_id = '" . $class_id . "' 
             and section_id = '" . $section_id . "' 
-            AND date(created_date) = DATE(NOW())";
+            AND date(created_date) = $attendance_date";
             $today_attendance = $this->db->query($query)->result()[0]->total;
-            if ($today_attendance or date('N') == 7) {
+            if ($today_attendance or date('N', strtotime($attendance_date)) == 7) {
                 $today_attendance = 1;
             }
-            if (date('N') == 7) {
+            if (date('N', strtotime($attendance_date)) == 7) {
                 echo "<h4 style=\"color:red;\">Sunday ! School off.</h4>";
             }
 
@@ -93,6 +92,7 @@
                 <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_attendance") ?>" method="post">
                     <input type="hidden" name="class_id" value="<?php echo $class_id; ?>" />
                     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
+                    <input type="hidden" name="attendance_date" value="<?php echo $attendance_date; ?>" />
                     <table id="example" class="table1" cellspacing="0" width="100%" style="font-size:11px; text-align: left !important; ">
                         <thead>
                             <tr>
@@ -277,7 +277,7 @@
                                     <?php } else {
                                     for ($i = 5; $i >= 0; $i--) {
                                     ?>
-                                        <?php if ($i == 0 or date('N', strtotime("-$i days")) == 7) { ?>
+                                        <?php if ($i == 0) { ?>
                                             <th style="text-align: center;"></th>
                                         <?php } else {
 
@@ -296,7 +296,7 @@
                                                     <a style="color:green" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
                                                         <i class="fa fa-plus" aria-hidden="true"></i></a>
                                                 <?php } else { ?>
-                                                    <a style="color:blue" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/edit_student_attendance_form/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
+                                                    <a style="color:blue" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/edit_student_attendance/$class_id/$section_id/" . date('Y-m-d', strtotime("-$i days"))); ?>">
                                                         <i class="fa fa-edit" aria-hidden="true"></i></a>
                                                 <?php } ?>
 

@@ -259,6 +259,43 @@ class Teacher_dashboard extends Admin_Controller
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
+    public function add_student_attendance_form($class, $section, $attendance_date, $evening = false)
+    {
+        $this->data['class_id'] = $class = (int) $class;
+        $this->data['section_id'] = $section = (int) $section;
+        $this->data['evening'] = $evening;
+        $this->data['attendance_date'] = $attendance_date;
+
+        $query = "SELECT * FROM students WHERE `status` IN (1,2) and section_id ='" . $section . "' and class_id='" . $class . "'
+        ORDER BY  `status`, `student_class_no` ASC";
+        $this->data['students'] = $this->db->query($query)->result();
+        $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
+        $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;
+
+        $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance_form";
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
+
+    public function edit_student_attendance_form($class, $section, $attendance_date, $evening = false)
+    {
+        $this->data['class_id'] = $class = (int) $class;
+        $this->data['section_id'] = $section = (int) $section;
+        $this->data['evening'] = $evening;
+        $this->data['attendance_date'] = $attendance_date;
+
+        $query = "SELECT * FROM students WHERE `status` IN (1,2) and section_id ='" . $section . "' and class_id='" . $class . "'
+        ORDER BY  `status`, `student_class_no` ASC";
+        $this->data['students'] = $this->db->query($query)->result();
+        $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
+        $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;
+
+        $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/edit_student_attendance_form";
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
+
+
     public function add_student_attendance($class, $section, $evening = false)
     {
         $this->data['class_id'] = $class = (int) $class;
@@ -278,8 +315,26 @@ class Teacher_dashboard extends Admin_Controller
     public function add_attendance()
     {
 
-        $class_id = $this->input->post('class_id');
-        $section_id = $this->input->post('section_id');
+        $class_id = (int) $this->input->post('class_id');
+        $section_id = (int) $this->input->post('section_id');
+        if ($this->input->post('attendance_date')) {
+            if (date('N', strtotime($this->input->post('attendance_date'))) == 7) {
+                $this->session->set_flashdata("msg_error", "It's Sunday. School off.");
+                redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+            }
+            $attendance_date = $this->db->escape($this->input->post('attendance_date'));
+            $created_date = $this->db->escape($this->input->post('attendance_date') . " " . date("H:i:s"));
+        } else {
+            $attendance_date = $this->db->escape(date("Y-m-d"));
+            $created_date = $this->db->escape(date('Y-m-d H:i:s'));
+            if (date('N') == 7) {
+                $this->session->set_flashdata("msg_error", "It's Sunday. School off.");
+                redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+            }
+        }
+
+
+
         if ($this->input->post('Add_Evening_Attendance')) {
             $students_attendance = $this->input->post('attendance');
             foreach ($students_attendance as $student_attendance_id => $attendance) {
@@ -292,20 +347,50 @@ class Teacher_dashboard extends Admin_Controller
         }
         if ($this->input->post('Add_Today_Attendance')) {
             $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
-            class_id = '" . $class_id . "' and section_id = '" . $section_id . "' and date(`created_date`) = date(NOW())";
+            class_id = '" . $class_id . "' and section_id = '" . $section_id . "' and date(`created_date`) = $attendance_date";
             $today_attendance = $this->db->query($query)->result()[0]->total;
             if ($today_attendance) {
                 $this->session->set_flashdata("msg_error", "Today Attendance is already added.");
             } else {
                 $students_attendance = $this->input->post('attendance');
                 foreach ($students_attendance as $student_id => $attendance) {
-                    $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`) 
-            VALUES ('" . $student_id . "','" . $class_id . "','" . $section_id . "','" . $this->session->userdata('teacher_id') . "','" . $attendance . "','" . date("y-m-d") . "')";
+                    $query = "INSERT INTO `students_attendance`(`student_id`, `class_id`, `section_id`, `teacher_id`, `attendance`, `date`, `created_date`) 
+            VALUES ('" . $student_id . "','" . $class_id . "','" . $section_id . "','" . $this->session->userdata('teacher_id') . "','" . $attendance . "'," . $attendance_date . ", " . $created_date . ")";
                     $this->db->query($query);
                 }
                 $this->session->set_flashdata("msg_success", "Attendance Add Successfully.");
             }
         }
+
+        redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+    }
+
+    public function update_attendance()
+    {
+
+        $class_id = (int) $this->input->post('class_id');
+        $section_id = (int) $this->input->post('section_id');
+        if ($this->input->post('attendance_date')) {
+            $attendance_date = $this->db->escape($this->input->post('attendance_date'));
+            $created_date = $this->db->escape($this->input->post('attendance_date') . " " . date("H:i:s"));
+        } else {
+            $attendance_date = $this->db->escape(date("Y-m-d"));
+            $created_date = $this->db->escape(date('Y-m-d H:i:s'));
+        }
+
+
+
+        if ($this->input->post('Update_Attendance')) {
+            $students_attendance = $this->input->post('attendance');
+            foreach ($students_attendance as $student_attendance_id => $attendance) {
+                $query = "UPDATE `students_attendance` SET `attendance` = '" . $attendance . "',  
+                `evening_attendance_by` = '" . $this->session->userdata('teacher_id') . "'
+                WHERE student_attendance_id = '" . $student_attendance_id . "'";
+                $this->db->query($query);
+            }
+            $this->session->set_flashdata("msg_success", $this->input->post('attendance_date') . " Attendance Update Successfully.");
+        }
+
 
         redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
     }
