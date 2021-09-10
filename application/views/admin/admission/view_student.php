@@ -309,7 +309,7 @@
 
               </td>
               <td>
-                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="sorphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
+                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="orphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
 
               </td>
 
