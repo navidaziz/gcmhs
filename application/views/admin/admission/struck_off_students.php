@@ -42,6 +42,50 @@
   }
 </script>
 
+<div id="withdrawal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="withdrawal_model_title">Title</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <br />
+      </div>
+      <div class="modal-body">
+        <h4 id="withdrawal_admit_body">Please Wait .....</h4>
+        <p style="text-align: center;">
+
+
+        <form action="<?php echo site_url(ADMIN_DIR . "admission/re_admit_again") ?>" method="post" style="text-align: center;">
+          <input type="hidden" name="student_id" id="stID" value="" />
+          <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+          <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+          Admission No: <input type="text" name="admission_no" id="adNo" value="" />
+          <br />
+          Student withdraw:
+          <input required type="text" class="form-control" style="margin: 10px;" name="re_admit_again_reason" />
+          <input type="submit" class="btn btn-success btn-sm" value="Admit Again" />
+        </form>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function withdraw(student_id, name, father_name, add_no) {
+    $('#withdrawal_model_title').html("Student Withdraw Form");
+    var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+    $('#adNo').val(add_no);
+
+    $('#stID').val(student_id);
+    $('#withdrawal_admit_body').html(body);
+    $('#withdrawal').modal('show');
+  }
+</script>
+
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dat aTables.css">
 
@@ -148,7 +192,8 @@
               <td> <button onclick="re_admit('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-success btn-sm" aria-hidden="true"> Re-admit</button>
               </td>
 
-
+              <td> <button onclick="withdraw('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-danger btn-sm" aria-hidden="true">Withdraw</button>
+              </td>
 
 
             </tr>
