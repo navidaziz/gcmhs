@@ -75,9 +75,9 @@
 </div>
 
 <script>
-  function withdraw(student_id, name, father_name, add_no) {
+  function withdraw(student_id, name, father_name, add_no, admission_date) {
     $('#withdrawal_model_title').html("Student Withdraw Form");
-    var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+    var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + '<br /> Admission Date: ' + admission_date + '<br /> ';
     $('#adNo').val(add_no);
 
     $('#stID').val(student_id);
@@ -192,7 +192,7 @@
               <td> <button onclick="re_admit('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-success btn-sm" aria-hidden="true"> Re-admit</button>
               </td>
 
-              <td> <button onclick="withdraw('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-danger btn-sm" aria-hidden="true">Withdraw</button>
+              <td> <button onclick="withdraw('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>', '<?php echo $student->admission_date; ?>')" class="btn btn-danger btn-sm" aria-hidden="true">Withdraw</button>
               </td>
 
 

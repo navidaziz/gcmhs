@@ -735,7 +735,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		$student_id = (int) $this->input->post('student_id');;
 		$field = $this->input->post('field');
-		$value = $this->db->escape($this->input->post('value'));
+		$value = $this->db->escape(ucwords($this->input->post('value')));
 
 		$query = "UPDATE `students` SET `" . $field . "`=" . $value . "
 			     WHERE `student_id` =$student_id;";
