@@ -172,6 +172,13 @@
     </form>
   </div>
 
+  <style>
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+    }
+  </style>
+
 
 
 
