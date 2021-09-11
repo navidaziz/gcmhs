@@ -56,10 +56,10 @@
                   <tr>
                     <th>Classes</th>
                     <th>Sections</th>
-                    <th>Total Students</th>
+                    <th>Total</th>
                     <th>Struck Off</th>
-                    <th>Update Students</th>
-                    <th>Promote Students</th>
+                    <th>Update</th>
+                    <th>Promote</th>
                   </tr>
                 </thead>
                 </body>
