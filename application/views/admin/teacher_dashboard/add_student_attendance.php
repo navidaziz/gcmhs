@@ -136,7 +136,7 @@
                                     <?php } else {
                                     for ($i = 5; $i >= 0; $i--) {
                                     ?>
-                                        <?php if ($i == 0 or date('N', strtotime("-$i days")) == 7) { ?>
+                                        <?php if (date('N', strtotime("-$i days")) == 7) { ?>
                                             <th style="text-align: center;"></th>
                                         <?php } else {
 
