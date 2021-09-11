@@ -60,6 +60,8 @@
         <td>P/ G </td>
         <td>School</td>
         <td>Orphan</td>
+        <td>Class</td>
+        <td>Section</td>
 
         </tr>
       </thead>
@@ -90,6 +92,8 @@
               <td><?php echo $student->private_public_school; ?></td>
               <td><?php echo $student->school_name; ?></td>
               <td><?php echo $student->orphan; ?></td>
+              <td><?php echo $student->class_title; ?></td>
+              <td><?php echo $student->section_title; ?></td>
 
             </tr>
           <?php endforeach;  ?>
