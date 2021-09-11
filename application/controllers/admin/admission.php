@@ -122,22 +122,22 @@ class Admission extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 
-	public function students_list($class_id, $section_id)
-	{
+	// public function students_list($class_id, $section_id)
+	// {
 
 
-		$class_id = (int) $class_id;
-		$section_id = (int) $section_id;
-		$where = "`students`.`status` IN (1) and `students`.`class_id`='" . $class_id . "' and `students`.`section_id` ='" . $section_id . "'
-		ORDER BY `student_class_no` ASC";
-		$this->data["students"] = $this->student_model->get_student_list($where, FALSE);
+	// 	$class_id = (int) $class_id;
+	// 	$section_id = (int) $section_id;
+	// 	$where = "`students`.`status` IN (1) and `students`.`class_id`='" . $class_id . "' and `students`.`section_id` ='" . $section_id . "'
+	// 	ORDER BY `student_class_no` ASC";
+	// 	$this->data["students"] = $this->student_model->get_student_list($where, FALSE);
 
-		$this->data["pagination"] = "";
-		$this->data["title"] = "Update Students";
+	// 	$this->data["pagination"] = "";
+	// 	$this->data["title"] = "Update Students";
 
-		$this->data["view"] = PUBLIC_DIR . "student/students";
-		$this->load->view(PUBLIC_DIR . "layout", $this->data);
-	}
+	// 	$this->data["view"] = PUBLIC_DIR . "student/students";
+	// 	$this->load->view(PUBLIC_DIR . "layout", $this->data);
+	// }
 
 	public function promote_students($class_id, $section_id)
 	{
@@ -188,6 +188,33 @@ class Admission extends Admin_Controller
 		$this->data["title"] = "Struck Off Students";
 
 		$this->data["view"] = ADMIN_DIR . "admission/struck_off_students";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
+	public function students_list($class_id, $section_id)
+	{
+		$this->data['class_id']  = $class_id = (int) $class_id;
+		$this->data['section_id']  = $section_id = (int) $section_id;
+		$where = "`students`.`status` IN (1,2) and `students`.`class_id`='" . $class_id . "' 
+		AND `students`.`section_id` ='" . $section_id . "'
+		ORDER BY `section_id`, `student_class_no` ASC";
+		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
+		$sections = array();
+
+		//$this->data["sections"] = $this->student_model->getList("sections", "section_id", "section_title", $where ="");
+		//var_dump($this->data["classes"]);
+
+
+		foreach ($students as $student) {
+			$sections[$student->section_title][] = $student;
+		}
+		$this->data["sections"] = $sections;
+		$this->data["pagination"] = "";
+
+		$this->data["pagination"] = "";
+		$this->data["title"] = "All Students list";
+
+		$this->data["view"] = ADMIN_DIR . "admission/students_list";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 

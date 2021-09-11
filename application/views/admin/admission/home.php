@@ -112,11 +112,15 @@
 
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
-                          Update Students</a>
+                          Update</a>
                       </td>
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
-                          Promote Students</a>
+                          Promote</a>
+                      </td>
+                      <td>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/students_list") . "/$class->class_id/$section->section_id"; ?>">
+                          View</a>
                       </td>
                     </tr>
                   <?php } ?>
