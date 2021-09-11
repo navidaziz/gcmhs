@@ -187,7 +187,7 @@
           <td>CN</td>
           <td>Add-No</td>
           <!-- <td>Section</td> -->
-          <!-- <td>Change</td> -->
+
           <td><?php echo $this->lang->line('student_name'); ?></td>
 
           <td><?php echo $this->lang->line('student_father_name'); ?></td>
@@ -196,15 +196,15 @@
           <td><?php echo $this->lang->line('student_address'); ?></td>
           <td>Mobile No</td>
           <td>Father NIC</td>
-          <td>Occupation</td>
+          <td>Occupa.</td>
 
-          <td>Religion</td>
-          <td>Nationality</td>
+          <td>Reli.</td>
+          <td>Nation.</td>
 
           <td>P/ G </td>
           <td>School</td>
-          <td>Orphan</td>
-
+          <td>Orph.</td>
+          <td>Change</td>
 
         </tr>
       </thead>
@@ -249,13 +249,7 @@
               </td>
 
               <!-- <td><?php echo $student->section_title; ?></td> -->
-              <!-- <td>
 
-                <?php
-                echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
-                ?>
-
-              </td> -->
               <td>
                 <span style="display: none;"><?php echo $student->student_name;
                                               ?></span>
@@ -316,6 +310,14 @@
                 <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="orphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
 
               </td>
+
+              <!-- <td>
+
+              <?php
+              echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+              ?>
+
+              </td> -->
 
 
             </tr>
