@@ -83,25 +83,25 @@
         <thead>
 
           <tr>
-            <th>CN</th>
-            <th>Add-No</th>
-            <th><?php echo $this->lang->line('student_name'); ?></th>
+            <td>CN</td>
+            <td>Add-No</td>
+            <td><?php echo $this->lang->line('student_name'); ?></td>
 
-            <th><?php echo $this->lang->line('student_father_name'); ?></th>
-            <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
-            <th>Add. Date</th>
-            <th><?php echo $this->lang->line('student_address'); ?></th>
-            <th>Mobile No</th>
-            <th>Father NIC</th>
-            <th>Occupation</th>
+            <td><?php echo $this->lang->line('student_father_name'); ?></td>
+            <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+            <td>Add. Date</td>
+            <td><?php echo $this->lang->line('student_address'); ?></td>
+            <td>Mobile No</td>
+            <td>Father NIC</td>
+            <td>Occupation</td>
 
-            <th>Religion</th>
-            <th>Nationality</th>
-            <!-- <th>Admiss. Date</th> -->
-            <th>P/ G </th>
-            <th>School</th>
-            <th>Orphan</th>
-            <th>Add New</th>
+            <td>Religion</td>
+            <td>Nationality</td>
+            <!-- <td>Admiss. Date</td> -->
+            <td>P/ G </td>
+            <td>School</td>
+            <td>Orphan</td>
+            <td>Add New</td>
 
           </tr>
         </thead>
@@ -184,26 +184,26 @@
           <td></td>
 
           <td>#</td>
-          <th>CN</th>
-          <th>Add-No</th>
-          <!-- <th>Section</th> -->
-          <!-- <th>Change</th> -->
-          <th><?php echo $this->lang->line('student_name'); ?></th>
+          <td>CN</td>
+          <td>Add-No</td>
+          <!-- <td>Section</td> -->
+          <!-- <td>Change</td> -->
+          <td><?php echo $this->lang->line('student_name'); ?></td>
 
-          <th><?php echo $this->lang->line('student_father_name'); ?></th>
-          <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
-          <th>Admiss. Date</th>
-          <th><?php echo $this->lang->line('student_address'); ?></th>
-          <th>Mobile No</th>
-          <th>Father NIC</th>
-          <th>Occupation</th>
+          <td><?php echo $this->lang->line('student_father_name'); ?></td>
+          <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+          <td>Admiss. Date</td>
+          <td><?php echo $this->lang->line('student_address'); ?></td>
+          <td>Mobile No</td>
+          <td>Father NIC</td>
+          <td>Occupation</td>
 
-          <th>Religion</th>
-          <th>Nationality</th>
+          <td>Religion</td>
+          <td>Nationality</td>
 
-          <th>P/ G </th>
-          <th>School</th>
-          <th>Orphan</th>
+          <td>P/ G </td>
+          <td>School</td>
+          <td>Orphan</td>
 
 
         </tr>
@@ -299,7 +299,7 @@
 
               </td>
               <td>
-                <input style="width: 50px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nationality')" id="nationality_<?php echo $student->student_id; ?>" type="text" name="nationality" value="<?php echo $student->nationality; ?>" />
+                <input style="width: 60px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nationality')" id="nationality_<?php echo $student->student_id; ?>" type="text" name="nationality" value="<?php echo $student->nationality; ?>" />
 
               </td>
 
