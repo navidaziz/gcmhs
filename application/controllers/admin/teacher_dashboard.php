@@ -198,6 +198,62 @@ class Teacher_dashboard extends Admin_Controller
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_result";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
+
+    public function students_result_update($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
+    {
+        $this->data["class_id"] = $class_id = (int) $class_id;
+        $this->data["section_id"] = $section_id = (int) $section_id;
+        $this->data["exam_id"] = $exam_id = (int) $exam_id;
+        $this->data["class_subject_id"] = $class_subject_id = (int) $class_subject_id;
+        $this->data["subject_id"] = $subject_id = (int) $subject_id;
+
+
+
+        $where = "`exams`.`status` IN (0, 1) and `exams`.`exam_id` =" . $exam_id;
+        $exam = $this->exam_model->get_exam_list($where, false, false);
+        $this->data["exam"] = $exam[0];
+        $query = "SELECT 
+				  `class_subjects`.`class_subject_id`,
+				  `subjects`.`subject_title`,
+				  `class_subjects`.`class_id` 
+				FROM
+				  `subjects`,
+				  `class_subjects` 
+				WHERE `subjects`.`subject_id` = `class_subjects`.`subject_id`
+				AND `class_subjects`.`class_id` =" . $class_id . "
+				AND `class_subjects`.`subject_id` =" . $subject_id;
+        $result = $this->db->query($query);
+        $this->data['class_subject'] = $result->result()[0]->subject_title;
+
+        $query = "SELECT
+                `students`.*
+                , `students_exams_subjects_marks`.`student_exam_subject_mark_id`
+                , `students_exams_subjects_marks`.`exam_id`
+                , `students_exams_subjects_marks`.`class_subjec_id`
+                , `students_exams_subjects_marks`.`obtain_mark`
+                ,`students_exams_subjects_marks`.`total_marks`
+                , `classes`.`Class_title`
+                , `sections`.`section_title`
+            FROM
+                `students`,
+            `students_exams_subjects_marks`,
+            `classes`,
+            `sections`
+            WHERE 
+            `students`.`student_id` = `students_exams_subjects_marks`.`student_id`
+            AND  `classes`.`class_id` = `students`.`class_id`
+            AND `sections`.`section_id` = `students`.`section_id`
+                        AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+                        AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
+                        AND  `students`.`status`=1
+                        and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "' ORDER BY `students`.`student_class_no`";
+        $result = $this->db->query($query);
+        $this->data['students'] = $result->result();
+
+        $this->data["title"] = "Subject Marks";
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_result";
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
     public function save_student_result()
     {
 

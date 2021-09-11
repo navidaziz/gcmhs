@@ -27,22 +27,6 @@ class Admission extends Admin_Controller
 		$this->lang->load("system", 'english');
 
 		$this->load->library('form_validation');
-
-		/*echo '<pre>'; print_r($this->session->all_userdata());
-		 echo '</pre>';*/
-		$query = $this->db->select('user_data, ip_address')->get('ci_sessions');
-		$online_users = array(); /* array to store the user data we fetch */
-
-		$uip[$this->session->userdata('student_id')] = $this->input->ip_address();
-		foreach ($query->result() as $row) {
-			$loginCheck = True;
-			$udata = unserialize($row->user_data);
-			@$uip[$udata['student_id']] = $row->ip_address;
-			/* put data in array using username as key */
-			//$online_users[$udata['student_id']] = $udata['student_name']; 
-			@$online_users[] = $udata['student_id'];
-		}
-		$this->data['online_users'] = $online_users;
 	}
 	//---------------------------------------------------------------
 
