@@ -311,13 +311,13 @@
 
               </td>
 
-              <!-- <td>
+              <td>
 
-              <?php
-              echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
-              ?>
+                <?php
+                echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                ?>
 
-              </td> -->
+              </td>
 
 
             </tr>
