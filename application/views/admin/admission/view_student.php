@@ -267,9 +267,16 @@
                   ?>
                 <input onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_father_name')" id="student_father_name_<?php echo $student->student_id; ?>" type="text" name="student_father_name" value="<?php echo $student->student_father_name; ?>" />
               </td>
-              <td><?php //echo $student->student_data_of_birth; 
-                  ?>
-                <input style="width: 100px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo date("Y-m-d", strtotime($student->student_data_of_birth)); ?>" />
+              <td>
+                <?php
+
+                echo $student->student_data_of_birth;
+                echo "<br />";
+                $date = explode("-", $student->student_data_of_birth);
+                $date_of_birth = date("Y-m-d", strtotime($date[2] . "-" . $date[1] . "-" . $date[0]));
+                $this->db->query("UPDATE students SET student_data_of_birth = '" . $date_of_birth . "' WHERE student_id = '" . $student->student_id . "'");
+                ?>
+                <input style="width: 100px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="" />
 
               </td>
 
