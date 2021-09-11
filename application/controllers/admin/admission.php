@@ -210,6 +210,74 @@ class Admission extends Admin_Controller
 		redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
 	}
 
+	public function withdraw_student()
+	{
+		$student_id = (int) $this->input->post("student_id");
+		$class_id = (int) $this->input->post("class_id");
+		$section_id = (int) $this->input->post("section_id");
+		$admission_no = (int) $this->input->post("admission_no");
+		$admission_date = $this->db->escape($this->input->post("admission_date"));
+		$school_leaving_date = $this->db->escape($this->input->post("school_leaving_date"));
+		$slc_issue_date = $this->db->escape($this->input->post("slc_issue_date"));
+		$slc_file_no = $this->db->escape($this->input->post("slc_file_no"));
+		$slc_certificate_no = $this->db->escape($this->input->post("slc_certificate_no"));
+		$withdraw_reason = $this->db->escape($this->input->post("withdraw_reason"));
+		$query = "UPDATE students set `status` = '3',  
+		          `student_admission_no` = '" . $admission_no . "' 
+				  WHERE student_id = '" . $student_id . "'";
+		if ($this->db->query($query)) {
+			$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+			$student = $this->db->query($query)->result()[0];
+
+			$query = "INSERT INTO `student_leaving_certificates`(
+				      `student_id`, 
+			          `admission_no`, 
+					  `session_id`, 
+					  `class_id`, 
+					  `section_id`, 
+					  `admission_date`, 
+					  `school_leaving_date`, 
+					  `slc_issue_date`, 
+					  `slc_file_no`, 
+					  `slc_certificate_no`, 
+					  `leaving_reason`,
+					  `created_by`) 
+				      VALUES ('" . $student->student_id . "',
+					          '" . $admission_no . "',
+							  '" . $student->session_id . "',
+							  '" . $student->class_id . "',
+							  '" . $student->section_id . "',
+							  " . $admission_date . ",
+							  " . $school_leaving_date . ",
+							  " . $slc_issue_date . ",
+							  " . $slc_file_no . ",
+							  " . $slc_certificate_no . ",
+							  " . $withdraw_reason . ", 
+							  '" . $this->session->userdata('user_id') . "')";
+			$this->db->query($query);
+
+			$query = "INSERT INTO `student_history`(`student_id`, 
+			          `student_admission_no`, 
+					  `session_id`, 
+					  `class_id`, 
+					  `section_id`, 
+					  `history_type`, 
+					  `remarks`, 
+					  `created_by`) 
+				      VALUES ('" . $student->student_id . "',
+					          '" . $admission_no . "',
+							  '" . $student->session_id . "',
+							  '" . $student->class_id . "',
+							  '" . $student->section_id . "
+							  ','Withdraw'," . $withdraw_reason . ", 
+							  '" . $this->session->userdata('user_id') . "')";
+			$this->db->query($query);
+		}
+		$this->session->set_flashdata("msg_success", "Student Withdraw Successfully");
+		redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
+	}
+
+
 	public function promote_to_next_section()
 	{
 

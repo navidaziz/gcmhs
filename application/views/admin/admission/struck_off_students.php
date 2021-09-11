@@ -55,17 +55,47 @@
       <div class="modal-body">
         <h4 id="withdrawal_admit_body">Please Wait .....</h4>
         <p style="text-align: center;">
-
-
-        <form action="<?php echo site_url(ADMIN_DIR . "admission/re_admit_again") ?>" method="post" style="text-align: center;">
+        <form action="<?php echo site_url(ADMIN_DIR . "admission/withdraw_student") ?>" method="post" style="text-align: center;">
           <input type="hidden" name="student_id" id="stID" value="" />
           <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
           <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
-          Admission No: <input type="text" name="admission_no" id="adNo" value="" />
-          <br />
-          Student withdraw:
-          <input required type="text" class="form-control" style="margin: 10px;" name="re_admit_again_reason" />
-          <input type="submit" class="btn btn-success btn-sm" value="Admit Again" />
+          <table class="" style="width: 100%;">
+
+            <tr>
+              <th>Admission No:</th>
+              <td><input type="text" required name="admission_no" id="adNo" value="" /></td>
+            </tr>
+            <tr>
+              <th>Admission Date:</th>
+              <td><input type="date" required name="admission_date" id="add_date" value="" /></td>
+            </tr>
+            <tr>
+              <th>Schoool Leaving Date:</th>
+              <td> <input type="date" required name="school_leaving_date" id="school_leaving_date" value="" />
+              </td>
+            </tr>
+            <tr>
+              <th>SLC Issue Date:</th>
+              <td><input type="date" required name="slc_issue_date" id="slc_issue_date" value="" /></td>
+            </tr>
+            <tr>
+              <th>SLC File No:</th>
+              <td><input type="text" required name="slc_file_no" id="slc_file_no" value="" /></td>
+            </tr>
+            <tr>
+              <th>SLC Certificate No:</th>
+              <td><input type="text" required name="slc_certificate_no" id="slc_certificate_no" value="" /></td>
+            </tr>
+            <tr>
+              <th>Withdrawal Reason:</th>
+              <td>
+                <textarea style="width: 100%;" name="withdraw_reason"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"><input type="submit" class="btn btn-danger btn-sm" value="Withdraw" /></td>
+            </tr>
+          </table>
         </form>
         </p>
       </div>
@@ -79,6 +109,8 @@
     $('#withdrawal_model_title').html("Student Withdraw Form");
     var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + '<br /> Admission Date: ' + admission_date + '<br /> ';
     $('#adNo').val(add_no);
+    $('#add_date').val(admission_date);
+
 
     $('#stID').val(student_id);
     $('#withdrawal_admit_body').html(body);
