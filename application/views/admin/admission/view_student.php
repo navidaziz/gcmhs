@@ -192,6 +192,7 @@
 
           <th><?php echo $this->lang->line('student_father_name'); ?></th>
           <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
+          <th>Admiss. Date</th>
           <th><?php echo $this->lang->line('student_address'); ?></th>
           <th>Mobile No</th>
           <th>Father NIC</th>
@@ -199,7 +200,7 @@
 
           <th>Religion</th>
           <th>Nationality</th>
-          <!-- <th>Admiss. Date</th> -->
+
           <th>P/ G </th>
           <th>School</th>
           <th>Orphan</th>
@@ -270,6 +271,12 @@
                 <input style="width: 120px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
 
               </td>
+
+              <td>
+                <input style="width: 125px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
+
+              </td>
+
               <td><?php //echo $student->student_address; 
                   ?>
                 <input style="width: 90px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_address')" id="student_address_<?php echo $student->student_id; ?>" type="text" name="student_address" value="<?php echo $student->student_address; ?>" />
@@ -295,10 +302,7 @@
                 <input style="width: 70px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nationality')" id="nationality_<?php echo $student->student_id; ?>" type="text" name="nationality" value="<?php echo $student->nationality; ?>" />
 
               </td>
-              <!-- <td>
-                <input style="width: 125px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
 
-              </td> -->
 
               <td>
                 <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'private_public_school')" id="private_public_school_<?php echo $student->student_id; ?>" type="text" name="private_public_school" value="<?php echo $student->private_public_school; ?>" />
@@ -309,7 +313,7 @@
 
               </td>
               <td>
-                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="sorphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
+                <input style="width: 40px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'orphan')" id="orphan_<?php echo $student->student_id; ?>" type="text" name="orphan" value="<?php echo $student->orphan; ?>" />
 
               </td>
 
