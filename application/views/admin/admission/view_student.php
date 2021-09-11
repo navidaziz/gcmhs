@@ -269,12 +269,12 @@
               </td>
               <td><?php //echo $student->student_data_of_birth; 
                   ?>
-                <input style="width: 100px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
+                <input style="width: 80px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
 
               </td>
 
               <td>
-                <input style="width: 100px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
+                <input style="width: 80px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
 
               </td>
 
@@ -336,7 +336,7 @@
   <script>
     $(document).ready(function() {
       $('#main_table').DataTable({
-        "pageLength": 50,
+        "pageLength": 65,
         "lengthChange": false
       });
     });
