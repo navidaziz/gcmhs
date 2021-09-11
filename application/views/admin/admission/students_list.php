@@ -1,6 +1,13 @@
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dat aTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+
 <div class="row">
   <div class="col-sm-12">
     <div class="page-header">
@@ -34,26 +41,25 @@
     <table class="table table-bordered" id="main_table">
       <thead>
 
-        <tr>
+        <td>#</td>
+        <td>CN</td>
+        <td>Add-No</td>
+        <td><?php echo $this->lang->line('student_name'); ?></td>
 
-          <td>#</td>
-          <th>C/No</th>
-          <th>Add. No</th>
-          <th>Name</th>
+        <td><?php echo $this->lang->line('student_father_name'); ?></td>
+        <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+        <td>Add. Date</td>
+        <td><?php echo $this->lang->line('student_address'); ?></td>
+        <td>Mobile No</td>
+        <td>Father NIC</td>
+        <td>Occupation</td>
 
-          <th>Father Name</th>
-          <th>DOB</th>
-          <th>Address</th>
-          <th>Mobile No</th>
-          <th>Father NIC</th>
-          <th>Guardian Occupation</th>
-
-          <th>Religion</th>
-          <th>Nationality</th>
-          <th>Admission Date</th>
-          <th>Private / Public School</th>
-          <th>School Name</th>
-          <th>Orphan</th>
+        <td>Religion</td>
+        <td>Nationality</td>
+        <!-- <td>Admiss. Date</td> -->
+        <td>P/ G </td>
+        <td>School</td>
+        <td>Orphan</td>
 
         </tr>
       </thead>
@@ -73,13 +79,14 @@
               <td><span><?php echo $student->student_name;  ?></span></td>
               <td><?php echo $student->student_father_name;  ?></td>
               <td><?php echo $student->student_data_of_birth; ?> </td>
+              <td><?php echo $student->admission_date; ?></td>
               <td><?php echo $student->student_address; ?></td>
               <td><?php echo $student->father_mobile_number; ?></td>
               <td><?php echo $student->father_nic; ?></td>
               <td><?php echo $student->guardian_occupation; ?></td>
               <td><?php echo $student->religion; ?></td>
               <td><?php echo $student->nationality; ?></td>
-              <td><?php echo $student->admission_date; ?></td>
+
               <td><?php echo $student->private_public_school; ?></td>
               <td><?php echo $student->school_name; ?></td>
               <td><?php echo $student->orphan; ?></td>
@@ -91,10 +98,25 @@
     </table>
   </div>
   <script>
+    // $(document).ready(function() {
+    //   $('#main_table').DataTable({
+    //     "pageLength": 65,
+    //     "lengthChange": false,
+    //     buttons: [
+    //       'copy', 'csv', 'excel', 'pdf', 'print'
+    //     ]
+    //   });
+    // });
+
     $(document).ready(function() {
+      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List";
       $('#main_table').DataTable({
+        dom: 'Bfrtip',
         "pageLength": 65,
-        "lengthChange": false
+        "lengthChange": false,
+        buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
       });
     });
   </script>
