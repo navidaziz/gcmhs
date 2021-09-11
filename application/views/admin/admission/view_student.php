@@ -186,7 +186,7 @@
           <td>#</td>
           <th>CN</th>
           <th>Add-No</th>
-          <th>Section</th>
+          <!-- <th>Section</th> -->
           <th>Change</th>
           <th><?php echo $this->lang->line('student_name'); ?></th>
 
@@ -249,13 +249,13 @@
               </td>
 
               <td><?php echo $student->section_title; ?></td>
-              <td>
+              <!-- <td>
 
                 <?php
                 echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
                 ?>
 
-              </td>
+              </td> -->
               <td>
                 <span style="display: none;"><?php echo $student->student_name;
                                               ?></span>
@@ -268,12 +268,12 @@
               </td>
               <td><?php //echo $student->student_data_of_birth; 
                   ?>
-                <input style="width: 120px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo date("Y-m-d", strtotime($student->student_data_of_birth)); ?>" />
+                <input style="width: 150px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo date("Y-m-d", strtotime($student->student_data_of_birth)); ?>" />
 
               </td>
 
               <td>
-                <input style="width: 125px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
+                <input style="width: 150px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'admission_date')" id="admission_date_<?php echo $student->student_id; ?>" type="date" name="admission_date" value="<?php echo $student->admission_date; ?>" />
 
               </td>
 
