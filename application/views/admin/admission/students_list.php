@@ -38,7 +38,7 @@
   <!-- MESSENGER -->
   <div class="col-md-12" style="background-color: white; padding: 5px;">
 
-    <table class="table table-bordered" id="main_table">
+    <table class="table table-bordered" id="main_table" style="font-size: 10px;">
       <thead>
 
         <td>#</td>
@@ -62,7 +62,7 @@
         <td>Orphan</td>
         <td>Class</td>
         <td>Section</td>
-
+        <td>Session</td>
         </tr>
       </thead>
       <tbody>
@@ -94,6 +94,11 @@
               <td><?php echo $student->orphan; ?></td>
               <td><?php echo $student->Class_title; ?></td>
               <td><?php echo $student->section_title; ?></td>
+              <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
+                  echo $this->db->query($query)->result()[0]->session;
+                  ?></td>
+
+
 
             </tr>
           <?php endforeach;  ?>

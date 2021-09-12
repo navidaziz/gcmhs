@@ -434,14 +434,8 @@ class Admission extends Admin_Controller
 	/**
 	 * get single record by id
 	 */
-	public function view_student($student_id)
+	public function view_student_profile($student_id)
 	{
-
-
-
-
-
-
 		$student_id = (int) $student_id;
 
 		$this->data["students"] = $student = $this->student_model->get_student($student_id);
@@ -488,8 +482,8 @@ class Admission extends Admin_Controller
 
 
 		$this->data["title"] = "Student Detail";
-		$this->data["view"] = PUBLIC_DIR . "student/view_student";
-		$this->load->view(PUBLIC_DIR . "layout", $this->data);
+		$this->data["view"] = ADMIN_DIR . "admission/view_student_profile";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 	//-----------------------------------------------------
 

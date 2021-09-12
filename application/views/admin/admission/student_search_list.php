@@ -1,15 +1,17 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>Student ID</th>
-      <th><?php echo $this->lang->line('student_admission_no'); ?></th>
-      <th><?php echo $this->lang->line('student_name'); ?></th>
-      <th><?php echo $this->lang->line('student_father_name'); ?></th>
-      <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
-      <th><?php echo $this->lang->line('student_address'); ?></th>
-      <th><?php echo $this->lang->line('Class_title'); ?></th>
-      <th><?php echo $this->lang->line('section_title'); ?></th>
-      <th>status</th>
+      <th>S-ID</th>
+      <th>Add No.</th>
+      <th>Name</th>
+      <th>Father Name</th>
+      <th>DOB</th>
+      <th>Address</th>
+      <td>Session</td>
+      <th>Class</th>
+      <th>Section</th>
+      <th>Status</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -22,10 +24,14 @@
         <td><?php echo $student->student_data_of_birth; ?></td>
         <td><?php echo $student->student_address; ?></td>
 
-
+        <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
+            echo $this->db->query($query)->result()[0]->session;
+            ?></td>
         <td><?php echo $student->class_title; ?></td>
         <td><?php echo $student->section_title; ?></td>
         <td><?php echo $student->status; ?></td>
+        <td><a href="<?php echo site_url(ADMIN_DIR . "admission/view_student_profile/" . $student->student_id) ?>">View</a></td>
+
         </td>
       </tr>
     <?php endforeach; ?>

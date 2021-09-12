@@ -192,7 +192,7 @@
 
           <td>#</td>
           <td>CN</td>
-          <td>Add-No</td>
+          <td>ANo.</td>
           <!-- <td>Section</td> -->
 
           <td><?php echo $this->lang->line('student_name'); ?></td>
@@ -252,7 +252,7 @@
 
               <td><span style="display: none;"><?php echo $student->student_admission_no;
                                                 ?></span>
-                <input style="width:50px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_admission_no')" id="student_admission_no_<?php echo $student->student_id; ?>" type="text" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" />
+                <input style="width:30px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_admission_no')" id="student_admission_no_<?php echo $student->student_id; ?>" type="text" name="student_admission_no" value="<?php echo $student->student_admission_no; ?>" />
               </td>
 
               <!-- <td><?php echo $student->section_title; ?></td> -->
