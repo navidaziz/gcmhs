@@ -465,6 +465,12 @@ class Teacher_dashboard extends Admin_Controller
 				          VALUES ('" . $student->student_id . "','" . $student->student_admission_no . "','" . $student->session_id . "','" . $student->class_id . "','" . $student->section_id . "','Struck Off'," . $struck_off_reason . ", '" . $this->session->userdata('user_id') . "')";
             $this->db->query($query);
         }
-        redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+        if ($this->input->post("redirect_page") == 'view_student_profile') {
+            $this->session->set_flashdata("msg_success", "Student Strucked Off Successfully");
+            redirect(ADMIN_DIR . "admission/view_student_profile/" . $student_id);
+        } else {
+            $this->session->set_flashdata("msg_success", "Student Strucked Off Successfully");
+            redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
+        }
     }
 }

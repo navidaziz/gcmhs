@@ -233,8 +233,13 @@ class Admission extends Admin_Controller
 				          VALUES ('" . $student->student_id . "','" . $admission_no . "','" . $student->session_id . "','" . $student->class_id . "','" . $student->section_id . "','Re Admit'," . $re_admit_again_reason . ", '" . $this->session->userdata('user_id') . "')";
 			$this->db->query($query);
 		}
-		$this->session->set_flashdata("msg_success", "Student Re-Admit Successfully");
-		redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
+		if ($this->input->post("redirect_page") == 'view_student_profile') {
+			$this->session->set_flashdata("msg_success", "Student Re-Admit Successfully");
+			redirect(ADMIN_DIR . "admission/view_student_profile/" . $student_id);
+		} else {
+			$this->session->set_flashdata("msg_success", "Student Re-Admit Successfully");
+			redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
+		}
 	}
 
 	public function withdraw_student()
@@ -300,8 +305,13 @@ class Admission extends Admin_Controller
 							  '" . $this->session->userdata('user_id') . "')";
 			$this->db->query($query);
 		}
-		$this->session->set_flashdata("msg_success", "Student Withdraw Successfully");
-		redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
+		if ($this->input->post("redirect_page") == 'view_student_profile') {
+			$this->session->set_flashdata("msg_success", "Student Withdraw Successfully");
+			redirect(ADMIN_DIR . "admission/view_student_profile/" . $student_id);
+		} else {
+			$this->session->set_flashdata("msg_success", "Student Withdraw Successfully");
+			redirect(ADMIN_DIR . "admission/struck_off_students/" . $class_id . "/" . $section_id);
+		}
 	}
 
 
