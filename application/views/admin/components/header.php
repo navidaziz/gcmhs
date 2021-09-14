@@ -211,7 +211,7 @@
 
 
     $this->load->view(ADMIN_DIR . "components/nav.php"); ?>
-    <div id="main-content" <?php if ($this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'group_dashboard'  or $this->router->fetch_class() == 'admission' or $this->router->fetch_class() == 'sm_dashboard' or $this->router->fetch_class() == 'results' or $this->router->fetch_class() == 'exam_list') { ?> class="margin-left-50" <?php } ?>>
+    <div id="main-content" <?php if ($this->router->fetch_class() == 'school_dashboard' or $this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'group_dashboard'  or $this->router->fetch_class() == 'admission' or $this->router->fetch_class() == 'sm_dashboard' or $this->router->fetch_class() == 'results' or $this->router->fetch_class() == 'exam_list') { ?> class="margin-left-50" <?php } ?>>
       <div class="container">
         <div class="row">
           <div id="content" class="col-lg-12">

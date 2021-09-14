@@ -65,7 +65,7 @@ $menu_list .= "</ul>";
 
 ?>
 <!-- SIDEBAR -->
-<div id="sidebar" <?php if ($this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'admission') { ?> class="sidebar mini-menu" <?php } else { ?>class="sidebar" <?php } ?>>
+<div id="sidebar" <?php if ($this->router->fetch_class() == 'school_dashboard' or $this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'admission') { ?> class="sidebar mini-menu" <?php } else { ?>class="sidebar" <?php } ?>>
 
     <?php if ($this->session->userdata('role_id') == 14) {
 
@@ -110,8 +110,8 @@ AND  `groups`.`group_id` = " . $this->session->userdata('group_id');
 			<input class="search" type="text"  name="complaint_code" placeholder="Complaint Code"
 			<?php //if($this->router->fetch_class()=='dashboard'){ 
             ?>  <?php //}else{ 
-                                                                        ?>  <?php //} 
-                                                                                            ?> >
+                ?>  <?php //} 
+                                                                            ?> >
             <button type="submit" class="fa fa-search search-icon" style="background:none !important; border:none !important;"></button>
             </form>
 		</div>-->

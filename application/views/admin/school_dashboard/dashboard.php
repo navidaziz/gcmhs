@@ -58,6 +58,7 @@
                   <?php for ($i = 1; $i <= 30; $i++) { ?>
                     <th><?php echo $i ?></th>
                   <?php } ?>
+                  <th>Month</th>
                 </tr>
                 <?php foreach ($classes as $class) { ?>
                   <?php
@@ -90,34 +91,27 @@
                         $attendance_summary = $this->db->query($query)->result();
 
                       ?>
-                        <td><?php echo $attendance_summary[0]->absent; ?></td>
+                        <td><?php
+                            if ($attendance_summary[0]->total) {
+                              //echo round(($attendance_summary[0]->absent * 100) / ($attendance_summary[0]->total - $today_attendance_summary[0]->corona_leave));
+                              echo $attendance_summary[0]->absent;
+                            } ?></td>
                       <?php } ?>
+
+                      <?php $query = "SELECT AVG(absent) as absent  FROM `daily_class_wise_attendance`
+                        WHERE class_id = '" . $class->class_id . "'
+                        AND section_id = '" . $section->section_id . "'
+                        AND MONTH(created_date) = MONTH(NOW())
+                        AND YEAR(created_date)  = YEAR(NOW())";
+                      $attendance_summary = $this->db->query($query)->result();
+
+                      ?>
+                      <td><?php
+                          if ($attendance_summary[0]->absent) {
+                            echo round($attendance_summary[0]->absent, 2);
+                          } ?></td>
                     </tr>
 
-                    <!-- <table class="table" style="background-color: <?php echo $section->color; ?>;">
-                      <tr>
-                        <th style="text-align: center;">Total</th>
-                        <th style="text-align: center;">Morning P</th>
-                        <th style="text-align: center;">A</th>
-                        <th style="text-align: center;">L</th>
-                        <th style="text-align: center;">CL</th>
-                        <th style="text-align: center;">Evening A</th>
-                      </tr>
-                      <?php if ($today_attendance_summary) { ?>
-                        <tr>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->total; ?></th>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->present; ?></th>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->absent; ?></th>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->leave; ?></th>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->corona_leave; ?></th>
-                          <th style="text-align: center;"><?php echo $today_attendance_summary[0]->evening_absent; ?></th>
-                        </tr>
-                      <?php } else { ?>
-                        <tr>
-                          <td colspan="6">Morning Attendance Pending..</td>
-                        </tr>
-                      <?php } ?>
-                    </table> -->
 
                   <?php } ?>
 
@@ -131,60 +125,7 @@
 
 
 
-              <!-- MESSENGER -->
-              <div class="row">
-                <?php foreach ($classes as $class) { ?>
-                  <div class="col-md-4" style="min-height: 800px;">
-                    <?php
-                    $count = 1;
-                    foreach ($class->sections as $section) { ?>
 
-                      <?php
-
-                      $query = "SELECT teacher_name FROM `classes_time_tables` 
-                                WHERE `class_teacher` = 1 
-                                AND class_id = '" . $class->class_id . "'
-                                AND section_id = '" . $section->section_id . "'";
-                      $teacher_name = $this->db->query($query)->result()[0]->teacher_name;
-
-
-                      $query = "SELECT * FROM `daily_class_wise_attendance`
-                    WHERE class_id = '" . $class->class_id . "'
-                    AND section_id = '" . $section->section_id . "'
-                    AND DATE(created_date) = DATE(NOW())";
-                      $today_attendance_summary = $this->db->query($query)->result(); ?>
-                      <?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?> Today Attendance Summary <br />
-                      <strong>Teacher: <?php echo $teacher_name; ?></strong>
-                      <table class="table" style="background-color: <?php echo $section->color; ?>;">
-                        <tr>
-                          <th style="text-align: center;">Total</th>
-                          <th style="text-align: center;">Morning P</th>
-                          <th style="text-align: center;">A</th>
-                          <th style="text-align: center;">L</th>
-                          <th style="text-align: center;">CL</th>
-                          <th style="text-align: center;">Evening A</th>
-                        </tr>
-                        <?php if ($today_attendance_summary) { ?>
-                          <tr>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->total; ?></th>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->present; ?></th>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->absent; ?></th>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->leave; ?></th>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->corona_leave; ?></th>
-                            <th style="text-align: center;"><?php echo $today_attendance_summary[0]->evening_absent; ?></th>
-                          </tr>
-                        <?php } else { ?>
-                          <tr>
-                            <td colspan="6">Morning Attendance Pending..</td>
-                          </tr>
-                        <?php } ?>
-                      </table>
-
-                    <?php } ?>
-                  </div>
-
-                <?php } ?>
-              </div>
             </div>
           </div>
 
