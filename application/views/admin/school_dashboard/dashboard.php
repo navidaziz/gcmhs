@@ -204,16 +204,15 @@
               plotLines: [{
                 id: 'avg',
                 value: <?php echo $dailyabseentaverage; ?>,
-                color: 'red',
+                color: '#f15c80',
                 dashStyle: 'dash',
                 width: 1,
 
                 label: {
-                  text: 'AVG-Absentees / Per Day -  <?php echo round($dailyabseentaverage); ?>',
+                  text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
                   align: 'right',
                   style: {
-                    color: 'red',
-                    fontWeight: 'bold'
+                    color: '#f15c80',
                   }
                 },
                 zIndex: 4
@@ -234,7 +233,7 @@
             series: [{
                 name: 'Absent',
                 data: [<?php echo $daily_absent; ?>],
-                color: 'red'
+                color: '#f15c80'
               }, {
                 name: 'Total',
                 data: [<?php echo $daily_total; ?>],
@@ -298,22 +297,27 @@
               series: [{
                 name: 'Absent Avg',
                 type: 'spline',
-                color: 'red',
-                data: [<?php echo $absent_avg; ?>]
+                color: '#f15c80',
+                data: [<?php echo $absent_avg; ?>],
+                zIndex: 4
 
               }, {
                 name: 'Present Avg',
-                color: 'green',
+                color: '#7cb5ec',
+                type: 'lollipop',
                 data: [<?php echo $present_avg; ?>]
+
 
               }, {
                 name: 'Leave Avg',
-                color: 'blue',
+                color: '#90ed7d',
+                type: 'lollipop',
                 data: [<?php echo $leave_avg; ?>]
 
               }, {
                 name: 'staggered Avg',
-                color: 'orange',
+                color: '#91e8e1',
+                type: 'lollipop',
                 data: [<?php echo $staggered_avg; ?>]
 
               }]
