@@ -34,6 +34,11 @@
         <div class="table-responsive">
           <div class="row">
             <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="daily_attendance"></div>
+                </div>
+              </div>
 
               <table class="table ">
 
@@ -146,96 +151,103 @@
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
-        <figure class="highcharts-figure">
-          <div id="daily_attendance"></div>
-          <p class="highcharts-description">
-            This chart shows how data labels can be added to the data series. This
-            can increase readability and comprehension for small datasets.
-          </p>
-          <script>
-            Highcharts.chart('daily_attendance', {
-              chart: {
-                type: 'line'
-              },
-              title: {
-                text: 'Monthly Average Temperature'
-              },
-              subtitle: {
-                text: 'Source: WorldClimate.com'
-              },
-              xAxis: {
-                categories: [
-                  <?php
-                  $query = "SELECT AVG(`absent`) as absent FROM `daily_total_attendance` 
+        <script>
+          Highcharts.chart('daily_attendance', {
+            chart: {
+              type: 'line'
+            },
+            title: {
+              text: '<?php echo date("F, Y") ?> Day Wise Atendance '
+            },
+            subtitle: {
+              text: 'Total-Present-Absent-AVG Absent Per Day.'
+            },
+            xAxis: {
+              categories: [
+                <?php
+                $query = "SELECT AVG(`absent`) as absent FROM `daily_total_attendance` 
                             WHERE YEAR(created_date) = YEAR(NOW()) 
                             AND MONTH(created_date) = MONTH(NOW())";
-                  $dailyabseentaverage = $this->db->query($query)->result()[0]->absent;
-                  $daily_absent = '';
-                  $daily_total = '';
-                  $daily_present = '';
-                  for ($i = 1; $i <= 30; $i++) {
+                $dailyabseentaverage = $this->db->query($query)->result()[0]->absent;
+                $daily_absent = '';
+                $daily_total = '';
+                $daily_present = '';
+                for ($i = 1; $i <= 30; $i++) {
 
 
-                    $query = "SELECT SUM(absent) as absent, 
+                  $query = "SELECT SUM(absent) as absent, 
                                      SUM(total) as total,
                                      SUM(present) as present
                                        FROM `daily_class_wise_attendance`
                         WHERE  DATE(created_date) = DATE('" . date("Y-m-") . $i . "')";
-                    $attendance_summary = $this->db->query($query)->result();
-                    if ($attendance_summary[0]->total) {
-                      echo  "'" . $i . "', ";
-                      $daily_absent .= $attendance_summary[0]->absent . ", ";
-                      $absent_sum += $attendance_summary[0]->absent;
-                      $daily_total .= $attendance_summary[0]->total . ", ";
-                      $daily_present .= $attendance_summary[0]->present . ", ";
-                    } else {
-                      // $daily_absent .= "null, ";
-                      // $daily_total .= "null, ";
-                      // $daily_present .= "null, ";
-                    } ?>
-                  <?php } ?>
-                ],
+                  $attendance_summary = $this->db->query($query)->result();
+                  if ($attendance_summary[0]->total) {
+                    echo  "'" . $i . "', ";
+                    $daily_absent .= $attendance_summary[0]->absent . ", ";
+                    $absent_sum += $attendance_summary[0]->absent;
+                    $daily_total .= $attendance_summary[0]->total . ", ";
+                    $daily_present .= $attendance_summary[0]->present . ", ";
+                  } else {
+                    echo  "'" . $i . "', ";
+                    $daily_absent .= "null, ";
+                    $daily_total .= "null, ";
+                    $daily_present .= "null, ";
+                  } ?>
+                <?php } ?>
+              ],
+
+            },
+            yAxis: {
+              title: {
+                text: 'Total Students'
+              },
+              plotLines: [{
+                id: 'avg',
+                value: <?php echo $dailyabseentaverage; ?>,
+                color: 'red',
+                dashStyle: 'dash',
+                width: 1,
+
+                label: {
+                  text: 'AVG-Absentees / Per Day -  <?php echo round($dailyabseentaverage); ?>',
+                  align: 'right',
+                  style: {
+                    color: 'red',
+                    fontWeight: 'bold'
+                  }
+                },
+                zIndex: 4
+              }]
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                },
+                enableMouseTracking: false
 
               },
-              yAxis: {
-                title: {
-                  text: 'Temperature (°C)'
-                },
-                plotLines: [{
-                  id: 'avg',
-                  value: <?php echo $dailyabseentaverage; ?>,
-                  color: 'red',
-                  dashStyle: 'dash',
-                  width: 1,
-                  label: {
-                    text: 'This Month Absentisum / Per Day <?php echo $dailyabseentaverage; ?>'
-                  },
-                  zIndex: 4
-                }]
+              series: {
+                connectNulls: true
+              }
+            },
+            series: [{
+                name: 'Absent',
+                data: [<?php echo $daily_absent; ?>],
+                color: 'red'
+              }, {
+                name: 'Total',
+                data: [<?php echo $daily_total; ?>],
+                visible: false
               },
-              plotOptions: {
-                line: {
-                  dataLabels: {
-                    enabled: true
-                  },
-                  enableMouseTracking: false
-                }
-              },
-              series: [{
-                  name: 'Absent',
-                  data: [<?php echo $daily_absent; ?>]
-                }, {
-                  name: 'Total',
-                  data: [<?php echo $daily_total; ?>]
-                },
-                {
-                  name: 'Present',
-                  data: [<?php echo $daily_present; ?>]
-                }
-              ]
-            });
-          </script>
-        </figure>
+              {
+                name: 'Present',
+                data: [<?php echo $daily_present; ?>],
+                visible: false
+              }
+            ]
+          });
+        </script>
 
 
 
