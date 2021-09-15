@@ -206,6 +206,8 @@ $section_id = $students[0]->section_id;
 
                     <?php  } ?>
                     <?php if ($student->status == 0) { ?> <?php  } ?>
+                    <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
+
                 </h5>
             </div>
 
@@ -268,7 +270,9 @@ $section_id = $students[0]->section_id;
 
                         <tr>
                             <td>Date Of Birth</td>
-                            <td><?php echo $student->student_data_of_birth; ?></td>
+                            <td><?php echo $student->student_data_of_birth; ?>
+
+                            </td>
                         </tr>
                         <tr>
                             <td>Date Of Admission</td>

@@ -29,7 +29,13 @@ class Admission extends Admin_Controller
 		$this->load->library('form_validation');
 	}
 	//---------------------------------------------------------------
-
+	public function birth_certificate($student_id)
+	{
+		$student_id = (int) $student_id;
+		$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+		$this->data['student'] = $this->db->query($query)->result()[0];
+		$this->load->view(ADMIN_DIR . "admission/birth_certificate", $this->data);
+	}
 	public function search_student()
 	{
 		$search = $this->db->escape("%" . $this->input->post("search_student") . "%");
