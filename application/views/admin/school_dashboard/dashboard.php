@@ -166,10 +166,19 @@
               xAxis: {
                 categories: [
                   <?php
+                  $query = "SELECT AVG(absent) as absent
+                    FROM `daily_class_wise_attendance`
+                   WHERE  MONTH(created_date) = MONTH(NOW())
+                        AND YEAR(created_date)  = YEAR(NOW())";
+                  $dailyabseentaverage = $this->db->query($query)->result()[0]->absent;
+                  $daily_abseent_average = '';
                   $daily_absent = '';
                   $daily_total = '';
                   $daily_present = '';
+                  $data_count = 0;
+                  $absent_sum = 0;
                   for ($i = 1; $i <= 30; $i++) {
+
 
                     $query = "SELECT SUM(absent) as absent, 
                                      SUM(total) as total,
@@ -179,9 +188,12 @@
                     $attendance_summary = $this->db->query($query)->result();
                     if ($attendance_summary[0]->total) {
                       echo  "'" . $i . "', ";
+                      $data_count++;
                       $daily_absent .= $attendance_summary[0]->absent . ", ";
+                      $absent_sum += $attendance_summary[0]->absent;
                       $daily_total .= $attendance_summary[0]->total . ", ";
                       $daily_present .= $attendance_summary[0]->present . ", ";
+                      $daily_abseent_average .= $dailyabseentaverage . ", ";
                     } else {
                       // $daily_absent .= "null, ";
                       // $daily_total .= "null, ";
@@ -213,6 +225,10 @@
                 {
                   name: 'Present',
                   data: [<?php echo $daily_present; ?>]
+                },
+                {
+                  name: 'Absent AVG',
+                  data: [<?php echo $daily_abseent_average; ?>]
                 }
               ]
             });
