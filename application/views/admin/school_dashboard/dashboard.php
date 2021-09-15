@@ -27,23 +27,7 @@
     <div class="box border blue" id="messenger">
       <div class="box-title">
         <h4><i class="fa fa-bell"></i> <?php echo $title; ?></h4>
-        <!--<div class="tools">
-            
-				<a href="#box-config" data-toggle="modal" class="config">
-					<i class="fa fa-cog"></i>
-				</a>
-				<a href="javascript:;" class="reload">
-					<i class="fa fa-refresh"></i>
-				</a>
-				<a href="javascript:;" class="collapse">
-					<i class="fa fa-chevron-up"></i>
-				</a>
-				<a href="javascript:;" class="remove">
-					<i class="fa fa-times"></i>
-				</a>
-				
 
-			</div>-->
       </div>
       <div class="box-body">
 
@@ -160,6 +144,82 @@
         <script src="https://code.highcharts.com/modules/lollipop.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+        <figure class="highcharts-figure">
+          <div id="daily_attendance"></div>
+          <p class="highcharts-description">
+            This chart shows how data labels can be added to the data series. This
+            can increase readability and comprehension for small datasets.
+          </p>
+          <script>
+            Highcharts.chart('daily_attendance', {
+              chart: {
+                type: 'line'
+              },
+              title: {
+                text: 'Monthly Average Temperature'
+              },
+              subtitle: {
+                text: 'Source: WorldClimate.com'
+              },
+              xAxis: {
+                categories: [
+                  <?php
+                  $daily_absent = '';
+                  $daily_total = '';
+                  $daily_present = '';
+                  for ($i = 1; $i <= 30; $i++) {
+
+                    $query = "SELECT SUM(absent) as absent, 
+                                     SUM(total) as total,
+                                     SUM(present) as present
+                                       FROM `daily_class_wise_attendance`
+                        WHERE  DATE(created_date) = DATE('" . date("Y-m-") . $i . "')";
+                    $attendance_summary = $this->db->query($query)->result();
+                    if ($attendance_summary[0]->total) {
+                      echo  "'" . $i . "', ";
+                      $daily_absent .= $attendance_summary[0]->absent . ", ";
+                      $daily_total .= $attendance_summary[0]->total . ", ";
+                      $daily_present .= $attendance_summary[0]->present . ", ";
+                    } else {
+                      // $daily_absent .= "null, ";
+                      // $daily_total .= "null, ";
+                      // $daily_present .= "null, ";
+                    } ?>
+                  <?php } ?>
+                ]
+              },
+              yAxis: {
+                title: {
+                  text: 'Temperature (°C)'
+                }
+              },
+              plotOptions: {
+                line: {
+                  dataLabels: {
+                    enabled: true
+                  },
+                  enableMouseTracking: false
+                }
+              },
+              series: [{
+                  name: 'Absent',
+                  data: [<?php echo $daily_absent; ?>]
+                }, {
+                  name: 'Total',
+                  data: [<?php echo $daily_total; ?>]
+                },
+                {
+                  name: 'Present',
+                  data: [<?php echo $daily_present; ?>]
+                }
+              ]
+            });
+          </script>
+        </figure>
+
+
 
 
         <figure class="highcharts-figure">
