@@ -153,7 +153,7 @@ function numToOrdinalWord($num)
 
 <body style="margin: 0px auto !important">
   <page size='A4'>
-    <div style="padding: 5px; padding-top:50px;  padding-left:20px; padding-right:20px; 
+    <div style="padding: 5px; padding-top:20px;  padding-left:20px; padding-right:20px; 
     " contenteditable="true">
       <table style="width: 100%;">
 
@@ -196,7 +196,7 @@ function numToOrdinalWord($num)
         <tr>
           <td colspan="2">
             <br />
-            <p style="font-size: 16px; padding-left: 20px; padding-right: 20px;">&nbsp;&nbsp;&nbsp;It is certified that
+            <p style="font-size: 16px; padding-left: 20px; padding-right: 20px;">It is certified that
               <span style="text-decoration: underline; font-weight: bold;">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i><?php echo ucwords(strtolower($student->student_name)) ?></i>
@@ -207,10 +207,10 @@ function numToOrdinalWord($num)
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </span>&nbsp; is / was regular student of this school. <br />
               <br />
-              &nbsp;&nbsp;&nbsp;His date of birth according to school record is
+              His date of birth according to school record is
               <span style="text-decoration: underline; font-weight: bold;">
                 <?php echo date("d-m-Y", strtotime($student->student_data_of_birth)); ?>.</span> <br />
-              &nbsp;&nbsp;&nbsp;In words (
+              In words (
               <span style="font-weight: bold;">
                 The <?php echo numToOrdinalWord(date("d", strtotime($student->student_data_of_birth))); ?>
                 of <?php echo date("F", strtotime($student->student_data_of_birth)); ?>,
@@ -223,6 +223,8 @@ function numToOrdinalWord($num)
         </tr>
         <tr>
           <td colspan="2">
+            <br />
+            <br />
             <p style="padding-right: 20px; padding-left: 20px; padding-top: 40px; ">
               <span class="pull-left" style="text-align: center; font-weight: bold;">Incharge Admission</span>
               <span class="pull-right" style="text-align: center; font-weight: bold;">Principal<br />GCMHS Boys Chitral</span>
@@ -231,8 +233,7 @@ function numToOrdinalWord($num)
 
         </tr>
 
-      </table>
-      <br />
+      </table><br /><br /><br /><br />
       <p style="text-align: center; color: #EDEDED;">
         -----<span>&#9986;</span>---------------------------------------------------------------------------------------------------------------------------------<span>&#9986;</span>-----
 
