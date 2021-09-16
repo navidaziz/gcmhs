@@ -1,3 +1,101 @@
+<div id="update_result" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="">Update Result</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <br />
+      </div>
+      <div class="modal-body">
+        <h4 id="update_result_body">Please Wait .....</h4>
+        <p style="text-align: center;">
+
+
+        <form action="<?php echo site_url(ADMIN_DIR . "admission/re_admit_again") ?>" method="post" style="text-align: center;">
+          <input type="hidden" name="student_exam_subject_mark_id" id="student_exam_subject_mark_id" value="" />
+          <table style="width: 100%;">
+
+            <tr>
+              <td> Total Marks:
+              </td>
+              <td>
+                <input readonly type="text" name="total_marks" id="total_marks" value="" />
+              </td>
+            </tr>
+            <tr>
+              <td> Obtain Marks:
+              </td>
+              <td>
+                <input required class="result_entry" type="text" name="obtain_mark" id="obtain_mark" value="" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"><input type="submit" class="btn btn-success btn-sm" value="Update Result" /></td>
+            </tr>
+
+          </table>
+
+
+        </form>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function update_result(student_id, name, father_name, add_no, student_exam_subject_mark_id, total_marks, obtain_mark) {
+    var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+    $("#student_exam_subject_mark_id").val(student_exam_subject_mark_id);
+    $("#total_marks").val(total_marks);
+    $("#obtain_mark").val(obtain_mark);
+    $('#update_result_body').html(body);
+    $('#update_result').modal('show');
+  }
+</script>
+
+<script>
+  $(document).ready(function() {
+    $(".result_entry").on('keyup', function() {
+      var value = $(this).val();
+      if (isNaN(value)) {
+        if (value.toUpperCase() != 'A') {
+          $(this).val("");
+        } else {
+          $(this).val("A");
+        }
+      }
+      if (value == '00') {
+        $(this).prop("type", "text");
+        $(this).val("A");
+
+      }
+
+      student_marks = parseInt($('#obtain_mark').val());
+      total_marks = parseInt($('#total_marks').val());
+      if (isNaN(total_marks)) {
+        alert("Enter Total Marks First In Number.");
+        $('#obtain_mark').val("");
+      } else {
+        if (total_marks <= 0) {
+          alert("Total marks must be greater than 0.");
+          $('#obtain_mark').val("");
+        }
+      }
+      if (student_marks < 0 || student_marks > total_marks) {
+        alert("Student obtain marks must be greater or equal than 0 and less than total marks.");
+        $('#student_marks_' + id).val("");
+
+      }
+
+
+    });
+  });
+</script>
+
 <div class="row" style="height: 38px !important;">
   <div class="col-sm-12">
     <div class="page-header" style="min-height: 30px !important">
@@ -88,7 +186,8 @@
             <?php
             $count = 1;
             $student_id = '';
-            foreach ($students as $student) : ?>
+            foreach ($students as $student) :
+            ?>
               <tr>
 
                 <td><?php echo $count; ?></td>
@@ -127,6 +226,13 @@
                   color: red;
                 <?php } ?>
                 "><?php echo $percentage . " %"; ?></td>
+                <td>
+                  <a href="#" onclick="update_result('<?php echo $student->student_id ?>', 
+                    '<?php echo $student->student_name ?>', 
+                    '<?php echo $student->student_father_name ?>', 
+                    '<?php echo $student->student_admission_no ?>', 
+                    '<?php echo $student->student_exam_subject_mark_id ?>','<?php echo $student->total_marks; ?>', '<?php echo $student->obtain_mark; ?>' )"> Edit</a>
+                </td>
               </tr>
             <?php
               $count++;
