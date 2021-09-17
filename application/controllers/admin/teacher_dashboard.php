@@ -106,6 +106,27 @@ class Teacher_dashboard extends Admin_Controller
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
 
+    public function update_student_subject_result()
+    {
+
+        $class_id =  (int) $this->input->post("class_id");
+        $section_id = (int) $this->input->post("section_id");
+        $subject_id =  (int) $this->input->post("subject_id");
+        $exam_id =  (int) $this->input->post("exam_id");
+        $class_subject_id = (int) $this->input->post("class_subject_id");
+        $total_marks =  (int) $this->input->post("total_marks");
+        $obtain_mark = $this->input->post("obtain_mark");
+        $student_exam_subject_mark_id = (int) $this->input->post("student_exam_subject_mark_id");
+
+        $inputs["obtain_mark"]   = $obtain_mark;
+        $inputs["total_marks"]   = $total_marks;
+        $inputs['passing_marks'] = round((($total_marks * 33) * .01), 2);
+        $inputs['percentage'] = round((($obtain_mark * 100) / $total_marks), 2);
+        $this->student_exam_subject_mark_model->save($inputs, $student_exam_subject_mark_id);
+
+        redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
+    }
+
     public function students_list($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
     {
         $this->data["class_id"] = $class_id = (int) $class_id;
