@@ -75,8 +75,22 @@
                     WHERE class_id = '" . $class->class_id . "'
                     AND section_id = '" . $section->section_id . "'
                     AND DATE(created_date) = DATE(NOW())";
-                    $today_attendance_summary = $this->db->query($query)->result(); ?>
-                    <tr>
+                    $today_attendance_summary = $this->db->query($query)->result();
+                    $color = '';
+                    if ($section->section_title == 'Yellow') {
+                      $color = ' ';
+                    }
+                    if ($section->section_title == 'Red') {
+                      $color = ' ';
+                    }
+                    if ($section->section_title == 'Green') {
+                      $color = ' ';
+                    }
+                    if ($section->section_title == 'Blue') {
+                      $color = ' ';
+                    }
+                    ?>
+                    <tr style="background-image: linear-gradient(<?php echo $color; ?>,white); ">
                       <td><?php echo $class->Class_title; ?>-<?php echo $section->section_title; ?></td>
                       <td><?php echo $teacher_name; ?></td>
 
@@ -92,7 +106,14 @@
                             if ($attendance_summary[0]->total) {
                               //echo round(($attendance_summary[0]->absent * 100) / ($attendance_summary[0]->total - $today_attendance_summary[0]->corona_leave));
                               echo $attendance_summary[0]->absent;
-                            } ?></td>
+                              if ($attendance_summary[0]->evening_absent > 0) {
+                                echo "<small style=\"color:red\">-" . $attendance_summary[0]->evening_absent . "</small>";
+                              }
+                            } ?>
+
+
+
+                        </td>
                       <?php } ?>
 
                       <?php $query = "SELECT AVG(absent) as absent, AVG(present) as present, AVG(corona_leave) as staggered, AVG(`leave`) as `leave` 
@@ -109,6 +130,7 @@
                       <td><?php
                           if ($attendance_summary[0]->absent) {
                             echo round($attendance_summary[0]->absent, 2);
+
                             $monthly_absent_avg .= "{
                               name: '" . $class->Class_title . "-" . $section->section_title . "-" . $teacher_name . "',
                               low: " . round($attendance_summary[0]->absent, 2) . ",
