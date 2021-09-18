@@ -211,7 +211,9 @@
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
 
                                         <?php } else { ?>
-                                            <td colspan="4" style="text-align: center;">Struck Off</td>
+                                            <td colspan="4" style="text-align: center;">Struck Off
+                                                <input type="hidden" name="attendance[<?php echo $student->student_id ?>]" value="SO" />
+                                            </td>
                                         <?php } ?>
                                         <?php } else {
                                         for ($i = 5; $i >= 0; $i--) {
