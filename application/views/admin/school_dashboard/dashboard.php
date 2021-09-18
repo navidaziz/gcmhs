@@ -44,6 +44,7 @@
 
                 <tr>
                   <th>Class</th>
+                  <th>Class Teacher</th>
                   <?php
                   $monthly_absent_avg = '';
                   $class_sections = '';
@@ -63,7 +64,7 @@
 
                     <?php
 
-                    $query = "SELECT teacher_name FROM `classes_time_tables` 
+                    $query = "SELECT teacher_name,  FROM `classes_time_tables` 
                                 WHERE `class_teacher` = 1 
                                 AND class_id = '" . $class->class_id . "'
                                 AND section_id = '" . $section->section_id . "'";
@@ -76,8 +77,8 @@
                     AND DATE(created_date) = DATE(NOW())";
                     $today_attendance_summary = $this->db->query($query)->result(); ?>
                     <tr>
-                      <td> <span title=" <?php echo $teacher_name; ?>"><?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?></span>
-                      </td>
+                      <td><?php echo $class->Class_title; ?>-<?php echo $section->section_title; ?></td>
+                      <td><?php echo $teacher_name; ?></td>
 
                       <?php for ($i = 1; $i <= 30; $i++) {
                         $query = "SELECT * FROM `daily_class_wise_attendance`
@@ -143,7 +144,7 @@
         </div>
 
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src=" https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
         <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
         <script src="https://code.highcharts.com/modules/lollipop.js"></script>
