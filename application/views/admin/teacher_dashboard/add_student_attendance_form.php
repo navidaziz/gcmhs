@@ -266,6 +266,8 @@
 
                                     <?php if ($evening_attendance == 1  and $today_attendance == 1 and @$query_result[0]->attendance == 'P') { ?>
                                         <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $query_result[0]->student_attendance_id ?>]" <?php if ($query_result[0]->attendance == 'P') { ?> checked="checked" <?php } ?> value="P" /></td>
+                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $query_result[0]->student_attendance_id ?>]" <?php if ($query_result[0]->attendance == 'L') { ?> checked="checked" <?php } ?> value="L" /></td>
+
                                         <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $query_result[0]->student_attendance_id ?>]" <?php if ($query_result[0]->attendance == 'A') { ?> checked="checked" <?php } ?> value="A" /></td>
                                     <?php } ?>
                                 </tr>
