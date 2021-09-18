@@ -123,6 +123,7 @@
                                 <?php } ?>
                                 <?php if ($evening_attendance == 1  and $today_attendance == 1) { ?>
                                     <th style="text-align: center;">E-P</th>
+                                    <th style="text-align: center;">E-L</th>
                                     <th style="text-align: center;">E-A</th>
                                 <?php } ?>
                             </tr>
