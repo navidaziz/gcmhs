@@ -197,10 +197,10 @@
                                         <?php }
                                         $present = "";
                                         $corona_leave = "";
-                                        if (@$query_result[0]->attendance == 'P') {
-                                            $corona_leave = 'checked="checked"';
-                                        } else {
+                                        if (@$query_result[0]->attendance == 'CL') {
                                             $present = 'checked="checked"';
+                                        } else {
+                                            $corona_leave = 'checked="checked"';
                                         }
 
                                         ?>
