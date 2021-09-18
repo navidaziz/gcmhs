@@ -9,12 +9,26 @@
         <br />
       </div>
       <div class="modal-body">
+        <?php echo $exam->year . " " . $exam->term; ?><br />
+        <?php echo $students[0]->Class_title . " (" . $students[0]->section_title . ")"; ?> - Subject <?php echo $class_subject . ""; ?></h5>
+
         <h4 id="update_result_body">Please Wait .....</h4>
         <p style="text-align: center;">
 
 
-        <form action="<?php echo site_url(ADMIN_DIR . "admission/re_admit_again") ?>" method="post" style="text-align: center;">
+        <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/update_student_subject_result") ?>" method="post" style="text-align: center;">
           <input type="hidden" name="student_exam_subject_mark_id" id="student_exam_subject_mark_id" value="" />
+          <input type="hidden" name="class_id" id="class_id" value="<?php echo $class_id; ?>" />
+          <input type="hidden" name="section_id" id="section_id" value="<?php echo $section_id; ?>" />
+          <input type="hidden" name="exam_id" id="exam_id" value="<?php echo $exam_id; ?>" />
+
+          <input type="hidden" name="class_subject_id" id="class_subject_id" value="<?php echo $class_subject_id; ?>" />
+
+          <input type="hidden" name="subject_id" id="subject_id" value="<?php echo $subject_id; ?>" />
+
+
+
+
           <table style="width: 100%;">
 
             <tr>
@@ -87,7 +101,7 @@
       }
       if (student_marks < 0 || student_marks > total_marks) {
         alert("Student obtain marks must be greater or equal than 0 and less than total marks.");
-        $('#student_marks_' + id).val("");
+        $('#obtain_mark').val("");
 
       }
 
@@ -180,6 +194,7 @@
               <th>Total</th>
               <th>Obta.</th>
               <th>%age</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
