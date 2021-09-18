@@ -64,7 +64,7 @@
 
                     <?php
 
-                    $query = "SELECT teacher_name,  FROM `classes_time_tables` 
+                    $query = "SELECT teacher_name FROM `classes_time_tables` 
                                 WHERE `class_teacher` = 1 
                                 AND class_id = '" . $class->class_id . "'
                                 AND section_id = '" . $section->section_id . "'";
