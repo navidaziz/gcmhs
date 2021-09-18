@@ -106,7 +106,8 @@
                             if ($attendance_summary[0]->total) {
                               //echo round(($attendance_summary[0]->absent * 100) / ($attendance_summary[0]->total - $today_attendance_summary[0]->corona_leave));
                               echo $attendance_summary[0]->absent;
-                              if ($attendance_summary[0]->evening_absent > 0) {
+
+                              if ($attendance_summary[0]->ea == 'y') {
                                 echo "<small style=\"color:red\">-" . $attendance_summary[0]->evening_absent . "</small>";
                               }
                             } ?>
