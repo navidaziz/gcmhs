@@ -353,6 +353,48 @@ class Teacher_dashboard extends Admin_Controller
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance_form";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
+    
+
+    public function add_student_evining_attendance($class, $section, $evening = false)
+    {
+        $this->data['class_id'] = $class = (int) $class;
+        $this->data['section_id'] = $section = (int) $section;
+        $this->data['evening'] = $evening;
+        $query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
+            class_id = '" . $class . "' and section_id = '" . $section . "'
+            AND attendance2 IS NOT NULL  
+            AND date(created_date) = DATE(NOW())";
+        $evening_attendance = $this->db->query($query)->result()[0]->total;
+
+        $query = "SELECT s.*, 
+                         sa.`attendance`, 
+                         sa.`student_attendance_id`, 
+                         sa.`attendance2` FROM students as s, students_attendance as sa 
+                  WHERE 
+                  s.student_id = sa.student_id
+                  AND s.`status` IN (1,2) 
+                  AND s.section_id ='" . $section . "' 
+                  AND s.class_id='" . $class . "'
+                  AND DATE(sa.created_date)  = DATE(NOW()) ";
+        if($evening_attendance==0){
+            $query .=" AND sa.attendance = 'P'";
+            $this->data['evening_attendance'] = 1;
+        }else{
+            $this->data['evening_attendance'] = 0;
+        }         
+        
+
+         $query .=" ORDER BY  `status`, `student_class_no` ASC";
+        $this->data['students'] = $this->db->query($query)->result();
+        $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
+        $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;
+
+        $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance";
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
+    }
+
+
 
     public function edit_student_attendance_form($class, $section, $attendance_date, $evening = false)
     {

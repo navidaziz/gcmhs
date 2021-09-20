@@ -75,7 +75,7 @@
                 if ($class_teacher) {
 
 
-                    echo '<a  href="add_student_attendance/' . $class_teacher[0]->class_id . '/' . $class_teacher[0]->section_id . '/evening" >
+                    echo '<a  href="add_student_evining_attendance/' . $class_teacher[0]->class_id . '/' . $class_teacher[0]->section_id . '/evening" >
                     <div class="btn btn-danger btn-sm" style="margin:2px"> Evening Time ';
                     echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title;
                     echo ' Attendance <br />'; ?>
