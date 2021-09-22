@@ -155,7 +155,7 @@ class Teacher_dashboard extends Admin_Controller
 
 
 
-        $where = "`students`.`status` IN (1) and `students`.`class_id`='" . $class_id . "' 
+        $where = "`students`.`status` IN (1,2) and `students`.`class_id`='" . $class_id . "' 
 				   AND `students`.`section_id` ='" . $section_id . "' ORDER by `students`.`student_class_no` ASC ";
         $this->data["students"] = $this->student_model->get_student_list($where, FALSE);
 
@@ -353,7 +353,7 @@ class Teacher_dashboard extends Admin_Controller
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance_form";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
-    
+
 
     public function add_student_evining_attendance($class, $section, $evening = false)
     {
@@ -376,15 +376,15 @@ class Teacher_dashboard extends Admin_Controller
                   AND s.section_id ='" . $section . "' 
                   AND s.class_id='" . $class . "'
                   AND DATE(sa.created_date)  = DATE(NOW()) ";
-        if($evening_attendance==0){
-            $query .=" AND sa.attendance = 'P'";
+        if ($evening_attendance == 0) {
+            $query .= " AND sa.attendance = 'P'";
             $this->data['evening_attendance'] = 1;
-        }else{
+        } else {
             $this->data['evening_attendance'] = 0;
-        }         
-        
+        }
 
-         $query .=" ORDER BY  `status`, `student_class_no` ASC";
+
+        $query .= " ORDER BY  `status`, `student_class_no` ASC";
         $this->data['students'] = $this->db->query($query)->result();
         $class_title = $this->db->query("SELECT Class_title FROM classes WHERE class_id = '" . $class . "'")->result()[0]->Class_title;
         $section_title = $this->db->query("SELECT section_title FROM sections WHERE section_id = '" . $section . "'")->result()[0]->section_title;

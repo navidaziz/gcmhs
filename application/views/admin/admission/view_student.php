@@ -89,6 +89,7 @@
 
             <td><?php echo $this->lang->line('student_father_name'); ?></td>
             <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+
             <td>Add. Date</td>
             <td><?php echo $this->lang->line('student_address'); ?></td>
             <td>Mobile No</td>
@@ -199,6 +200,7 @@
 
           <td><?php echo $this->lang->line('student_father_name'); ?></td>
           <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+          <td>Form B</td>
           <td>Admiss. Date</td>
           <td><?php echo $this->lang->line('student_address'); ?></td>
           <td>Mobile No</td>
@@ -270,6 +272,11 @@
               <td><?php //echo $student->student_data_of_birth; 
                   ?>
                 <input style="width: 80px;" onchange="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'student_data_of_birth')" id="student_data_of_birth_<?php echo $student->student_id; ?>" type="date" name="student_data_of_birth" value="<?php echo $student->student_data_of_birth; ?>" />
+
+              </td>
+
+              <td>
+                <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'form_b')" id="form_b_<?php echo $student->student_id; ?>" type="text" name="form_b" value="<?php echo $student->form_b; ?>" />
 
               </td>
 

@@ -48,6 +48,7 @@
 
         <td><?php echo $this->lang->line('student_father_name'); ?></td>
         <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+        <td>Form B</td>
         <td>Add. Date</td>
         <td><?php echo $this->lang->line('student_address'); ?></td>
         <td>Mobile No</td>
@@ -81,6 +82,7 @@
               <td><span><?php echo $student->student_name;  ?></span></td>
               <td><?php echo $student->student_father_name;  ?></td>
               <td><?php echo $student->student_data_of_birth; ?> </td>
+              <td><?php echo $student->form_b; ?> </td>
               <td><?php echo $student->admission_date; ?></td>
               <td><?php echo $student->student_address; ?></td>
               <td><?php echo $student->father_mobile_number; ?></td>
