@@ -60,6 +60,7 @@
         foreach ($sections as $section_name => $students) {
           $count = 1;
           foreach ($students as $student) :
+            $age = date_diff(date_create($student->student_data_of_birth), date_create('now'));
         ?>
             <tr>
 
@@ -70,11 +71,11 @@
               <td><?php echo $student->student_data_of_birth; ?> </td>
               <td>GCMHS B</td>
               <?php for($i=4; $i<=15; $i++){ ?>
-          <td><?php $age = date_diff(date_create($student->student_data_of_birth), date_create('now'));
+          <td <?php if($age->y < 4 || $age->y > 15){ ?> style="background: #F2F2F2;" <?php } ?> <?php ?> ><?php 
           if($age->y==$i){
             echo $age->y;
           }
-          ?></th>
+          ?></td>
           <?php } ?>
             </tr>
           <?php endforeach;  ?>
