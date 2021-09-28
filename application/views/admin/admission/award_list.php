@@ -46,17 +46,13 @@
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
         <th><?php echo $this->lang->line('student_father_name'); ?></th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>8</th>
-        <th>9</th>
-        <th>10</th>
-        <th>11</th>
-        <th>12</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+
 
         </tr>
       </thead>
@@ -75,11 +71,6 @@
               <td><span><?php echo $student->student_admission_no; ?></span></td>
               <td><span><?php echo str_replace("Muhammad", "M. ", $student->student_name);  ?></span></td>
               <td><?php echo str_replace("Muhammad", "M. ", $student->student_father_name);  ?></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
