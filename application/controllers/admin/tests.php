@@ -244,9 +244,9 @@ class Tests extends Admin_Controller
         $test_id = (int) $test_id;
         $this->data["test"] = $this->test_model->get($test_id);
 
-        $this->data["classes"] = $this->test_model->getList("CLASSES", "class_id", "Class_title", $where = "");
+        $this->data["classes"] = $this->test_model->getList("classes", "class_id", "Class_title", $where = "");
 
-        $this->data["subjects"] = $this->test_model->getList("SUBJECTS", "subject_id", "subject_title", $where = "");
+        $this->data["subjects"] = $this->test_model->getList("subjects", "subject_id", "subject_title", $where = "");
 
         $this->data["title"] = $this->lang->line('Edit Test');
         $this->data["view"] = ADMIN_DIR . "tests/edit_test";
