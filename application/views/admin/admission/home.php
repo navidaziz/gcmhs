@@ -51,6 +51,8 @@
           <div class="row">
             <div class="col-md-5">
               <!-- MESSENGER -->
+              <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
+                Student Overall Data</a>
               <table class="table table-bordered">
                 <thead>
                   <tr>
