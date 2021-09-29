@@ -203,7 +203,7 @@
             $student_id = '';
             foreach ($students as $student) :
             ?>
-              <tr>
+              <tr <?php if ($student->status == 2) { ?>style="color: red;" <?php } ?>>
 
                 <td><?php echo $count; ?></td>
                 <td><?php echo $student->student_class_no; ?></td>
@@ -215,7 +215,7 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
-                <?php if ($student->obtain_mark >= 0) { ?>
+                <?php if (is_null(!$student->obtain_mark)) { ?>
                   <td style="text-align: center;"><?php
                                                   $percentage  = @round(($student->obtain_mark * 100 / $student->total_marks));
                                                   echo $student->total_marks; ?></td>
