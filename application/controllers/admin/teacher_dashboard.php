@@ -190,7 +190,7 @@ class Teacher_dashboard extends Admin_Controller
         $result = $this->db->query($query);
         $this->data['class_subject'] = $result->result()[0]->subject_title;
 
-        echo $query = "SELECT
+        $query = "SELECT
                 `students`.*
                 , `students_exams_subjects_marks`.`student_exam_subject_mark_id`
                 , `students_exams_subjects_marks`.`exam_id`
