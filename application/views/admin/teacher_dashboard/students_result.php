@@ -215,7 +215,7 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
-                <?php if ($student->obtain_mark) { ?>
+                <?php if (is_null(!$student->obtain_mark)) { ?>
                   <td style="text-align: center;"><?php
                                                   $percentage  = @round(($student->obtain_mark * 100 / $student->total_marks));
                                                   echo $student->total_marks; ?></td>
