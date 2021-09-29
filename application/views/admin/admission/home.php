@@ -51,6 +51,8 @@
           <div class="row">
             <div class="col-md-5">
               <!-- MESSENGER -->
+              <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
+                Student Overall Data</a>
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -125,6 +127,11 @@
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/age_wise_report") . "/$class->class_id/$section->section_id"; ?>">
                           Age Report</a>
+                      </td>
+
+                      <td>
+                        <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/award_list") . "/$class->class_id/$section->section_id"; ?>">
+                          Award List</a>
                       </td>
                     </tr>
                   <?php } ?>
