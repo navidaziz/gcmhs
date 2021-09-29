@@ -210,7 +210,7 @@ class Teacher_dashboard extends Admin_Controller
             AND `sections`.`section_id` = `students`.`section_id`
                         AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
                         AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
-                        AND  `students`.`status`=1
+                        AND  `students`.`status` IN (1,2)
                         and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "' ORDER BY `students`.`student_class_no`";
         $result = $this->db->query($query);
         $this->data['students'] = $result->result();
