@@ -777,7 +777,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 				WHERE `questions_answers`.`student_id` = `students`.`student_id` 
 				  AND `classes`.`class_id` = `students`.`class_id` 
 				  AND `sections`.`section_id` = `students`.`section_id` 
-				  AND `students`.`status`='1' 
+				  AND `students`.`status` IN (1,2) 
 				  AND  `students`.`class_id`='" . $class_id . "' 
 				  AND  `students`.`section_id` ='" . $section_id . "'
 				GROUP BY `students`.`student_id` 
