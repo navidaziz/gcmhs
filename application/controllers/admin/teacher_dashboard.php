@@ -190,7 +190,7 @@ class Teacher_dashboard extends Admin_Controller
         $result = $this->db->query($query);
         $this->data['class_subject'] = $result->result()[0]->subject_title;
 
-        $query = "SELECT
+        echo $query = "SELECT
                 `students`.*
                 , `students_exams_subjects_marks`.`student_exam_subject_mark_id`
                 , `students_exams_subjects_marks`.`exam_id`
@@ -199,12 +199,16 @@ class Teacher_dashboard extends Admin_Controller
                 ,`students_exams_subjects_marks`.`total_marks`
                 , `classes`.`Class_title`
                 , `sections`.`section_title`
-                FROM
-                    `students`
-                    LEFT JOIN `students_exams_subjects_marks` ON (`students`.`student_id` = `students_exams_subjects_marks`.`student_id`)
-                    INNER JOIN `classes` ON (`classes`.`class_id` = `students`.`class_id`)
-                    INNER JOIN `sections` ON (`sections`.`section_id` = `students`.`section_id`)
-                    WHERE `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+            FROM
+                `students`,
+            `students_exams_subjects_marks`,
+            `classes`,
+            `sections`
+            WHERE 
+            `students`.`student_id` = `students_exams_subjects_marks`.`student_id`
+            AND  `classes`.`class_id` = `students`.`class_id`
+            AND `sections`.`section_id` = `students`.`section_id`
+                        AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
                         AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
                         AND  `students`.`status` IN (1,2)
                         and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "' ORDER BY `students`.`student_class_no`";
