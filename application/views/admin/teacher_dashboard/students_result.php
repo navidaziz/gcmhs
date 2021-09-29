@@ -215,12 +215,13 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
-                <td style="text-align: center;"><?php
-                                                $percentage  = @round(($student->obtain_mark * 100 / $student->total_marks));
-                                                echo $student->total_marks; ?></td>
-                <td style="text-align: center;">
-                  <?php if ($percentage < 33) { ?>
-                    <span style="  color: red; display: inline-block;
+                <?php if ($student->obtain_mark >= 0) { ?>
+                  <td style="text-align: center;"><?php
+                                                  $percentage  = @round(($student->obtain_mark * 100 / $student->total_marks));
+                                                  echo $student->total_marks; ?></td>
+                  <td style="text-align: center;">
+                    <?php if ($percentage < 33) { ?>
+                      <span style="  color: red; display: inline-block;
                                                         width: 20px;
                                                         min-height: 20px;
                                                         padding: 3px;
@@ -231,23 +232,26 @@
                                                         text-align: center;
                                                         border:1px solid red;
                                                         border-radius: 10px;">
-                      <?php echo $student->obtain_mark; ?></span>
-                  <?php } else { ?>
-                    <?php echo $student->obtain_mark; ?>
-                  <?php } ?>
-                </td>
-                <td style="text-align: center;
+                        <?php echo $student->obtain_mark; ?></span>
+                    <?php } else { ?>
+                      <?php echo $student->obtain_mark; ?>
+                    <?php } ?>
+                  </td>
+                  <td style="text-align: center;
                 <?php if ($percentage < 33) { ?>
                   color: red;
                 <?php } ?>
                 "><?php echo $percentage . " %"; ?></td>
-                <td>
-                  <a href="#" onclick="update_result('<?php echo $student->student_id ?>', 
+                  <td>
+                    <a href="#" onclick="update_result('<?php echo $student->student_id ?>', 
                     '<?php echo $student->student_name ?>', 
                     '<?php echo $student->student_father_name ?>', 
                     '<?php echo $student->student_admission_no ?>', 
                     '<?php echo $student->student_exam_subject_mark_id ?>','<?php echo $student->total_marks; ?>', '<?php echo $student->obtain_mark; ?>' )"> Edit</a>
-                </td>
+                  </td>
+                <?php } else { ?>
+                  <td colspan="4">Result Not Added</td>
+                <?php } ?>
               </tr>
             <?php
               $count++;
