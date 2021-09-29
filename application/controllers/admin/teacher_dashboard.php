@@ -316,6 +316,39 @@ class Teacher_dashboard extends Admin_Controller
         redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
     }
 
+    public function save_student_missing_result()
+    {
+
+        $_POST['class_id'] = $class_id =  (int) $this->input->post("class_id");
+        $_POST['student_id'] = $student_id =  (int) $this->input->post("student_id");
+        $_POST['section_id'] = $section_id = (int) $this->input->post("section_id");
+        $_POST['subject_id'] = $subject_id =  (int) $this->input->post("subject_id");
+        $_POST['exam_id'] = $exam_id =  (int) $this->input->post("exam_id");
+        $_POST['class_subjec_id'] = $class_subject_id = (int) $this->input->post("class_subject_id");
+        $_POST['total_marks']  = $total_marks =  (int) $this->input->post("total_marks");
+
+        $query = "SELECT COUNT(*) as total FROM students_exams_subjects_marks
+                                WHERE exam_id = '" . $exam_id . "'
+                                AND class_id = '" . $class_id . "'
+                                AND section_id = '" . $section_id . "'
+                                AND subject_id = '" . $subject_id . "'
+                                AND student_id = '" . $student_id . "'";
+        $result_entered = $this->db->query($query)->result()[0]->total;
+        if ($result_entered) {
+            $this->session->set_flashdata("msg_error", "Result Already Entered");
+            redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
+            exit();
+        }
+
+        // $passing_marks = round((($total_marks * 33) * .01), 2);
+
+
+        $student_mark = $this->input->post("student_marks");
+        $_POST['student_id'] = $student_id;
+        $_POST['obtain_mark'] = $student_mark;
+        $this->student_exam_subject_mark_model->save_data();
+        redirect(ADMIN_DIR . "teacher_dashboard/students_result/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id");
+    }
     public function test_exams_list()
     {
         $this->data['exams'] = NULL;
