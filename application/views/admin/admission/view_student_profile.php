@@ -5,6 +5,112 @@ $section_id = $students[0]->section_id;
 
 ?>
 
+
+<div id="update_profile" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title pull-left" id="">Student Profile Update</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br />
+            </div>
+            <div class="modal-body">
+
+
+                <form action="<?php echo site_url(ADMIN_DIR . "admission/update_profile/" . $students[0]->student_id) ?>" method="post" style="text-align: center;">
+                    <table class="table">
+                        <tr>
+                            <th>Class No: </th>
+                            <td><input type="text" name="student_class_no" value="<?php echo $students[0]->student_class_no; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Admission No: </th>
+                            <td><input type="text" name="student_admission_no" value="<?php echo $students[0]->student_admission_no; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Student Name: </th>
+                            <td><input type="text" name="student_name" value="<?php echo $students[0]->student_name; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Father Name: </th>
+                            <td><input type="text" name="student_father_name" value="<?php echo $students[0]->student_father_name; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Date Of Birth: </th>
+                            <td><input type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Form B No:</th>
+                            <td><input type="text" name="form_b" value="<?php echo $students[0]->form_b; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Admission Date:</th>
+                            <td><input type="date" name="admission_date" value="<?php echo $students[0]->admission_date; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td><input type="text" name="student_address" value="<?php echo $students[0]->student_address; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Father CNIC No:</th>
+                            <td><input type="text" name="father_nic" value="<?php echo $students[0]->father_nic; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Contact No:</th>
+                            <td><input type="text" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Father Occupation:</th>
+                            <td><input type="text" name="guardian_occupation" value="<?php echo $students[0]->guardian_occupation; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Religion:</th>
+                            <td><input type="text" name="religion" value="<?php echo $students[0]->religion; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Nationality:</th>
+                            <td><input type="text" name="nationality" value="<?php echo $students[0]->nationality; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Private / Public School:</th>
+                            <td><input type="text" name="private_public_school" value="<?php echo $students[0]->private_public_school; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>School Name:</th>
+                            <td><input type="text" name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>Orphan: Yes / No</th>
+                            <td><input type="text" name="orphan" value="<?php echo $students[0]->orphan; ?>" /></td>
+                        </tr>
+                        <td colspan="2">
+                            <input type="submit" class="btn btn-success btn-sm" value="Update Profile" />
+                            </tr>
+                    </table>
+
+
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function update_profile() {
+        $('#update_profile').modal('show');
+    }
+</script>
+
+
+
 <div id="re_admit" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -207,6 +313,7 @@ $section_id = $students[0]->section_id;
                     <?php  } ?>
                     <?php if ($student->status == 0) { ?> <?php  } ?>
                     <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
+                    <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
 
                 </h5>
             </div>

@@ -36,6 +36,38 @@ class Admission extends Admin_Controller
 		$this->data['student'] = $this->db->query($query)->result()[0];
 		$this->load->view(ADMIN_DIR . "admission/birth_certificate", $this->data);
 	}
+
+	public function update_profile($student_id)
+	{
+		$student_id = (int) $student_id;
+		//update_q($_POST, 'students', 'student_id');
+		$input["student_class_no"] = $this->input->post("student_class_no");
+		$input["student_admission_no"] = $this->input->post("student_admission_no");
+		$input["student_name"] = ucwords(strtolower($this->input->post("student_name")));
+		$input["student_father_name"] = ucwords(strtolower($this->input->post("student_father_name")));
+		$input["student_data_of_birth"] = $this->input->post("student_data_of_birth");
+		$input["form_b"] = $this->input->post("form_b");
+		$input["admission_date"] = $this->input->post("admission_date");
+		$input["student_address"] = ucwords(strtolower($this->input->post("student_address")));
+		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
+		$input["father_nic"] = $this->input->post("father_nic");
+		$input["guardian_occupation"] = $this->input->post("guardian_occupation");
+		$input["religion"] = ucwords(strtolower($this->input->post("religion")));
+		$input["nationality"] = ucwords(strtolower($this->input->post("nationality")));
+		$input["private_public_school"] = ucwords(strtolower($this->input->post("private_public_school")));
+		$input["school_name"] = ucwords(strtolower($this->input->post("school_name")));
+		$input["orphan"] = ucwords(strtolower($this->input->post("orphan")));
+		$this->db->where("student_id", $student_id);
+		if ($this->db->update("students", $input)) {
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		}
+	}
+
+
 	public function search_student()
 	{
 		$search = $this->db->escape("%" . $this->input->post("search_student") . "%");
