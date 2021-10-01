@@ -1,0 +1,25 @@
+SELECT 
+`c`.`teacher_id`,
+  `c`.`teacher_name` AS `teacher_name`,
+  `c`.`Class_title` AS class_title,
+  c.`section_title` AS section_title,
+  ROUND(MIN(`e`.`percentage`),2) AS `max_percentage`,
+  ROUND(AVG(`e`.`percentage`),2) AS `max_percentage`,
+  ROUND(MAX(`e`.`percentage`),2) AS `max_percentage`,
+  COUNT(`e`.`student_exam_subject_mark_id`) AS total_students,
+  COUNT(IF(`e`.obtain_mark='A', 1 , NULL)) AS absents,
+  COUNT(IF(`e`.obtain_mark<>'A', 1 , NULL)) AS present 
+  
+FROM
+  (
+    `classes_time_tables` `c` 
+    LEFT JOIN `students_exams_subjects_marks` `e` 
+      ON (
+        `c`.`class_subject_id` = `e`.`class_subjec_id` 
+        AND `c`.`class_id` = `e`.`class_id` 
+        AND `c`.`section_id` = `e`.`section_id`
+        AND e.exam_id = 11
+      )
+  )
+  GROUP BY c.`class_id`, c.`section_id`, c.`subject_id`
+  ORDER BY teacher_id
