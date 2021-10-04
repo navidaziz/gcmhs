@@ -246,8 +246,8 @@
               </td>
               <td id="count_number"><?php echo $count++; ?></td>
               <td>
-                <span id="class_number"><?php //echo $student->student_class_no;
-                                        ?></span>
+                <span id="studentclassno_<?php echo $student->student_id; ?>" style="display: none;"> <?php echo $student->student_class_no;
+                                                                                                      ?></span>
 
                 <input style="width:20px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>','student_class_no')" id="student_class_no_<?php echo $student->student_id; ?>" type="text" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
               </td>
@@ -393,6 +393,9 @@
         field: field
       }
     }).done(function(msg) {
+      if (field == 'student_class_no') {
+        $('#studentclassno_' + student_id).html(msg);
+      }
       $("#message").html(msg);
       $("#message").fadeIn('slow');
       $("#message").delay(5000).fadeOut('slow');

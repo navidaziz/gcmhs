@@ -215,6 +215,7 @@ class Teacher_dashboard extends Admin_Controller
         $result = $this->db->query($query);
         $this->data['students'] = $result->result();
 
+
         $this->data["title"] = "Subject Marks";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_result";
         $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
