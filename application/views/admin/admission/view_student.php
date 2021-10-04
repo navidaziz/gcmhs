@@ -230,20 +230,20 @@
           $count = 1;
           foreach ($students as $student) :
         ?>
-            <tr <?php if ($student->status == 0) { ?>style="background-color: coral;" <?php } ?>>
-              <td>
+            <tr <?php if ($student->status == 2) { ?>style="background-color: #F7C6C5;" <?php } ?>>
+              <!-- <td>
                 <!-- <a class="btn btn-danger btn-sm" onclick="return confirm('are you sure? may remove student over data?')" href="<?php echo site_url(ADMIN_DIR . "students/remove_student/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id/$student->student_id") ?>" >Remove student</a> -->
 
-                <?php if ($student->status == 0) { ?>
-                  <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/active_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-undo"></i></a>
-                <?php } else { ?>
+              <?php if ($student->status == 0) { ?>
+                <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/active_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-undo"></i></a>
+              <?php } else { ?>
 
-                  <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/dormant_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-times"></i></a>
-                <?php   } ?>
+                <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/dormant_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-times"></i></a>
+              <?php   } ?>
 
 
 
-              </td>
+              </td> -->
               <td id="count_number"><?php echo $count++; ?></td>
               <td>
                 <span id="studentclassno_<?php echo $student->student_id; ?>" style="display: none;"> <?php echo $student->student_class_no;
