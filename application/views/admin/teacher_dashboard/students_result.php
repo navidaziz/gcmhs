@@ -70,6 +70,72 @@
     $('#update_result').modal('show');
   }
 </script>
+<div id="add_result" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left" id="">Add Missing Result</h5>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <br />
+      </div>
+      <div class="modal-body">
+
+        <?php echo $exam->year . " " . $exam->term; ?><br />
+        <?php echo $students[0]->Class_title . " (" . $students[0]->section_title . ")"; ?> - Subject <?php echo $class_subject . ""; ?></h5>
+        <h4 id="add_result_body">Please Wait .....</h4>
+
+        <?php
+        $add_form_attr = array("class" => "form-horizontal");
+        echo form_open_multipart(ADMIN_DIR . "teacher_dashboard/save_student_missing_result", $add_form_attr);
+        ?>
+        <span style="margin:5px;" class="pull-right">
+          <input required="required" type="hidden" name="class_teacher" value="NULL" placeholder="Class Teacher">
+          <input required="required" type="hidden" name="paper_checked_by" value="NULL" placeholder="Paper Checked By">
+        </span>
+        <input type="hidden" name="student_id" id="student_id" value="" />
+        <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+        <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+        <input type="hidden" name="subject_id" value="<?php echo $subject_id ?>" />
+        <input type="hidden" name="exam_id" value="<?php echo $exam_id ?>" />
+        <input type="hidden" name="class_subject_id" value="<?php echo $class_subject_id; ?>" />
+        <h6 style="color:red; border: 1px dashed red; border-radius: 5px; padding: 3px;">Note: For Absent students just write 00.</h6>
+        Subject Test / Exam Total Marks <input inputmode="numeric" type="number" id="totalmark" name="total_marks" style="width: 70px;" />
+        Obtain Marks: <input inputmode="numeric" class="addresult" required="required" onkeyup="validate_add_result_data()" style="width: 50px;" min="0" max="100" id="studentmark" name="student_marks" value="" />
+        <p style="text-align: center;">
+          <br />
+          <?php
+          $submit = array(
+            "type"  =>  "submit",
+            "name"  =>  "submit",
+            "value" =>  "Save Student Result",
+            "class" =>  "btn btn-primary",
+            "style" =>  ""
+          );
+          echo form_submit($submit);
+          ?>
+        </p>
+        <?php echo form_close(); ?>
+
+        <p style="text-align: center;">
+
+
+
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+  function add_result(student_id, name, father_name, add_no) {
+    $("#student_id").val(student_id);
+    var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+    $("#add_result_body").html(body);
+    $('#add_result').modal('show');
+  }
+</script>
 
 <script>
   $(document).ready(function() {
@@ -162,6 +228,26 @@
             }
 
           }
+
+          function validate_add_result_data() {
+            student_marks = parseInt($('#studentmark').val());
+            total_marks = parseInt($('#totalmark').val());
+            if (isNaN(total_marks)) {
+              alert("Missing data: Enter Total Marks First In Number.");
+              $('#studentmark').val("");
+            } else {
+              if (total_marks <= 0) {
+                alert("Total marks must be greater than 0.");
+                $('#studentmark').val("");
+              }
+            }
+            if (student_marks < 0 || student_marks > total_marks) {
+              alert("Student obtain marks must be greater or equal than 0 and less than total marks.");
+              $('#studentmark').val("");
+
+            }
+
+          }
           $(document).ready(function() {
             $(".result_entry").on('keyup', function() {
               var value = $(this).val();
@@ -215,7 +301,7 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
-                <?php if ($student->obtain_mark >= 0) { ?>
+                <?php if ($student->obtain_mark != NULL) { ?>
                   <td style="text-align: center;"><?php
                                                   $percentage  = @round(($student->obtain_mark * 100 / $student->total_marks));
                                                   echo $student->total_marks; ?></td>
@@ -250,7 +336,14 @@
                     '<?php echo $student->student_exam_subject_mark_id ?>','<?php echo $student->total_marks; ?>', '<?php echo $student->obtain_mark; ?>' )"> Edit</a>
                   </td>
                 <?php } else { ?>
-                  <td colspan="4">Result Not Added</td>
+                  <td colspan="4" style="text-align: center;">
+                    <a href="#" onclick="add_result('<?php echo $student->student_id ?>', 
+                    '<?php echo $student->student_name ?>', 
+                    '<?php echo $student->student_father_name ?>', 
+                    '<?php echo $student->student_admission_no ?>' )"> Add Result</a>
+
+                  </td>
+                  </td>
                 <?php } ?>
               </tr>
             <?php
