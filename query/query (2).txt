@@ -1,0 +1,29 @@
+SELECT
+    ctt.`teacher_name`
+    , ctt.`Class_title`
+    , ctt.`section_title`
+    , ctt.`subject_title`
+    , ctt.`short_title`
+    , (SELECT IF(COUNT(*), 1, 0) FROM `students_exams_subjects_marks` AS sesm
+       WHERE sesm.exam_id = 11
+       AND sesm.`class_subjec_id` = ctt.`class_subject_id`
+       AND sesm.class_id = ctt.`class_id`
+       AND sesm.section_id = ctt.`section_id`) AS result_submit
+    , ROUND((SELECT MIN(sesm.`percentage`) FROM `students_exams_subjects_marks` AS sesm
+       WHERE sesm.exam_id = 11
+       AND sesm.`class_subjec_id` = ctt.`class_subject_id`
+       AND sesm.class_id = ctt.`class_id`
+       AND sesm.section_id = ctt.`section_id`),2) AS min_precentage
+     , ROUND((SELECT AVG(sesm.`percentage`) FROM `students_exams_subjects_marks` AS sesm
+       WHERE sesm.exam_id = 11
+       AND sesm.`class_subjec_id` = ctt.`class_subject_id`
+       AND sesm.class_id = ctt.`class_id`
+       AND sesm.section_id = ctt.`section_id`),2) AS avg_precentage
+     , ROUND((SELECT MAX(sesm.`percentage`) FROM `students_exams_subjects_marks` AS sesm
+       WHERE sesm.exam_id = 11
+       AND sesm.`class_subjec_id` = ctt.`class_subject_id`
+       AND sesm.class_id = ctt.`class_id`
+       AND sesm.section_id = ctt.`section_id`),2) AS max_precentage  
+FROM `classes_time_tables` AS ctt
+WHERE ctt.subject_id NOT IN (2)
+ORDER BY ctt.`teacher_id` ASC

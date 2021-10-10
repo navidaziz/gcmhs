@@ -1,0 +1,7 @@
+SELECT teacher_name as Teacher_name, IF(count(result_submit)-COUNT(IF(result_submit=1,1,NULL))=0,'Completed', NULL) as `SEP 2021 Monthly Test status`,
+ROUND(((COUNT(IF(result_submit=1,1,NULL))*100)/count(result_submit)),2) as `Result Submitted`, 
+ROUND(AVG(`result_submission_report`.`avg_percentage`),2) AS `avg_percentage`,
+((`result_submission_report`.`absents`*100)/`result_submission_report`.`total_students`) as absents_precentage,
+((`result_submission_report`.`present`*100)/`result_submission_report`.`total_students`) as present_precentage
+FROM `result_submission_report` GROUP BY teacher_name
+ORDER BY `Result Submitted` ASC
