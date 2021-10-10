@@ -35,6 +35,25 @@
           <div class="row">
             <div class="col-md-12">
               <div class="row">
+
+                <div class="col-md-6">
+                  <?php
+                  $query = "SELECT * FROM `daily_class_wise_attendance`
+                  WHERE class_id = '" . $class->class_id . "'
+                  AND section_id = '" . $section->section_id . "'
+                  AND DATE(created_date) = DATE(NOW())";
+                  $today_attendance_summary = $this->db->query($query)->result();
+                  var_dump($today_attendance_summary);
+                  exit();
+
+                  ?>
+                  <div id="today_attendance"></div>
+                </div>
+
+
+
+
+
                 <div class="col-md-6">
                   <div id="daily_attendance"></div>
                 </div>
@@ -118,7 +137,11 @@
                         </td>
                       <?php } ?>
 
-                      <?php $query = "SELECT AVG(absent) as absent, AVG(present) as present, AVG(corona_leave) as staggered, AVG(`leave`) as `leave` 
+                      <?php $query = "SELECT AVG(absent) as absent, 
+                                             AVG(present) as present, 
+                                             AVG(corona_leave) as staggered, 
+                                             AVG(`leave`) as `leave`,
+                                             AVG(`struck_off`) as `struck_off`  
                         FROM `daily_class_wise_attendance`
                         WHERE class_id = '" . $class->class_id . "'
                         AND section_id = '" . $section->section_id . "'
@@ -278,19 +301,14 @@
 
         <figure class="highcharts-figure">
           <div id="monthly_absent_avg2"></div>
-          <p class="highcharts-description">
-            A basic column chart compares rainfall values between four cities.
-            Tokyo has the overall highest amount of rainfall, followed by New York.
-            The chart is making use of the axis crosshair feature, to highlight
-            months as they are hovered over.
-          </p>
+
           <script>
             Highcharts.chart('monthly_absent_avg2', {
               chart: {
                 type: 'column'
               },
               title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Class Wise Absent-Present-Leave and Staggered AVG Data'
               },
               subtitle: {
                 text: 'Source: WorldClimate.com'
@@ -316,12 +334,13 @@
               plotOptions: {
                 column: {
                   pointPadding: 0.2,
-                  borderWidth: 0
+                  borderWidth: 0,
+                  stacking: 'normal'
                 }
               },
               series: [{
                 name: 'Absent Avg',
-                type: 'spline',
+                type: '',
                 color: '#f15c80',
                 data: [<?php echo $absent_avg; ?>],
                 zIndex: 4
@@ -329,20 +348,20 @@
               }, {
                 name: 'Present Avg',
                 color: '#7cb5ec',
-                type: 'lollipop',
+                type: '',
                 data: [<?php echo $present_avg; ?>]
 
 
               }, {
                 name: 'Leave Avg',
                 color: '#90ed7d',
-                type: 'lollipop',
+                type: '',
                 data: [<?php echo $leave_avg; ?>]
 
               }, {
                 name: 'staggered Avg',
                 color: '#91e8e1',
-                type: 'lollipop',
+                type: '',
                 data: [<?php echo $staggered_avg; ?>]
 
               }]
@@ -351,7 +370,7 @@
         </figure>
 
         <figure class="highcharts-figure">
-          <div id="monthly_absent_avg"></div>
+          <div id="monthly_abse nt_avg"></div>
           <p class="highcharts-description">
             Lollipop charts are variants of column charts, with a circle
             marker for the data value and a line extending to the axis.

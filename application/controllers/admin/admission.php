@@ -894,7 +894,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		$this->data['class_id']  = $class_id = (int) $class_id;
 		$this->data['section_id']  = $section_id = (int) $section_id;
-		$where = "`students`.`status` IN (1,0,2) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
+		$where = "`students`.`status` IN (1,2) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
 		ORDER BY `student_admission_no` ASC";
 		//$where = "`students`.`status` IN (1,0,2) and `students`.`class_id`='" . $class_id . "' AND `students`.`section_id` ='" . $section_id . "'
 		//ORDER BY `section_id`, `student_class_no` ASC";
@@ -942,7 +942,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$query = "UPDATE `students` SET `" . $field . "`=" . $value . "
 			     WHERE `student_id` =$student_id;";
 		if ($this->db->query($query)) {
-			echo $value;
+			echo $this->input->post('value');
 		} else {
 			echo "Error";
 		}
