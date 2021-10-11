@@ -70,25 +70,22 @@
                     </div>
                     <div class="col-lg-7">
                       <div class="dashbox panel panel-default">
-                        <div class="panel-body">
-                          <div class="panel-left blue">
-                            <i class="fa fa-clock-o fa-3x"></i>
-                          </div>
-                          <div class="panel-right">
-                            <h5>Today Attendance Summary</h5>
-                            <table class="table table-bordered">
-                              <tr>
-                                <th>Present</th>
-                                <th>Absent</th>
-                                <th>leave</th>
-                              </tr>
-                              <tr>
-                                <td><?php echo $today_attendance_summary->present; ?></td>
-                                <td><?php echo $today_attendance_summary->absent; ?></td>
-                                <td><?php echo $today_attendance_summary->leave; ?></td>
-                              </tr>
-                            </table>
-                          </div>
+                        <div class="panel-body" style="padding: 3px;">
+
+                          <h5>Today Attendance Summary - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %</h5>
+                          <table class="table table-bordered">
+                            <tr>
+                              <th>Present</th>
+                              <th>Absent</th>
+                              <th>leave</th>
+                            </tr>
+                            <tr>
+                              <td><?php echo $today_attendance_summary->present; ?></td>
+                              <td><?php echo $today_attendance_summary->absent; ?></td>
+                              <td><?php echo $today_attendance_summary->leave; ?></td>
+                            </tr>
+                          </table>
+
                         </div>
                       </div>
                     </div>
