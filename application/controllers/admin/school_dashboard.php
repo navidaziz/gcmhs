@@ -53,6 +53,6 @@ class School_dashboard extends Admin_Controller
 		//var_dump($classes);
 		$this->data['classes'] = $classes;
 		$this->data["view"] = ADMIN_DIR . "school_dashboard/dashboard";
-		$this->load->view(ADMIN_DIR . "layout", $this->data);
+		$this->load->view(ADMIN_DIR . "dashboard_layout", $this->data);
 	}
 }
