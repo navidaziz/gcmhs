@@ -94,27 +94,69 @@
                     <div class="col-md-12">
                       <div class="quick-pie panel panel-default">
                         <div class="panel-body">
-                          <div class="col-md-4 text-center">
-                            <div id="dash_pie_1" class="piechart" data-percent="59">
-                              <span class="percent">59%</span>
-                              <canvas height="110" width="110"></canvas>
-                            </div>
-                            <a href="#" class="title">New Visitors <i class="fa fa-angle-right"></i></a>
-                          </div>
-                          <div class="col-md-4 text-center">
-                            <div id="dash_pie_2" class="piechart" data-percent="73">
-                              <span class="percent">73%</span>
-                              <canvas height="110" width="110"></canvas>
-                            </div>
-                            <a href="#" class="title">Bounce Rate <i class="fa fa-angle-right"></i></a>
-                          </div>
-                          <div class="col-md-4 text-center">
-                            <div id="dash_pie_3" class="piechart" data-percent="90">
-                              <span class="percent">90%</span>
-                              <canvas height="110" width="110"></canvas>
-                            </div>
-                            <a href="#" class="title">Brand Popularity <i class="fa fa-angle-right"></i></a>
-                          </div>
+                          <div id="today_attendance_summary_colum_chart"></div>
+                          <script>
+                            Highcharts.chart('today_attendance_summary_colum_chart', {
+                              chart: {
+                                type: 'column'
+                              },
+                              title: {
+                                text: 'Stacked column chart'
+                              },
+                              xAxis: {
+                                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                              },
+                              yAxis: {
+                                min: 0,
+                                title: {
+                                  text: 'Total fruit consumption'
+                                },
+                                stackLabels: {
+                                  enabled: true,
+                                  style: {
+                                    fontWeight: 'bold',
+                                    color: ( // theme
+                                      Highcharts.defaultOptions.title.style &&
+                                      Highcharts.defaultOptions.title.style.color
+                                    ) || 'gray'
+                                  }
+                                }
+                              },
+                              legend: {
+                                align: 'right',
+                                x: -30,
+                                verticalAlign: 'top',
+                                y: 25,
+                                floating: true,
+                                backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                                borderColor: '#CCC',
+                                borderWidth: 1,
+                                shadow: false
+                              },
+                              tooltip: {
+                                headerFormat: '<b>{point.x}</b><br/>',
+                                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                              },
+                              plotOptions: {
+                                column: {
+                                  stacking: 'normal',
+                                  dataLabels: {
+                                    enabled: true
+                                  }
+                                }
+                              },
+                              series: [{
+                                name: 'John',
+                                data: [5, 3, 4, 7, 2]
+                              }, {
+                                name: 'Jane',
+                                data: [2, 2, 3, 2, 1]
+                              }, {
+                                name: 'Joe',
+                                data: [3, 4, 4, 2, 5]
+                              }]
+                            });
+                          </script>
                         </div>
                       </div>
                     </div>
