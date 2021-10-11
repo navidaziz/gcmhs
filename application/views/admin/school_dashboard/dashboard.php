@@ -43,8 +43,7 @@
                   AND section_id = '" . $section->section_id . "'
                   AND DATE(created_date) = DATE(NOW())";
                   $today_attendance_summary = $this->db->query($query)->result();
-                  var_dump($today_attendance_summary);
-                  exit();
+
 
                   ?>
                   <div id="today_attendance"></div>
