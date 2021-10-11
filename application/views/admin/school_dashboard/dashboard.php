@@ -36,18 +36,95 @@
             <div class="col-md-12">
               <div class="row">
 
+                <?php
+                $query = "SELECT sum(present) as present, 
+                                   sum(`leave`) as `leave`, 
+                                   sum(absent) as absent, 
+                                   sum(total) as total, 
+                                   sum(total_students) as total_students, 
+                                   sum(strucked_off) as strucked_off, 
+                                   (sum(total)*100) / sum(total_students) as total_attendance_percentage 
+                            FROM `today_attendance_summery`";
+                $today_attendance_summary = $this->db->query($query)->result()[0];
+
+
+                ?>
+
                 <div class="col-md-6">
-                  <?php
-                  $query = "SELECT * FROM `daily_class_wise_attendance`
-                  WHERE class_id = '" . $class->class_id . "'
-                  AND section_id = '" . $section->section_id . "'
-                  AND DATE(created_date) = DATE(NOW())";
-                  $today_attendance_summary = $this->db->query($query)->result();
-
-
-                  ?>
-                  <div id="today_attendance"></div>
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <div class="dashbox panel panel-default">
+                        <div class="panel-body">
+                          <div class="panel-left red">
+                            <i class="fa fa-user fa-3x"></i>
+                          </div>
+                          <div class="panel-right">
+                            <div class="number"><?php echo $today_attendance_summary->total_students; ?></div>
+                            <div class="title"><?php echo $today_attendance_summary->strucked_off; ?> - Struck-Off </div>
+                            <span class="label label-success">
+                              26% <i class="fa fa-arrow-up"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-7">
+                      <div class="dashbox panel panel-default">
+                        <div class="panel-body">
+                          <div class="panel-left blue">
+                            <i class="fa fa-clock-o fa-3x"></i>
+                          </div>
+                          <div class="panel-right">
+                            <h5>Today Attendance Summary</h5>
+                            <table class="table table-bordered">
+                              <tr>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>leave</th>
+                              </tr>
+                              <tr>
+                                <td><?php echo $today_attendance_summary->present; ?></td>
+                                <td><?php echo $today_attendance_summary->absent; ?></td>
+                                <td><?php echo $today_attendance_summary->leave; ?></td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="quick-pie panel panel-default">
+                        <div class="panel-body">
+                          <div class="col-md-4 text-center">
+                            <div id="dash_pie_1" class="piechart" data-percent="59">
+                              <span class="percent">59%</span>
+                              <canvas height="110" width="110"></canvas>
+                            </div>
+                            <a href="#" class="title">New Visitors <i class="fa fa-angle-right"></i></a>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <div id="dash_pie_2" class="piechart" data-percent="73">
+                              <span class="percent">73%</span>
+                              <canvas height="110" width="110"></canvas>
+                            </div>
+                            <a href="#" class="title">Bounce Rate <i class="fa fa-angle-right"></i></a>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <div id="dash_pie_3" class="piechart" data-percent="90">
+                              <span class="percent">90%</span>
+                              <canvas height="110" width="110"></canvas>
+                            </div>
+                            <a href="#" class="title">Brand Popularity <i class="fa fa-angle-right"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+
 
 
 
