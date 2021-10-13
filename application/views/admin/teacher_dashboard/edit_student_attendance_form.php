@@ -147,7 +147,7 @@
                                     ?>
 
                                         <td style="text-align: center;"><input type="radio" name="attendance[<?php echo @$query_result[0]->student_attendance_id ?>]" <?php echo $present; ?> value="P" /></td>
-                                        <td style="text-align: center;"><input type="radio" name="attendance[<?php echo @$query_result[0]->student_attendance_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
+                                        <!-- <td style="text-align: center;"><input type="radio" name="attendance[<?php echo @$query_result[0]->student_attendance_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td> -->
                                         <td style="text-align: center;"><input type="radio" name="attendance[<?php echo @$query_result[0]->student_attendance_id ?>]" <?php echo $leave; ?> value="L" /></td>
                                         <td style="text-align: center;"><input type="radio" name="attendance[<?php echo @$query_result[0]->student_attendance_id ?>]" <?php echo $absent; ?> value="A" /></td>
                                     <?php } ?>

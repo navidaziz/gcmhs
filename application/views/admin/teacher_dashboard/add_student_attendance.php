@@ -106,7 +106,7 @@
                                 <?php if ($today_attendance == 0) { ?>
                                     <th style="text-align: center;">Y.day</th>
                                     <th style="text-align: center;">P</th>
-                                    <th style="text-align: center;">CL</th>
+                                    <!-- <th style="text-align: center;">CL</th> -->
                                     <th style="text-align: center;">L</th>
                                     <th style="text-align: center;">A</th>
                                     <?php } else {
@@ -245,13 +245,13 @@
                                         if (@$query_result[0]->attendance == 'CL') {
                                             $present = 'checked="checked"';
                                         } else {
-                                            $corona_leave = 'checked="checked"';
+                                            $present = 'checked="checked"';
                                         }
 
                                         ?>
                                         <?php if ($student->status == 1) { ?>
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $present; ?> value="P" /></td>
-                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
+                                            <!-- <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>-->
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
 

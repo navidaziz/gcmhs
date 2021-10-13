@@ -33,9 +33,7 @@
                     <?php foreach ($periods as $period) { ?>
                       <?php if ($period->period_id != 7) { ?>
                         <th><?php echo $period->period_title;  ?></th>
-                      <?php } else { ?>
-                        <th rowspan="6"><?php echo $period->period_title;  ?></th>
-                      <?php } ?>
+                      <?php }  ?>
                     <?php } ?>
                   </tr>
                 </thead>
@@ -46,7 +44,11 @@
 
                       <td style="text-align: center;">
                         <table style="width: 100%;">
-                          <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`) FROM `class_section_subject_teachers`, `class_subjects` WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` AND `class_section_subject_teachers`.`teacher_id`=teachers.teacher_id) as total_classes FROM teachers WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` WHERE period_id='" . $period->period_id . "') ORDER BY total_classes ASC";
+                          <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`)  
+                                                            FROM `class_section_subject_teachers`, `class_subjects`
+                                                             WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
+                                                             AND `class_section_subject_teachers`.`teacher_id`=teachers.teacher_id) as total_classes 
+                                                             FROM teachers WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` WHERE period_id='" . $period->period_id . "') ORDER BY total_classes ASC";
                           $free_teachers = $this->db->query($query)->result();
                           if ($free_teachers) { ?>
 
@@ -56,8 +58,28 @@
                               <small style="color:black">
                                 <tr>
                                   <td><?php echo $teacher_count++ ?></td>
-                                  <td><?php echo $free_teacher->teacher_name ?></td>
+                                  <td style="text-align: left;"><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?></td>
                                   <td> <?php echo $free_teacher->total_classes ?></td>
+                                  <td>
+                                    <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
+                                                  WHERE teacher_id = $free_teacher->teacher_id
+                                                  AND period_id='" . ($period->period_id - 1) . "'";
+                                    if ($this->db->query($query)->result()[0]->total > 0) {
+                                      echo "<";
+                                    }
+
+                                    ?>
+
+                                    <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
+                                                  WHERE teacher_id = $free_teacher->teacher_id
+                                                  AND period_id='" . ($period->period_id + 1) . "'";
+                                    if ($this->db->query($query)->result()[0]->total > 0) {
+                                      echo ">";
+                                    }
+
+                                    ?>
+
+                                  </td>
                                 </tr>
                               </small>
 
@@ -68,8 +90,6 @@
                           <?php } ?>
                         </table>
                       </td>
-                    <?php } else { ?>
-                      <td></td>
                     <?php } ?>
                   <?php } ?>
                   </tr>

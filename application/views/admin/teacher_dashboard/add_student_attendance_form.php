@@ -201,13 +201,13 @@
                                         if (@$query_result[0]->attendance == 'CL') {
                                             $present = 'checked="checked"';
                                         } else {
-                                            $corona_leave = 'checked="checked"';
+                                            $present = 'checked="checked"';
                                         }
 
                                         ?>
                                         <?php if ($student->status == 1) { ?>
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $present; ?> value="P" /></td>
-                                            <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td>
+                                            <!-- <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" <?php echo $corona_leave; ?> value="CL" /></td> -->
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="L" /></td>
                                             <td style="text-align: center;"><input type="radio" name="attendance[<?php echo $student->student_id ?>]" value="A" /></td>
 
