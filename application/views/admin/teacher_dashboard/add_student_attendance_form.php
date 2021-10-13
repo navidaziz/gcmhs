@@ -106,7 +106,7 @@
                                 <?php if ($today_attendance == 0) { ?>
                                     <th style="text-align: center;">Y.day</th>
                                     <th style="text-align: center;">P</th>
-                                    <th style="text-align: center;">CL</th>
+                                    <!-- <th style="text-align: center;">CL</th> -->
                                     <th style="text-align: center;">L</th>
                                     <th style="text-align: center;">A</th>
                                     <?php } else {

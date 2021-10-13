@@ -81,7 +81,7 @@
                                 <!-- <th>Father Name</th> -->
 
                                 <th style="text-align: center;">P</th>
-                                <th style="text-align: center;">CL</th>
+                                <!-- <th style="text-align: center;">CL</th> -->
                                 <th style="text-align: center;">L</th>
                                 <th style="text-align: center;">A</th>
 
