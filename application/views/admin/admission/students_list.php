@@ -54,10 +54,9 @@
         <td>Mobile No</td>
         <td>Father NIC</td>
         <td>Occupation</td>
-
+        <td>Status</td>
         <td>Religion</td>
         <td>Nationality</td>
-        <!-- <td>Admiss. Date</td> -->
         <td>P/ G </td>
         <td>School</td>
         <td>Orphan</td>
@@ -88,6 +87,11 @@
               <td><?php echo $student->father_mobile_number; ?></td>
               <td><?php echo $student->father_nic; ?></td>
               <td><?php echo $student->guardian_occupation; ?></td>
+              <td><?php
+                  if ($student->status == 2) {
+                    echo "Struck Off";
+                  }
+                  ?></td>
               <td><?php echo $student->religion; ?></td>
               <td><?php echo $student->nationality; ?></td>
 
