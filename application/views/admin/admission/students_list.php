@@ -50,10 +50,10 @@
         <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
         <td>Form B</td>
         <td>Add. Date</td>
-        <td><?php echo $this->lang->line('student_address'); ?></td>
+        <!-- <td><?php echo $this->lang->line('student_address'); ?></td> -->
         <td>Mobile No</td>
         <td>Father NIC</td>
-        <td>Occupation</td>
+        <!-- <td>Occupation</td> -->
         <td>Status</td>
         <!-- <td>Religion</td>
         <td>Nationality</td>
@@ -83,10 +83,10 @@
               <td><?php echo $student->student_data_of_birth; ?> </td>
               <td><?php echo $student->form_b; ?> </td>
               <td><?php echo $student->admission_date; ?></td>
-              <td><?php echo $student->student_address; ?></td>
+              <!-- <td><?php echo $student->student_address; ?></td> -->
               <td><?php echo $student->father_mobile_number; ?></td>
               <td><?php echo $student->father_nic; ?></td>
-              <td><?php echo $student->guardian_occupation; ?></td>
+              <!-- <td><?php echo $student->guardian_occupation; ?></td> -->
               <td><?php
                   if ($student->status == 2) {
                     echo "Struck Off";
