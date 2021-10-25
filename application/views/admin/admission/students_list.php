@@ -55,14 +55,14 @@
         <td>Father NIC</td>
         <td>Occupation</td>
         <td>Status</td>
-        <td>Religion</td>
+        <!-- <td>Religion</td>
         <td>Nationality</td>
         <td>P/ G </td>
         <td>School</td>
         <td>Orphan</td>
         <td>Class</td>
         <td>Section</td>
-        <td>Session</td>
+        <td>Session</td> -->
         </tr>
       </thead>
       <tbody>
@@ -92,7 +92,7 @@
                     echo "Struck Off";
                   }
                   ?></td>
-              <td><?php echo $student->religion; ?></td>
+              <!-- <td><?php echo $student->religion; ?></td>
               <td><?php echo $student->nationality; ?></td>
 
               <td><?php echo $student->private_public_school; ?></td>
@@ -102,7 +102,7 @@
               <td><?php echo $student->section_title; ?></td>
               <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
                   echo $this->db->query($query)->result()[0]->session;
-                  ?></td>
+                  ?></td> -->
 
 
 
