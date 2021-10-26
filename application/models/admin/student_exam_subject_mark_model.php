@@ -69,7 +69,7 @@ class Student_exam_subject_mark_model extends MY_Model
 
         $inputs["total_marks"]   = $total_marks =  (int) $this->input->post("total_marks");
         $inputs['passing_marks'] = round((($total_marks * 33) * .01), 2);
-        $inputs['percentage'] = round((($student_marks * 100) / $total_marks), 2);
+        $inputs['percentage'] = @round((($student_marks * 100) / $total_marks), 2);
         return $this->student_exam_subject_mark_model->save($inputs);
     }
 
