@@ -29,7 +29,19 @@
             ?></td>
         <td><?php echo $student->class_title; ?></td>
         <td><?php echo $student->section_title; ?></td>
-        <td><?php echo $student->status; ?></td>
+        <td><?php //echo $student->status;
+            if ($student->status == 1) {
+              echo "Admit";
+            }
+            if ($student->status == 2) {
+              echo "Struck Off";
+            }
+
+            if ($student->status == 3) {
+              echo "SLC";
+            }
+
+            ?></td>
         <td><a href="<?php echo site_url(ADMIN_DIR . "admission/view_student_profile/" . $student->student_id) ?>">View</a></td>
 
         </td>
