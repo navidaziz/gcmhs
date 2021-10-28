@@ -56,7 +56,7 @@
         foreach ($exams as $exam) {
           $exam_ids .= $exam_ids;
         ?>
-          <th><?php echo $exam->term; ?></th>
+          <th><?php echo date("M, Y", strtotime($exam->created_date)); ?></th>
         <?php }  ?>
 
         <th>Average</th>
