@@ -42,8 +42,9 @@
       <thead>
 
         <th>#</th>
-        <th>Add-No</th>
+
         <th>Section</th>
+        <th>Add-No</th>
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
         <th><?php echo $this->lang->line('student_father_name'); ?></th>
