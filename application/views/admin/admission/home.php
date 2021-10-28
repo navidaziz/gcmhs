@@ -133,6 +133,11 @@
                         <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/award_list") . "/$class->class_id/$section->section_id"; ?>">
                           Award List</a>
                       </td>
+
+                      <td>
+                        <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/results") . "/$class->class_id/$section->section_id"; ?>">
+                          Results</a>
+                      </td>
                     </tr>
                   <?php } ?>
 

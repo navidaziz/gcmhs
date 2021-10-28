@@ -284,7 +284,32 @@ class Admission extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 
+	public function results($class_id, $section_id)
+	{
+		$this->data['class_id']  = $class_id = (int) $class_id;
+		$this->data['section_id']  = $section_id = (int) $section_id;
+		$where = "`students`.`status` IN (1,2) and `students`.`class_id`='" . $class_id . "' 
+		AND `students`.`section_id` ='" . $section_id . "'
+		ORDER BY `section_id`, `student_class_no` ASC";
+		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
+		$sections = array();
 
+		//$this->data["sections"] = $this->student_model->getList("sections", "section_id", "section_title", $where ="");
+		//var_dump($this->data["classes"]);
+
+
+		foreach ($students as $student) {
+			$sections[$student->section_title][] = $student;
+		}
+		$this->data["sections"] = $sections;
+		$this->data["pagination"] = "";
+
+		$this->data["pagination"] = "";
+		$this->data["title"] = "Students Results";
+
+		$this->data["view"] = ADMIN_DIR . "admission/results";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
 
 	public function all_students_data()
 	{
