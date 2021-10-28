@@ -98,9 +98,9 @@
                 <td><?php echo round($exam_result->avg_percentage, 2);  ?></td>
               <?php }  ?>
               <?php
-              $query = "SELECT AVG(percentage) as avg_percentage 
+              echo $query = "SELECT AVG(percentage) as avg_percentage 
               FROM `students_exams_subjects_marks` 
-              WHERE exam_id IN  (" . $exam->exam_id . ")
+              WHERE exam_id IN  (" . $exam_ids . ")
               AND student_id='" . $student->student_id . "'";
               $exams_avg_result = $this->db->query($query)->result()[0];
               ?>
