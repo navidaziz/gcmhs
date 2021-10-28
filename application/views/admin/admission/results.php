@@ -44,6 +44,7 @@
         <th>#</th>
 
         <th>Section</th>
+
         <th>Add-No</th>
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
@@ -76,7 +77,9 @@
 
               <td id="count_number"><?php echo $count++; ?></td>
               <!-- <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td> -->
+
               <td style="border-left: 3px solid <?php echo $section_name; ?>;"><?php echo $section_name; ?></td>
+
               <td><span><?php echo $student->student_admission_no; ?></span></td>
               <td><span><?php echo str_replace("Muhammad", "M. ", $student->student_name);  ?></span></td>
               <td><?php echo str_replace("Muhammad", "M. ", $student->student_father_name);  ?></td>
@@ -86,7 +89,7 @@
               <?php
 
               foreach ($exams as $exam) {
-                $query = "SELECT AVG(obtain_mark) as avg_percentage 
+                $query = "SELECT AVG(percentage) as avg_percentage 
                           FROM `students_exams_subjects_marks` 
                           WHERE exam_id = '" . $exam->exam_id . "' 
                           AND student_id='" . $student->student_id . "'";
@@ -95,7 +98,7 @@
                 <td><?php echo round($exam_result->avg_percentage, 2);  ?></td>
               <?php }  ?>
               <?php
-              $query = "SELECT AVG(obtain_mark) as avg_percentage 
+              $query = "SELECT AVG(percentage) as avg_percentage 
               FROM `students_exams_subjects_marks` 
               WHERE exam_id IN  (" . $exam->exam_id . ")
               AND student_id='" . $student->student_id . "'";
@@ -123,7 +126,7 @@
     // });
 
     $(document).ready(function() {
-      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?>";
+      document.title = "<?php echo $students[0]->Class_title . ""; ?>  <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> ";
       $('#main_table').DataTable({
         dom: 'Bfrtip',
         "pageLength": 300,
