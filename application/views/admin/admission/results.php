@@ -61,6 +61,10 @@
         <?php }  ?>
 
         <th>Average</th>
+        <td>P</td>
+        <td>A</td>
+        <td>L</td>
+        <td>R</td>
 
         </tr>
       </thead>
@@ -105,6 +109,31 @@
               $exams_avg_result = $this->db->query($query)->result()[0];
               ?>
               <th><?php echo round($exams_avg_result->avg_percentage, 2); ?></th>
+
+              <?php
+
+              foreach ($exams as $exam) {
+                $query = "SELECT AVG(percentage) as avg_percentage 
+                          FROM `students_exams_subjects_marks` 
+                          WHERE exam_id = '" . $exam->exam_id . "' 
+                          AND student_id='" . $student->student_id . "'";
+                $exam_result = $this->db->query($query)->result()[0];
+              ?>
+                <td><?php echo round($exam_result->avg_percentage, 2);  ?></td>
+              <?php }  ?>
+              <?php
+              $query = "SELECT COUNT(IF(attendance='P',1,NULL)) as `present`, 
+                               COUNT(IF(attendance='A',1,NULL)) as `absent`, 
+                               COUNT(IF(attendance='L',1,NULL)) as `leave`, 
+                               COUNT(IF(attendance2='A',1,NULL)) as `run` 
+                               FROM `students_attendance` 
+              WHERE  student_id='" . $student->student_id . "'";
+              $attendance = $this->db->query($query)->result()[0];
+              ?>
+              <td><?php echo $attendance->present; ?></td>
+              <td><?php echo $attendance->absent; ?></td>
+              <td><?php echo $attendance->leave; ?></td>
+              <td><?php echo $attendance->run; ?></td>
 
 
 
