@@ -43,6 +43,7 @@
 
         <th>#</th>
         <th>Add-No</th>
+        <th>Section</th>
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
         <th><?php echo $this->lang->line('student_father_name'); ?></th>
@@ -65,14 +66,16 @@
         <?php
         $students = array();
         $all_sections = $sections;
+        $count = 1;
         foreach ($sections as $section_name => $students) {
-          $count = 1;
+
           foreach ($students as $student) :
         ?>
             <tr>
 
               <td id="count_number"><?php echo $count++; ?></td>
               <!-- <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td> -->
+              <td style="border-left: 3px solid <?php echo $section_name; ?>;"><?php echo $section_name; ?></td>
               <td><span><?php echo $student->student_admission_no; ?></span></td>
               <td><span><?php echo str_replace("Muhammad", "M. ", $student->student_name);  ?></span></td>
               <td><?php echo str_replace("Muhammad", "M. ", $student->student_father_name);  ?></td>
