@@ -46,6 +46,7 @@
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
         <th><?php echo $this->lang->line('student_father_name'); ?></th>
+        <th>Status</th>
         <?php
         $exam_ids = "";
         $query = "SELECT * FROM exams WHERE exam_id > 10";
@@ -75,6 +76,9 @@
               <td><span><?php echo $student->student_admission_no; ?></span></td>
               <td><span><?php echo str_replace("Muhammad", "M. ", $student->student_name);  ?></span></td>
               <td><?php echo str_replace("Muhammad", "M. ", $student->student_father_name);  ?></td>
+              <td><?php if ($student->status == 2) {
+                    echo "Struck Off";
+                  }  ?></td>
               <?php
 
               foreach ($exams as $exam) {
