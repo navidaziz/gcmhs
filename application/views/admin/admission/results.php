@@ -55,7 +55,7 @@
         $query = "SELECT * FROM exams WHERE exam_id > 10";
         $exams = $this->db->query($query)->result();
         foreach ($exams as $exam) {
-          $exam_ids .= $exam_ids;
+          $exam_ids .= $exam->exam_id . ",";
         ?>
           <th><?php echo date("M, Y", strtotime($exam->created_date)); ?></th>
         <?php }  ?>
@@ -98,9 +98,9 @@
                 <td><?php echo round($exam_result->avg_percentage, 2);  ?></td>
               <?php }  ?>
               <?php
-              echo $query = "SELECT AVG(percentage) as avg_percentage 
+              $query = "SELECT AVG(percentage) as avg_percentage 
               FROM `students_exams_subjects_marks` 
-              WHERE exam_id IN  (" . $exam_ids . ")
+              WHERE exam_id IN  (" . trim($exam_ids, ',') . ")
               AND student_id='" . $student->student_id . "'";
               $exams_avg_result = $this->db->query($query)->result()[0];
               ?>
