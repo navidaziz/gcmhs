@@ -119,7 +119,7 @@
     // });
 
     $(document).ready(function() {
-      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?>       Subject ________________________       Monthly Test and Exam Result List ";
+      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?>";
       $('#main_table').DataTable({
         dom: 'Bfrtip',
         "pageLength": 300,
