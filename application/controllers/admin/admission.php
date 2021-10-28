@@ -284,19 +284,30 @@ class Admission extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 
-	public function results($class_id, $section_id = NULL)
+	public function results($class_id = NULL, $section_id = NULL)
 	{
-		$this->data['class_id']  = $class_id = (int) $class_id;
+		if ($class_id) {
+			$this->data['class_id']  = $class_id = (int) $class_id;
+		} else {
+			$this->data['class_id'] = NULL;
+		}
 		if ($section_id) {
 			$this->data['section_id']  = $section_id = (int) $section_id;
 		} else {
 			$this->data['section_id'] = NULL;
 		}
-		$where = "`students`.`status` IN (1,2) and `students`.`class_id`='" . $class_id . "'";
-		if ($section_id) {
-			$where .= " AND `students`.`section_id` ='" . $section_id . "' ";
+		$where = "`students`.`status` IN (1,2)";
+
+		if ($class_id) {
+			$where .= " AND `students`.`class_id` = '" . $class_id . "' ";
+		} else {
+			$where .= " AND `students`.`class_id` IN (2,3,4,5,6)";
 		}
-		$where .= " ORDER BY `section_id`, `student_class_no` ASC ";
+
+		if ($section_id) {
+			$where .= " AND `students`.`section_id` = '" . $section_id . "' ";
+		}
+		$where .= " ORDER BY `class_id`, `section_id`, `student_class_no` ASC ";
 		$this->data["students"] = $students =  $this->student_model->get_student_list($where, FALSE);
 		$sections = array();
 

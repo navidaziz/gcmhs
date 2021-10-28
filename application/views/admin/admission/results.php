@@ -18,12 +18,26 @@
       <ul class="breadcrumb">
         <li> <i class="fa fa-home"></i> Home </li>
         <li> <a href="<?php echo site_url(ADMIN_DIR . "admission/"); ?>"> Admission</a> </li>
-        <li><?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List</li>
+        <li><?php if ($class_id) { ?>
+            <?php echo $students[0]->Class_title . ""; ?>
+          <?php } ?>
+          <?php if ($section_id) { ?>
+            <?php echo $students[0]->section_title . ""; ?>
+          <?php } ?>
+          <?php echo $title; ?> List</li>
       </ul>
       <!-- /BREADCRUMBS -->
       <div class="col-md-6">
         <div class="clearfix">
-          <h3 class="content-title pull-left"> <?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List</h3>
+          <h3 class="content-title pull-left">
+
+            <?php if ($class_id) { ?>
+              <?php echo $students[0]->Class_title . ""; ?>
+            <?php } ?>
+            <?php if ($section_id) { ?>
+              <?php echo $students[0]->section_title . ""; ?>
+            <?php } ?>
+            <?php echo $title; ?> List</h3>
         </div>
         <div class="description" id="message"></div>
       </div>
@@ -42,9 +56,12 @@
       <thead>
 
         <th>#</th>
-
-        <th>Section</th>
-
+        <?php if (!$class_id) { ?>
+          <th>Class</th>
+        <?php } ?>
+        <?php if (!$section_id) { ?>
+          <th>Section</th>
+        <?php } ?>
         <th>Add-No</th>
         <th><?php echo $this->lang->line('student_name'); ?></th>
 
@@ -81,9 +98,12 @@
 
               <td id="count_number"><?php echo $count++; ?></td>
               <!-- <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td> -->
-
-              <td style="border-left: 3px solid <?php echo $section_name; ?>;"><?php echo $section_name; ?></td>
-
+              <?php if (!$class_id) { ?>
+                <td><?php echo $student->Class_title; ?></td>
+              <?php } ?>
+              <?php if (!$section_id) { ?>
+                <td style="border-left: 3px solid <?php echo $section_name; ?>;"><?php echo $section_name; ?></td>
+              <?php } ?>
               <td><span><?php echo $student->student_admission_no; ?></span></td>
               <td><span><?php echo str_replace("Muhammad", "M. ", $student->student_name);  ?></span></td>
               <td><?php echo str_replace("Muhammad", "M. ", $student->student_father_name);  ?></td>
@@ -146,37 +166,42 @@
     // });
 
     $(document).ready(function() {
-      document.title = "<?php echo $students[0]->Class_title . ""; ?>  <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> ";
+      document.title = "<?php if ($class_id) { ?>
+      <?php echo $students[0]->Class_title . ""; ?>
+    <?php } ?>
+    <?php if ($section_id) { ?>
+      <?php echo $students[0]->section_title . ""; ?>
+    <?php } ?>
+    <?php echo $title; ?> List "
+    var table = $('#main_table').DataTable({
+      "bPaginate": false,
+      dom: 'Bfrtip',
+      /* buttons: [
+           'print'
+           
+           
+       ],*/
 
-      var table = $('#main_table').DataTable({
-        "bPaginate": false,
-        dom: 'Bfrtip',
-        /* buttons: [
-             'print'
-             
-             
-         ],*/
+      "columnDefs": [{
+        "searchable": false,
+        "orderable": false,
+        "targets": 0
+      }],
+      "order": [
+        [1, 'asc']
+      ]
+    });
 
-        "columnDefs": [{
-          "searchable": false,
-          "orderable": false,
-          "targets": 0
-        }],
-        "order": [
-          [1, 'asc']
-        ]
+
+    table.on('order.dt search.dt', function() {
+      table.column(0, {
+        search: 'applied',
+        order: 'applied'
+      }).nodes().each(function(cell, i) {
+        cell.innerHTML = i + 1;
+        table.cell(cell).invalidate('dom');
       });
-
-
-      table.on('order.dt search.dt', function() {
-        table.column(0, {
-          search: 'applied',
-          order: 'applied'
-        }).nodes().each(function(cell, i) {
-          cell.innerHTML = i + 1;
-          table.cell(cell).invalidate('dom');
-        });
-      }).draw();
+    }).draw();
     });
   </script>
 
