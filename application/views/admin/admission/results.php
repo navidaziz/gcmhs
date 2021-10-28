@@ -118,7 +118,7 @@
       document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?>       Subject ________________________       Monthly Test and Exam Result List ";
       $('#main_table').DataTable({
         dom: 'Bfrtip',
-        "pageLength": 65,
+        "pageLength": 300,
         "lengthChange": false,
         buttons: [
           'copy', 'csv', 'excel', 'pdf', 'print'
