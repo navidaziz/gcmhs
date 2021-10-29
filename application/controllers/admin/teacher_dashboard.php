@@ -286,6 +286,7 @@ class Teacher_dashboard extends Admin_Controller
         $_POST['exam_id'] = $exam_id =  (int) $this->input->post("exam_id");
         $_POST['class_subjec_id'] = $class_subject_id = (int) $this->input->post("class_subject_id");
         $_POST['total_marks']  = $total_marks =  (int) $this->input->post("total_marks");
+        $_POST['teacher_id'] = $this->db->query("SELECT teacher_id FROM  classes_time_tables as c WHERE c.class_subject_id = '" . $class_subject_id . "' LIMIT 1")->result()[0]->teacher_id;
 
         $query = "SELECT COUNT(*) as total FROM students_exams_subjects_marks
                                 WHERE exam_id = '" . $exam_id . "'

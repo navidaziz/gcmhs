@@ -37,6 +37,13 @@ class Admission extends Admin_Controller
 		$this->load->view(ADMIN_DIR . "admission/birth_certificate", $this->data);
 	}
 
+	public function rsr()
+	{
+		$query = "SELECT * FROM teachers";
+		$this->data['student'] = $this->db->query($query)->result()[0];
+		$this->data["view"] = ADMIN_DIR . "admission/result_submission_report";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
 	public function update_profile($student_id)
 	{
 		$student_id = (int) $student_id;

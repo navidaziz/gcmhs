@@ -36,10 +36,10 @@ if (defined('production')) {
 
 		case 'testing':
 		case 'production':
-			error_reporting(0);
-			ini_set('display_errors', 0);
-			//error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-			//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+			//error_reporting(0);
+			//ini_set('display_errors', 0);
+			error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+			error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 			break;
 			break;
 

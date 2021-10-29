@@ -1,0 +1,1 @@
+UPDATE `test_and_exams_result` SET `teacher_id`=(SELECT teacher_id FROM  classes_time_tables as c WHERE c.class_subject_id =  `test_and_exams_result`.`class_subjec_id` LIMIT 1 ) WHERE `test_and_exams_result`.`exam_id` >=10
