@@ -62,6 +62,7 @@ class Student_exam_subject_mark_model extends MY_Model
         $inputs["class_id"]  =  $this->input->post("class_id");
         $inputs["subject_id"]  =  $this->input->post("subject_id");
         $inputs["section_id"]  =  $this->input->post("section_id");
+        $inputs["teacher_id"]  =  $this->input->post("teacher_id");
 
         $inputs["section_id"]  =  $this->input->post("section_id");
         $inputs["created_by"]  =  $this->session->userdata('user_id');
