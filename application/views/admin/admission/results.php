@@ -99,8 +99,8 @@
       <thead>
 
         <th>#</th>
-        <th>Class No</th>
-        <td>Shift</td>
+        <!-- <th>Class No</th> -->
+        <!-- <td>Shift</td> -->
         <?php if (!$class_id) { ?>
           <th>Class</th>
         <?php } ?>
@@ -142,7 +142,7 @@
             <tr>
 
               <td id="count_number"><?php echo $count++; ?></td>
-              <td>
+              <!-- <td>
                 <span id="studentclassno_<?php echo $student->student_id; ?>" style="display: none;"> <?php echo $student->student_class_no; ?></span>
                 <input autocomplete="off" style="width:50px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>','student_class_no')" id="student_class_no_<?php echo $student->student_id; ?>" type="text" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
                 <span id="class_no_<?php echo $student->student_id; ?>"></span>
@@ -153,7 +153,7 @@
                 Y <input onchange="update_student_section('<?php echo $student->student_id; ?>', '3')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="3" <?php if ($student->section_id == 3) { ?> checked <?php } ?> />
                 R <input onchange="update_student_section('<?php echo $student->student_id; ?>', '4')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="4" <?php if ($student->section_id == 4) { ?> checked <?php } ?> />
                 <span id="message_<?php echo $student->student_id; ?>"></span>
-              </td>
+              </td> -->
               <!-- <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td> -->
               <?php if (!$class_id) { ?>
                 <td><?php echo $student->Class_title; ?></td>
