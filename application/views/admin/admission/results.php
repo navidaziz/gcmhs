@@ -46,7 +46,50 @@
   </div>
 </div>
 <!-- /PAGE HEADER -->
+<script>
+  function update_student_section(student_id, section_id) {
 
+
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+      data: {
+        student_id: student_id,
+        value: section_id,
+        field: 'section_id'
+      }
+    }).done(function(msg) {
+
+      $("#message_" + student_id).html(msg);
+      $("#message_" + student_id).fadeIn('slow');
+      $("#message_" + student_id).delay(5000).fadeOut('slow');
+    });
+
+  }
+
+  function update_student_record(student_id, field) {
+
+    var value = $('#' + field + '_' + student_id).val();
+
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+      data: {
+        student_id: student_id,
+        value: value,
+        field: field
+      }
+    }).done(function(msg) {
+      if (field == 'student_class_no') {
+        $('#studentclassno_' + student_id).html(msg);
+      }
+      $("#class_no_" + student_id).html(msg);
+      $("#class_no_" + student_id).fadeIn('slow');
+      $("#class_no_" + student_id).delay(5000).fadeOut('slow');
+    });
+
+  }
+</script>
 <!-- PAGE MAIN CONTENT -->
 <div class="row">
   <!-- MESSENGER -->
@@ -56,6 +99,8 @@
       <thead>
 
         <th>#</th>
+        <th>Class No</th>
+        <td>Shift</td>
         <?php if (!$class_id) { ?>
           <th>Class</th>
         <?php } ?>
@@ -97,6 +142,18 @@
             <tr>
 
               <td id="count_number"><?php echo $count++; ?></td>
+              <td>
+                <span id="studentclassno_<?php echo $student->student_id; ?>" style="display: none;"> <?php echo $student->student_class_no; ?></span>
+                <input autocomplete="off" style="width:50px !important" onkeyup="update_student_record('<?php echo $student->student_id; ?>','student_class_no')" id="student_class_no_<?php echo $student->student_id; ?>" type="text" name="student_class_no" value="<?php echo $student->student_class_no; ?>" />
+                <span id="class_no_<?php echo $student->student_id; ?>"></span>
+              </td>
+              <td>
+                G <input onchange="update_student_section('<?php echo $student->student_id; ?>', '1')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="1" <?php if ($student->section_id == 1) { ?> checked <?php } ?> />
+                B <input onchange="update_student_section('<?php echo $student->student_id; ?>', '2')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="2" <?php if ($student->section_id == 2) { ?> checked <?php } ?> />
+                Y <input onchange="update_student_section('<?php echo $student->student_id; ?>', '3')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="3" <?php if ($student->section_id == 3) { ?> checked <?php } ?> />
+                R <input onchange="update_student_section('<?php echo $student->student_id; ?>', '4')" type="radio" name="section_id[<?php echo $student->student_id;  ?>]" value="4" <?php if ($student->section_id == 4) { ?> checked <?php } ?> />
+                <span id="message_<?php echo $student->student_id; ?>"></span>
+              </td>
               <!-- <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td> -->
               <?php if (!$class_id) { ?>
                 <td><?php echo $student->Class_title; ?></td>
@@ -152,6 +209,7 @@
           <?php endforeach;  ?>
         <?php } ?>
       </tbody>
+
     </table>
   </div>
   <script>
