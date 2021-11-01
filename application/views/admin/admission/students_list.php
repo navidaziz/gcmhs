@@ -50,19 +50,22 @@
         <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
         <td>Form B</td>
         <td>Add. Date</td>
-        <!-- <td><?php echo $this->lang->line('student_address'); ?></td> -->
+        <td><?php echo $this->lang->line('student_address'); ?></td>
         <td>Mobile No</td>
         <td>Father NIC</td>
-        <!-- <td>Occupation</td> -->
+        <td>Occupation</td>
         <td>Status</td>
-        <!-- <td>Religion</td>
+        <td>Religion</td>
         <td>Nationality</td>
         <td>P/ G </td>
         <td>School</td>
         <td>Orphan</td>
+        <td>Vaccinated</td>
+        <td>Disable</td>
+        <td>Ehsaas</td>
         <td>Class</td>
         <td>Section</td>
-        <td>Session</td> -->
+        <td>Session</td>
         </tr>
       </thead>
       <tbody>
@@ -83,21 +86,24 @@
               <td><?php echo $student->student_data_of_birth; ?> </td>
               <td><?php echo $student->form_b; ?> </td>
               <td><?php echo $student->admission_date; ?></td>
-              <!-- <td><?php echo $student->student_address; ?></td> -->
+              <td><?php echo $student->student_address; ?></td>
               <td><?php echo $student->father_mobile_number; ?></td>
               <td><?php echo $student->father_nic; ?></td>
-              <!-- <td><?php echo $student->guardian_occupation; ?></td> -->
+              <td><?php echo $student->guardian_occupation; ?></td>
               <td><?php
                   if ($student->status == 2) {
                     echo "Struck Off";
                   }
                   ?></td>
-              <!-- <td><?php echo $student->religion; ?></td>
+              <td><?php echo $student->religion; ?></td>
               <td><?php echo $student->nationality; ?></td>
 
               <td><?php echo $student->private_public_school; ?></td>
               <td><?php echo $student->school_name; ?></td>
               <td><?php echo $student->orphan; ?></td>
+              <td><?php echo $student->vaccinated; ?></td>
+              <td><?php echo $student->is_disable; ?></td>
+              <td><?php echo $student->ehsaas; ?></td>
               <td><?php echo $student->Class_title; ?></td>
               <td><?php echo $student->section_title; ?></td>
               <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
