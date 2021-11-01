@@ -201,6 +201,9 @@
           <td><?php echo $this->lang->line('student_father_name'); ?></td>
           <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
           <td>Form B</td>
+          <td>Vacc</td>
+          <td>Dis</td>
+          <td>Ehsa</td>
           <td>Admiss. Date</td>
           <td><?php echo $this->lang->line('student_address'); ?></td>
           <td>Mobile No</td>
@@ -277,6 +280,21 @@
 
               <td>
                 <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'form_b')" id="form_b_<?php echo $student->student_id; ?>" type="text" name="form_b" value="<?php echo $student->form_b; ?>" />
+
+              </td>
+
+              <td>
+                <input style="width: 30px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'vaccinated')" id="vaccinated_<?php echo $student->student_id; ?>" type="text" name="vaccinated" value="<?php echo $student->vaccinated; ?>" />
+
+              </td>
+
+              <td>
+                <input style="width: 30px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'is_disable')" id="is_disable_<?php echo $student->student_id; ?>" type="text" name="is_disable" value="<?php echo $student->is_disable; ?>" />
+
+              </td>
+
+              <td>
+                <input style="width: 30px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'ehsaas')" id="ehsaas_<?php echo $student->student_id; ?>" type="text" name="ehsaas" value="<?php echo $student->ehsaas; ?>" />
 
               </td>
 
