@@ -108,7 +108,7 @@
               <td><?php echo $student->section_title; ?></td>
               <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
                   echo $this->db->query($query)->result()[0]->session;
-                  ?></td> -->
+                  ?></td>
 
 
 
@@ -133,7 +133,7 @@
       document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List";
       $('#main_table').DataTable({
         dom: 'Bfrtip',
-        "pageLength": 65,
+        "pageLength": 800,
         "lengthChange": false,
         buttons: [
           'copy', 'csv', 'excel', 'pdf', 'print'
