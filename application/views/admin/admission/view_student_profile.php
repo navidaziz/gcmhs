@@ -87,6 +87,26 @@ $section_id = $students[0]->section_id;
                             <th>Orphan: Yes / No</th>
                             <td><input type="text" name="orphan" value="<?php echo $students[0]->orphan; ?>" /></td>
                         </tr>
+
+
+                        <tr>
+                            <th>Vaccinated: Yes / No</th>
+                            <td><input type="text" name="vaccinated" value="<?php echo $students[0]->vaccinated; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Is Disable: Yes / No</th>
+                            <td><input type="text" name="is_disable" value="<?php echo $students[0]->is_disable; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Ehsaas Program: Yes / No</th>
+                            <td><input type="text" name="ehsaas" value="<?php echo $students[0]->ehsaas; ?>" /></td>
+                        </tr>
+
+
+
+
                         <td colspan="2">
                             <input type="submit" class="btn btn-success btn-sm" value="Update Profile" />
                             </tr>

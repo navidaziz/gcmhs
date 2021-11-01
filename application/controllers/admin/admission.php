@@ -64,6 +64,9 @@ class Admission extends Admin_Controller
 		$input["private_public_school"] = ucwords(strtolower($this->input->post("private_public_school")));
 		$input["school_name"] = ucwords(strtolower($this->input->post("school_name")));
 		$input["orphan"] = ucwords(strtolower($this->input->post("orphan")));
+		$input["vaccinated"] = ucwords(strtolower($this->input->post("vaccinated")));
+		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
+		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
 		$this->db->where("student_id", $student_id);
 		if ($this->db->update("students", $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
