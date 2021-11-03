@@ -156,11 +156,11 @@
   <!--<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/my_fucking_style.css"); ?>" />-->
   <header class="navbar clearfix" id="header">
     <div class="container">
-      <div class="navbar-brand" style="height:100px;">
+      <div class="navbar-brand" style="height:78px;">
 
         <!-- COMPANY LOGO -->
         <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
-          <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:100px !important;"></a>
+          <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:70px; height:70px !important;"></a>
         <!-- /COMPANY LOGO -->
         <!-- TEAM STATUS FOR MOBILE -->
         <div class="visible-xs "> <a href="#" class="team-status-toggle switcher btn dropdown-toggle"> <i class="fa fa-users"></i> </a> </div>
