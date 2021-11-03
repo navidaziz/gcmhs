@@ -26,7 +26,7 @@
   <div class="col-md-12">
     <div class="box border blue" id="messenger">
       <div class="box-title">
-        <h4><i class="fa fa-bell"></i> <?php echo $title; ?></h4>
+        <h4><i class="fa fa-book" aria-hidden="true"></i> <?php echo $title; ?></h4>
         <!--<div class="tools">
             
 				<a href="#box-config" data-toggle="modal" class="config">
@@ -49,19 +49,35 @@
 
         <div class="table-responsive">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
               <!-- MESSENGER -->
-              <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
-                Student Overall Data</a>
+
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>Classes</th>
-                    <th>Sections</th>
+                    <th colspan="2">Classes-Sections -
+                      <small><?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.status IN(1,2)";
+                              echo $this->db->query($query)->result()[0]->total;
+                              ?>
+                      </small>
+
+                    </th>
                     <th>Total</th>
-                    <th>Struck Off</th>
-                    <th>Update</th>
-                    <th>Promote</th>
+                    <th>S-OFF - <small><?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.status IN(2)";
+                                        echo $this->db->query($query)->result()[0]->total;
+                                        ?>
+                      </small></th>
+
+                    <th><i class="fa fa-edit"></i></th>
+                    <th><i class="fa fa-eye"></i></th>
+                    <!-- <th>Promote</th> -->
+                    <th colspan="3" style="text-align: center;">
+
+                      <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
+                        <i class="fa fa-print"></i> Student Overall Data</a>
+                    </th>
                   </tr>
                 </thead>
                 </body>
@@ -73,8 +89,13 @@
                     <tr>
                       <?php if ($count == 1) { ?>
                         <th style="text-align: center;" rowspan="<?php echo count($class->sections); ?>"><?php echo $class->Class_title; ?>
-
-
+                          <br />
+                          <small><?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.class_id = $class->class_id
+                              AND s.status IN(1,2)";
+                                  echo $this->db->query($query)->result()[0]->total;
+                                  ?>
+                          </small>
 
                         </th>
                       <?php
@@ -83,46 +104,39 @@
 
 
                       <td style="background-color: <?php echo $section->color; ?>;"><?php echo $section->section_title; ?></td>
-                      <td style="text-align: center;"><?php $query = "SELECT COUNT(*) as total FROM students as s
+
+                      <th style="text-align: center;">
+                        <?php $query = "SELECT COUNT(*) as total FROM students as s
                               WHERE s.class_id = $class->class_id
                               AND s.section_id = $section->section_id
                               AND s.status = 1";
-                                                      echo $this->db->query($query)->result()[0]->total;
-                                                      ?>
-
-                        /
-
-                        <?php $query = "SELECT COUNT(*) as total FROM students as s
-                              WHERE s.class_id = $class->class_id
-                              AND s.status = 1";
                         echo $this->db->query($query)->result()[0]->total;
                         ?>
+                      </th>
 
-                      </td>
-
-                      <td>
+                      <td style="text-align: center;">
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/struck_off_students") . "/$class->class_id/$section->section_id"; ?>">
                           <?php $query = "SELECT COUNT(*) as total FROM students as s
                               WHERE s.class_id = $class->class_id
                               AND s.section_id = $section->section_id
                               AND s.status = 2";
                           echo $this->db->query($query)->result()[0]->total;
-                          ?> View</a>
+                          ?> <i class="fa fa-eye"></i></a>
 
                       </td>
 
 
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
-                          Update</a>
+                          <i class="fa fa-edit"></i> </a>
                       </td>
-                      <td>
+                      <!-- <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
                           Promote</a>
-                      </td>
+                      </td> -->
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/students_list") . "/$class->class_id/$section->section_id"; ?>">
-                          View</a>
+                          <i class="fa fa-eye"></i></a>
                       </td>
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/age_wise_report") . "/$class->class_id/$section->section_id"; ?>">
@@ -147,7 +161,7 @@
 
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div style="padding: 5px; margin: 5px; border: 1px solid gray; border-radius: 5px;">
                 Search Student from overall data: <input type="text" name="search_student" id="search_student" value="" onkeyup="search_student()" />
                 <div id="student_search_result_list" style="padding: 10px; font-size: 10px;"></div>

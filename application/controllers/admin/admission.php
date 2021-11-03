@@ -158,7 +158,7 @@ class Admission extends Admin_Controller
 						  `sections` 
 						WHERE `students`.`section_id` = `sections`.`section_id`
 						AND `students`.`status` =1
-						AND `students`.`class_id` =" . $classe->class_id;
+						AND `students`.`class_id` =" . $classe->class_id . " ORDER BY sections.section_id ASC";
 
 			$result = $this->db->query($query);
 			$sections = $result->result();
@@ -167,6 +167,7 @@ class Admission extends Admin_Controller
 
 		//var_dump($classes);
 		$this->data['classes'] = $classes;
+		$this->data['title'] = "Admission Section Dashboard";
 		$this->data["view"] = ADMIN_DIR . "admission/home";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
