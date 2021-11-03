@@ -57,7 +57,7 @@
                   <tr>
                     <th colspan="2">Classes-Sections -
                       <small><?php $query = "SELECT COUNT(*) as total FROM students as s
-                              WHERE s.status IN(1,2) and s.section_id IN (1,2,3,4)";
+                              WHERE s.status IN(1,2) and s.class_id IN (2,3,4,5,6)";
                               echo $this->db->query($query)->result()[0]->total;
                               ?>
                       </small>
