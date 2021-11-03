@@ -77,31 +77,69 @@ $section_id = $students[0]->section_id;
                         </tr>
                         <tr>
                             <th>Private / Public School:</th>
-                            <td><input type="text" name="private_public_school" value="<?php echo $students[0]->private_public_school; ?>" /></td>
+
+                            <td>
+                                <input type="radio" name="private_public_school" value="G" <?php if ($students[0]->private_public_school == 'G') { ?>checked<?php } ?> />
+                                Government
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="private_public_school" value="P" <?php if ($students[0]->private_public_school == 'P') { ?>checked<?php } ?> />
+                                Private
+                            </td>
+
                         </tr>
                         <tr>
                             <th>School Name:</th>
                             <td><input type="text" name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
                         </tr>
                         <tr>
-                            <th>Orphan: Yes / No</th>
-                            <td><input type="text" name="orphan" value="<?php echo $students[0]->orphan; ?>" /></td>
+                            <th>Orphan: </th>
+                            <td>
+
+                                <input type="radio" name="orphan" value="Yes" <?php if ($students[0]->orphan == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="orphan" value="No" <?php if ($students[0]->orphan == 'No') { ?>checked<?php } ?> />
+                                No
+                            </td>
                         </tr>
 
 
                         <tr>
-                            <th>Vaccinated: Yes / No</th>
-                            <td><input type="text" name="vaccinated" value="<?php echo $students[0]->vaccinated; ?>" /></td>
+                            <th>Vaccinated: </th>
+                            <td>
+                                <input type="radio" name="vaccinated" value="Yes" <?php if ($students[0]->vaccinated == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="vaccinated" value="No" <?php if ($students[0]->vaccinated == 'No') { ?>checked<?php } ?> />
+                                No
+                            </td>
                         </tr>
 
                         <tr>
-                            <th>Is Disable: Yes / No</th>
-                            <td><input type="text" name="is_disable" value="<?php echo $students[0]->is_disable; ?>" /></td>
+                            <th>Is Disable: </th>
+                            <td>
+                                <input type="radio" name="is_disable" value="Yes" <?php if ($students[0]->is_disable == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="is_disable" value="No" <?php if ($students[0]->is_disable == 'No') { ?>checked<?php } ?> />
+                                No
+                            </td>
                         </tr>
 
                         <tr>
-                            <th>Ehsaas Program: Yes / No</th>
-                            <td><input type="text" name="ehsaas" value="<?php echo $students[0]->ehsaas; ?>" /></td>
+                            <th>Ehsaas Program: </th>
+                            <td>
+                                <input type="radio" name="ehsaas" value="Yes" <?php if ($students[0]->ehsaas == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="ehsaas" value="No" <?php if ($students[0]->ehsaas == 'No') { ?>checked<?php } ?> />
+                                No
+                            </td>
                         </tr>
 
 
