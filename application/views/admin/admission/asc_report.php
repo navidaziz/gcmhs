@@ -63,10 +63,10 @@
 
                 $classes = array(
                   "2" => "6th",
-                  "4" => "7th",
-                  "5" => "8th",
-                  "6" => "9th",
-                  "7" => "10th"
+                  "3" => "7th",
+                  "4" => "8th",
+                  "5" => "9th",
+                  "6" => "10th"
                 );
                 foreach ($classes as $class_id => $class) { ?>
 
