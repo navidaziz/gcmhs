@@ -79,7 +79,8 @@
             </thead>
             <tbody>
               <tr>
-                <th>Error</th>
+                <th>
+                  < 1</th>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -90,7 +91,7 @@
                 <?php foreach ($classes as $class_id => $class) { ?>
                   <td><?php
                       $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  
-                             (age >21 or age <=0 or age is null) and class_id= '" . $class_id . "'";
+                             age < 1 and class_id= '" . $class_id . "'";
                       if ($this->db->query($query)->result()[0]->total_student > 0) {
                         echo $this->db->query($query)->result()[0]->total_student;
                       } ?></td>
@@ -99,7 +100,7 @@
                 <td></td>
                 <td></td>
                 <td><?php
-                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE (age >21 or age <=0 or age is null)";
+                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE age < 1";
                     if ($this->db->query($query)->result()[0]->total_student > 0) {
                       echo $this->db->query($query)->result()[0]->total_student;
                     } ?></td>
@@ -158,6 +159,61 @@
                       } ?></td>
                 </tr>
               <?php } ?>
+
+              <tr>
+                <th> > 21</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <?php foreach ($classes as $class_id => $class) { ?>
+                  <td><?php
+                      $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  
+                             age > 21 and class_id= '" . $class_id . "'";
+                      if ($this->db->query($query)->result()[0]->total_student > 0) {
+                        echo $this->db->query($query)->result()[0]->total_student;
+                      } ?></td>
+
+                <?php } ?>
+                <td></td>
+                <td></td>
+                <td><?php
+                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE age > 21";
+                    if ($this->db->query($query)->result()[0]->total_student > 0) {
+                      echo $this->db->query($query)->result()[0]->total_student;
+                    } ?></td>
+              </tr>
+
+              <tr>
+                <th> > 21</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <?php foreach ($classes as $class_id => $class) { ?>
+                  <td><?php
+                      $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  
+                             age IS NULL and class_id= '" . $class_id . "'";
+                      if ($this->db->query($query)->result()[0]->total_student > 0) {
+                        echo $this->db->query($query)->result()[0]->total_student;
+                      } ?></td>
+
+                <?php } ?>
+                <td></td>
+                <td></td>
+                <td><?php
+                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE age IS NULL";
+                    if ($this->db->query($query)->result()[0]->total_student > 0) {
+                      echo $this->db->query($query)->result()[0]->total_student;
+                    } ?></td>
+              </tr>
+
               <tr>
                 <th>Total</th>
                 <td></td>
