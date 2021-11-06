@@ -160,6 +160,61 @@
                       echo $this->db->query($query)->result()[0]->total_student;
                     } ?></td>
               </tr>
+
+              <tr>
+                <th>No. of Non-Muslims</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <?php foreach ($classes as $class_id => $class) { ?>
+                  <td><?php
+                      $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE  
+                      religion != 'Islam' AND
+                      class_id= '" . $class_id . "'";
+                      if ($this->db->query($query)->result()[0]->total_student > 0) {
+                        echo $this->db->query($query)->result()[0]->total_student;
+                      } ?></td>
+
+                <?php } ?>
+                <td></td>
+                <td></td>
+                <td><?php
+                    $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise religion != 'Islam'";
+                    if ($this->db->query($query)->result()[0]->total_student > 0) {
+                      echo $this->db->query($query)->result()[0]->total_student;
+                    } ?></td>
+              </tr>
+              <tr>
+                <th>No. of Non-Pakistanis</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <?php foreach ($classes as $class_id => $class) { ?>
+                  <td><?php
+                      $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE  
+                      nationality != 'Pakistani' AND
+                      class_id= '" . $class_id . "'";
+                      if ($this->db->query($query)->result()[0]->total_student > 0) {
+                        echo $this->db->query($query)->result()[0]->total_student;
+                      } ?></td>
+
+                <?php } ?>
+                <td></td>
+                <td></td>
+                <td><?php
+                    $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani'";
+                    if ($this->db->query($query)->result()[0]->total_student > 0) {
+                      echo $this->db->query($query)->result()[0]->total_student;
+                    } ?></td>
+              </tr>
             </tbody>
           </table>
         </div>
