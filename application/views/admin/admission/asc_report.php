@@ -90,7 +90,7 @@
                 <?php foreach ($classes as $class_id => $class) { ?>
                   <td><?php
                       $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  
-                             (age <=0 or age >= 22) and class_id= '" . $class_id . "'";
+                             (age <=0 or age >= 22 or age is NULL) and class_id= '" . $class_id . "'";
                       if ($this->db->query($query)->result()[0]->total_student > 0) {
                         echo $this->db->query($query)->result()[0]->total_student;
                       } ?></td>
@@ -99,7 +99,7 @@
                 <td></td>
                 <td></td>
                 <td><?php
-                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE (age <=0 or age >= 22)";
+                    $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE (age <=0 or age >= 22 or age is NULL)";
                     if ($this->db->query($query)->result()[0]->total_student > 0) {
                       echo $this->db->query($query)->result()[0]->total_student;
                     } ?></td>
