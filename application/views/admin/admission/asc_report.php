@@ -136,7 +136,7 @@
                 </tr>
               <?php } ?>
               <tr>
-                <th>Total</th>
+                <th>Total Enrolment</th>
                 <td></td>
                 <td></td>
                 <td></td>

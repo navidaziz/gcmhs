@@ -77,6 +77,9 @@
 
                       <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
                         <i class="fa fa-print"></i> Student Overall Data</a>
+                      <br />
+                      <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/asc_report"); ?>">Annual School Census Report</a>
+
                     </th>
                   </tr>
                 </thead>
@@ -122,6 +125,7 @@
                               AND s.status = 2";
                           echo $this->db->query($query)->result()[0]->total;
                           ?> <i class="fa fa-eye"></i></a>
+
 
                       </td>
 
