@@ -183,7 +183,7 @@
                 <td></td>
                 <td></td>
                 <td><?php
-                    $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise religion != 'Islam'";
+                    $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE religion != 'Islam'";
                     if ($this->db->query($query)->result()[0]->total_student > 0) {
                       echo $this->db->query($query)->result()[0]->total_student;
                     } ?></td>
