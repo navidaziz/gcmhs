@@ -29,6 +29,13 @@ class Admission extends Admin_Controller
 		$this->load->library('form_validation');
 	}
 	//---------------------------------------------------------------
+
+	public function asc_report()
+	{
+		$this->data["view"] = ADMIN_DIR . "admission/asc_report";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
 	public function birth_certificate($student_id)
 	{
 		$student_id = (int) $student_id;
