@@ -208,6 +208,7 @@
           <td><?php echo $this->lang->line('student_address'); ?></td>
           <td>Mobile No</td>
           <td>Father NIC</td>
+          <td>Issue date</td>
           <td>Occupa.</td>
 
           <td>Reli.</td>
@@ -314,6 +315,10 @@
               </td>
               <td>
                 <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'father_nic')" id="father_nic_<?php echo $student->student_id; ?>" type="text" name="father_nic" value="<?php echo $student->father_nic; ?>" />
+
+              </td>
+              <td>
+                <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nic_issue_date')" id="nic_issue_date_<?php echo $student->student_id; ?>" type="text" name="nic_issue_date" value="<?php echo $student->nic_issue_date; ?>" />
 
               </td>
               <td>
