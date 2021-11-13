@@ -318,7 +318,7 @@
 
               </td>
               <td>
-                <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nic_issue_date')" id="nic_issue_date_<?php echo $student->student_id; ?>" type="text" name="nic_issue_date" value="<?php echo $student->nic_issue_date; ?>" />
+                <input style="width: 100px;" onkeyup="update_student_record('<?php echo $student->student_id; ?>', 'nic_issue_date')" id="nic_issue_date_<?php echo $student->student_id; ?>" type="date" name="nic_issue_date" value="<?php echo $student->nic_issue_date; ?>" />
 
               </td>
               <td>
