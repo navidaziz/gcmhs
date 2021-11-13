@@ -37,6 +37,7 @@ $section_id = $students[0]->section_id;
                             <th>Father Name: </th>
                             <td><input type="text" name="student_father_name" value="<?php echo $students[0]->student_father_name; ?>" /></td>
                         </tr>
+
                         <tr>
                             <th>Date Of Birth: </th>
                             <td><input type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
@@ -57,6 +58,10 @@ $section_id = $students[0]->section_id;
                         <tr>
                             <th>Father CNIC No:</th>
                             <td><input type="text" name="father_nic" value="<?php echo $students[0]->father_nic; ?>" /></td>
+                        </tr>
+                        <tr>
+                            <th>CNIC Issue Date:</th>
+                            <td><input type="text" name="nic_issue_date" value="<?php echo $students[0]->nic_issue_date; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Contact No:</th>
