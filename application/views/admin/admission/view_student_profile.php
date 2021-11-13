@@ -61,7 +61,7 @@ $section_id = $students[0]->section_id;
                         </tr>
                         <tr>
                             <th>CNIC Issue Date:</th>
-                            <td><input type="text" name="nic_issue_date" value="<?php echo $students[0]->nic_issue_date; ?>" /></td>
+                            <td><input type="date" name="nic_issue_date" value="<?php echo $students[0]->nic_issue_date; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Contact No:</th>
