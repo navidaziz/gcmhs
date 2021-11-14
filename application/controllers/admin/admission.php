@@ -74,6 +74,7 @@ class Admission extends Admin_Controller
 		$input["vaccinated"] = ucwords(strtolower($this->input->post("vaccinated")));
 		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
 		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
+		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
 		$this->db->where("student_id", $student_id);
 		if ($this->db->update("students", $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
