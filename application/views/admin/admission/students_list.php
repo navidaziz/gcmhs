@@ -53,6 +53,7 @@
         <td><?php echo $this->lang->line('student_address'); ?></td>
         <td>Mobile No</td>
         <td>Father NIC</td>
+        <td>Issue Date</td>
         <td>Occupation</td>
         <td>Status</td>
         <td>Religion</td>
@@ -89,6 +90,7 @@
               <td><?php echo $student->student_address; ?></td>
               <td><?php echo $student->father_mobile_number; ?></td>
               <td><?php echo $student->father_nic; ?></td>
+              <td><?php echo $student->nic_issue_date; ?></td>
               <td><?php echo $student->guardian_occupation; ?></td>
               <td><?php
                   if ($student->status == 2) {
