@@ -1055,4 +1055,129 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$main_page = base_url() . $this->router->fetch_class() . "/edit_students/" . $class_id . "/" . $section_id;
 		redirect($main_page);
 	}
+
+	public function delete_student_profile($student_id)
+	{
+		$student_id = (int) $student_id;
+		$userId = $this->session->userdata('userId');
+		
+		$query = "UPDATE students SET status = '0' WHERE student_id = '" . $student_id."'";
+		if ($this->db->query($query)) {
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		}
+	}
+
+	public function restore_student_profile($student_id)
+	{
+		$student_id = (int) $student_id;
+		$userId = $this->session->userdata('userId');
+		
+
+		$query = "UPDATE students SET status = '1' WHERE student_id = '" . $student_id . "'";
+		if ($this->db->query($query)) {
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		}
+	}
+	public function change_class_form()
+	{
+		$student_id = (int) $this->input->post('student_id');
+
+		$this->data["students"]  = $this->student_model->get_student($student_id);
+
+
+
+		$this->load->view(ADMIN_DIR . "admission/change_class_form", $this->data);
+	}
+
+	public function change_student_class()
+	{
+		$student_id = (int) $this->input->post('student_id');
+		$class_id = (int) $this->input->post('class_id');
+		$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+			$student = $this->db->query($query)->result()[0];
+			$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$student->class_id."'";
+		$classes_from  = $this->db->query($query)->result()[0]->Class_title;
+		$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$class_id."'";
+		$classes_to  = $this->db->query($query)->result()[0]->Class_title;
+			$from_class_to="Class Change From ".$classes_from." To Class ".$classes_to;
+
+		$query = "UPDATE students SET class_id = '" . $class_id . "' WHERE student_id = '" . $student_id . "'";
+		if ($this->db->query($query)) {
+			
+			$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
+				          VALUES ('" . $student->student_id . "',
+						  '" . (int) $student->admission_no . "',
+						  '" . $student->session_id . "',
+						  '" . $student->class_id . "',
+						  '" . $student->section_id . "',
+						  'Change Class','".$from_class_to."', 
+						  '" . $this->session->userdata('user_id') . "')";
+			$this->db->query($query);
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		}
+	}
+
+	public function change_section_form()
+	{
+		$student_id = (int) $this->input->post('student_id');
+
+		$this->data["students"]  = $this->student_model->get_student($student_id);
+
+
+
+		$this->load->view(ADMIN_DIR . "admission/change_section_form", $this->data);
+	}
+
+	public function change_student_class_section()
+	{
+		$student_id = (int) $this->input->post('student_id');
+		$class_id = (int) $this->input->post('class_id');
+		$section_id = (int) $this->input->post('section_id');
+
+		$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
+		$student = $this->db->query($query)->result()[0];
+		
+			$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$student->class_id."'";
+		$classes_from  = $this->db->query($query)->result()[0]->Class_title;
+		
+		$query="SELECT  section_title FROM `sections` WHERE  `section_id` = '".$student->section_id."'";
+		$classe_section_from  = $this->db->query($query)->result()[0]->section_title;
+		$query="SELECT  section_title FROM `sections` WHERE  `section_id` = '".$section_id."'";
+		$classe_section_to  = $this->db->query($query)->result()[0]->section_title;
+
+
+
+			$from_class_to="Class Change From ".$classes_from." Section ".$classe_section_from." To Section ".$classe_section_to;
+
+		$query = "UPDATE students SET section_id = '" . $section_id . "' WHERE student_id = '" . $student_id . "'";
+		if ($this->db->query($query)) {
+			
+			$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
+				          VALUES ('" . $student->student_id . "',
+						  '" . (int) $student->admission_no . "',
+						  '" . $student->session_id . "',
+						  '" . $student->class_id . "',
+						  '" . $student->section_id . "',
+						  'Change Class Section','".$from_class_to."', 
+						  '" . $this->session->userdata('user_id') . "')";
+			$this->db->query($query);
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+		}
+	}
 }

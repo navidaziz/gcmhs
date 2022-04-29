@@ -282,6 +282,14 @@ $section_id = $students[0]->section_id;
     </div>
 </div>
 
+<div id="general_model" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="general_model_body">
+
+
+        </div>
+    </div>
+</div>
 <script>
     function withdraw(student_id, name, father_name, add_no, admission_date) {
         $('#withdrawal_model_title').html("Student Withdraw Form");
@@ -293,6 +301,34 @@ $section_id = $students[0]->section_id;
         $('#stID').val(student_id);
         $('#withdrawal_admit_body').html(body);
         $('#withdrawal').modal('show');
+    }
+    function change_class_form(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/change_class_form"); ?>",
+            data: {
+                student_id: student_id
+            }
+        }).done(function(data) {
+           
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
+    }
+    function change_section_form(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/change_section_form"); ?>",
+            data: {
+                student_id: student_id
+            }
+        }).done(function(data) {
+           
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
     }
 </script>
 
@@ -348,14 +384,14 @@ $section_id = $students[0]->section_id;
                 <li> <?php echo $students[0]->student_name . ""; ?> Profile</li>
             </ul>
             <!-- /BREADCRUMBS -->
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="clearfix">
                     <h3 class="content-title pull-left"> <?php echo $students[0]->student_name . ""; ?> Profile</li>
                     </h3>
                 </div>
                 <div class="description" id="message"></div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <h5 class="pull-right">
                     <?php
                     $student = $students[0];
@@ -374,10 +410,19 @@ $section_id = $students[0]->section_id;
                         <button onclick="re_admit('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-success btn-sm" aria-hidden="true"> Re-admit</button>
 
                     <?php  } ?>
-                    <?php if ($student->status == 0) { ?> <?php  } ?>
+                    <?php if ($student->status != 0) { ?>
                     <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
                     <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
-
+        
+                    <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
+                    <button onclick="change_section_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Section</button>
+                                    
+                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i> Delete Student Profile</a>
+                                    <?php  } ?>
+                                    <?php if ($student->status == 0) { ?>
+                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/restore_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Restore Student Profile</a>
+                                    <?php  } ?>
+                               
                 </h5>
             </div>
 
@@ -402,6 +447,7 @@ $section_id = $students[0]->section_id;
             </h3>
             <h4 class="title">S/O <?php echo $students[0]->student_father_name; ?>
             </h4>
+            
             <span style="font-size:20px !important;">
 
                 <h5 class="pull-left">
@@ -416,7 +462,30 @@ $section_id = $students[0]->section_id;
                 </h5>
             </span>
             <?php foreach ($students as $student) : ?>
+<script>
+    function update_student_record(student_id, field) {
 
+var value = $('#' + field + '_' + student_id).val();
+
+$.ajax({
+  type: "POST",
+  url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+  data: {
+    student_id: student_id,
+    value: value,
+    field: field
+  }
+}).done(function(msg) {
+  if (field == 'student_class_no') {
+    $('#studentclassno_' + student_id).html(msg);
+  }
+  $("#message").html(msg);
+  $("#message").fadeIn('slow');
+  $("#message").delay(5000).fadeOut('slow');
+});
+
+}
+</script>
 
                 <table class="table">
                     <tr>
@@ -428,6 +497,15 @@ $section_id = $students[0]->section_id;
                         <td style="text-align: center;"><?php echo $student->student_class_no; ?></td>
                         <td style="text-align: center;"><?php echo $student->Class_title; ?></td>
                         <td style="text-align: center;"><?php echo $student->section_title; ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Change Student Section <?php
+            $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+                echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                ?>
+                        </td>
                     </tr>
                 </table>
 
@@ -483,6 +561,7 @@ $section_id = $students[0]->section_id;
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                
         </div>
     </div>
 
@@ -539,6 +618,7 @@ $section_id = $students[0]->section_id;
                 <?php } ?>
             </div>
         <?php  } ?>
+        
     </div>
 
     <div class="col-md-6">
