@@ -160,6 +160,7 @@
 <script type="text/javascript" src="<?php echo site_url("assets/".ADMIN_DIR."js/datepicker/picker.date.js"); ?>"></script> 
 <script type="text/javascript" src="<?php echo site_url("assets/".ADMIN_DIR."js/datepicker/picker.time.js"); ?>"></script> 
 <script src="<?php echo site_url("assets/".ADMIN_DIR."js/script.js"); ?>"></script> 
+
 <script>
   
 

@@ -78,9 +78,19 @@ class Admission extends Admin_Controller
 		$this->db->where("student_id", $student_id);
 		if ($this->db->update("students", $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
-			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
+			
+			
 		} else {
 			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			
+		}
+
+		if($this->input->post('redirect_to')){
+			$query = "SELECT class_id, section_id FROM students WHERE student_id = '".$student_id."'";
+			$student = $this->db->query($query)->result()[0];
+			
+			redirect(ADMIN_DIR . "admission/".$this->input->post('redirect_to')."/".$student->class_id."/".$student->section_id);
+		}else{
 			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
 		}
 	}
@@ -270,7 +280,7 @@ class Admission extends Admin_Controller
 		$this->data["pagination"] = "";
 
 		$this->data["pagination"] = "";
-		$this->data["title"] = "All Students list";
+		$this->data["title"] = " Students list";
 
 		$this->data["view"] = ADMIN_DIR . "admission/students_list";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
@@ -1180,4 +1190,75 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
 		}
 	}
+
+	public  function get_student_update_form()
+	{
+		$student_id = (int) $this->input->post('student_id');
+
+		$this->data["students"]  = $this->student_model->get_student($student_id);
+
+
+
+		$this->load->view(ADMIN_DIR . "admission/student_update_form", $this->data);
+	}
+	public  function get_student_add_form()
+	{
+		$class_id = (int) $this->input->post('class_id');
+		$section_id = (int) $this->input->post('section_id');
+		
+		$query = "SELECT class_title FROM classes WHERE class_id = '" . $class_id . "'";
+		$class_name = $this->db->query($query)->result()[0]->class_title;
+            $query = "SELECT section_title FROM sections WHERE section_id = '" . $section_id . "'";
+            $section_title = $this->db->query($query)->result()[0]->section_title;
+           
+
+		$this->data["class_id"]  = $class_id;
+		$this->data["class_title"]  = $class_name;
+		$this->data["section_id"]  = $section_id;
+		$this->data["section_title"]  = $section_title;
+
+
+
+		$this->load->view(ADMIN_DIR . "admission/student_add_form", $this->data);
+	}
+
+	public function add_new_student_in_class()
+	{
+		
+		$input["class_id"] = $class_id = $this->input->post("class_id");
+		$input["section_id"] = $section_id = $this->input->post("section_id");
+
+		$input["student_class_no"] = $this->input->post("student_class_no");
+		$input["student_admission_no"] = $this->input->post("student_admission_no");
+		$input["student_name"] = ucwords(strtolower($this->input->post("student_name")));
+		$input["student_father_name"] = ucwords(strtolower($this->input->post("student_father_name")));
+		$input["student_data_of_birth"] = $this->input->post("student_data_of_birth");
+		$input["form_b"] = $this->input->post("form_b");
+		$input["admission_date"] = $this->input->post("admission_date");
+		$input["student_address"] = ucwords(strtolower($this->input->post("student_address")));
+		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
+		$input["father_nic"] = $this->input->post("father_nic");
+		$input["guardian_occupation"] = $this->input->post("guardian_occupation");
+		$input["religion"] = ucwords(strtolower($this->input->post("religion")));
+		$input["nationality"] = ucwords(strtolower($this->input->post("nationality")));
+		$input["private_public_school"] = ucwords(strtolower($this->input->post("private_public_school")));
+		$input["school_name"] = ucwords(strtolower($this->input->post("school_name")));
+		$input["orphan"] = ucwords(strtolower($this->input->post("orphan")));
+		$input["vaccinated"] = ucwords(strtolower($this->input->post("vaccinated")));
+		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
+		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
+		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
+		if ($this->db->insert('students', $input)) {
+			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+			
+			
+		} else {
+			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
+			
+		}
+		redirect(ADMIN_DIR . "admission/students_list/$class_id/$section_id");
+
+		
+	}
+	
 }

@@ -384,14 +384,14 @@ $section_id = $students[0]->section_id;
                 <li> <?php echo $students[0]->student_name . ""; ?> Profile</li>
             </ul>
             <!-- /BREADCRUMBS -->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="clearfix">
                     <h3 class="content-title pull-left"> <?php echo $students[0]->student_name . ""; ?> Profile</li>
                     </h3>
                 </div>
                 <div class="description" id="message"></div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <h5 class="pull-right">
                     <?php
                     $student = $students[0];
@@ -417,7 +417,7 @@ $section_id = $students[0]->section_id;
                     <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
                     <button onclick="change_section_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Section</button>
                                     
-                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i> Delete Student Profile</a>
+                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i> Delete Student</a>
                                     <?php  } ?>
                                     <?php if ($student->status == 0) { ?>
                                     <a href="<?php echo site_url(ADMIN_DIR . "admission/restore_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Restore Student Profile</a>

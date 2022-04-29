@@ -18,14 +18,41 @@
       <ul class="breadcrumb">
         <li> <i class="fa fa-home"></i> Home </li>
         <li> <a href="<?php echo site_url(ADMIN_DIR . "admission/"); ?>"> Admission</a> </li>
-        <li><?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List</li>
+        <?php if($title!='All Students list'){ ?>
+        <li><?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?></li>
+      <?php }else{ ?>
+        <li><?php  echo $title; ?></li>
+        <?php } ?>
       </ul>
       <!-- /BREADCRUMBS -->
       <div class="col-md-6">
-        <div class="clearfix">
-          <h3 class="content-title pull-left"> <?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List</h3>
-        </div>
+      <?php if($title!='All Students list'){ ?>
+          <h3 class="content-title pull-left"> <?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?></h3>
+          <?php }else{ ?>
+            <h3 class="content-title pull-left"><?php  echo $title; ?></h3>
+        <?php } ?>
         <div class="description" id="message"></div>
+      </div>
+      <div class="col-md-6">
+        <script>
+function add_new_student(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/get_student_add_form"); ?>",
+            data: {
+                class_id: <?php echo $class_id; ?>,
+                section_id: <?php echo $section_id; ?>
+            }
+        }).done(function(data) {
+           
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
+    }
+          </script>
+      <button onclick="add_new_student()" class="btn btn-success btn-sm pull-right" ><i class="fa fa-plus" aria-hidden="true"></i> Add New Student In Class <?php echo $students[0]->Class_title . ""; ?>, Section <?php echo $students[0]->section_title . ""; ?></button>
+      
       </div>
 
     </div>
@@ -36,21 +63,34 @@
 <!-- PAGE MAIN CONTENT -->
 <div class="row">
   <!-- MESSENGER -->
-  <div class="col-md-12" style="background-color: white; padding: 5px;">
-
-    <table class="table table-bordered" id="main_table" style="font-size: 10px;">
+  <div class="col-md-12" style="background-color: white; padding: 5px; ">
+<div class="table-responsive" style="overflow-x: auto;">
+  <style>
+    .table_small>tbody>tr>td, 
+    .table_small>tbody>tr>th, 
+    .table_small>tfoot>tr>td, 
+    .table_small>tfoot>tr>th, 
+    .table_small>thead>tr>td, 
+    .table_small>thead>tr>th {
+    padding: 2px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+  </style>
+    <table class="table table-bordered table_small" id="main_table" style="font-size: 9px;">
       <thead>
 
         <td>#</td>
         <td>CN</td>
-        <td>Add-No</td>
-        <td><?php echo $this->lang->line('student_name'); ?></td>
+        <td>AddNo</td>
+        <td>Student Name</td>
 
-        <td><?php echo $this->lang->line('student_father_name'); ?></td>
-        <td><?php echo $this->lang->line('student_data_of_birth'); ?></td>
+        <td>Father Name</td>
+        <td>DOB</td>
         <td>Form B</td>
         <td>Add. Date</td>
-        <td><?php echo $this->lang->line('student_address'); ?></td>
+        <td>Address</td>
         <td>Mobile No</td>
         <td>Father NIC</td>
         <td>Issue Date</td>
@@ -59,14 +99,15 @@
         <td>Religion</td>
         <td>Nationality</td>
         <td>P/ G </td>
-        <td>School</td>
+        <td style="width: 30px;">School</td>
         <td>Orphan</td>
-        <td>Vaccinated</td>
-        <td>Disable</td>
+        <td>Vacc</td>
+        <td>Disa</td>
         <td>Ehsaas</td>
         <td>Class</td>
         <td>Section</td>
         <td>Session</td>
+        <td>Action</td>
         </tr>
       </thead>
       <tbody>
@@ -111,7 +152,11 @@
               <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
                   echo $this->db->query($query)->result()[0]->session;
                   ?></td>
-
+<td style="text-align: center; width:48px">
+ <button onclick="update_profile('<?php echo $student->student_id ?>')" class="btn btn-link btn-sm" style="padding: 0px; margin:0px; font-size:9px">Edit</button>
+  - <a class="btn btn-link btn-sm" target="new"  style="padding: 0px; margin:0px; font-size:9px" href="<?php echo site_url(ADMIN_DIR."admission/view_student_profile/".$student->student_id) ?>" >View</button>
+         
+</td>
 
 
             </tr>
@@ -120,10 +165,38 @@
       </tbody>
     </table>
   </div>
-  <script>
-    $(document).ready(function() {
-      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?> List";
+  </div>
 
+  <div id="general_model" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="general_model_body">
+
+
+        </div>
+    </div>
+</div>
+  <script>
+    function update_profile(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/get_student_update_form"); ?>",
+            data: {
+                student_id: student_id
+            }
+        }).done(function(data) {
+           
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
+    }
+    $(document).ready(function() {
+      <?php if($title!='All Students list'){ ?>
+          
+      document.title = "<?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> <?php echo $title; ?>";
+      <?php }else{ ?>
+        document.title = "<?php  echo $title; ?>";
+        <?php } ?>
       var table = $('#main_table').DataTable({
         "bPaginate": false,
         dom: 'Bfrtip',
