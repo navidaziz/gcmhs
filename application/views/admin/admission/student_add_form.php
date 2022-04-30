@@ -15,8 +15,16 @@
 
 <table class="table table_small">
                         <tr>
-                            <th style="width: 300px;">Class No: </th>
-                            <td><input required  type="number" style="width:100%"  name="student_class_no"  /></td>
+                            <th style="width: 300px;">Class No: 
+                            <?php 
+                           $query="SELECT COUNT(*) as total FROM students 
+                                    WHERE class_id = '".$class_id."' 
+                                    AND section_id = '".$section_id."' 
+                                    AND status in (1,2)";
+                             $class_number = $this->db->query($query)->result()[0]->total+1;
+                            ?>
+                            </th>
+                            <td><input required  type="number" style="width:100%"  name="student_class_no"  value="<?php echo $class_number; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Admission No: </th>
@@ -57,8 +65,8 @@
                                     $('#form_b').inputmask('99999-9999999-9');
                                 }
                                 if(value == 'Afghani'){
-                                    $('#father_nic').inputmask('FC999-9999999-9');
-                                    $('#form_b').inputmask('FC999-9999999-9');
+                                    $('#father_nic').inputmask('aa999-9999999-9');
+                                    $('#form_b').inputmask('aa999-9999999-9');
                                 }
                                 
                                 if(value == 'Other'){
@@ -73,14 +81,14 @@
                             Nationality: <br/>    
                             Father CNIC No:</th>
                             <td>
-                            <input  onchange="change_masking('Pakistani')" class="nationality" type="radio" name="nationality" value="Pakistani"  />
+                            <input required  onchange="change_masking('Pakistani')" class="nationality" type="radio" name="nationality" value="Pakistani"  />
                                 Pakistani
                                 <span style="margin-left: 10px;"></span>
-                                <input onchange="change_masking('Afghani')"   class="nationality" type="radio" name="nationality" value="Afghani"  />
+                                <input √ onchange="change_masking('Afghani')"   class="nationality" type="radio" name="nationality" value="Afghani"  />
                                 Afghani
                                 <span style="margin-left: 10px;"></span>
 
-                                <input  onchange="change_masking('Other')"  type="radio" name="nationality" value="Other" />
+                                <input required onchange="change_masking('Other')"  type="radio" name="nationality" value="Other" />
                                 Other
                                 <span style="margin-left: 10px;"></span>    
                             <input required  type="text" style="width:100%"  id="father_nic" name="father_nic"  /></td>
@@ -105,10 +113,10 @@
                         <tr>
                             <th>Religion:</th>
                             <td>
-                            <input type="radio" name="religion" value="Islam"  />
+                            <input required type="radio" name="religion" value="Islam"  />
                                 Muslim
                                 <span style="margin-left: 20px;"></span>
-                                <input type="radio" name="religion" value="Non Muslim" />
+                                <input required type="radio" name="religion" value="Non Muslim" />
                                 Non Muslim
                                 <span style="margin-left: 20px;"></span>
                             </td>
@@ -118,18 +126,18 @@
                             <th>Private / Public School:</th>
 
                             <td>
-                                <input   type="radio" name="private_public_school" value="G"  />
+                                <input required   type="radio" name="private_public_school" value="G"  />
                                 Government
                                 <span style="margin-left: 20px;"></span>
 
-                                <input   type="radio" name="private_public_school" value="P" />
+                                <input required   type="radio" name="private_public_school" value="P" />
                                 Private
                             </td>
 
                         </tr>
                         <tr>
                             <th>School Name:</th>
-                            <td><input   type="text" style="width:100%"  name="school_name"  /></td>
+                            <td><input required   type="text" style="width:100%"  name="school_name"  /></td>
                         </tr>
                         <tr>
                             <th>Orphan: </th>
@@ -148,12 +156,18 @@
                         <tr>
                             <th>Vaccinated: </th>
                             <td>
-                                <input required  type="radio" name="vaccinated" value="Yes"  />
+                                <input required onchange="$('#doses').show(); $('#first_dose').prop('required', true); " required  type="radio" name="vaccinated" value="Yes"  />
                                 Yes
                                 <span style="margin-left: 20px;"></span>
 
-                                <input required  type="radio" name="vaccinated" value="No"  />
+                                <input  onchange="$('#doses').hide(); $('#first_dose').prop('required', false);" required  type="radio" name="vaccinated" value="No"  />
                                 No
+                            </td>
+                        </tr>
+                        <tr id="doses" style="display: none;">
+                            <td colspan="2">
+First Dose <input  type="date" value="" name="first_dose" id="first_dose" />
+Second Dose <input type="date" value="" name="second_dose" />
                             </td>
                         </tr>
 
@@ -201,8 +215,8 @@
             $('#form_b').inputmask('99999-9999999-9');
             <?php } ?>
             <?php if($students[0]->nationality == 'Afghani'){ ?>
-            $('#father_nic').inputmask('FC999-9999999-9');
-            $('#form_b').inputmask('FC999-9999999-9');
+            $('#father_nic').inputmask('aa999-9999999-9');
+            $('#form_b').inputmask('aa999-9999999-9');
             <?php } ?>
         $('#father_mobile_number').inputmask('9999-9999999');
     });

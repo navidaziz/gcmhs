@@ -1248,6 +1248,10 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
 		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
 		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
+		if($input["vaccinated"]=='Yes'){
+			$input["first_dose"] = $this->input->post("first_dose");
+			$input["second_dose"] = $this->input->post("second_dose");
+		}
 		if ($this->db->insert('students', $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
 			

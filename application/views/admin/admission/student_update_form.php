@@ -53,8 +53,8 @@
                                     $('#form_b').inputmask('99999-9999999-9');
                                 }
                                 if(value == 'Afghani'){
-                                    $('#father_nic').inputmask('FC999-9999999-9');
-                                    $('#form_b').inputmask('FC999-9999999-9');
+                                    $('#father_nic').inputmask('aa9999-9999999-9');
+                                    $('#form_b').inputmask('aa999-9999999-9');
                                 }
                                 
                                 if(value == 'Other'){
@@ -101,10 +101,10 @@
                         <tr>
                             <th>Religion:</th>
                             <td>
-                            <input type="radio" name="religion" value="Islam" <?php if ($students[0]->religion == 'Islam') { ?>checked<?php } ?> />
+                            <input required type="radio" name="religion" value="Islam" <?php if ($students[0]->religion == 'Islam') { ?>checked<?php } ?> />
                                 Muslim
                                 <span style="margin-left: 20px;"></span>
-                                <input type="radio" name="religion" value="Non Muslim" <?php if ($students[0]->religion == 'Non Muslim') { ?>checked<?php } ?> />
+                                <input required type="radio" name="religion" value="Non Muslim" <?php if ($students[0]->religion == 'Non Muslim') { ?>checked<?php } ?> />
                                 Non Muslim
                                 <span style="margin-left: 20px;"></span>
                             </td>
@@ -114,18 +114,18 @@
                             <th>Private / Public School:</th>
 
                             <td>
-                                <input   type="radio" name="private_public_school" value="G" <?php if ($students[0]->private_public_school == 'G') { ?>checked<?php } ?> />
+                                <input  required  type="radio" name="private_public_school" value="G" <?php if ($students[0]->private_public_school == 'G') { ?>checked<?php } ?> />
                                 Government
                                 <span style="margin-left: 20px;"></span>
 
-                                <input   type="radio" name="private_public_school" value="P" <?php if ($students[0]->private_public_school == 'P') { ?>checked<?php } ?> />
+                                <input  required  type="radio" name="private_public_school" value="P" <?php if ($students[0]->private_public_school == 'P') { ?>checked<?php } ?> />
                                 Private
                             </td>
 
                         </tr>
                         <tr>
                             <th>School Name:</th>
-                            <td><input   type="text" style="width:100%"  name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
+                            <td><input required   type="text" style="width:100%"  name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Orphan: </th>
@@ -191,14 +191,14 @@
                 </form>
                 <script type="text/javascript" src="<?php echo site_url("assets/".ADMIN_DIR."js/jquery.inputmask.js"); ?>"></script> 
                 <script>
-      $(document).ready(function() {
+     $(document).ready(function() {
         <?php if($students[0]->nationality == 'Pakistani'){ ?>
             $('#father_nic').inputmask('99999-9999999-9');
             $('#form_b').inputmask('99999-9999999-9');
             <?php } ?>
             <?php if($students[0]->nationality == 'Afghani'){ ?>
-            $('#father_nic').inputmask('FC999-9999999-9');
-            $('#form_b').inputmask('FC999-9999999-9');
+            $('#father_nic').inputmask('aa999-9999999-9');
+            $('#form_b').inputmask('aa999-9999999-9');
             <?php } ?>
         $('#father_mobile_number').inputmask('9999-9999999');
     });
