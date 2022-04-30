@@ -354,7 +354,7 @@ class Teacher_dashboard extends Admin_Controller
     public function test_exams_list()
     {
         $this->data['exams'] = NULL;
-        $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 2";
+        $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 1";
         $this->data['exams'] = $this->db->query($query)->result();
 
         $query = "SELECT ctt.subject_id, ctt.class_subject_id, 
