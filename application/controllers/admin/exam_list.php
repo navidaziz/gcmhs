@@ -1378,25 +1378,25 @@ class Exam_list extends Admin_Controller
 
 
 		$query = "SELECT
-    `students`.*
-	, `students_exams_subjects_marks`.`student_exam_subject_mark_id`
-    , `students_exams_subjects_marks`.`exam_id`
-    , `students_exams_subjects_marks`.`class_subjec_id`
-	, `students_exams_subjects_marks`.`obtain_mark`
-    , `classes`.`Class_title`
-    , `sections`.`section_title`
-FROM
-    `students`,
-   `students_exams_subjects_marks`,
-   `classes`,
-   `sections`
-   WHERE 
-   `students`.`student_id` = `students_exams_subjects_marks`.`student_id`
-  AND  `classes`.`class_id` = `students`.`class_id`
-   AND `sections`.`section_id` = `students`.`section_id`
-			AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
-			AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
-			and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
+					`students`.*
+					, `students_exams_subjects_marks`.`student_exam_subject_mark_id`
+					, `students_exams_subjects_marks`.`exam_id`
+					, `students_exams_subjects_marks`.`class_subjec_id`
+					, `students_exams_subjects_marks`.`obtain_mark`
+					, `classes`.`Class_title`
+					, `sections`.`section_title`
+				FROM
+					`students`,
+				`students_exams_subjects_marks`,
+				`classes`,
+				`sections`
+				WHERE 
+				`students`.`student_id` = `students_exams_subjects_marks`.`student_id`
+				AND  `classes`.`class_id` = `students`.`class_id`
+				AND `sections`.`section_id` = `students`.`section_id`
+							AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+							AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject_id . "'
+							and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
 		$result = $this->db->query($query);
 		$this->data['students'] = $result->result();
 

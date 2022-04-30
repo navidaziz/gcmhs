@@ -18,7 +18,7 @@ date_default_timezone_set('Asia/Karachi');
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-@define('ENVIRONMENT', 'production');
+@define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -47,7 +47,11 @@ if (defined('production')) {
 			exit('The application environment is not set correctly.');
 	}
 }
-error_reporting(0);
+
+error_reporting(-1);
+		error_reporting(E_ERROR | E_PARSE);
+		ini_set('display_errors', 1);
+
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME

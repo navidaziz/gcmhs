@@ -119,7 +119,10 @@
         foreach ($exams as $exam) {
           $exam_ids .= $exam->exam_id . ",";
         ?>
-          <th><?php echo date("M, Y", strtotime($exam->created_date)); ?></th>
+          <th>
+          <a target="__new" href="<?php echo site_url(ADMIN_DIR."admission/exam_class_subject_wise_result/".$exam->exam_id."/$class_id/$section_id") ?>">  
+          <?php echo date("M, Y", strtotime($exam->created_date)); ?>
+          </a></th>
         <?php }  ?>
 
         <th>Average</th>

@@ -1264,5 +1264,177 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		
 	}
+
+	// public function view_subject_result($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
+	// {
+	// 	$this->data["class_id"] = $class_id = (int) $class_id;
+	// 	$this->data["section_id"] = $section_id = (int) $section_id;
+	// 	$this->data["exam_id"] = $exam_id = (int) $exam_id;
+	// 	$this->data["class_subject_id"] = $class_subject_id = (int) $class_subject_id;
+	// 	$this->data["subject_id"] = $subject_id = (int) $subject_id;
+
+
+	// 	// $where = "`exams`.`status` IN (0, 1) and `exams`.`exam_id` =" . $exam_id;
+	// 	// $exam = $this->exam_model->get_exam_list($where, false, false);
+	// 	// $this->data["exam"] = $exam[0];
+
+	// 	$query = "SELECT 
+	// 			  `class_subjects`.`class_subject_id`,
+	// 			  `subjects`.`subject_title`,
+	// 			  `class_subjects`.`class_id` 
+	// 			FROM
+	// 			  `subjects`,
+	// 			  `class_subjects` 
+	// 			WHERE `subjects`.`subject_id` = `class_subjects`.`subject_id`
+	// 			AND `class_subjects`.`class_id` = '" . $class_id . "'";
+	// 	$result = $this->db->query($query);
+	// 	$this->data['class_subject'] = $result->result()[0]->subject_title;
+	// 	var_dump($this->data['class_subject']);
+
+
+	// 	$query = "SELECT
+	// 				`students`.*
+	// 				, `classes`.`Class_title`
+	// 				, `sections`.`section_title`
+	// 			FROM
+	// 				`students`,
+	// 			`classes`,
+	// 			`sections`
+	// 			WHERE 
+	// 			`classes`.`class_id` = `students`.`class_id`
+	// 			AND `sections`.`section_id` = `students`.`section_id`
+	// 						AND `classes`.`class_id` = '" . $class_id . "'
+	// 						and `sections`.`section_id` = '" . $section_id . "'";
+	// 	$result = $this->db->query($query);
+	// 	$this->data['students'] = $result->result();
+
+
+	// 	/*$where = "`students`.`status` IN (1) and `students`.`class_id`='".$class_id."' 
+	// 			   AND `students`.`section_id` ='".$section_id."' ORDER by `students`.`student_class_no` ASC ";
+	// 	$this->data["students"] = $this->student_model->get_student_list($where,FALSE);*/
+
+	// 	$this->data["title"] = "Subject Marks";
+	// 	$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
+	// 	$this->load->view(ADMIN_DIR . "exams/view_subject_result", $this->data);
+	// }
+
+	public function exam_class_subject_wise_result($exam_id, $class_id, $section_id, $order = NULL)
+	{
+
+		$this->data["class_id"] = $class_id = (int) $class_id;
+		$this->data["section_id"] = $section_id = (int) $section_id;
+		$this->data["exam_id"] = $exam_id = (int) $exam_id;
+
+		//get class name 
+
+		$query = "SELECT  `Class_title` FROM `classes` WHERE `classes`.`class_id` ='" . $class_id . "' Order By `classes`.`Class_title` ASC";
+		$result = $this->db->query($query);
+		$this->data['class_name'] = $result->result()[0]->Class_title;
+		//$this->data['class_name'] $result->result()[0]->Class_title;	
+
+
+		//get section name 
+
+		$query = "SELECT `section_title` FROM `sections` WHERE  `sections`.`section_id` ='" . $section_id . "'";
+		$result = $this->db->query($query);
+		$this->data['section_title'] = $result->result()[0]->section_title;
+		//get all students here....
+
+
+
+		$query = "SELECT
+             `students`.`student_id`
+                , `students`.`student_class_no`
+                , `students`.`student_name`
+                , `students`.`student_father_name`
+				, `students`.`status`
+                , `students`.`student_data_of_birth`
+                , `students`.`student_admission_no`
+                , `students_exams_subjects_marks`.`section_id`
+                , `students_exams_subjects_marks`.`class_id`
+                , `students_exams_subjects_marks`.`subject_id`
+            FROM
+            `students_exams_subjects_marks`
+            , `students`
+            WHERE `students_exams_subjects_marks`.`student_id` = `students`.`student_id`
+            
+            AND `students`.`class_id` =" . $class_id . "
+	    	AND `students`.`section_id` =" . $section_id . "
+			AND `students_exams_subjects_marks`.`exam_id` = '".$exam_id."'
+	    	GROUP BY `students`.`student_id` 
+            ORDER BY `student_class_no` ASC";
+
+
+
+		$result = $this->db->query($query);
+		$students = $result->result();
+
+		$query="SELECT * FROM exams WHERE exam_id ='" . $exam_id."'";
+		$exam = $this->db->query($query)->result();
+		$this->data["exam"] = $exam[0];
+
+		$query = "SELECT 
+			`subjects`.`subject_title`,
+			`class_subject_teacher`.`section_id`,
+			`class_subjects`.`subject_id`,
+			`class_subjects`.`class_subject_id`,
+			`subjects`.`subject_title`,
+			`subjects`.`short_title`,
+			`class_subjects`.`class_id`,
+			`class_subjects`.`marks`,
+			`class_subjects`.`passing_mark` 
+			FROM
+			`class_subjects` ,
+			`class_subject_teacher`,
+			`subjects`  
+			WHERE `class_subjects`.`class_subject_id` = `class_subject_teacher`.`class_subject_id`
+			AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
+				AND `class_subjects`.`class_id` =" . $class_id . "
+				AND `class_subject_teacher`.`section_id` =" . $section_id . ' 
+				GROUP BY `class_subjects`.`class_subject_id`
+				Order By `subjects`.`subject_title` ASC';
+		$result = $this->db->query($query);
+		$this->data['class_subjects'] = $class_subjects = $result->result();
+
+
+		foreach ($students as $student_index => $student) {
+			foreach ($class_subjects as $class_subject) {
+				$students[$student_index]->subjects[$class_subject->class_subject_id]['total_marks'] = $class_subject->marks;
+				$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->marks;
+				$query = "SELECT 
+					`obtain_mark`, `percentage`
+							FROM
+							`students_exams_subjects_marks`
+							WHERE `students_exams_subjects_marks`.`student_id` = '" . $student->student_id . "'
+							AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+							AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject->class_subject_id . "'
+							and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
+				$result = $this->db->query($query);
+				if ($result->num_rows) {
+					$students[$student_index]->subjects[$class_subject->class_subject_id]['marks'] = $result->result()[0];
+				} else {
+					$students[$student_index]->subjects[$class_subject->class_subject_id]['marks'] = NULL;
+				}
+			}
+		}
+
+		$query = "SELECT pass_fail_status, COUNT(pass_fail_status) as total 
+		FROM student_results WHERE `exam_id` = $exam_id 
+		AND `class_id` =" . $class_id . "
+		AND `section_id` = '" . $section_id . "'
+		 GROUP BY pass_fail_status ORDER BY  pass_fail_status ASC";
+		$results = $this->db->query($query);
+		$pass_fail_counts = $results->result();
+
+		$this->data['pass_fail_counts'] = $pass_fail_counts;
+
+
+
+		$this->data['students'] = $students;
+		$this->data["title"] = "Subject Marks";
+		$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
+		$this->load->view(ADMIN_DIR . "admission/exam_class_subject_wise_result", $this->data);
+	}
+
 	
 }
