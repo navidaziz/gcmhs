@@ -218,7 +218,7 @@ Second Dose <input type="date" value="" name="second_dose" />
             $('#father_nic').inputmask('aa999-9999999-9');
             $('#form_b').inputmask('aa999-9999999-9');
             <?php } ?>
-        $('#father_mobile_number').inputmask('9999-9999999');
+        $('#father_mobile_number').inputmask('0399-9999999');
     });
     </script>
 </div>

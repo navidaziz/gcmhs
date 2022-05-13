@@ -78,19 +78,16 @@ class Admission extends Admin_Controller
 		$this->db->where("student_id", $student_id);
 		if ($this->db->update("students", $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
-			
-			
 		} else {
 			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
-			
 		}
 
-		if($this->input->post('redirect_to')){
-			$query = "SELECT class_id, section_id FROM students WHERE student_id = '".$student_id."'";
+		if ($this->input->post('redirect_to')) {
+			$query = "SELECT class_id, section_id FROM students WHERE student_id = '" . $student_id . "'";
 			$student = $this->db->query($query)->result()[0];
-			
-			redirect(ADMIN_DIR . "admission/".$this->input->post('redirect_to')."/".$student->class_id."/".$student->section_id);
-		}else{
+
+			redirect(ADMIN_DIR . "admission/" . $this->input->post('redirect_to') . "/" . $student->class_id . "/" . $student->section_id);
+		} else {
 			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
 		}
 	}
@@ -1070,8 +1067,8 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$student_id = (int) $student_id;
 		$userId = $this->session->userdata('userId');
-		
-		$query = "UPDATE students SET status = '0' WHERE student_id = '" . $student_id."'";
+
+		$query = "UPDATE students SET status = '0' WHERE student_id = '" . $student_id . "'";
 		if ($this->db->query($query)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
 			redirect(ADMIN_DIR . "admission/view_student_profile/$student_id");
@@ -1085,7 +1082,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$student_id = (int) $student_id;
 		$userId = $this->session->userdata('userId');
-		
+
 
 		$query = "UPDATE students SET status = '1' WHERE student_id = '" . $student_id . "'";
 		if ($this->db->query($query)) {
@@ -1112,23 +1109,23 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$student_id = (int) $this->input->post('student_id');
 		$class_id = (int) $this->input->post('class_id');
 		$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
-			$student = $this->db->query($query)->result()[0];
-			$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$student->class_id."'";
+		$student = $this->db->query($query)->result()[0];
+		$query = "SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '" . $student->class_id . "'";
 		$classes_from  = $this->db->query($query)->result()[0]->Class_title;
-		$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$class_id."'";
+		$query = "SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '" . $class_id . "'";
 		$classes_to  = $this->db->query($query)->result()[0]->Class_title;
-			$from_class_to="Class Change From ".$classes_from." To Class ".$classes_to;
+		$from_class_to = "Class Change From " . $classes_from . " To Class " . $classes_to;
 
 		$query = "UPDATE students SET class_id = '" . $class_id . "' WHERE student_id = '" . $student_id . "'";
 		if ($this->db->query($query)) {
-			
+
 			$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
 				          VALUES ('" . $student->student_id . "',
 						  '" . (int) $student->admission_no . "',
 						  '" . $student->session_id . "',
 						  '" . $student->class_id . "',
 						  '" . $student->section_id . "',
-						  'Change Class','".$from_class_to."', 
+						  'Change Class','" . $from_class_to . "', 
 						  '" . $this->session->userdata('user_id') . "')";
 			$this->db->query($query);
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
@@ -1158,29 +1155,29 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		$query = "SELECT * FROM students WHERE student_id = '" . $student_id . "'";
 		$student = $this->db->query($query)->result()[0];
-		
-			$query="SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '".$student->class_id."'";
+
+		$query = "SELECT  `classes`.`Class_title` FROM `classes` WHERE  `classes`.`class_id` = '" . $student->class_id . "'";
 		$classes_from  = $this->db->query($query)->result()[0]->Class_title;
-		
-		$query="SELECT  section_title FROM `sections` WHERE  `section_id` = '".$student->section_id."'";
+
+		$query = "SELECT  section_title FROM `sections` WHERE  `section_id` = '" . $student->section_id . "'";
 		$classe_section_from  = $this->db->query($query)->result()[0]->section_title;
-		$query="SELECT  section_title FROM `sections` WHERE  `section_id` = '".$section_id."'";
+		$query = "SELECT  section_title FROM `sections` WHERE  `section_id` = '" . $section_id . "'";
 		$classe_section_to  = $this->db->query($query)->result()[0]->section_title;
 
 
 
-			$from_class_to="Class Change From ".$classes_from." Section ".$classe_section_from." To Section ".$classe_section_to;
+		$from_class_to = "Class Change From " . $classes_from . " Section " . $classe_section_from . " To Section " . $classe_section_to;
 
 		$query = "UPDATE students SET section_id = '" . $section_id . "' WHERE student_id = '" . $student_id . "'";
 		if ($this->db->query($query)) {
-			
+
 			$query = "INSERT INTO `student_history`(`student_id`, `student_admission_no`, `session_id`, `class_id`, `section_id`, `history_type`, `remarks`, `created_by`) 
 				          VALUES ('" . $student->student_id . "',
 						  '" . (int) $student->admission_no . "',
 						  '" . $student->session_id . "',
 						  '" . $student->class_id . "',
 						  '" . $student->section_id . "',
-						  'Change Class Section','".$from_class_to."', 
+						  'Change Class Section','" . $from_class_to . "', 
 						  '" . $this->session->userdata('user_id') . "')";
 			$this->db->query($query);
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
@@ -1205,12 +1202,12 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$class_id = (int) $this->input->post('class_id');
 		$section_id = (int) $this->input->post('section_id');
-		
+
 		$query = "SELECT class_title FROM classes WHERE class_id = '" . $class_id . "'";
 		$class_name = $this->db->query($query)->result()[0]->class_title;
-            $query = "SELECT section_title FROM sections WHERE section_id = '" . $section_id . "'";
-            $section_title = $this->db->query($query)->result()[0]->section_title;
-           
+		$query = "SELECT section_title FROM sections WHERE section_id = '" . $section_id . "'";
+		$section_title = $this->db->query($query)->result()[0]->section_title;
+
 
 		$this->data["class_id"]  = $class_id;
 		$this->data["class_title"]  = $class_name;
@@ -1224,7 +1221,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 	public function add_new_student_in_class()
 	{
-		
+
 		$input["class_id"] = $class_id = $this->input->post("class_id");
 		$input["section_id"] = $section_id = $this->input->post("section_id");
 
@@ -1248,21 +1245,16 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
 		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
 		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
-		if($input["vaccinated"]=='Yes'){
+		if ($input["vaccinated"] == 'Yes') {
 			$input["first_dose"] = $this->input->post("first_dose");
 			$input["second_dose"] = $this->input->post("second_dose");
 		}
 		if ($this->db->insert('students', $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
-			
-			
 		} else {
 			$this->session->set_flashdata("msg_success", $this->lang->line("msg_error"));
-			
 		}
 		redirect(ADMIN_DIR . "admission/students_list/$class_id/$section_id");
-
-		
 	}
 
 	// public function view_subject_result($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
@@ -1360,7 +1352,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
             
             AND `students`.`class_id` =" . $class_id . "
 	    	AND `students`.`section_id` =" . $section_id . "
-			AND `students_exams_subjects_marks`.`exam_id` = '".$exam_id."'
+			AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
 	    	GROUP BY `students`.`student_id` 
             ORDER BY `student_class_no` ASC";
 
@@ -1369,7 +1361,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$result = $this->db->query($query);
 		$students = $result->result();
 
-		$query="SELECT * FROM exams WHERE exam_id ='" . $exam_id."'";
+		$query = "SELECT * FROM exams WHERE exam_id ='" . $exam_id . "'";
 		$exam = $this->db->query($query)->result();
 		$this->data["exam"] = $exam[0];
 
@@ -1391,6 +1383,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				AND `class_subjects`.`class_id` =" . $class_id . "
 				AND `class_subject_teacher`.`section_id` =" . $section_id . ' 
+				AND `subjects`.`subject_id` !=2
 				GROUP BY `class_subjects`.`class_subject_id`
 				Order By `subjects`.`subject_title` ASC';
 		$result = $this->db->query($query);
@@ -1435,6 +1428,4 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
 		$this->load->view(ADMIN_DIR . "admission/exam_class_subject_wise_result", $this->data);
 	}
-
-	
 }
