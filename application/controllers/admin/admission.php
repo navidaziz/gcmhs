@@ -1428,4 +1428,55 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
 		$this->load->view(ADMIN_DIR . "admission/exam_class_subject_wise_result", $this->data);
 	}
+
+	public function paper_submission_report($exam_id = 14)
+	{
+		$this->data['exam_id'] = $exam_id;
+
+		$query = "SELECT `classes`.`Class_title`, `classes`.`class_id`
+					FROM `classes` 
+					WHERE  `classes`.`status`=1
+					AND `classes`.`class_id`!=1
+					ORDER BY `classes`.`status`=1";
+
+		$result = $this->db->query($query);
+		$classes = $result->result();
+
+		foreach ($classes as $classe) {
+			$query = "SELECT 
+			`sections`.`section_id`,
+						  `sections`.`section_title`, 
+						  `sections`.`color` 
+						FROM
+						`sections` ,
+						`class_sections`
+						WHERE  
+						`sections`.section_id = class_sections.section_id
+						AND `class_sections`.`class_id` = " . $classe->class_id . " 
+						AND `sections`.`status`=1
+						Order By `sections`.`section_title` ASC";
+
+			$result = $this->db->query($query);
+			$sections = $result->result();
+			$classe->sections = $sections;
+		}
+
+		$query = "SELECT 
+		
+				  `subjects`.`subject_title`,
+				  `subjects`.`subject_id`
+				   
+				FROM `subjects`
+				WHERE subjects.subject_id != 2
+				   ORDER BY `subjects`.`subject_title` ASC ";
+		$result = $this->db->query($query);
+		$subjects = $result->result();
+		$this->data['subjects'] = $subjects;
+
+		$this->data['classes'] = $classes;
+		//$this->data["exams"] = $this->exam_model->get_exam($exam_id);
+		$this->data["title"] = $this->lang->line('Exam Details');
+		//$this->data["view"] = ADMIN_DIR . "admission/paper_submission_report";
+		$this->load->view(ADMIN_DIR . "admission/paper_submission_report", $this->data);
+	}
 }

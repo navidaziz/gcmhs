@@ -88,79 +88,71 @@
             <div class="row">
               <!-- MESSENGER -->
 
-              <?php foreach ($classes as $class) { ?>
-                <div class="col-md-12">
-                  <h3><?php echo $class->Class_title; ?></h3>
+
+              <div class="col-md-12">
 
 
+
+
+
+                <?php foreach ($classes as $class) { ?>
+
+                  <h3>
+                    <?php echo $class->Class_title; ?></th>
+                  </h3>
                   <table class="table table-bordered">
                     <thead>
-                    </thead>
-                    <tbody>
-
                       <tr>
                         <th>Subjects</th>
                         <?php foreach ($subjects as $subject) : ?>
                           <th><?php echo $subject->subject_title; ?></th>
                         <?php endforeach; ?>
                       </tr>
+                    </thead>
+                    <tbody>
+
                       <?php foreach ($class->sections as $section) { ?>
                         <tr>
 
-                          <th><?php echo $section->section_title; ?>
+                          <th><?php echo $section->section_title; ?></th>
+
+                          <?php foreach ($subjects as $subject) {
+                            $query = "SELECT count(*) as total FROM `students_exams_subjects_marks`
+                            
+                            WHERE class_id = $class->class_id
+                            AND section_id= $section->section_id
+                            AND subject_id= $subject->subject_id
+                            AND  exam_id = '" . $exam_id . "'";
+                            $result = $this->db->query($query)->result()[0]->total;
+
+                          ?>
+                            <th>
+                              <?php
+                              if ($result) {
+                              } else {
 
 
-                          </th>
-                          <?php foreach ($class->subjects as $subject) : ?>
-
-
-                            <?php
-
-
-
-                            $query = "SELECT 
-							  COUNT(`student_exam_subject_mark_id`) AS total 
-							FROM `students_exams_subjects_marks`
-							WHERE `class_id` = '" . $class->class_id . "'
-							AND `section_id` = '" . $section->section_id . "'
-							AND `subject_id` = '" . $subject->subject_id . "'
-							AND `exam_id` = '" . $exam->exam_id . "';";
-                            $result = $this->db->query($query);
-
-
-
-                            //var_dump($subject);
-                            if ($result->result()[0]->total == 0) { ?>
-                              <td>
-                                <?php
-                                $query = "SELECT * FROM `class_subject_teacher` WHERE `exam_id` ='" . $exam_id . "' and `class_subject_id` ='" . $subject->class_subject_id . "' and `section_id` = '" . $section->section_id . "'";
-                                $result = $this->db->query($query);
-                                if ($result->num_rows) {
-                                  $class_subject_teacher = $result->result()[0];
-                                  echo "<strong>" . $class_subject_teacher->class_teacher . "</strong>  <i>Wating</i> ...";
-                                }
-
-                                ?>
-
-
-                              <?php } else { ?>
-
-                              <td>
-
-                              <?php } ?>
-
-                              </td>
-                            <?php endforeach; ?>
+                                $query = "SELECT t.teacher_name FROM `classes_time_tables` as ctt
+                                    INNER JOIN teachers as t ON (t.teacher_id = ctt.teacher_id)
+                                    WHERE class_id = $class->class_id
+                                    AND section_id= $section->section_id
+                                    AND subject_id= $subject->subject_id";
+                                echo $tacher_name = $this->db->query($query)->result()[0]->teacher_name;
+                              }
+                              ?>
+                            </th>
+                          <?php } ?>
 
                         </tr>
                       <?php } ?>
-
                     </tbody>
                   </table>
+                <?php } ?>
 
 
-                </div>
-              <?php } ?>
+
+              </div>
+
             </div>
           </div>
         </div>
