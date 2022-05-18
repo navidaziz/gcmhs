@@ -99,7 +99,7 @@
                 <td colspan="<?php echo count($class_subjects) + 13; ?>">
                   <h1 style="text-align:center;">
                     Government Centennial Model High Schools Boys Chitral <br />
-                    Class <?php echo $class_name; ?>, Section <?php echo $section_title; ?>
+                    Class <?php echo $class_name; ?>
                     <span style="margin-left: 10px; margin-right:10px">--</span> <?php echo $exam->term . " " . $exam->year  ?> Award List
                     <span style="margin-left: 10px; margin-right:10px">--</span> Date: <?php echo date('d M, Y', strtotime($exam->exam_data));  ?>
 
@@ -114,7 +114,7 @@
                 <th>Father Name</th>
                 <th>DOB</th>
                 <th>Age</th>
-
+                <th>Section</th>
                 <th>Status</th>
                 <?php
                 $promoted = 0;
@@ -153,6 +153,9 @@
                       $interval = $now->diff($date);
                       echo  $interval->y;
                       ?></td>
+                  <td>
+                    <?php echo $student->section_title; ?>
+                  </td>
                   <td><?php if ($student->status == 2) { ?> Struck Off <?php } ?>
                     <?php if ($student->status == 0) { ?> Deleted <?php } ?>
                     <?php if ($student->status == 3) { ?> Withdraw <?php } ?>
