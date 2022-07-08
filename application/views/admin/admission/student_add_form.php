@@ -81,17 +81,17 @@
                             Nationality: <br/>    
                             Father CNIC No:</th>
                             <td>
-                            <input required  onchange="change_masking('Pakistani')" class="nationality" type="radio" name="nationality" value="Pakistani"  />
+                            <input   onchange="change_masking('Pakistani')" class="nationality" type="radio" name="nationality" value="Pakistani"  />
                                 Pakistani
                                 <span style="margin-left: 10px;"></span>
-                                <input √ onchange="change_masking('Afghani')"   class="nationality" type="radio" name="nationality" value="Afghani"  />
+                                <input  onchange="change_masking('Afghani')"   class="nationality" type="radio" name="nationality" value="Afghani"  />
                                 Afghani
                                 <span style="margin-left: 10px;"></span>
 
-                                <input required onchange="change_masking('Other')"  type="radio" name="nationality" value="Other" />
+                                <input  onchange="change_masking('Other')"  type="radio" name="nationality" value="Other" />
                                 Other
                                 <span style="margin-left: 10px;"></span>    
-                            <input required  type="text" style="width:100%"  id="father_nic" name="father_nic"  /></td>
+                            <input   type="text" style="width:100%"  id="father_nic" name="father_nic"  /></td>
                         </tr>
                         <tr>
                             <th>CNIC Issue Date:</th>
