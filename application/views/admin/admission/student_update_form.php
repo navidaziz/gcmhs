@@ -9,6 +9,7 @@
 
     <form action="<?php echo site_url(ADMIN_DIR . "admission/update_profile/" . $students[0]->student_id) ?>" method="post" style="text-align: center;">
         <input type="hidden" name="redirect_to" value="students_list" />
+        dfasdfadsfas
         <table class="table table_small">
             <tr>
                 <th style="width: 300px;">Class No: </th>
@@ -29,13 +30,13 @@
 
             <tr>
                 <th>Date Of Birth: </th>
-                <td><input required type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
+                <td><input required type="date" name="student_data_of_birth" value="<?php echo date('Y-m-d', strtotime($students[0]->student_data_of_birth)); ?>" /></td>
             </tr>
 
 
             <tr>
                 <th>Admission Date:</th>
-                <td><input required type="date" name="admission_date" value="<?php echo $students[0]->admission_date; ?>" /></td>
+                <td><input required type="date" name="admission_date" value="<?php echo date('Y-m-d', strtotime($students[0]->admission_date)); ?>" /></td>
             </tr>
             <tr>
                 <th>Address:</th>

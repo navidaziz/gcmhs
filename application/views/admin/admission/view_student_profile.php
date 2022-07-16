@@ -40,7 +40,7 @@ $section_id = $students[0]->section_id;
 
                         <tr>
                             <th>Date Of Birth: </th>
-                            <td><input type="date" name="student_data_of_birth" value="<?php echo date('d-m-Y', strtotime($students[0]->student_data_of_birth)); ?>" /></td>
+                            <td><input type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
                         </tr>
 
                         <tr>
@@ -49,7 +49,7 @@ $section_id = $students[0]->section_id;
                         </tr>
                         <tr>
                             <th>Admission Date:</th>
-                            <td><input type="date" name="admission_date" value="<?php echo date('d-m-Y', strtotime($students[0]->admission_date)); ?>" /></td>
+                            <td><input type="date" name="admission_date" value="<?php echo $students[0]->admission_date; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Address:</th>
