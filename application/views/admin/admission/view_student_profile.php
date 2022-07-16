@@ -40,7 +40,7 @@ $section_id = $students[0]->section_id;
 
                         <tr>
                             <th>Date Of Birth: </th>
-                            <td><input type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
+                            <td><input type="date" name="student_data_of_birth" value="<?php echo date('d-m-Y', strtotime($students[0]->student_data_of_birth)); ?>" /></td>
                         </tr>
 
                         <tr>
@@ -49,7 +49,7 @@ $section_id = $students[0]->section_id;
                         </tr>
                         <tr>
                             <th>Admission Date:</th>
-                            <td><input type="date" name="admission_date" value="<?php echo $students[0]->admission_date; ?>" /></td>
+                            <td><input type="date" name="admission_date" value="<?php echo date('d-m-Y', strtotime($students[0]->admission_date)); ?>" /></td>
                         </tr>
                         <tr>
                             <th>Address:</th>
@@ -302,6 +302,7 @@ $section_id = $students[0]->section_id;
         $('#withdrawal_admit_body').html(body);
         $('#withdrawal').modal('show');
     }
+
     function change_class_form(student_id) {
         $.ajax({
             type: "POST",
@@ -310,12 +311,13 @@ $section_id = $students[0]->section_id;
                 student_id: student_id
             }
         }).done(function(data) {
-           
+
             $('#general_model_body').html(data);
         });
 
         $('#general_model').modal('show');
     }
+
     function change_section_form(student_id) {
         $.ajax({
             type: "POST",
@@ -324,7 +326,7 @@ $section_id = $students[0]->section_id;
                 student_id: student_id
             }
         }).done(function(data) {
-           
+
             $('#general_model_body').html(data);
         });
 
@@ -411,18 +413,18 @@ $section_id = $students[0]->section_id;
 
                     <?php  } ?>
                     <?php if ($student->status != 0) { ?>
-                    <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
-                    <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
-        
-                    <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
-                    <button onclick="change_section_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Section</button>
-                                    
-                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm" ><i class="fa fa-trash" aria-hidden="true"></i> Delete Student</a>
-                                    <?php  } ?>
-                                    <?php if ($student->status == 0) { ?>
-                                    <a href="<?php echo site_url(ADMIN_DIR . "admission/restore_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Restore Student Profile</a>
-                                    <?php  } ?>
-                               
+                        <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
+                        <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
+
+                        <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
+                        <button onclick="change_section_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Section</button>
+
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Delete Student</a>
+                    <?php  } ?>
+                    <?php if ($student->status == 0) { ?>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/restore_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Restore Student Profile</a>
+                    <?php  } ?>
+
                 </h5>
             </div>
 
@@ -447,7 +449,7 @@ $section_id = $students[0]->section_id;
             </h3>
             <h4 class="title">S/O <?php echo $students[0]->student_father_name; ?>
             </h4>
-            
+
             <span style="font-size:20px !important;">
 
                 <h5 class="pull-left">
@@ -462,30 +464,30 @@ $section_id = $students[0]->section_id;
                 </h5>
             </span>
             <?php foreach ($students as $student) : ?>
-<script>
-    function update_student_record(student_id, field) {
+                <script>
+                    function update_student_record(student_id, field) {
 
-var value = $('#' + field + '_' + student_id).val();
+                        var value = $('#' + field + '_' + student_id).val();
 
-$.ajax({
-  type: "POST",
-  url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
-  data: {
-    student_id: student_id,
-    value: value,
-    field: field
-  }
-}).done(function(msg) {
-  if (field == 'student_class_no') {
-    $('#studentclassno_' + student_id).html(msg);
-  }
-  $("#message").html(msg);
-  $("#message").fadeIn('slow');
-  $("#message").delay(5000).fadeOut('slow');
-});
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+                            data: {
+                                student_id: student_id,
+                                value: value,
+                                field: field
+                            }
+                        }).done(function(msg) {
+                            if (field == 'student_class_no') {
+                                $('#studentclassno_' + student_id).html(msg);
+                            }
+                            $("#message").html(msg);
+                            $("#message").fadeIn('slow');
+                            $("#message").delay(5000).fadeOut('slow');
+                        });
 
-}
-</script>
+                    }
+                </script>
 
                 <table class="table">
                     <tr>
@@ -501,10 +503,10 @@ $.ajax({
                     <tr>
                         <td colspan="3">
                             Change Student Section <?php
-            $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+                                                    $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
 
-                echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
-                ?>
+                                                    echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                                                    ?>
                         </td>
                     </tr>
                 </table>
@@ -561,7 +563,7 @@ $.ajax({
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
         </div>
     </div>
 
@@ -618,7 +620,7 @@ $.ajax({
                 <?php } ?>
             </div>
         <?php  } ?>
-        
+
     </div>
 
     <div class="col-md-6">
