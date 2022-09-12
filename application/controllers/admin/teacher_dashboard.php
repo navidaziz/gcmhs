@@ -357,14 +357,17 @@ class Teacher_dashboard extends Admin_Controller
         $query = "SELECT * FROM exams ORDER BY exam_id DESC LIMIT 1";
         $this->data['exams'] = $this->db->query($query)->result();
 
-        $query = "SELECT ctt.subject_id, ctt.class_subject_id, 
-                         ctt.color, classes.class_id,classes.Class_title, 
-                         sections.section_id, sections.section_title, ctt.subject_title 
-                  FROM `classes_time_tables`as ctt,classes, sections 
+        $query = "SELECT class_subjects.subject_id, ctt.class_subject_id, 
+                         sections.color, classes.class_id,classes.Class_title, 
+                         sections.section_id, sections.section_title, subjects.subject_title 
+                  FROM `class_section_subject_teachers`as ctt,
+                  classes, sections, class_subjects, subjects
                   WHERE ctt.class_id = classes.class_id 
                   AND ctt.section_id = sections.section_id 
+                  AND ctt.class_subject_id = class_subjects.class_subject_id
+                  AND class_subjects.subject_id = subjects.subject_id
                   AND ctt.teacher_id = '" . $this->session->userdata("teacher_id") . "'
-                  AND ctt.subject_id != 2
+                  AND subjects.subject_id != 2
                   ORDER BY classes.class_id ASC";
         $this->data['teacher_subjects'] = $this->db->query($query)->result();
         $this->data["title"] = "Teacher Dashboard";
