@@ -445,9 +445,10 @@ $section_id = $students[0]->section_id;
 <div class="row" style="background-color: white; padding: 5px;">
     <div class="col-md-3">
         <div class="table-responsive">
-            <h3 class="title"><?php echo $students[0]->student_name; ?>
+            <h3 class="title"><?php echo strtoupper($students[0]->student_name); ?>
             </h3>
-            <h4 class="title">S/O <?php echo $students[0]->student_father_name; ?>
+            <h4 class="title">S/O <?php echo strtoupper($students[0]->student_father_name); ?>
+
             </h4>
 
             <span style="font-size:20px !important;">
@@ -511,22 +512,25 @@ $section_id = $students[0]->section_id;
                     </tr>
                 </table>
 
-                <table class="" style="width: 100%;">
+                <table class="table " style="width: 100%;">
                     <thead>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>Form B:</td>
+                            <td><?php echo strtoupper($students[0]->form_b); ?>
 
-
-
+                            </td>
+                        </tr>
                         <tr>
                             <td>Date Of Birth</td>
-                            <td><?php echo $student->student_data_of_birth; ?>
+                            <td><?php echo date('d-m-Y', strtotime($student->student_data_of_birth)); ?>
 
                             </td>
                         </tr>
                         <tr>
                             <td>Date Of Admission</td>
-                            <td><?php echo $student->admission_date; ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($student->admission_date)); ?></td>
                         </tr>
                         <tr>
                             <td>Father Mobile No.</td>
@@ -559,7 +563,10 @@ $section_id = $students[0]->section_id;
                         <tr>
                             <td colspan="2"><?php echo $this->lang->line('student_address'); ?>: <?php echo $student->student_address; ?></td>
                         </tr>
-
+                        <tr>
+                            <td colspan="2">Created date:
+                                <?php echo date('d M Y', strtotime($student->created_date)); ?></td>
+                        </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -1227,7 +1227,7 @@ class Exam_list extends Admin_Controller
 		$this->data["exams"] = $this->exam_model->get_exam($exam_id);
 		$this->data["title"] = $this->lang->line('Exam Details');
 		$this->data["view"] = ADMIN_DIR . "exams/class_subject_view";
-		$this->load->view(ADMIN_DIR . "layout", $this->data); 
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 
 
