@@ -331,12 +331,12 @@
                   </td>
                   <td style="text-align: center; width:150px">
                     <img style="width: 100px;" src="<?php echo site_url("assets/signature.png") ?>" />
-                    <strong>Principal </strong><br /><small>GCMHS Boys Chitral<small>
+                    <strong>Principal </strong><br /><small>GCMHS Boys Chitral</small>
                   </td>
                 </tr>
               </table>
               <p style="text-align: center; color:light-gray; margin-top:50px; margin-bottom:5px; font-size:8px">
-                <small><i>Note: it's computer generated result. Errors and omissions excepted not used for legal purpose. </i><small>
+                <small><i>Note: it's computer generated result. Errors and omissions excepted not used for legal purpose. </i></small>
               </p>
             </div>
           </section>
