@@ -159,9 +159,9 @@
                   </td>
                   <?php
                   $total_obtain_marks = 0;
-                  $subject_total = 0;
+                  //$subject_total = 0;
                   foreach ($class_subjects as $class_subject) {
-                    $subject_total = $subject_total + 100;
+                    //  $subject_total = $subject_total + 100;
                   ?>
                     <td style="text-align:center; <?php if (
                                                     $student->subjects[$class_subject->class_subject_id]['passing_mark'] == 'M' ||

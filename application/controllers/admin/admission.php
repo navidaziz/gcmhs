@@ -1405,12 +1405,24 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 							and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
 				$result = $this->db->query($query);
 				if ($result->num_rows) {
+
 					$students[$student_index]->subjects[$class_subject->class_subject_id]['marks'] = $result->result()[0];
 				} else {
 					$students[$student_index]->subjects[$class_subject->class_subject_id]['marks'] = NULL;
 				}
 			}
 		}
+
+
+		$query = "SELECT COUNT(DISTINCT students_exams_subjects_marks.subject_id) as total 
+		FROM students_exams_subjects_marks WHERE `exam_id` = $exam_id 
+		AND `class_id` =" . $class_id . "
+		AND `section_id` = '" . $section_id . "'
+		";
+		$subject_total = $this->db->query($query)->row()->total;
+		$this->data['subject_total'] = $subject_total * 100;
+
+
 
 		$query = "SELECT pass_fail_status, COUNT(pass_fail_status) as total 
 		FROM student_results WHERE `exam_id` = $exam_id 
