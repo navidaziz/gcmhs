@@ -241,7 +241,7 @@
                             $total_obtain_marks += $student->subjects[$class_subject->class_subject_id]['marks']->percentage;
                             if ($student->subjects[$class_subject->class_subject_id]['marks']->obtain_mark > 0) {
 
-                              echo round($student->subjects[$class_subject->class_subject_id]['marks']->percentage, 1);
+                              echo round($student->subjects[$class_subject->class_subject_id]['marks']->percentage, 1) . " %";
                             } else {
                               if ($student->subjects[$class_subject->class_subject_id]['marks']->obtain_mark == 'A') {
                                 echo
