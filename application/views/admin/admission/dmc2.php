@@ -269,7 +269,7 @@
             <tr>
               <th colspan="2" style="text-align: right;">Percentage</th>
 
-              <td colspan="3" style="text-align: center;"><strong><?php echo $percentage = round((($total_obtain_marks * 100) / $subject_total), 2); ?> %</strong>
+              <td colspan="3" style="text-align: center;"><strong><?php echo $percentage = round((($subject_obtain_marks * 100) / $subject_total_marks), 2); ?> %</strong>
                 <small style="margin-left: 20px;"><i>
                     <?php
                     if ($percentage >= 70) { ?> Excellent<? } ?>
