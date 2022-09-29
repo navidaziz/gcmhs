@@ -9,7 +9,7 @@
   <script src="script.js"></script>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>CCML</title>
+  <title>DMC's</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -135,7 +135,7 @@
           <section>
 
             <h3 style="font-weight: bold; text-align:center; color:black;"> Government Centennial Model High Schools Boys Chitral </h3>
-            <div style=" font-weight: bold; text-align: center; color:black"><img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" style="width:70px; height:70px !important;">
+            <div style=" font-weight: bold; text-align: center; color:black"><img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" style="width:70px; height:70px !important;">
             </div>
             <h4 style=" font-weight: bold;text-align:center; color:black"> Class <?php echo $class_name; ?>, Section <?php echo $section_title; ?> </h4>
             <h5 style=" font-weight: bold;text-align:center; color:black"> <?php echo $exam->term . " " . $exam->year  ?>
@@ -153,7 +153,7 @@
                 <th>Father Name</th>
                 <th>Date of Birth</th>
                 <th>Age</th>
-
+                <th>Form-B</th>
                 <th>Status</th>
 
               </tr>
@@ -170,6 +170,7 @@
                     $interval = $now->diff($date);
                     echo  $interval->y;
                     ?></td>
+                <td><?php echo $student->form_b; ?></td>
                 <td><?php if ($student->status == 2) { ?> Struck Off <?php } ?>
                   <?php if ($student->status == 0) { ?> Deleted <?php } ?>
                   <?php if ($student->status == 3) { ?> Withdraw <?php } ?>

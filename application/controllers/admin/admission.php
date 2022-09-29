@@ -1472,7 +1472,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
                 , `students`.`student_name`
                 , `students`.`student_father_name`
 				, `students`.`status`
-				
+				, `students`.`form_b`
                 , `students`.`student_data_of_birth`
                 , `students`.`student_admission_no`
                 , `students_exams_subjects_marks`.`section_id`
