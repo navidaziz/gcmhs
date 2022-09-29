@@ -273,11 +273,11 @@
                 <small style="margin-left: 20px;"><i>
                     <?php
                     if ($percentage >= 70) { ?> Excellent<? } ?>
-                      <?php if ($percentage >= 60 and $percentage <= 69) { ?> Very Good<? } ?>
-                        <?php if ($percentage >= 50 and $percentage <= 59) { ?> Good<? } ?>
-                          <?php if ($percentage >= 40 and $percentage <= 49) { ?> Fair<? } ?>
-                            <?php if ($percentage >= 33 and $percentage <= 39) { ?> Satisfactory<? } ?>
-                              <?php if ($percentage < 33) { ?> Poor & required special attention<? } ?>
+                      <?php if (round($percentage) >= 60 and round($percentage) <= 69) { ?> Very Good<? } ?>
+                        <?php if (round($percentage) >= 50 and round($percentage) <= 59) { ?> Good<? } ?>
+                          <?php if (round($percentage) >= 40 and round($percentage) <= 49) { ?> Fair<? } ?>
+                            <?php if (round($percentage) >= 33 and round($percentage) <= 39) { ?> Satisfactory<? } ?>
+                              <?php if (round($percentage) < 33) { ?> Poor & required special attention<? } ?>
 
                   </i> </small>
 
