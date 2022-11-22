@@ -1,5 +1,5 @@
 <?php
-exit();
+//exit();
 date_default_timezone_set('Asia/Karachi');
 /*
  *---------------------------------------------------------------
