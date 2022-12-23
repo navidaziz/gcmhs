@@ -35,7 +35,7 @@
               <td> Total Marks:
               </td>
               <td>
-                <input readonly type="text" name="total_marks" id="total_marks" value="" />
+                <input required type="text" name="total_marks" id="total_marks" value="" />
               </td>
             </tr>
             <tr>
