@@ -266,7 +266,7 @@
                       </td>
                       <td style="text-align: center; width:80px">
                         <?php
-                        if ($student_result->percentage < 33) {
+                        if ($student_result->percentage < 32.9) {
                           echo '<span class="fail">' . round($student_result->percentage) . '</span>';
                         } else {
                           echo round($student_result->percentage);
@@ -284,7 +284,7 @@
                   <?php } ?>
                   <th style="text-align: center;"><?php
                                                   $subject_avg = round(($subject_percentage / $exam_count));
-                                                  if ($subject_avg < 33) {
+                                                  if ($subject_avg < 32.9) {
                                                     echo '<span class="fail">' . $subject_avg . '</span>';
                                                   } else {
                                                     echo $subject_avg;
@@ -310,7 +310,7 @@
                     <?php $percentage = (($session_exam->subject_obtain_marks * 100) / $session_exam->subject_total_marks);
                     if ($percentage) {
                       $total_percentage += $percentage;
-                      if ($percentage < 33) {
+                      if ($percentage < 32.9) {
                         echo '<span class="fail">' . round($percentage) . '</span> %';
                       } else {
                         echo round($percentage) . " %";
@@ -322,7 +322,7 @@
                 <th style="font-size: 15px !important; text-align:center"><?php
                                                                           $avg_percentage = round(($total_percentage / $exam_count), 1);
 
-                                                                          if ($avg_percentage < 33) {
+                                                                          if ($avg_percentage < 32.9) {
                                                                             echo '<span class="fail">' . round($avg_percentage) . '</span>';
                                                                           } else {
                                                                             echo round($avg_percentage) . "";
@@ -405,20 +405,20 @@
                         <?php } else { ?>
                           40-49 % <span style="margin-left: 23px;"></span> Fair <br />
                         <?php } ?>
-                        <?php if ($avg_percentage >= 33 and $avg_percentage <= 39.9) { ?>
+                        <?php if ($avg_percentage >= 32.9 and $avg_percentage <= 39.9) { ?>
                           <strong style="font-size: 12px;">
-                            33-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
+                            32.9-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
                           </strong>
                         <?php } else { ?>
-                          33-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
+                          32.9-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
                         <?php } ?>
 
-                        <?php if ($avg_percentage < 33) { ?>
+                        <?php if ($avg_percentage < 32.9) { ?>
                           <strong style="font-size: 11px;">
-                            Below 33 % <span style="margin-left: 7px;"></span> Poor & required special attention
+                            Below 32.9 % <span style="margin-left: 7px;"></span> Poor & required special attention
                           </strong>
                         <? } else { ?>
-                          Below 33 % <span style="margin-left: 7px;"></span> Poor & required special attention
+                          Below 32.9 % <span style="margin-left: 7px;"></span> Poor & required special attention
                         <?php } ?>
 
                       </small>
