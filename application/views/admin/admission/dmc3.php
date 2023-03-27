@@ -267,9 +267,9 @@
                       <td style="text-align: center; width:80px">
                         <?php
                         if ($student_result->percentage < 33) {
-                          echo '<span class="fail">' . $student_result->percentage . '</span>';
+                          echo '<span class="fail">' . round($student_result->percentage) . '</span>';
                         } else {
-                          echo $student_result->percentage;
+                          echo round($student_result->percentage);
                         }
                         $subject_percentage += $student_result->percentage;
 
@@ -310,14 +310,24 @@
                     <?php $percentage = round((($session_exam->subject_obtain_marks * 100) / $session_exam->subject_total_marks), 1);
                     if ($percentage) {
                       $total_percentage += $percentage;
-                      echo $percentage . " %";
+                      if ($percentage < 33) {
+                        echo '<span class="fail">' . round($percentage) . '</span> %';
+                      } else {
+                        echo round($percentage) . "%";
+                      }
                     }
                     ?>
                   </th>
                 <?php } ?>
                 <th style="font-size: 15px !important;"><?php
                                                         $avg_percentage = round(($total_percentage / $exam_count), 1);
-                                                        echo round(($avg_percentage), 1); ?></th>
+
+                                                        if ($avg_percentage < 33) {
+                                                          echo '<span class="fail">' . round($avg_percentage) . '</span> %';
+                                                        } else {
+                                                          echo round($avg_percentage) . "%";
+                                                        }
+                                                        ?></th>
 
               </tr>
 
