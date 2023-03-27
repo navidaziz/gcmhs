@@ -113,8 +113,8 @@
     .fail {
 
       display: inline-block;
-      min-width: 10px;
-      min-height: 10px;
+      min-width: 17px;
+      height: auto;
       padding: 2px;
       color: black;
       line-height: 1;
