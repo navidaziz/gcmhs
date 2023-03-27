@@ -109,6 +109,21 @@
       font-size: 12px !important;
 
     }
+
+    .fail {
+      color: red;
+      display: inline-block;
+      width: 12px;
+      min-height: 10px;
+      padding: 2px;
+      color: red;
+      line-height: 1;
+      vertical-align: baseline;
+      white-space: nowrap;
+      text-align: center;
+      border: 1px solid red;
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -249,7 +264,11 @@
                       </td>
                       <td style="text-align: center; width:80px">
                         <?php
-                        echo $student_result->percentage;
+                        if ($student_result->percentage < 33) {
+                          echo '<span class="fail">' . $student_result->percentage . '</span>';
+                        } else {
+                          echo $student_result->percentage;
+                        }
                         $subject_percentage += $student_result->percentage;
 
                         $session_exam->subject_total_marks += $student_result->total_marks;
