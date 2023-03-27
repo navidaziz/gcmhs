@@ -121,7 +121,7 @@
       vertical-align: baseline;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid red;
+      border: 1px solid black;
       border-radius: 10px;
       font-weight: bold;
 
