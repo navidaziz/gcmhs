@@ -313,7 +313,7 @@
                       if ($percentage < 33) {
                         echo '<span class="fail">' . round($percentage) . '</span> %';
                       } else {
-                        echo round($percentage) . "%";
+                        echo round($percentage) . " %";
                       }
                     }
                     ?>
@@ -325,7 +325,7 @@
                                                         if ($avg_percentage < 33) {
                                                           echo '<span class="fail">' . round($avg_percentage) . '</span> %';
                                                         } else {
-                                                          echo round($avg_percentage) . "%";
+                                                          echo round($avg_percentage) . " %";
                                                         }
                                                         ?></th>
 
