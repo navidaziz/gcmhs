@@ -113,6 +113,7 @@
     .fail {
 
       display: inline-block;
+      min-width: 10px;
       min-height: 10px;
       padding: 2px;
       color: red;
@@ -279,7 +280,14 @@
                       <td style="text-align: center;"></td>
                     <?php } ?>
                   <?php } ?>
-                  <th style="text-align: center;"><?php echo round(($subject_percentage / $exam_count), 1); ?></th>
+                  <th style="text-align: center;"><?php
+                                                  if ($subject_percentage < 33) {
+                                                    echo '<span class="fail">' . $subject_percentage . '</span> %';
+                                                  } else {
+                                                    echo round(($subject_percentage / $exam_count), 1);
+                                                  }
+
+                                                  ?></th>
                 </tr>
               <?php }  ?>
               <tr>
