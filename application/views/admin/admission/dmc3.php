@@ -281,10 +281,11 @@
                     <?php } ?>
                   <?php } ?>
                   <th style="text-align: center;"><?php
-                                                  if ($subject_percentage < 33) {
-                                                    echo '<span class="fail">' . $subject_percentage . '</span> %';
+                                                  $subject_avg = round(($subject_percentage / $exam_count), 2);
+                                                  if ($subject_avg < 33) {
+                                                    echo '<span class="fail">' . $subject_avg . '</span> %';
                                                   } else {
-                                                    echo round(($subject_percentage / $exam_count), 1);
+                                                    echo $subject_avg;
                                                   }
 
                                                   ?></th>
