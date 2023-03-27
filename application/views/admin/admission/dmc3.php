@@ -116,13 +116,15 @@
       min-width: 10px;
       min-height: 10px;
       padding: 2px;
-      color: red;
+      color: black;
       line-height: 1;
       vertical-align: baseline;
       white-space: nowrap;
       text-align: center;
       border: 1px solid red;
       border-radius: 10px;
+      font-weight: bold;
+
     }
   </style>
 </head>
@@ -283,7 +285,7 @@
                   <th style="text-align: center;"><?php
                                                   $subject_avg = round(($subject_percentage / $exam_count));
                                                   if ($subject_avg < 33) {
-                                                    echo '<span class="fail">' . $subject_avg . '</span> %';
+                                                    echo '<span class="fail">' . $subject_avg . '</span>';
                                                   } else {
                                                     echo $subject_avg;
                                                   }
