@@ -190,7 +190,7 @@
                   </strong>
                 </th>
                 <?php
-                echo $query = "SELECT * FROM exams 
+                $query = "SELECT * FROM exams 
                 WHERE exams.session_id = (SELECT session_id FROM exams WHERE exam_id = '" . $exam_id . "') 
                 AND exams.show = '1'
                 ORDER BY exam_id ASC";
