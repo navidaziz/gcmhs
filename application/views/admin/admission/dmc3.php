@@ -111,9 +111,8 @@
     }
 
     .fail {
-      color: red;
+
       display: inline-block;
-      width: 12px;
       min-height: 10px;
       padding: 2px;
       color: red;
