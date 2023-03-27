@@ -307,7 +307,7 @@
                     ?>
                   </th>
                   <th style="text-align: center;">
-                    <?php $percentage = round((($session_exam->subject_obtain_marks * 100) / $session_exam->subject_total_marks), 1);
+                    <?php $percentage = (($session_exam->subject_obtain_marks * 100) / $session_exam->subject_total_marks);
                     if ($percentage) {
                       $total_percentage += $percentage;
                       if ($percentage < 33) {
