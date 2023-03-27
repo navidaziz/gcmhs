@@ -195,7 +195,7 @@
                 AND exams.show = '1'
                 ORDER BY exam_id ASC";
                 $session_exams = $this->db->query($query)->result();
-                $exams_ids = "";
+                $exams_ids = array();
                 foreach ($session_exams as $session_exam) {
                   $exams_ids[] = $session_exam->exam_id;
                 ?>
