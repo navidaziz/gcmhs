@@ -323,9 +323,9 @@
                                                         $avg_percentage = round(($total_percentage / $exam_count), 1);
 
                                                         if ($avg_percentage < 33) {
-                                                          echo '<span class="fail">' . round($avg_percentage) . '</span> %';
+                                                          echo '<span class="fail">' . round($avg_percentage) . '</span>';
                                                         } else {
-                                                          echo round($avg_percentage) . " %";
+                                                          echo round($avg_percentage) . "";
                                                         }
                                                         ?></th>
 
