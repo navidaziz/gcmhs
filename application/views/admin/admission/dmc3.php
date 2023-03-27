@@ -319,15 +319,15 @@
                     ?>
                   </th>
                 <?php } ?>
-                <th style="font-size: 15px !important;"><?php
-                                                        $avg_percentage = round(($total_percentage / $exam_count), 1);
+                <th style="font-size: 15px !important; text-align:center"><?php
+                                                                          $avg_percentage = round(($total_percentage / $exam_count), 1);
 
-                                                        if ($avg_percentage < 33) {
-                                                          echo '<span class="fail">' . round($avg_percentage) . '</span>';
-                                                        } else {
-                                                          echo round($avg_percentage) . "";
-                                                        }
-                                                        ?></th>
+                                                                          if ($avg_percentage < 33) {
+                                                                            echo '<span class="fail">' . round($avg_percentage) . '</span>';
+                                                                          } else {
+                                                                            echo round($avg_percentage) . "";
+                                                                          }
+                                                                          ?></th>
 
               </tr>
 
