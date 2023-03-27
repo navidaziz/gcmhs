@@ -226,7 +226,7 @@
               </tr>
               <tr>
                 <th>#</th>
-                <th>Subjects</th>
+                <th style="width: 200px;">Subjects</th>
                 <?php foreach ($session_exams as $session_exam) { ?>
                   <th style="text-align: center;">Marks</th>
                   <th style="text-align: center;">Percentage</th>
