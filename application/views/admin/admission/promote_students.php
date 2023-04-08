@@ -118,12 +118,12 @@
         Students
         To Class: <?php
                   $classes = $this->student_model->getList("classes", "class_id", "Class_title", $where = "class_id = '" . ($class_id + 1) . "'");
-                  echo form_dropdown("to_class", array("" => "Select Class") + $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+                  echo form_dropdown("to_class", array("" => "Select Class") + $classes, $class_id, "class=\"form-co ntrol\" required style=\"\"");
                   ?>
         Section
         <?php
         $to_section = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
-        echo form_dropdown("to_section", array("" => "Select Section") +  $to_section, "", "class=\"form-co ntrol\" required style=\"\"");
+        echo form_dropdown("to_section", array("" => "Select Section") +  $to_section, $section_id, "class=\"form-co ntrol\" required style=\"\"");
         ?>
 
         for new session <?php
