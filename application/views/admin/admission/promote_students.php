@@ -31,135 +31,114 @@
 <div class="row">
   <!-- MESSENGER -->
   <div class="col-md-12" style="background-color: white; padding: 5px;">
-    <div style="text-align: center; margin: 5px; padding:3px;">
-      <form action="<?php echo site_url(ADMIN_DIR . "admission/promote_to_next_section") ?>" method="post">
-        <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
-        <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+    <script>
+      function select_check_box() {
 
-        <?php  ?>
-        Promote Class <?php echo $students[0]->Class_title . ""; ?> <?php echo $students[0]->section_title . ""; ?> Session
-        <?php
-        $classes = $this->student_model->getList("sessions", "session_id", "session", $where = "`sessions`.`status` = 0");
-        echo form_dropdown("current_session", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
-        ?>
+        if ($("#select_all").is(':checked')) {
+          $('.student_id_ck_box').attr('checked', true);
+        } else {
+          $('.student_id_ck_box').attr('checked', false);
+        }
+      }
+    </script>
+    <form action="<?php echo site_url(ADMIN_DIR . "admission/promote_to_next_section") ?>" method="post">
+      <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+      <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
 
-        Student
+
+      <table class="table table-bordered" id="main_table" style="font-size:12px !important">
+        <thead>
+
+          <tr>
+            <td><input onclick="select_check_box()" type="checkbox" name="select_all" id="select_all" /></td>
+
+            <td>#</td>
+            <th><?php echo $this->lang->line('student_class_no'); ?></th>
+            <td>Status</td>
+            <th><?php echo $this->lang->line('student_admission_no'); ?></th>
+            <th><?php echo $this->lang->line('student_name'); ?></th>
+
+            <th><?php echo $this->lang->line('student_father_name'); ?></th>
+            <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
+            <th><?php echo $this->lang->line('student_address'); ?></th>
+            <th>Session</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $students = array();
+          $all_sections = $sections;
+          foreach ($sections as $section_name => $students) {
+            $count = 1;
+            foreach ($students as $student) :
+          ?>
+              <tr <?php if ($student->status == 0) { ?>style="background-color: coral;" <?php } ?>>
+                <td>
+                  <?php
+                  $query = "SELECT * FROM session WHERE status=1";
+                  $current_session_id = $this->db->query($query)->row()->session_id;
+
+                  if ($current_session_id != $student->session_id) {
+                  ?>
+                    <input class="student_id_ck_box" type="checkbox" name="students[]" value="<?php echo $student->student_id; ?>" />
+                  <?php } ?>
+                </td>
+                <td id="count_number"><?php echo $count++; ?></td>
+                <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td>
+                <td><?php
+                    if ($student->status == 2) {
+                      echo "Struck Off";
+                    }
+                    ?></td>
+
+                <td><span><?php echo $student->student_admission_no; ?></span></td>
+                <td><span><?php echo $student->student_name;  ?></span></td>
+                <td><?php echo $student->student_father_name;  ?></td>
+                <td><?php echo $student->student_data_of_birth; ?> </td>
+                <td><?php echo $student->student_address; ?></td>
+                <td><?php
+                    $query = "SELECT `session` FROM session WHERE session_id = '" . $student->session_id . "'";
+                    echo  $this->db->query($query)->result()[0]->session;
+                    ?></td>
+
+              </tr>
+            <?php endforeach;  ?>
+          <?php } ?>
+        </tbody>
+      </table>
+      <div style="margin: 10px; padding:5px; text-align:right; border:1px solid gray; border-radious:1px">
+        Promote
+        Session <?php
+                $current_session = $this->student_model->getList("session", "session_id", "session", $where = "`session`.`status` IN (0) ORDER BY session_id DESC LIMIT 1");
+                echo form_dropdown("current_session", $current_session, "", "class=\"form-co ntrol\" required style=\"\"");
+                ?>
+
+        Class <strong><?php echo $students[0]->Class_title; ?>
+        </strong> - Section <strong><?php echo $students[0]->section_title . ""; ?> </strong>
+        Students
         To Class: <?php
                   $classes = $this->student_model->getList("classes", "class_id", "Class_title", $where = "class_id = '" . ($class_id + 1) . "'");
-                  echo form_dropdown("to_class", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+                  echo form_dropdown("to_class", array("" => "Select Class") + $classes, "", "class=\"form-co ntrol\" required style=\"\"");
                   ?>
         Section
         <?php
-        $classes = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
-        echo form_dropdown("to_section", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
+        $to_section = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+        echo form_dropdown("to_section", array("" => "Select Section") +  $to_section, "", "class=\"form-co ntrol\" required style=\"\"");
         ?>
 
-        having session <?php
-                        $classes = $this->student_model->getList("sessions", "session_id", "session", $where = "`sessions`.`status` IN(0,1)");
+        for new session <?php
+                        $classes = $this->student_model->getList("session", "session_id", "session", $where = "`session`.`status` IN(1)");
                         echo form_dropdown("new_session", $classes, "", "class=\"form-co ntrol\" required style=\"\"");
                         ?>
 
         <input type="submit" value="Promote" name="Promote" />
-      </form>
-    </div>
+      </div>
     </form>
-    <table class="table table-bordered" id="main_table" style="font-size:12px !important">
-      <thead>
-
-        <tr>
-          <td></td>
-
-          <td>#</td>
-          <th><?php echo $this->lang->line('student_class_no'); ?></th>
-          <th><?php echo $this->lang->line('student_admission_no'); ?></th>
-          <th><?php echo $this->lang->line('student_name'); ?></th>
-
-          <th><?php echo $this->lang->line('student_father_name'); ?></th>
-          <th><?php echo $this->lang->line('student_data_of_birth'); ?></th>
-          <th><?php echo $this->lang->line('student_address'); ?></th>
-          <th>Father Mobile No</th>
-          <th>Father NIC</th>
-          <th>Guardian Occupation</th>
-
-          <th>Religion</th>
-          <th>Nationality</th>
-          <th>Admission Date</th>
-          <th>Private / Public School</th>
-          <th>School Name</th>
-          <th>Orphan</th>
-
-          <th><?php echo $this->lang->line('section_title'); ?></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $students = array();
-        $all_sections = $sections;
-        foreach ($sections as $section_name => $students) {
-          $count = 1;
-          foreach ($students as $student) :
-        ?>
-            <tr <?php if ($student->status == 0) { ?>style="background-color: coral;" <?php } ?>>
-              <td>
-                <!-- <a class="btn btn-danger btn-sm" onclick="return confirm('are you sure? may remove student over data?')" href="<?php echo site_url(ADMIN_DIR . "students/remove_student/$exam_id/$class_id/$section_id/$class_subject_id/$subject_id/$student->student_id") ?>" >Remove student</a> -->
-
-                <?php if ($student->status == 0) { ?>
-                  <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/active_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-undo"></i></a>
-                <?php } else { ?>
-
-                  <a onclick="return confirm('Are you sure?')" href="<?php echo site_url("student/dormant_student/$class_id/$section_id/$student->student_id") ?>"><i class="fa fa-times"></i></a>
-                <?php   } ?>
-
-
-
-              </td>
-              <td id="count_number"><?php echo $count++; ?></td>
-              <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td>
-              <td><span><?php echo $student->student_admission_no; ?></span></td>
-              <td><span><?php echo $student->student_name;  ?></span></td>
-              <td><?php echo $student->student_father_name;  ?></td>
-              <td><?php echo $student->student_data_of_birth; ?> </td>
-              <td><?php echo $student->student_address; ?></td>
-              <td><?php echo $student->father_mobile_number; ?></td>
-              <td><?php echo $student->father_nic; ?></td>
-              <td><?php echo $student->guardian_occupation; ?></td>
-              <td><?php echo $student->religion; ?></td>
-              <td><?php echo $student->nationality; ?></td>
-              <td><?php echo $student->private_public_school; ?></td>
-              <td><?php echo $student->school_name; ?></td>
-              <td><?php echo $student->orphan; ?></td>
-
-
-
-
-
-
-              <td><?php //echo $student->section_title; 
-                  ?>
-                <?php
-
-                $sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
-
-                ?>
-                <form target="_blank" action="<?php echo site_url("student/update_student_section") ?>" method="post">
-                  <input type="hidden" name="student_id" value="<?php echo $student->student_id ?>" />
-                  <input type="hidden" name="class_id" value="<?php echo $student->class_id ?>" />
-                  <input type="hidden" name="section_id" value="<?php echo $student->section_id ?>" />
-                  <?php
-                  echo form_dropdown("student_section_id", array("0" => "Select Section") + $sections, "", "class=\"pull-right for m-control\" style=\"width:60px !important\" required  onchange=\"this.form.submit()\" ");
-                  ?>
-                </form>
-              </td>
-            </tr>
-          <?php endforeach;  ?>
-        <?php } ?>
-      </tbody>
-    </table>
   </div>
   <script>
     $(document).ready(function() {
       $('#main_table').DataTable({
-        "pageLength": 50,
+        "pageLength": 300,
         "lengthChange": false
       });
     });

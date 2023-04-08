@@ -64,20 +64,20 @@
 
                     </th>
                     <th>Total</th>
-                    <th  title="struck Off"> Struck Off - <?php $query = "SELECT COUNT(*) as total FROM students as s
+                    <th title="struck Off"> Struck Off - <?php $query = "SELECT COUNT(*) as total FROM students as s
                               WHERE s.status IN(2)";
-                                        echo $this->db->query($query)->result()[0]->total;
-                                        ?>
-                      </th>
+                                                          echo $this->db->query($query)->result()[0]->total;
+                                                          ?>
+                    </th>
 
                     <!-- <th><i class="fa fa-edit"></i></th> -->
                     <th style="text-align: center;">
-                    <i class="fa fa-users" aria-hidden="true"></i>  
-                    
+                      <i class="fa fa-users" aria-hidden="true"></i>
+
                     </th>
-                    <!-- <th>Promote</th> -->
+                    <th>Promote</th>
                     <th style="text-align: center;">
-                    <i class="fa fa-bar-chart-o"></i>
+                      <i class="fa fa-bar-chart-o"></i>
                     </th>
                   </tr>
                 </thead>
@@ -132,15 +132,16 @@
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
                           <i class="fa fa-edit"></i> </a>
                       </td> -->
-                      <!-- <td>
-                        <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
-                          Promote</a>
-                      </td> -->
+
                       <td>
                         <a href="<?php echo site_url(ADMIN_DIR . "admission/students_list") . "/$class->class_id/$section->section_id"; ?>">
-                        <i class="fa fa-user" aria-hidden="true"></i>  View Students</a>
+                          <i class="fa fa-user" aria-hidden="true"></i> View Students</a>
                       </td>
-                      
+                      <td>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
+                          Promote</a>
+                      </td>
+
                       <!-- <td>
                         <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/award_list") . "/$class->class_id/$section->section_id"; ?>">
                           Award List</a>
@@ -148,7 +149,7 @@
 
                       <td>
                         <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/results") . "/$class->class_id/$section->section_id"; ?>">
-                        <i class="fa fa-bar-chart-o"></i> Progress Report</a>
+                          <i class="fa fa-bar-chart-o"></i> Progress Report</a>
                       </td>
                     </tr>
                   <?php } ?>
@@ -158,10 +159,10 @@
               </table>
               <i class="fa fa-print"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/all_students_data") . "/"; ?>">
-                         Student Overall Data</a>
-                     <br />
-                     <i class="fa fa-print"></i>
-                      <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/asc_report"); ?>">Annual School Census Report</a>
+                Student Overall Data</a>
+              <br />
+              <i class="fa fa-print"></i>
+              <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/asc_report"); ?>">Annual School Census Report</a>
 
 
             </div>

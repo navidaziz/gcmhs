@@ -24,7 +24,7 @@
         <td><?php echo $student->student_data_of_birth; ?></td>
         <td><?php echo $student->student_address; ?></td>
 
-        <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
+        <td><?php $query = "SELECT `session` FROM session WHERE session_id = '" . $student->session_id . "'";
             echo $this->db->query($query)->result()[0]->session;
             ?></td>
         <td><?php echo $student->class_title; ?></td>

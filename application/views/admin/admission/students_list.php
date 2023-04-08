@@ -149,7 +149,7 @@
                 <td><?php echo $student->ehsaas; ?></td>
                 <td><?php echo $student->Class_title; ?></td>
                 <td><?php echo $student->section_title; ?></td>
-                <td><?php $query = "SELECT `session` FROM sessions WHERE session_id = '" . $student->session_id . "'";
+                <td><?php $query = "SELECT `session` FROM session WHERE session_id = '" . $student->session_id . "'";
                     echo $this->db->query($query)->result()[0]->session;
                     ?></td>
                 <td style="text-align: center; width:48px">
