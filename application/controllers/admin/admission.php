@@ -118,10 +118,12 @@ class Admission extends Admin_Controller
 	{
 		$class_id = $this->input->post("class_id");
 		$section_id = $this->input->post("section_id");
+		$query = "SELECT * FROM session WHERE status=1";
+		$session_id = $this->db->query($query)->row()->session_id;
 		$data = array(
 			'class_id' => $this->input->post("class_id"),
 			'section_id' => $this->input->post("section_id"),
-			'session_id' => $this->input->post("session_id"),
+			'session_id' => $session_id,
 			'student_class_no' => $this->input->post("student_class_no"),
 			'student_name' => $this->input->post("student_name"),
 			'student_father_name' => $this->input->post("student_father_name"),
@@ -1253,7 +1255,8 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		$input["class_id"] = $class_id = $this->input->post("class_id");
 		$input["section_id"] = $section_id = $this->input->post("section_id");
-
+		$query = "SELECT * FROM session WHERE status=1";
+		$input["session_id"] = $this->db->query($query)->row()->session_id;
 		$input["student_class_no"] = $this->input->post("student_class_no");
 		$input["student_admission_no"] = $this->input->post("student_admission_no");
 		$input["student_name"] = ucwords(strtolower($this->input->post("student_name")));
