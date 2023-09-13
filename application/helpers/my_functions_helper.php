@@ -248,6 +248,7 @@ if (!function_exists('file_type')) {
 	function file_type($filename, $original = false, $width = 50, $height = 50)
 	{
 
+		return true;
 
 		if ($width) {
 			$image_width = $width;
