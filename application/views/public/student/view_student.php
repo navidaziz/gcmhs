@@ -67,7 +67,7 @@
             <tr>
               <th>Student Image</th>
               <td><?php
-                  //echo file_type(base_url("assets/uploads/" . $student->student_image));
+                  echo file_type(base_url("assets/uploads/" . $student->student_image));
                   ?></td>
             </tr>
             <tr>
