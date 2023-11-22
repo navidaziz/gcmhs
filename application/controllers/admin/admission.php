@@ -2221,6 +2221,8 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			$input["receipt_id"] = $receipt_id;
 			$this->db->insert('bank_challan_amounts', $input);
 		}
+		$this->session->set_flashdata("msg_success", $this->lang->line("success"));
+		redirect(ADMIN_DIR . "admission/bank_challans");
 	}
 
 	public function print_bank_challan($receipt_id)
