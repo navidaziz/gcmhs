@@ -146,10 +146,10 @@
                         <th>SESSION</th>
                       </tr>
                       <tr>
-                        <th><input name="class" type="text" class="form-control" id="class" placeholder="Enter Class"></th>
-                        <th> <input name="section" type="text" class="form-control" id="section" placeholder="Enter Section">
+                        <th><input required name="class" type="text" class="form-control" id="class" placeholder="Enter Class"></th>
+                        <th> <input required name="section" type="text" class="form-control" id="section" placeholder="Enter Section">
                         </th>
-                        <th><input name="session" type="text" class="form-control" id="session" placeholder="Enter Session">
+                        <th><input required name="session" type="text" class="form-control" id="session" placeholder="Enter Session">
                         </th>
                       </tr>
                     </table>
@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                   <th>ADMISSION NO</th>
-                  <td> <input name="admission_no" type="text" class="form-control" id="admissionNo" placeholder="Enter Admission No">
+                  <td> <input required name="admission_no" type="text" class="form-control" id="admissionNo" placeholder="Enter Admission No">
                   </td>
                 </tr>
                 <tr>
@@ -169,14 +169,14 @@
                 <tr>
                   <th>STUDENT NAME</th>
                   <td>
-                    <input name="student_name" type="text" class="form-control" id="studentName" placeholder="Enter Student Name">
+                    <input required name="student_name" type="text" class="form-control" id="studentName" placeholder="Enter Student Name">
 
                   </td>
                 </tr>
                 <tr>
                   <th>FATHER NAME</th>
                   <td>
-                    <input name="father_name" type="text" class="form-control" id="fatherName" placeholder="Enter Father Name">
+                    <input required name="father_name" type="text" class="form-control" id="fatherName" placeholder="Enter Father Name">
 
                   </td>
                 </tr>
