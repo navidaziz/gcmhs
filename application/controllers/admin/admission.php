@@ -2185,4 +2185,49 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
 		$this->load->view(ADMIN_DIR . "exams/class_dmcs", $this->data);
 	}
+
+	public function bank_challans()
+	{
+		$this->data["title"] = "Bank Challans";
+		$this->data["view"] = ADMIN_DIR . "admission/bank_challans";
+		$this->load->view(ADMIN_DIR . "layout", $this->data);
+	}
+
+	public function add_bank_challan()
+	{
+		$input["class"] = $this->input->post("class");
+		$input["section"] = $this->input->post("section");
+		$input["session"] = $this->input->post("session");
+		$input["student_id"] = $this->input->post("student_id");
+		$input["admission_no"] = $this->input->post("admission_no");
+		$input["student_name"] = $this->input->post("student_name");
+		$input["father_name"] =  $this->input->post("father_name");
+		$input["created_by"] = $this->session->userdata('user_id');
+		$heads = $this->input->post("heads");
+
+		$total_amount = 0;
+		foreach ($heads as $head_id => $head_amount) {
+			$total_amount += $head_amount;
+		}
+		$input["total_amount"] = $total_amount;
+		$this->db->insert('bank_challans', $input);
+		$receipt_id = $this->db->insert_id();
+		$input = array();
+		$this->db->where('receipt_id', $receipt_id);
+		$this->db->delete('bank_challan_amounts');
+		foreach ($heads as $head_id => $head_amount) {
+			$input["head_id"] = $head_id;
+			$input["amount"] = $head_amount;
+			$input["receipt_id"] = $receipt_id;
+			$this->db->insert('bank_challan_amounts', $input);
+		}
+	}
+
+	public function print_bank_challan($receipt_id)
+	{
+		$receipt_id = (int) $receipt_id;
+		$query = "SELECT * FROM bank_challans WHERE receipt_id = $receipt_id";
+		$this->data['bank_challan'] = $this->db->query($query)->row();
+		$this->load->view(ADMIN_DIR . "admission/print_bank_challan", $this->data);
+	}
 }
