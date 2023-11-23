@@ -141,40 +141,65 @@
                   <td colspan="2">
                     <table style="width: 100%;">
                       <tr>
-                        <th>CLASS</th>
-                        <th>SECTION</th>
-                        <th>SESSION</th>
+                        <th>CLASS (*)</th>
+                        <th>SECTION (*)</th>
+                        <th>SESSION (*)</th>
                       </tr>
                       <tr>
-                        <th><input required name="class" type="text" class="form-control" id="class" placeholder="Enter Class"></th>
-                        <th> <input required name="section" type="text" class="form-control" id="section" placeholder="Enter Section">
+                        <th>
+                          <?php $query = "SELECT * FROM classes";
+                          $classes = $this->db->query($query)->result(); ?>
+                          <select required name="class" class="form-control">
+                            <option value="">Select Classes</option>
+                            <?php foreach ($classes as $class) { ?>
+                              <option value="<?php echo $class->Class_title; ?>"><?php echo $class->Class_title; ?></option>
+                            <?php } ?>
+                          </select>
                         </th>
-                        <th><input required name="session" type="text" class="form-control" id="session" placeholder="Enter Session">
+                        <th>
+                          <?php $query = "SELECT * FROM sections";
+                          $sections = $this->db->query($query)->result(); ?>
+                          <select required name="section" class="form-control">
+                            <option value="">Select Section</option>
+                            <?php foreach ($sections as $section) { ?>
+                              <option value="<?php echo $section->section_title; ?>"><?php echo $section->section_title; ?></option>
+                            <?php } ?>
+                          </select>
+                        </th>
+                        <th>
+                          <?php $query = "SELECT * FROM sessions where status=1";
+                          $sessions = $this->db->query($query)->result(); ?>
+                          <select required name="session" class="form-control">
+                            <option value="">Select Section</option>
+                            <?php foreach ($sessions as $session) { ?>
+                              <option value="<?php echo $session->session; ?>"><?php echo $session->session; ?></option>
+                            <?php } ?>
+                          </select>
                         </th>
                       </tr>
                     </table>
                   </td>
                 </tr>
                 <tr>
-                  <th>ADMISSION NO</th>
-                  <td> <input required name="admission_no" type="text" class="form-control" id="admissionNo" placeholder="Enter Admission No">
+                  <th>ADMISSION NO <small>(Optional)</small></th>
+                  <td> <input name="admission_no" type="text" class="form-control" id="admissionNo" placeholder="Enter Admission No">
                   </td>
                 </tr>
                 <tr>
-                  <th>STUDENT ID</th>
+                  <th>STUDENT ID <small>(Optional)</small></th>
                   <td> <input name="student_id" type="text" class="form-control" id="studentId" placeholder="Enter Student ID">
                   </td>
                 </tr>
 
                 <tr>
-                  <th>STUDENT NAME</th>
+                  <th>STUDENT NAME (*)</th>
                   <td>
                     <input required name="student_name" type="text" class="form-control" id="studentName" placeholder="Enter Student Name">
 
                   </td>
                 </tr>
                 <tr>
-                  <th>FATHER NAME</th>
+                  <th>FATHER NAME (*)</th>
                   <td>
                     <input required name="father_name" type="text" class="form-control" id="fatherName" placeholder="Enter Father Name">
 
@@ -185,8 +210,8 @@
               <h5>Challan Detail</h5>
               <table class="table">
                 <tr>
-                  <th>Heads</th>
-                  <th>Amount</th>
+                  <th>Heads </th>
+                  <th>Amount (*)</th>
                 </tr>
                 <?php $query = "SELECT * FROM `bank_challan_heads` 
                             WHERE status=1

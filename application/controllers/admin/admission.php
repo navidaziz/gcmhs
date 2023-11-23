@@ -2198,8 +2198,14 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$input["class"] = $this->input->post("class");
 		$input["section"] = $this->input->post("section");
 		$input["session"] = $this->input->post("session");
-		$input["student_id"] = $this->input->post("student_id");
-		$input["admission_no"] = $this->input->post("admission_no");
+		if ($this->input->post("student_id")) {
+			$input["student_id"] = $this->input->post("student_id");
+		}
+		if ($this->input->post("admission_no")) {
+			$input["admission_no"] = $this->input->post("admission_no");
+		}
+
+
 		$input["student_name"] = $this->input->post("student_name");
 		$input["father_name"] =  $this->input->post("father_name");
 		$input["created_by"] = $this->session->userdata('user_id');

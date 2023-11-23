@@ -185,12 +185,12 @@
                       <tr>
                         <td><?php echo $count++; ?></td>
                         <td><?php echo $head->head; ?></td>
-                        <td><?php echo $head->amount; ?></td>
+                        <td style="text-align: center;"><?php echo $head->amount; ?></td>
                       </tr>
                     <?php } ?>
                     <tr>
                       <td colspan="2" style="text-align: right;">Total</td>
-                      <td><?php echo $bank_challan->total_amount; ?></td>
+                      <td style="text-align: center;"><?php echo $bank_challan->total_amount; ?></td>
                     </tr>
                   </table>
                   <br />
@@ -302,12 +302,12 @@
                       <tr>
                         <td><?php echo $count++; ?></td>
                         <td><?php echo $head->head; ?></td>
-                        <td><?php echo $head->amount; ?></td>
+                        <td style="text-align: center;"><?php echo $head->amount; ?></td>
                       </tr>
                     <?php } ?>
                     <tr>
                       <td colspan="2" style="text-align: right;">Total</td>
-                      <td><?php echo $bank_challan->total_amount; ?></td>
+                      <td style="text-align: center;"><?php echo $bank_challan->total_amount; ?></td>
                     </tr>
                   </table>
                   <br />
@@ -419,12 +419,12 @@
                       <tr>
                         <td><?php echo $count++; ?></td>
                         <td><?php echo $head->head; ?></td>
-                        <td><?php echo $head->amount; ?></td>
+                        <td style="text-align: center;"><?php echo $head->amount; ?></td>
                       </tr>
                     <?php } ?>
                     <tr>
                       <td colspan="2" style="text-align: right;">Total</td>
-                      <td><?php echo $bank_challan->total_amount; ?></td>
+                      <td style="text-align: center;"><?php echo $bank_challan->total_amount; ?></td>
                     </tr>
                   </table>
                   <br />
