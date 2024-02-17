@@ -166,7 +166,12 @@
               <br />
               <i class="fa fa-bank"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/bank_challans"); ?>">Create Bank Challan</a>
+              <div>Time Table:
 
+                <a target="new" class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/index"); ?>">Time Table Subjects Assignment</a>
+                <a target="new" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/period_management"); ?>">Time Table Periods Assignment</a>
+
+              </div>
 
             </div>
 
