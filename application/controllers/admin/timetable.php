@@ -498,11 +498,25 @@ class Timetable extends Admin_Controller
 					foreach ($already_assinged_classes as $already_assinged_class) {
 						$count_assigned_class_days += $already_assinged_class->total_class_week;
 					}
+					$extra = 0;
+					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 1 and 'Library' and $teacher_class->total_class_week == 1) {
+						$extra = 2;
+					}
+					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 1 and 'Library' and $teacher_class->total_class_week == 1) {
+						$extra = 2;
+					}
 
-					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
-					echo " + ";
-					echo  "count_assigned_class_days ($count_assigned_class_days == 6)";
-					if ($teacher_class->total_class_week + $count_assigned_class_days == 6) {
+					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 1 and 'Islamiat' and $teacher_class->total_class_week == 2) {
+						$extra = 1;
+					}
+					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 1 and 'Islamiat' and $teacher_class->total_class_week == 2) {
+						$extra = 1;
+					}
+
+					// echo "teacher_class->total_class_week ($teacher_class->total_class_week";
+					// echo " + ";
+					// echo  "count_assigned_class_days ($count_assigned_class_days == 6)";
+					if ($teacher_class->total_class_week + $extra + $count_assigned_class_days == 6) {
 						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
 												<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 												<input type="hidden" name="period_id" value="' . $period_id . '" />
