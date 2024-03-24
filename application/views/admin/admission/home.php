@@ -170,6 +170,7 @@
 
                 <a target="new" class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/index"); ?>">Time Table Subjects Assignment</a>
                 <a target="new" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/period_management"); ?>">Time Table Periods Assignment</a>
+                <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/period_management_print"); ?>">Print General Time Table</a>
 
               </div>
 
