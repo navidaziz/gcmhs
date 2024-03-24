@@ -499,7 +499,9 @@ class Timetable extends Admin_Controller
 						$count_assigned_class_days += $already_assinged_class->total_class_week;
 					}
 
-
+					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
+					echo " + ";
+					echo  "count_assigned_class_days ($count_assigned_class_days == 6)";
 					if ($teacher_class->total_class_week + $count_assigned_class_days == 6) {
 						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
 												<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
