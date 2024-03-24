@@ -511,8 +511,10 @@ class Timetable extends Admin_Controller
 
 
 					foreach ($already_assinged_classes as $already_assinged_class) {
-						var_dump($already_assinged_class);
-						if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
+						//var_dump($already_assinged_class);
+						if ($already_assinged_class->subject_title == 'Bio/CSC' and $teacher_classes->subject_title == 'CS') {
+
+							//	if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
 							echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post">
 									<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
 									<input type="hidden" name="period_id" value="' . $period_id . '" />
