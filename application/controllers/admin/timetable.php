@@ -499,21 +499,20 @@ class Timetable extends Admin_Controller
 						$count_assigned_class_days += $already_assinged_class->total_class_week;
 					}
 					$extra = 0;
-					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 1 and 'Library' and $teacher_class->total_class_week == 1) {
+					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title ==  'Library' and $teacher_class->total_class_week == 1) {
 						$extra = 2;
 					}
-					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 1 and 'Library' and $teacher_class->total_class_week == 1) {
+					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 'Library' and $teacher_class->total_class_week == 1) {
 						$extra = 2;
 					}
 
-					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 1 and 'Islamiat' and $teacher_class->total_class_week == 2) {
+					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 'Islamiat' and $teacher_class->total_class_week == 2) {
 						$extra = 1;
 					}
-					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 1 and 'Islamiat' and $teacher_class->total_class_week == 2) {
+					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title ==  'Islamiat' and $teacher_class->total_class_week == 2) {
 						$extra = 1;
 					}
-					echo "if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 1 and 'Library' and $teacher_class->total_class_week == 1) {
-	";
+
 					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
 					echo " extra + $extra +";
 					echo " + ";
