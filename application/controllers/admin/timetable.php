@@ -506,10 +506,10 @@ class Timetable extends Admin_Controller
 						$extra = 2;
 					}
 
-					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 'Islamiat' and $teacher_class->total_class_week == 2) {
+					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 'PT' and $teacher_class->total_class_week == 2) {
 						$extra = 1;
 					}
-					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title ==  'Islamiat' and $teacher_class->total_class_week == 2) {
+					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title ==  'PT' and $teacher_class->total_class_week == 2) {
 						$extra = 1;
 					}
 
