@@ -512,7 +512,7 @@ class Timetable extends Admin_Controller
 
 					foreach ($already_assinged_classes as $already_assinged_class) {
 						//var_dump($already_assinged_class);
-						echo "( $already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS' )";
+						//echo "( $already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS' )";
 						if ($already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS') {
 
 							//	if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
