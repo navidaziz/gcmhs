@@ -514,12 +514,12 @@ class Timetable extends Admin_Controller
 						$extra = (6 - $count_assigned_class_days);
 					}
 
-					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
-					echo " extra + $extra +";
-					echo " + ";
-					echo  " count_assigned_class_days ($count_assigned_class_days == 6)";
-					echo '<br />';
-					echo 'final<br />';
+					// echo "teacher_class->total_class_week ($teacher_class->total_class_week";
+					// echo " extra + $extra +";
+					// echo " + ";
+					// echo  " count_assigned_class_days ($count_assigned_class_days == 6)";
+					// echo '<br />';
+					// echo 'final<br />';
 					echo "$teacher_class->total_class_week + $extra + $count_assigned_class_days == 6";
 					if ($teacher_class->total_class_week + $extra + $count_assigned_class_days == 6) {
 						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
