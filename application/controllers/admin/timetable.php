@@ -515,13 +515,13 @@ class Timetable extends Admin_Controller
 					}
 
 
-					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
-					echo " extra + $extra +";
-					echo " + ";
-					echo  " count_assigned_class_days ($count_assigned_class_days == 6)";
-					echo '<br />';
-					echo 'final<br />';
-					echo "$teacher_class->total_class_week + $extra + $count_assigned_class_days == 6";
+					// echo "teacher_class->total_class_week ($teacher_class->total_class_week";
+					// echo " extra + $extra +";
+					// echo " + ";
+					// echo  " count_assigned_class_days ($count_assigned_class_days == 6)";
+					// echo '<br />';
+					// echo 'final<br />';
+					//echo "$teacher_class->total_class_week + $extra + $count_assigned_class_days == 6";
 					if ($teacher_class->total_class_week + $extra + $count_assigned_class_days == 6) {
 						echo '<form action="' . site_url(ADMIN_DIR . 'timetable/assign_teacher_subject_period') . '" method="post" style="display:inline">
 												<input type="hidden" name="teacher_id" value="' . $teacher_id . '" />
@@ -534,7 +534,7 @@ class Timetable extends Admin_Controller
 
 					foreach ($already_assinged_classes as $already_assinged_class) {
 						//var_dump($already_assinged_class);
-						echo "( $already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS' )";
+						//echo "( $already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS' )";
 						if (($already_assinged_class->subject_title == 'Bio/CSC' and $teacher_class->subject_title == 'CS') or ($already_assinged_class->subject_title == 'CS' and $teacher_class->subject_title == 'Bio/CSC')) {
 
 							//	if (($teacher_class->class_section_subject_teacher_id == 199 and $already_assinged_class->class_section_subject_teacher_id == 20) or ($teacher_class->class_section_subject_teacher_id == 201 and $already_assinged_class->class_section_subject_teacher_id == 29)) {
