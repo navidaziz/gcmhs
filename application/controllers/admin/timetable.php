@@ -501,18 +501,19 @@ class Timetable extends Admin_Controller
 					}
 					$extra = 0;
 					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title ==  'Library' and $teacher_class->total_class_week == 1) {
-						$extra = ($teacher_class->total_class_week + $count_assigned_class_days - 6);
+						$extra = abs($teacher_class->total_class_week + $count_assigned_class_days - 6);
 					}
 					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title == 'Library' and $teacher_class->total_class_week == 1) {
-						$extra = ($teacher_class->total_class_week + $count_assigned_class_days - 6);
+						$extra = abs($teacher_class->total_class_week + $count_assigned_class_days - 6);
 					}
 
 					if ($teacher_class->Class_title == '9th' and $teacher_class->subject_title == 'PT' and $teacher_class->total_class_week == 2) {
-						$extra = ($teacher_class->total_class_week + $count_assigned_class_days - 6);
+						$extra = abs($teacher_class->total_class_week + $count_assigned_class_days - 6);
 					}
 					if ($teacher_class->Class_title == '10th' and $teacher_class->subject_title ==  'PT' and $teacher_class->total_class_week == 2) {
-						$extra = ($teacher_class->total_class_week + $count_assigned_class_days - 6);
+						$extra = abs($teacher_class->total_class_week + $count_assigned_class_days - 6);
 					}
+
 
 					echo "teacher_class->total_class_week ($teacher_class->total_class_week";
 					echo " extra + $extra +";
