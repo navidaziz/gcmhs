@@ -171,6 +171,10 @@
                 <a target="new" class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/index"); ?>">Time Table Subjects Assignment</a>
                 <a target="new" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/period_management"); ?>">Time Table Periods Assignment</a>
                 <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/period_management_print"); ?>">Print General Time Table</a>
+                <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/teachers_timetables"); ?>">Print Teachers Time Table</a>
+                <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/classes_timetables"); ?>">Print Classes Time Table</a>
+                <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/sections_timetables"); ?>">Print Sections Time Table</a>
+                <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/free_teachers"); ?>">Print Free Teachers</a>
 
               </div>
 
