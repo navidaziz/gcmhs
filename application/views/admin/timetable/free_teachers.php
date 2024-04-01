@@ -48,7 +48,9 @@
                                                             FROM `class_section_subject_teachers`, `class_subjects`
                                                              WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
                                                              AND `class_section_subject_teachers`.`teacher_id`=teachers.teacher_id) as total_classes 
-                                                             FROM teachers WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` WHERE period_id='" . $period->period_id . "') ORDER BY total_classes ASC";
+                                                             FROM teachers WHERE teacher_id NOT IN (SELECT teacher_id FROM `period_subjects` WHERE period_id='" . $period->period_id . "') 
+                                                             AND teachers.status=1
+                                                             ORDER BY total_classes ASC";
                           $free_teachers = $this->db->query($query)->result();
                           if ($free_teachers) { ?>
 
