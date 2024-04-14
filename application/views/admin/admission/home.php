@@ -164,8 +164,9 @@
               <i class="fa fa-print"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/asc_report"); ?>">Annual School Census Report</a>
               <br />
-              <i class="fa fa-bank"></i>
+              <i class="fa fa-print"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/bank_challans"); ?>">Create Bank Challan</a>
+              <br />
               <i class="fa fa-users"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "teachers/index"); ?>">Staff Statement</a>
 
