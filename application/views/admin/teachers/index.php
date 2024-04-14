@@ -50,7 +50,7 @@
                     <div class="clearfix">
                         <h3 class="content-title pull-left"><?php echo $title; ?></h3>
                     </div>
-                    <div class="description"><?php echo $title; ?></div>
+                    <div class="description">Teachers List</div>
                 </div>
 
                 <div class="col-md-6">
@@ -74,7 +74,7 @@
     <div class="col-md-12">
         <div class="box border blue" id="messenger">
             <div class="box-title">
-                <h4><i class="fa fa-bell"></i> <?php echo $title; ?></h4>
+                <h4><i class="fa fa-users"></i> Current Teachers List</h4>
                 <!--<div class="tools">
             
 				<a href="#box-config" data-toggle="modal" class="config">

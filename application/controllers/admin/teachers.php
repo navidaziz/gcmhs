@@ -21,7 +21,7 @@ class Teachers extends Admin_Controller
      */
     public function index()
     {
-        $this->data["title"] = 'Teachers';
+        $this->data["title"] = 'Staff Statement';
         $this->data["view"] = ADMIN_DIR . "teachers/index";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
