@@ -213,12 +213,13 @@ class Teachers extends Admin_Controller
 
         $search = $this->db->escape("%" . $this->input->post("search")["value"] . "%");
         // Manual SQL query building
+        $status = (int) $this->input->post('status');
         $sql = "SELECT *
-         FROM teachers";
+         FROM teachers WHERE `teachers`.`status` = '" . $status . "'";
 
         // Searching
         if (!empty($this->input->post("search")["value"])) {
-            $sql .= " WHERE ";
+            //$sql .= " WHERE ";
             foreach ($columns as $column) {
                 $sql .= "$column LIKE $search OR ";
             }

@@ -174,7 +174,10 @@
                             "serverSide": true,
                             "ajax": {
                                 "url": "<?php echo base_url(ADMIN_DIR . "teachers/teachers_list"); ?>",
-                                "type": "POST"
+                                "type": "POST",
+                                "data": {
+                                    status: 1
+                                }
                             },
                             "columns": [{
                                     "data": null,
