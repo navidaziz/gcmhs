@@ -42,10 +42,10 @@ class Teachers extends Admin_Controller
         $input["major_subject"] = $this->input->post("major_subject");
         $input["professional_qualification"] = $this->input->post("professional_qualification");
 
-        $input["date_of_birth"] = $this->input->post("date_of_birth") ?? NULL;
-        $input["initial_appointment_date"] = $this->input->post("initial_appointment_date") ?? NULL;
-        $input["current_school_assumption_date"] = $this->input->post("current_school_assumption_date") ?? NULL;
-        $input["current_post_assumption_date"] = $this->input->post("current_post_assumption_date") ?? NULL;
+        $input["date_of_birth"] = $this->input->post("date_of_birth") != '' ? $this->input->post("date_of_birth") : NULL;
+        $input["initial_appointment_date"] = $this->input->post("initial_appointment_date") != '' ? $this->input->post("initial_appointment_date") : NULL;
+        $input["current_school_assumption_date"] = $this->input->post("current_school_assumption_date") != '' ? $this->input->post("current_school_assumption_date") : NULL;
+        $input["current_post_assumption_date"] = $this->input->post("current_post_assumption_date") != '' ? $this->input->post("current_post_assumption_date") : NULL;
 
         $input["personal_no"] = $this->input->post("personal_no");
         $input["basic_pay_scale"] = $this->input->post("basic_pay_scale");
