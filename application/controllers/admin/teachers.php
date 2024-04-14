@@ -56,8 +56,13 @@ class Teachers extends Admin_Controller
         $input["bank_account_no"] = $this->input->post("bank_account_no") != '' ? $this->input->post("bank_account_no") : NULL;
         $input["email"] = $this->input->post("email") != '' ? $this->input->post("email") : NULL;
         $input["address"] = $this->input->post("address") != '' ? $this->input->post("address") : NULL;
-        $input["user_name"] = $this->input->post("user_name") != '' ? $this->input->post("user_name") : NULL;
-        $input["password"] = $this->input->post("password") != '' ? $this->input->post("password") : NULL;
+        if ($this->input->post("teacher_id") == 0) {
+            $input["user_name"] = $this->input->post("mobile_number");
+            $input["password"] = '123456';
+        } else {
+            $input["user_name"] = $this->input->post("user_name") != '' ? $this->input->post("user_name") : NULL;
+            $input["password"] = $this->input->post("password") != '' ? $this->input->post("password") : NULL;
+        }
         $input["leaved_date"] = $this->input->post("leaved_date") != '' ? $this->input->post("leaved_date") : NULL;
 
         $inputs =  (object) $input;
