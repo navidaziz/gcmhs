@@ -47,8 +47,8 @@ class Teachers extends Admin_Controller
         $input["current_school_assumption_date"] = $this->input->post("current_school_assumption_date") != '' ? $this->input->post("current_school_assumption_date") : NULL;
         $input["current_post_assumption_date"] = $this->input->post("current_post_assumption_date") != '' ? $this->input->post("current_post_assumption_date") : NULL;
 
-        $input["personal_no"] = $this->input->post("personal_no");
-        $input["basic_pay_scale"] = $this->input->post("basic_pay_scale");
+        $input["personal_no"] = $this->input->post("personal_no") != '' ? $this->input->post("personal_no") : NULL;
+        $input["basic_pay_scale"] = $this->input->post("basic_pay_scale") != '' ? $this->input->post("basic_pay_scale") : NULL;
         $input["current_pay"] = $this->input->post("current_pay");
         $input["gp_fund_number"] = $this->input->post("gp_fund_number");
         $input["bank_branch"] = $this->input->post("bank_branch");
