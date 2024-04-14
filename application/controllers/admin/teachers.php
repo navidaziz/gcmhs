@@ -126,7 +126,7 @@ class Teachers extends Admin_Controller
                 $data = array(
                     'last_updated' => date('Y-m-d H:i:s'),
                     'user_name' => $this->input->post('user_name'),
-                    'password' => $this->input->post('password')
+                    'user_password' => $this->input->post('password')
                 );
 
                 // Update the database record
