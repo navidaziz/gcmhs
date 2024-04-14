@@ -149,6 +149,10 @@
 
         $query = "SELECT * FROM users WHERE teacher_id = $input->teacher_id";
         $teacher_account = $this->db->query($query)->row();
+        $profile_id = 0;
+        if ($teacher_account->user_id >= 0) {
+            $profile_id = $teacher_account->user_id;
+        }
     ?>
         <div class="form-group row">
             <label for="user_name" class="col-sm-4 col-form-label">User Name</label>

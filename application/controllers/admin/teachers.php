@@ -124,12 +124,12 @@ class Teachers extends Admin_Controller
                 $this->db->insert("teachers", $inputs);
                 $teacher_id = $this->db->insert_id();
                 $data = array(
-                    'created_date' => date('Y-m-d H:i:s'),
                     'role_id' => '19',
                     'user_title' => $this->input->post("teacher_name"),
                     'user_mobile_number' => $this->input->post('mobile_number'),
                     'user_name' => $this->input->post('mobile_number'),
                     'user_password' => '123456',
+                    'user_email' => 'email@email.com',
                     'teacher_id' => $teacher_id
                 );
                 $this->db->insert("users", $data);
@@ -139,16 +139,29 @@ class Teachers extends Admin_Controller
                 $this->db->update("teachers", $inputs);
 
                 $profile_id = $this->input->post('profile_id');
-                $data = array(
-                    'last_updated' => date('Y-m-d H:i:s'),
-                    'user_name' => $this->input->post('user_name'),
-                    'user_password' => $this->input->post('password')
-                );
+                if ($profile_id != 0) {
+                    $data = array(
+                        'last_updated' => date('Y-m-d H:i:s'),
+                        'user_name' => $this->input->post('user_name'),
+                        'user_password' => $this->input->post('password')
+                    );
 
-                // Update the database record
-                $this->db->where("user_id", $profile_id);
-                $this->db->where("teacher_id", $teacher_id);
-                $this->db->update("users", $data);
+                    // Update the database record
+                    $this->db->where("user_id", $profile_id);
+                    $this->db->where("teacher_id", $teacher_id);
+                    $this->db->update("users", $data);
+                } else {
+                    $data = array(
+                        'role_id' => '19',
+                        'user_title' => $this->input->post("teacher_name"),
+                        'user_mobile_number' => $this->input->post('mobile_number'),
+                        'user_name' => $this->input->post('mobile_number'),
+                        'user_password' => '123456',
+                        'user_email' => 'email@email.com',
+                        'teacher_id' => $teacher_id
+                    );
+                    $this->db->insert("users", $data);
+                }
             }
             echo "success";
         }
