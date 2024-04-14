@@ -34,15 +34,19 @@ class Teachers extends Admin_Controller
         $input["teacher_name"] = $this->input->post("teacher_name");
         $input["father_name"] = $this->input->post("father_name");
         $input["gender"] = $this->input->post("gender");
-        $input["date_of_birth"] = $this->input->post("date_of_birth");
+
         $input["teacher_designation"] = $this->input->post("teacher_designation");
         $input["cnic"] = $this->input->post("cnic");
         $input["mobile_number"] = $this->input->post("mobile_number");
         $input["acadmic_qualification"] = $this->input->post("acadmic_qualification");
+        $input["major_subject"] = $this->input->post("major_subject");
         $input["professional_qualification"] = $this->input->post("professional_qualification");
-        $input["initial_appointment_date"] = $this->input->post("initial_appointment_date");
-        $input["current_school_assumption_date"] = $this->input->post("current_school_assumption_date");
-        $input["current_post_assumption_date"] = $this->input->post("current_post_assumption_date");
+
+        $input["date_of_birth"] = $this->input->post("date_of_birth") ?? NULL;
+        $input["initial_appointment_date"] = $this->input->post("initial_appointment_date") ?? NULL;
+        $input["current_school_assumption_date"] = $this->input->post("current_school_assumption_date") ?? NULL;
+        $input["current_post_assumption_date"] = $this->input->post("current_post_assumption_date") ?? NULL;
+
         $input["personal_no"] = $this->input->post("personal_no");
         $input["basic_pay_scale"] = $this->input->post("basic_pay_scale");
         $input["current_pay"] = $this->input->post("current_pay");
@@ -54,6 +58,8 @@ class Teachers extends Admin_Controller
         $input["address"] = $this->input->post("address");
         $input["user_name"] = $this->input->post("user_name");
         $input["password"] = $this->input->post("password");
+        $input["leaved_date"] = $this->input->post("leaved_date");
+
         $inputs =  (object) $input;
         return $inputs;
     }
@@ -76,42 +82,57 @@ class Teachers extends Admin_Controller
     public function add_teacher()
     {
         $this->form_validation->set_rules("teacher_name", "Teacher Name", "required");
-        $this->form_validation->set_rules("father_name", "Father Name", "required");
+        //$this->form_validation->set_rules("father_name", "Father Name", "required");
         $this->form_validation->set_rules("gender", "Gender", "required");
-        $this->form_validation->set_rules("date_of_birth", "Date Of Birth", "required");
+        //$this->form_validation->set_rules("date_of_birth", "Date Of Birth", "required");
         $this->form_validation->set_rules("teacher_designation", "Teacher Designation", "required");
-        $this->form_validation->set_rules("cnic", "Cnic", "required");
+        //$this->form_validation->set_rules("cnic", "Cnic", "required");
         $this->form_validation->set_rules("mobile_number", "Mobile Number", "required");
-        $this->form_validation->set_rules("acadmic_qualification", "Acadmic Qualification", "required");
-        $this->form_validation->set_rules("professional_qualification", "Professional Qualification", "required");
-        $this->form_validation->set_rules("initial_appointment_date", "Initial Appointment Date", "required");
-        $this->form_validation->set_rules("current_school_assumption_date", "Current School Assumption Date", "required");
-        $this->form_validation->set_rules("current_post_assumption_date", "Current Post Assumption Date", "required");
-        $this->form_validation->set_rules("personal_no", "Personal No", "required");
-        $this->form_validation->set_rules("basic_pay_scale", "Basic Pay Scale", "required");
-        $this->form_validation->set_rules("current_pay", "Current Pay", "required");
-        $this->form_validation->set_rules("gp_fund_number", "Gp Fund Number", "required");
-        $this->form_validation->set_rules("bank_branch", "Bank Branch", "required");
-        $this->form_validation->set_rules("bank_branch_code", "Bank Branch Code", "required");
-        $this->form_validation->set_rules("bank_account_no", "Bank Account No", "required");
-        $this->form_validation->set_rules("email", "Email", "required");
-        $this->form_validation->set_rules("address", "Address", "required");
-        $this->form_validation->set_rules("user_name", "User Name", "required");
-        $this->form_validation->set_rules("password", "Password", "required");
+        // $this->form_validation->set_rules("acadmic_qualification", "Acadmic Qualification", "required");
+        // $this->form_validation->set_rules("professional_qualification", "Professional Qualification", "required");
+        // $this->form_validation->set_rules("initial_appointment_date", "Initial Appointment Date", "required");
+        // $this->form_validation->set_rules("current_school_assumption_date", "Current School Assumption Date", "required");
+        // $this->form_validation->set_rules("current_post_assumption_date", "Current Post Assumption Date", "required");
+        // $this->form_validation->set_rules("personal_no", "Personal No", "required");
+        // $this->form_validation->set_rules("basic_pay_scale", "Basic Pay Scale", "required");
+        // $this->form_validation->set_rules("current_pay", "Current Pay", "required");
+        // $this->form_validation->set_rules("gp_fund_number", "Gp Fund Number", "required");
+        // $this->form_validation->set_rules("bank_branch", "Bank Branch", "required");
+        // $this->form_validation->set_rules("bank_branch_code", "Bank Branch Code", "required");
+        // $this->form_validation->set_rules("bank_account_no", "Bank Account No", "required");
+        // $this->form_validation->set_rules("email", "Email", "required");
+        // $this->form_validation->set_rules("address", "Address", "required");
+        if ($this->input->post("teacher_id") != 0) {
+            $this->form_validation->set_rules("user_name", "User Name", "required");
+            $this->form_validation->set_rules("password", "Password", "required");
+        }
 
         if ($this->form_validation->run() == FALSE) {
             echo '<div class="alert alert-danger">' . validation_errors() . "</div>";
             exit();
         } else {
-            $inputs = $this->inputs();
-            $inputs["created_by"] = $this->session->userdata("userId");
+            $inputs = $this->get_inputs();
+            var_dump($inputs);
+            $inputs->created_by = $this->session->userdata("userId");
             $teacher_id = (int) $this->input->post("teacher_id");
             if ($teacher_id == 0) {
                 $this->db->insert("teachers", $inputs);
             } else {
                 $this->db->where("teacher_id", $teacher_id);
-                $inputs["last_updated"] = date('Y-m-d H:i:s');
+                $inputs->last_updated = date('Y-m-d H:i:s');
                 $this->db->update("teachers", $inputs);
+
+                $user_id = $this->input->post('profile_id');
+                $data = array(
+                    'last_updated' => date('Y-m-d H:i:s'),
+                    'user_name' => $this->input->post('user_name'),
+                    'password' => $this->input->post('password')
+                );
+
+                // Update the database record
+                $this->db->where("user_id", $user_id);
+                $this->db->where("teacher_id", $teacher_id);
+                $this->db->update("users", $data);
             }
             echo "success";
         }
@@ -139,7 +160,6 @@ class Teachers extends Admin_Controller
         $columns[] = "mobile_number";
         $columns[] = "acadmic_qualification";
         $columns[] = "major_subject";
-
         $columns[] = "professional_qualification";
         $columns[] = "initial_appointment_date";
         $columns[] = "current_school_assumption_date";
@@ -164,7 +184,8 @@ class Teachers extends Admin_Controller
 
         $search = $this->db->escape("%" . $this->input->post("search")["value"] . "%");
         // Manual SQL query building
-        $sql = "SELECT * FROM teachers";
+        $sql = "SELECT *
+         FROM teachers";
 
         // Searching
         if (!empty($this->input->post("search")["value"])) {
