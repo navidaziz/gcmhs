@@ -58,7 +58,7 @@ class Teachers extends Admin_Controller
         $input["address"] = $this->input->post("address") != '' ? $this->input->post("address") : NULL;
         $input["user_name"] = $this->input->post("user_name") != '' ? $this->input->post("user_name") : NULL;
         $input["password"] = $this->input->post("password") != '' ? $this->input->post("password") : NULL;
-        $input["leaved_date"] = = $this->input->post("leaved_date") != '' ? $this->input->post("leaved_date") : NULL;
+        $input["leaved_date"] = $this->input->post("leaved_date") != '' ? $this->input->post("leaved_date") : NULL;
 
         $inputs =  (object) $input;
         return $inputs;
