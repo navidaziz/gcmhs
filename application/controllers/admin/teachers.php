@@ -112,17 +112,28 @@ class Teachers extends Admin_Controller
             exit();
         } else {
             $inputs = $this->get_inputs();
-            var_dump($inputs);
+            //var_dump($inputs);
             $inputs->created_by = $this->session->userdata("userId");
             $teacher_id = (int) $this->input->post("teacher_id");
             if ($teacher_id == 0) {
                 $this->db->insert("teachers", $inputs);
+                $teacher_id = $this->db->insert_id();
+                $data = array(
+                    'created_date' => date('Y-m-d H:i:s'),
+                    'role_id' => '19',
+                    'user_title' => $this->input->post("teacher_name"),
+                    'user_mobile_number' => $this->input->post('mobile_number'),
+                    'user_name' => $this->input->post('mobile_number'),
+                    'user_password' => '123456',
+                    'teacher_id' => $teacher_id
+                );
+                $this->db->insert("users", $data);
             } else {
                 $this->db->where("teacher_id", $teacher_id);
                 $inputs->last_updated = date('Y-m-d H:i:s');
                 $this->db->update("teachers", $inputs);
 
-                $user_id = $this->input->post('profile_id');
+                $profile_id = $this->input->post('profile_id');
                 $data = array(
                     'last_updated' => date('Y-m-d H:i:s'),
                     'user_name' => $this->input->post('user_name'),
@@ -130,7 +141,7 @@ class Teachers extends Admin_Controller
                 );
 
                 // Update the database record
-                $this->db->where("user_id", $user_id);
+                $this->db->where("user_id", $profile_id);
                 $this->db->where("teacher_id", $teacher_id);
                 $this->db->update("users", $data);
             }

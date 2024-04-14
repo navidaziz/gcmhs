@@ -153,7 +153,7 @@
         <div class="form-group row">
             <label for="user_name" class="col-sm-4 col-form-label">User Name</label>
             <div class="col-sm-8">
-                <input type="text" name="profile_id" value="<?php echo $teacher_account->user_id; ?>" />
+                <input type="hidden" name="profile_id" value="<?php echo $teacher_account->user_id; ?>" />
                 <input required type="text" id="user_name" name="user_name" value="<?php echo $teacher_account->user_name; ?>" class="form-control">
             </div>
         </div>
