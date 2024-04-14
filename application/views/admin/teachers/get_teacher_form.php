@@ -172,7 +172,7 @@
         $hide = 'display:none';
     ?>
         <div class="form-group row">
-            <label for="leaved_date" class="col-sm-4 col-form-label"><?php echo $input->teacher_id; ?> Teacher leaved</label>
+            <label for="leaved_date" class="col-sm-4 col-form-label">Teacher leaved</label>
             <div class="col-sm-8">
                 <span style="margin-left:5px"></span>
                 <input onclick="$('#leaved_div').show(); $('#leaved_date').attr('', true)" <?php if ($input->status == 0) {

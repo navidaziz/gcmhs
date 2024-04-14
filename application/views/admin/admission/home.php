@@ -166,6 +166,10 @@
               <br />
               <i class="fa fa-bank"></i>
               <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/bank_challans"); ?>">Create Bank Challan</a>
+              <i class="fa fa-users"></i>
+              <a target="new" href="<?php echo site_url(ADMIN_DIR . "teachers/index"); ?>">Staff Statement</a>
+
+
               <div>Time Table:
 
                 <a target="new" class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/index"); ?>">Time Table Subjects Assignment</a>
@@ -177,6 +181,7 @@
                 <a target="_blank" class="btn btn-warning btn-sm" href="<?php echo site_url(ADMIN_DIR . "timetable/free_teachers"); ?>">Print Free Teachers</a>
 
               </div>
+
 
             </div>
 
