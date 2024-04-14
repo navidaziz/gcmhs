@@ -219,7 +219,7 @@ class Teachers extends Admin_Controller
         // Manual SQL query building
         $status = (int) $this->input->post('status');
         $sql = "SELECT *
-         FROM teachers WHERE `teachers`.`status` = '" . $status . "'";
+         FROM teachers WHERE `teachers`.`status` = '" . $status . "' AND ";
 
         // Searching
         if (!empty($this->input->post("search")["value"])) {
