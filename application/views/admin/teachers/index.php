@@ -56,7 +56,7 @@
                 <div class="col-md-6">
                     <div class="pull-right">
                         <button onclick="get_teacher_form('0')" class="btn btn-primary">Add New Teachers</button>
-                        <a class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "projects/trashed"); ?>"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('Trash'); ?></a>
+                        <button id="reloadTeachers" class="btn btn-danger">X Teachers</button>
                     </div>
                 </div>
 
@@ -164,7 +164,6 @@
                 </div>
 
 
-                <button id="reloadTeachers">Show Inactive Teachers</button>
 
                 <script>
                     $(document).ready(function() {
