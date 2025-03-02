@@ -277,6 +277,7 @@
 
                         // Button to reload with status=0
                         $("#reloadTeachers").click(function() {
+                            alert("we are hrere");
                             table.ajax.reload(null, false); // Keep the current page
                             table.ajax.url("<?php echo base_url(ADMIN_DIR . 'teachers/teachers_list'); ?>").load(function(json) {
                                 json.data.forEach(function(d) {
