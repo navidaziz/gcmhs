@@ -273,9 +273,10 @@
                                     </form>
                                   <?php } else { ?>
 
-                                    <strong><?php
-                                            $query = "SELECT
+                                    <?php
+                                    $query = "SELECT
 								`teachers`.`teacher_name`
+                , `teachers`.`status`
 								, `teachers`.`teacher_id`
 								, `teachers`.`teacher_designation`
 								, `class_section_subject_teachers`.`class_section_subject_teacher_id` 
@@ -287,20 +288,25 @@
 							AND `section_id` = '" . $section->section_id . "' 
 							AND `class_subject_id` = '" . $subject->class_subject_id . "'
 							";
-                                            $result = $this->db->query($query);
-                                            $assigned_teacher = $result->result()[0];
+                                    $result = $this->db->query($query);
+                                    $assigned_teacher = $result->result()[0];
 
-                                            $query = "SELECT 
+                                    $query = "SELECT 
 							  SUM(`class_subjects`.`total_class_week`) AS `total` 
 							FROM
 							  `class_section_subject_teachers`,
 							  `class_subjects` 
 							WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
 							  AND `class_section_subject_teachers`.`teacher_id` = $assigned_teacher->teacher_id;";
-                                            $result = $this->db->query($query);
-                                            $total_assigned_classes = $result->result()[0]->total;
+                                    $result = $this->db->query($query);
+                                    $total_assigned_classes = $result->result()[0]->total;
+                                    ?>
+                                    <strong <?php if ($assigned_teacher->status == 0) { ?> style="color:red;" <?php } ?>>
+                                      <?php
 
-                                            echo "$assigned_teacher->teacher_name - $assigned_teacher->teacher_designation - $total_assigned_classes"; ?>
+                                      echo "$assigned_teacher->teacher_name - $assigned_teacher->teacher_designation - $total_assigned_classes"; ?>
+
+
                                       <a class="pull-right" href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher/$assigned_teacher->class_section_subject_teacher_id"); ?>">x</a></strong>
 
                                   <?php } ?>
