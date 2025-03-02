@@ -56,9 +56,8 @@
                 <div class="col-md-6">
                     <div class="pull-right">
                         <button onclick="get_teacher_form('0')" class="btn btn-primary">Add New Teachers</button>
-                        <button onclick="get_teacher_form('0')" class="btn btn-primary">Add New Teachers</button>
 
-                        <a class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "teachers/trashed"); ?>"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('Trash'); ?></a>
+                        <a class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "teachers/trashed"); ?>"><i class="fa fa-trash-o"></i> X Teachers</a>
                     </div>
                 </div>
 
