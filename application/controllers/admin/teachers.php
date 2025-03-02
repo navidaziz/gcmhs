@@ -25,6 +25,14 @@ class Teachers extends Admin_Controller
         $this->data["view"] = ADMIN_DIR . "teachers/index";
         $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
+    public function trashed()
+    {
+        $this->data["title"] = 'X Teachers';
+        $this->data["view"] = ADMIN_DIR . "teachers/trashed";
+        $this->load->view(ADMIN_DIR . "layout", $this->data);
+    }
+
+
 
 
 

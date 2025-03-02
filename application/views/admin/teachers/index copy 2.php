@@ -56,7 +56,9 @@
                 <div class="col-md-6">
                     <div class="pull-right">
                         <button onclick="get_teacher_form('0')" class="btn btn-primary">Add New Teachers</button>
-                        <a class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "projects/trashed"); ?>"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('Trash'); ?></a>
+                        <button id="reloadTeachers" class="btn btn-primary">X Teachers</button>
+
+                        <a class="btn btn-danger btn-sm" href="<?php echo site_url(ADMIN_DIR . "teachers/trashed"); ?>"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('Trash'); ?></a>
                     </div>
                 </div>
 
@@ -164,126 +166,102 @@
                 </div>
 
 
-                <script type="text/javascript">
+
+                <script>
                     $(document).ready(function() {
                         document.title = "teachers (Date:<?php echo date('d-m-Y h:m:s') ?>)";
-                        $("#datatable").DataTable({
+
+                        var table = $("#datatable").DataTable({
                             "processing": true,
                             "serverSide": true,
                             "ajax": {
-                                "url": "<?php echo base_url(ADMIN_DIR . "teachers/teachers_list"); ?>",
+                                "url": "<?php echo base_url(ADMIN_DIR . 'teachers/teachers_list'); ?>",
                                 "type": "POST",
-                                "data": {
-                                    status: 1
+                                "data": function(d) {
+                                    d.status = 1; // Default to active teachers
                                 }
                             },
                             "columns": [{
                                     "data": null,
                                     "render": function(data, type, row, meta) {
-                                        return meta.row + meta.settings._iDisplayStart + 1; // Start index from 1
+                                        return meta.row + meta.settings._iDisplayStart + 1;
                                     }
                                 },
-
                                 {
                                     "data": "teacher_name"
                                 },
-
                                 {
                                     "data": "father_name"
                                 },
-
                                 {
                                     "data": "gender"
                                 },
-
                                 {
                                     "data": "date_of_birth"
                                 },
-
                                 {
                                     "data": "teacher_designation"
                                 },
-
                                 {
                                     "data": "cnic"
                                 },
-
                                 {
                                     "data": "mobile_number"
                                 },
-
                                 {
                                     "data": "acadmic_qualification"
                                 },
-
                                 {
                                     "data": "professional_qualification"
                                 },
-
                                 {
                                     "data": "initial_appointment_date"
                                 },
-
                                 {
                                     "data": "current_school_assumption_date"
                                 },
-
                                 {
                                     "data": "current_post_assumption_date"
                                 },
-
                                 {
                                     "data": "personal_no"
                                 },
-
                                 {
                                     "data": "basic_pay_scale"
                                 },
-
                                 {
                                     "data": "current_pay"
                                 },
-
                                 {
                                     "data": "gp_fund_number"
                                 },
-
                                 {
                                     "data": "bank_branch"
                                 },
-
                                 {
                                     "data": "bank_branch_code"
                                 },
-
                                 {
                                     "data": "bank_account_no"
                                 },
-
                                 {
                                     "data": "email"
                                 },
-
                                 {
                                     "data": "address"
                                 },
-
                                 {
                                     "data": "user_name"
                                 },
-
                                 {
                                     "data": "password"
                                 },
-
-
                                 {
                                     "data": null,
                                     "render": function(data, type, row) {
                                         return '<a class="llink llink-edit" onclick="get_teacher_form(' + row.teacher_id + ')"><i class="fa fa-pencil-square-o"></i></a>';
                                     }
                                 }
-
                             ],
                             "lengthMenu": [
                                 [200, 300, 500, -1],
@@ -296,11 +274,21 @@
                             "paging": true,
                             "info": true,
                             dom: "Bfrtip",
-
                             buttons: ["excel", "pageLength"]
+                        });
+
+                        // Button to reload with status=0
+                        $("#reloadTeachers").click(function() {
+                            table.ajax.reload(null, false); // Keep the current page
+                            table.ajax.url("<?php echo base_url(ADMIN_DIR . 'teachers/teachers_list'); ?>").load(function(json) {
+                                json.data.forEach(function(d) {
+                                    d.status = 0; // Load inactive teachers
+                                });
+                            });
                         });
                     });
                 </script>
+
 
             </div>
 
