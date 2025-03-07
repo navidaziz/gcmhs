@@ -133,6 +133,7 @@ class Teachers extends Admin_Controller
             $inputs->created_by = $this->session->userdata("userId");
             $teacher_id = (int) $this->input->post("teacher_id");
             if ($teacher_id == 0) {
+                $inputs->status = 1;
                 $this->db->insert("teachers", $inputs);
                 $teacher_id = $this->db->insert_id();
                 $data = array(
