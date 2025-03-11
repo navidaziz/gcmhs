@@ -215,6 +215,7 @@
                   <thead>
                     <th>#</th>
                     <th>Teacher Name</th>
+                    <th>Designation</th>
                     <th>inch</th>
                     <th>Total Classes</th>
                     <?php
@@ -231,8 +232,8 @@
                       <tr <?php if ($teacher->total_class_assigned == $teacher->period_assinged) { ?> style="background-color: #EAEAEA;" <?php } ?>>
                         <td><?php echo $count++; ?></td>
                         <td><?php echo $teacher->teacher_name;  ?>
-                          <br />
-                          <?php echo $teacher->teacher_designation; ?>
+                        </td>
+                        <td> <?php echo $teacher->teacher_designation; ?>
                         </td>
 
                         <?php $query = "SELECT Class_title, section_title, color 
