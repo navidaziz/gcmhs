@@ -233,9 +233,10 @@
                         <td><?php echo $count++; ?></td>
                         <td>
                           <?php
+                          $user = "";
                           $user = $this->db->get_where('users', array('user_id' => $teacher->teacher_id))->row();
                           if ($user->user_image) {
-                            echo file_type(base_url("assets/uploads/" . $user->user_image), false, 10, 10);
+                            echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
                           }
                           ?>
                           <?php echo $teacher->teacher_name;  ?>
