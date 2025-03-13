@@ -134,22 +134,7 @@
   <!-- end time line -->
   <!-- Bootstrap core CSS -->
   <link href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .table_small>tbody>tr>td,
-    .table_small>tbody>tr>th,
-    .table_small>tfoot>tr>td,
-    .table_small>tfoot>tr>th,
-    .table_small>thead>tr>td,
-    .table_small>thead>tr>th {
-      padding: 3px;
-      line-height: 1.42857143;
-      vertical-align: top;
-      border-top: 1px solid #ddd;
-      font-size: 10px;
-      text-align: center;
-      border: 0px !important;
-    }
-  </style>
+
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
