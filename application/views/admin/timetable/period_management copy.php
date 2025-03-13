@@ -31,7 +31,105 @@
   <!-- BOOTSTRAP -->
   <script src="<?php echo site_url("assets/" . ADMIN_DIR . "bootstrap-dist/js/bootstrap.min.js"); ?>"></script>
 
+  <!-- GRITTER -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "js/gritter/css/jquery.gritter.css"); ?>" />
+  <!-- FONTS -->
+  <link href='<?php echo site_url("assets/" . ADMIN_DIR . "css/fonts.css"); ?>' rel='stylesheet' type='text/css' />
 
+  <!-- jstree resources -->
+  <script src="<?php echo site_url("assets/" . ADMIN_DIR . "jstree-dist/jstree.min.js"); ?>"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "jstree-dist/themes/default/style.min.css"); ?>" />
+
+  <!-- HUBSPOT MESSENGER -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "js/hubspot-messenger/css/messenger.min.css"); ?>" />
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "js/hubspot-messenger/css/messenger-theme-flat.min.css"); ?>" />
+  <script type="text/javascript" src="<?php echo site_url("assets/" . ADMIN_DIR . "js/hubspot-messenger/js/messenger.min.js"); ?>"></script>
+  <script type="text/javascript" src="<?php echo site_url("assets/" . ADMIN_DIR . "js/hubspot-messenger/js/messenger-theme-flat.js"); ?>"></script>
+  <!-- HUBSPOT MESSENGER -->
+  <!-- SELECT2 -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/select2/select2.min.css" />
+  <!-- TYPEAHEAD -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/typeahead/typeahead.css" />
+  <!-- SELECT2 -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/select2/select2.min.css" />
+  <!-- UNIFORM -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/uniform/css/uniform.default.min.css" />
+
+  <!-- DATE PICKER -->
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/datepicker/themes/default.min.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/datepicker/themes/default.date.min.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/js/datepicker/themes/default.time.min.css" />
+
+
+  <!-- custome styhles -->
+
+  <!--<script src="<?php echo site_url("assets/" . ADMIN_DIR . "js/script.js"); ?>"></script>-->
+  <?php if ($this->lang->line('direction') == "rtl") { ?>
+    <style>
+      .sidebar-menu>ul>li>ul.sub>li>a {
+        color: #555555;
+        font-size: 13px;
+        font-weight: 400;
+        margin-right: 15px !important;
+        padding-right: 5px !important;
+      }
+    </style>
+  <?php } ?>
+
+
+  <script>
+    function printData(table_id) {
+      var divToPrint = document.getElementById(table_id);
+
+      newWin = window.open("");
+      newWin.document.write(divToPrint.outerHTML);
+      newWin.print();
+      newWin.close();
+
+    }
+
+
+
+    var stakeholder_or_activity = "";
+
+    function get_list(from, where_get, change_field_id) {
+      //alert(from);
+      id = $('#' + where_get + '_f').val();
+
+      //alert(where_get);
+
+
+
+
+
+      url = "<?php echo base_url() . "" . ADMIN_DIR; ?>";
+      url = url + from;
+      url = url + "/get_json/" + where_get + "/";
+      url = url + id;
+      console.log(url);
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {}
+      }).done(function(data) {
+        var obj = JSON.parse(data);
+        var option = "";
+        for (var id in obj) {
+          option = option + "<option value='" + obj[id].id + "'>" + obj[id].value + "</option>";
+        }
+        $("#" + change_field_id + "_f").html(option);
+      });
+
+    }
+  </script>
+
+  <!-- time line -->
+  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/horizontal_timeline/css/reset.css">
+  <!-- CSS reset -->
+  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/horizontal_timeline/css/style.css">
+  <!-- Resource style -->
+  <script src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/horizontal_timeline/js/modernizr.js"></script><!-- Modernizr -->
+  <!-- end time line -->
   <!-- Bootstrap core CSS -->
   <link href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
