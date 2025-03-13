@@ -231,7 +231,14 @@
                     foreach ($teachers as $teacher) { ?>
                       <tr <?php if ($teacher->total_class_assigned == $teacher->period_assinged) { ?> style="background-color: #EAEAEA;" <?php } ?>>
                         <td><?php echo $count++; ?></td>
-                        <td><?php echo $teacher->teacher_name;  ?>
+                        <td>
+                          <?php
+                          $user = $this->db->get_where('users', array('user_id' => $teacher->teacher_id))->row();
+                          if ($user->user_image) {
+                            echo file_type(base_url("assets/uploads/" . $user->user_image));
+                          }
+                          ?>
+                          <?php echo $teacher->teacher_name;  ?>
                         </td>
                         <td> <?php echo $teacher->teacher_designation; ?>
                         </td>
