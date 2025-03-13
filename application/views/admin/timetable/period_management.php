@@ -394,6 +394,7 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
 
       <script type="text/javascript">
         function add_subject(teacher_name, teacher_id, period_id) {
+          $('#myModalBody').html('Wait ..... ');
           $('#myModalTitle').html(teacher_name);
           $.ajax({
             type: "POST",
@@ -416,6 +417,7 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
         }
 
         function update_weeks(heading, period_subject_id) {
+          $('#myModalBody').html('Wait ..... ');
           $('#myModalTitle').html(heading);
           $.ajax({
             type: "POST",
