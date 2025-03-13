@@ -469,10 +469,8 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
           padding: 3px;
           line-height: 1.42857143;
           vertical-align: top;
-          border-top: 1px solid #ddd;
           font-size: 10px;
           text-align: center;
-          border: 1px solid gray !important;
         }
       </style>
 
