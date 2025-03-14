@@ -139,108 +139,108 @@
 </head>
 
 <body>
-  < !-- HEADER -->
-    <style>
-      .navbar .navbar-brand img {
-        position: absolute;
-        max-width: 60%;
-        height: 80px;
-        width: 257px;
-        top: 5px;
-        left: 60px;
-      }
-    </style>
+
+  <style>
+    .navbar .navbar-brand img {
+      position: absolute;
+      max-width: 60%;
+      height: 80px;
+      width: 257px;
+      top: 5px;
+      left: 60px;
+    }
+  </style>
 
 
-    <!--<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/my_fucking_style.css"); ?>" />-->
-    <header class="navbar clearfix" id="header">
-      <div class="container">
-        <div class="navbar-brand" style="height:78px;">
+  <!--<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/my_fucking_style.css"); ?>" />-->
+  <header class="navbar clearfix" id="header">
+    <div class="container">
+      <div class="navbar-brand" style="height:78px;">
 
-          <!-- COMPANY LOGO -->
-          <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
-            <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:70px; height:70px !important;"></a>
-          <!-- /COMPANY LOGO -->
-          <!-- TEAM STATUS FOR MOBILE -->
-          <div class="visible-xs "> <a href="#" class="team-status-toggle switcher btn dropdown-toggle"> <i class="fa fa-users"></i> </a> </div>
-          <!-- /TEAM STATUS FOR MOBILE -->
-          <!-- SIDEBAR COLLAPSE -->
-          <div id="sidebar-collapse" class="sidebar-collapse btn"> <i class="fa fa-bars" data-icon1="fa fa-bars" data-icon2="fa fa-bars"></i> </div>
-          <!-- /SIDEBAR COLLAPSE -->
-        </div>
-        <div class="nav navbar-nav pull-left">
-          <!--<h3 style="color:white;"><?php echo $row['site_name']; ?></h3>-->
-          <!--<h5 style="color:white;">Government Of Khyber Pakhtunkhwa</h5>-->
-        </div>
-
-        <!-- BEGIN TOP NAVIGATION MENU -->
-        <ul class="nav navbar-nav pull-right">
-          <h3 style="color:white; float:right; display:block;"><?php //echo $system_global_settings[0]->system_title 
-                                                                ?></h3>
-          <br>
-
-
-
-          <li style="float:right;" class="dropdown user" id="header-user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="<?php echo site_url("assets/uploads/" . $this->session->userdata("user_image")); ?>" /> <span class="username"><?php echo $this->session->userdata("user_title"); ?></span> <i class="fa fa-angle-down"></i> </a>
-            <ul class="dropdown-menu">
-              <li><a href="<?php echo site_url(ADMIN_DIR . "users/update_profile"); ?>"><i class="fa fa-user"></i> Update Profile</a></li>
-              <!--<li><a href="#"><i class="fa fa-cog"></i> Account Settings</a></li>
-          <li><a href="#"><i class="fa fa-eye"></i> Privacy Settings</a></li>-->
-              <li><a href="<?php echo site_url(ADMIN_DIR . "users/logout"); ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
-
-            </ul>
-
-          </li>
-
-
-
-          <!-- END USER LOGIN DROPDOWN -->
-        </ul>
-        <!-- END TOP NAVIGATION MENU -->
+        <!-- COMPANY LOGO -->
+        <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
+          <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:70px; height:70px !important;"></a>
+        <!-- /COMPANY LOGO -->
+        <!-- TEAM STATUS FOR MOBILE -->
+        <div class="visible-xs "> <a href="#" class="team-status-toggle switcher btn dropdown-toggle"> <i class="fa fa-users"></i> </a> </div>
+        <!-- /TEAM STATUS FOR MOBILE -->
+        <!-- SIDEBAR COLLAPSE -->
+        <div id="sidebar-collapse" class="sidebar-collapse btn"> <i class="fa fa-bars" data-icon1="fa fa-bars" data-icon2="fa fa-bars"></i> </div>
+        <!-- /SIDEBAR COLLAPSE -->
       </div>
-    </header>
-    <!--/HEADER -->
+      <div class="nav navbar-nav pull-left">
+        <!--<h3 style="color:white;"><?php echo $row['site_name']; ?></h3>-->
+        <!--<h5 style="color:white;">Government Of Khyber Pakhtunkhwa</h5>-->
+      </div>
 
-    <!-- PAGE -->
-    <section id="page">
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <ul class="nav navbar-nav pull-right">
+        <h3 style="color:white; float:right; display:block;"><?php //echo $system_global_settings[0]->system_title 
+                                                              ?></h3>
+        <br>
 
 
 
-      <?php
+        <li style="float:right;" class="dropdown user" id="header-user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="<?php echo site_url("assets/uploads/" . $this->session->userdata("user_image")); ?>" /> <span class="username"><?php echo $this->session->userdata("user_title"); ?></span> <i class="fa fa-angle-down"></i> </a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo site_url(ADMIN_DIR . "users/update_profile"); ?>"><i class="fa fa-user"></i> Update Profile</a></li>
+            <!--<li><a href="#"><i class="fa fa-cog"></i> Account Settings</a></li>
+          <li><a href="#"><i class="fa fa-eye"></i> Privacy Settings</a></li>-->
+            <li><a href="<?php echo site_url(ADMIN_DIR . "users/logout"); ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+          </ul>
+
+        </li>
 
 
-      $this->load->view(ADMIN_DIR . "components/nav.php"); ?>
-      <div id="main-content" <?php if ($this->router->fetch_class() == 'school_dashboard' or $this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'group_dashboard'  or $this->router->fetch_class() == 'admission' or $this->router->fetch_class() == 'sm_dashboard' or $this->router->fetch_class() == 'results' or $this->router->fetch_class() == 'exam_list') { ?> class="margin-left-50" <?php } ?>>
-        <div class="container">
-          <div class="row">
-            <div id="content" class="col-lg-12">
-              <?php
-              if ($this->session->flashdata("msg") || $this->session->flashdata("msg_error") || $this->session->flashdata("msg_success")) {
 
-                $type = "";
-                if ($this->session->flashdata("msg_success")) {
-                  $type = "success";
-                  $msg = $this->session->flashdata("msg_success");
-                } elseif ($this->session->flashdata("msg_error")) {
-                  $type = "error";
-                  $msg = $this->session->flashdata("msg_error");
-                } else {
-                  $type = "info";
-                  $msg = $this->session->flashdata("msg");
-                }
-              ?>
-                <script type="text/javascript">
-                  $(document).ready(function() {
-                    //Set theme
-                    Messenger.options = {
-                      extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
-                      theme: "flat"
-                    }
-                    Messenger().post({
-                      message: '<?php echo $msg; ?>',
-                      type: '<?php echo $type; ?>',
-                      showCloseButton: true
-                    })
+        <!-- END USER LOGIN DROPDOWN -->
+      </ul>
+      <!-- END TOP NAVIGATION MENU -->
+    </div>
+  </header>
+  <!--/HEADER -->
+
+  <!-- PAGE -->
+  <section id="page">
+
+
+
+    <?php
+
+
+    $this->load->view(ADMIN_DIR . "components/nav.php"); ?>
+    <div id="main-content" <?php if ($this->router->fetch_class() == 'school_dashboard' or $this->router->fetch_class() == 'dashboard' or $this->router->fetch_class() == 'group_dashboard'  or $this->router->fetch_class() == 'admission' or $this->router->fetch_class() == 'sm_dashboard' or $this->router->fetch_class() == 'results' or $this->router->fetch_class() == 'exam_list') { ?> class="margin-left-50" <?php } ?>>
+      <div class="container">
+        <div class="row">
+          <div id="content" class="col-lg-12">
+            <?php
+            if ($this->session->flashdata("msg") || $this->session->flashdata("msg_error") || $this->session->flashdata("msg_success")) {
+
+              $type = "";
+              if ($this->session->flashdata("msg_success")) {
+                $type = "success";
+                $msg = $this->session->flashdata("msg_success");
+              } elseif ($this->session->flashdata("msg_error")) {
+                $type = "error";
+                $msg = $this->session->flashdata("msg_error");
+              } else {
+                $type = "info";
+                $msg = $this->session->flashdata("msg");
+              }
+            ?>
+              <script type="text/javascript">
+                $(document).ready(function() {
+                  //Set theme
+                  Messenger.options = {
+                    extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
+                    theme: "flat"
+                  }
+                  Messenger().post({
+                    message: '<?php echo $msg; ?>',
+                    type: '<?php echo $type; ?>',
+                    showCloseButton: true
                   })
-                </script>
-              <?php }  ?>
+                })
+              </script>
+            <?php }  ?>
