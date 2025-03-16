@@ -231,7 +231,8 @@ class Timetable extends Admin_Controller
 			WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
 			AND `class_subjects`.`class_id` = '" . $class->class_id . "'
 			AND subjects.status=1
-			ORDER BY `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`, `subjects`.`group`  ASC ";
+			ORDER BY  `subjects`.`group`  ASC ";
+			//ORDER BY `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`, `subjects`.`group`  ASC ";
 			$result = $this->db->query($query);
 			$class->subjects = $result->result();
 		}
