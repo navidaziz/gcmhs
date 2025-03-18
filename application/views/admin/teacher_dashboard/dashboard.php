@@ -42,10 +42,11 @@
                     <table class="table">
                         <tr>
                             <th style="text-align: center;">Total</th>
-                            <th style="text-align: center;">Morning P</th>
-                            <th style="text-align: center;">A</th>
-                            <th style="text-align: center;">L</th>
-                            <th style="text-align: center;">CL</th>
+                            <th style="text-align: center;">Morning<br />
+                                Present
+                            </th>
+                            <th style="text-align: center;">Absents</th>
+                            <th style="text-align: center;">On Leaves</th>
                             <th style="text-align: center;">Evening A</th>
                         </tr>
                         <?php if ($today_attendance_summary) { ?>
@@ -54,7 +55,6 @@
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->present; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->absent; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->leave; ?></th>
-                                <th style="text-align: center;"><?php echo $today_attendance_summary[0]->corona_leave; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->evening_absent; ?></th>
                             </tr>
                         <?php } else { ?>
