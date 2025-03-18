@@ -45,9 +45,10 @@
                             <th style="text-align: center;">Morning<br />
                                 Present
                             </th>
-                            <th style="text-align: center;">Absent</th>
-                            <th style="text-align: center;">On Leave</th>
-                            <th style="text-align: center;">Evening Absent</th>
+                            <th style="text-align: center;"><br />Absent</th>
+                            <th style="text-align: center;"><br />On Leave</th>
+                            <th style="text-align: center;">Evening <br />
+                                Absent</th>
                         </tr>
                         <?php if ($today_attendance_summary) { ?>
                             <tr>
@@ -92,9 +93,10 @@
                                 <th style="text-align: center;">Morning<br />
                                     Present
                                 </th>
-                                <th style="text-align: center;">Absent</th>
-                                <th style="text-align: center;">On Leave</th>
-                                <th style="text-align: center;">Evening Absent</th>
+                                <th style="text-align: center;"><br />Absent</th>
+                                <th style="text-align: center;"><br />On Leave</th>
+                                <th style="text-align: center;">Evening <br />
+                                    Absent</th>
                             </tr>
                             <?php if ($today_attendance_summary) { ?>
                                 <tr>
