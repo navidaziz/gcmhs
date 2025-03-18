@@ -57,9 +57,6 @@ class Admin_Controller extends MY_Controller
                 }
             }
 
-
-
-
             //now we will check if the current module is assigned to the user or not
             $this->data['current_action_id'] = $current_action_id = $this->module_m->actionIdFromName($this->controller_name, $this->method_name);
             $allowed_modules = $this->mr_m->rightsByRole($this->session->userdata("role_id"));
@@ -67,10 +64,8 @@ class Admin_Controller extends MY_Controller
             //add role homepage to allowed modules
             $allowed_modules[] = $this->session->userdata("role_homepage_id");
 
-            //var_dump($allowed_modules);
-
             if (!in_array($current_action_id, $allowed_modules)) {
-                $this->session->set_flashdata('msg_error', 'You are not allowed to access this module');
+                $this->session->set_flashdata('msg_error', $current_action_id . 'You are not allowed to access this module');
                 redirect(ADMIN_DIR . $this->session->userdata("role_homepage_uri"));
             }
         }
