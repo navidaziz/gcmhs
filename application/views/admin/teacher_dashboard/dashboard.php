@@ -175,12 +175,12 @@
                                                     <td style="background-color:  <?php echo $teacher_subject->color ?>;">
                                                         <div>
                                                             <?php if ($teacher_subject->short_title != 'Nazira') { ?>
-                                                                <?php echo substr($teacher_subject->short_title, 0, 4); ?>-
+                                                                <?php echo substr($teacher_subject->short_title, 0, 4); ?>
                                                             <?php } ?>
 
                                                             <br />
                                                             <small>
-                                                                <strong>
+                                                                <strong style="color: black;">
                                                                     <?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
                                                                 </strong>
                                                             </small>
