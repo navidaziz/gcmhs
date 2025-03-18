@@ -131,7 +131,6 @@
                                 <h5>Time Table</h5>
                                 <tr>
                                     <th>Periods</th>
-                                    <th>Timing</th>
                                     <?php
                                     $weeks = array(
                                         "mon" => "Monday",
@@ -156,8 +155,12 @@
 
                                 foreach ($periods as $period) { ?>
                                     <tr>
-                                        <th><?php echo $period->period_title; ?></th>
-                                        <th><?php echo date("h:i A", strtotime($period->start)); ?> To <?php echo date("h:i A", strtotime($period->end)); ?></th>
+                                        <th><?php echo $period->period_title; ?>
+                                            <br />
+                                            <small>
+                                                <?php echo date("h:i A", strtotime($period->start)); ?> To <?php echo date("h:i A", strtotime($period->end)); ?>
+                                            </small>
+                                        </th>
 
                                         <?php foreach ($weeks as $w_index => $week) { ?>
 
