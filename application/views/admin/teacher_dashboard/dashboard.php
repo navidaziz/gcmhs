@@ -156,8 +156,9 @@
 
                                 foreach ($periods as $period) { ?>
                                     <tr>
-                                        <td><?php echo $period->period_title; ?></td>
-                                        <td><?php echo $period->start; ?> To <?php echo $period->end; ?></td>
+                                        <th><?php echo $period->period_title; ?></th>
+                                        <th><?php echo date("h:i A", strtotime($period->start)); ?> To <?php echo date("h:i A", strtotime($period->end)); ?></th>
+
                                         <?php foreach ($weeks as $w_index => $week) { ?>
 
                                             <?php $query = "SELECT * FROM `classes_time_tables` 
