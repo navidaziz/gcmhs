@@ -178,9 +178,12 @@
                                                                 <?php echo substr($teacher_subject->short_title, 0, 4); ?>-
                                                             <?php } ?>
 
-
-                                                            <?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
                                                             <br />
+                                                            <small>
+                                                                <strong>
+                                                                    <?php echo str_replace("th", "", $teacher_subject->Class_title);  ?>-<?php echo substr($teacher_subject->section_title, 0, 1);  ?>
+                                                                </strong>
+                                                            </small>
                                                         </div>
                                                     </td>
                                                 <?php } ?>
