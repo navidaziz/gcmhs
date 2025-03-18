@@ -65,7 +65,7 @@ class Admin_Controller extends MY_Controller
             $allowed_modules[] = $this->session->userdata("role_homepage_id");
 
             if (!in_array($current_action_id, $allowed_modules)) {
-                $this->session->set_flashdata('msg_error', $current_action_id . 'You are not allowed to access this module');
+                $this->session->set_flashdata('msg_error', 'id: ' . $current_action_id . ' You are not allowed to access this module');
                 redirect(ADMIN_DIR . $this->session->userdata("role_homepage_uri"));
             }
         }
