@@ -130,7 +130,8 @@
                             <thead>
                                 <h5>Time Table</h5>
                                 <tr>
-                                    <th>Days</th>
+                                    <th>Perids</th>
+                                    <th>Timing</th>
                                     <?php
                                     $weeks = array(
                                         "mon" => "Monday",
@@ -156,6 +157,7 @@
                                 foreach ($periods as $period) { ?>
                                     <tr>
                                         <td><?php echo $period->period_title; ?></td>
+                                        <td><?php echo $period->start; ?> To <?php echo $period->end; ?></td>
                                         <?php foreach ($weeks as $w_index => $week) { ?>
 
                                             <?php $query = "SELECT * FROM `classes_time_tables` 
