@@ -158,7 +158,7 @@
                                         <th><?php echo $period->period_title; ?>
                                             <br />
                                             <small>
-                                                <?php echo date("h:i A", strtotime($period->start)); ?> To <?php echo date("h:i A", strtotime($period->end)); ?>
+                                                <?php echo date("h:i", strtotime($period->start)); ?> To <?php echo date("h:i", strtotime($period->end)); ?>
                                             </small>
                                         </th>
 
