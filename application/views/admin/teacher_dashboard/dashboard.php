@@ -130,7 +130,7 @@
                             <thead>
                                 <h5>Time Table</h5>
                                 <tr>
-                                    <th>Perids</th>
+                                    <th>Periods</th>
                                     <th>Timing</th>
                                     <?php
                                     $weeks = array(
