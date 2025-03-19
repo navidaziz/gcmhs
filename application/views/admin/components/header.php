@@ -183,10 +183,10 @@
 
         <li style="float:right;" class="dropdown user" id="header-user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="<?php echo site_url("assets/uploads/" . $this->session->userdata("user_image")); ?>" /> <span class="username"><?php echo $this->session->userdata("user_title"); ?></span> <i class="fa fa-angle-down"></i> </a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url(ADMIN_DIR . "users/update_profile"); ?>"><i class="fa fa-user"></i> Update Profile</a></li>
+            <li><a href="<?php echo site_url(ADMIN_DIR . "profile/update_profile"); ?>"><i class="fa fa-user"></i> Update Profile</a></li>
             <!--<li><a href="#"><i class="fa fa-cog"></i> Account Settings</a></li>
           <li><a href="#"><i class="fa fa-eye"></i> Privacy Settings</a></li>-->
-            <li><a href="<?php echo site_url(ADMIN_DIR . "users/logout"); ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+            <li><a href="<?php echo site_url(ADMIN_DIR . "login/logout"); ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
 
           </ul>
 
