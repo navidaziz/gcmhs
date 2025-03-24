@@ -80,7 +80,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th style="width: 12%;">Days</th>
+                  <th>Days</th>
                   <?php foreach ($periods as $period) { ?>
                     <?php if ($period->period_id != 7) { ?>
                       <th><?php echo $period->period_title; ?></th>
