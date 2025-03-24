@@ -40,20 +40,20 @@
                               <h2><strong>Government Centennial Model High School, Boys Chitral</strong></h2>
                             </div>
                             <div class="col-md-6">
-                              <strong>
-                                <h3>Time Table: <?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </h3>
-                                <h4>Class Teacher:
-                                  <?php $query = "SELECT teacher_name
+
+                              <h2><strong>Time Table For Class: <?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </strong></h2>
+                              <h4>Class Teacher:
+                                <?php $query = "SELECT teacher_name
                                     FROM `classes_time_tables`
                                     WHERE `classes_time_tables`.`class_teacher`='1' 
                                     AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                                     AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
-                                  $class_teacher = $this->db->query($query)->result();
-                                  if ($class_teacher) {
-                                    echo $class_teacher[0]->teacher_name;
-                                  }
-                                  ?>
-                                </h4>
+                                $class_teacher = $this->db->query($query)->result();
+                                if ($class_teacher) {
+                                  echo $class_teacher[0]->teacher_name;
+                                }
+                                ?>
+                              </h4>
                               </strong>
 
                             </div>
