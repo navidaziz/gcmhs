@@ -69,9 +69,9 @@
                               if ($class_teacher and $class_teacher->teacher_id > 0) {
                                 $user = "";
                                 $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
-                                if ($user->user_image) {
-                                  echo file_type(base_url("assets/uploads/" . $user->user_image), false, 100, 100);
-                                }
+                                if ($user->user_image) { ?>
+                                  <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="100" width="100" class="img-circle">
+                              <?php  }
                               }
 
                               ?>
