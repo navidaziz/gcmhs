@@ -76,9 +76,9 @@
                                 $user = "";
                                 $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                                 if ($user->user_image) { ?>
-                                  <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="100" width="100" class="img-circle">
+                                  <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="80" width="80" class="img-circle">
                                 <?php  } else { ?>
-                                  <div height="100" width="100" class="img-circle"></div>
+                                  <div height="80" width="80" class="img-circle"></div>
                               <?php }
                               }
 
