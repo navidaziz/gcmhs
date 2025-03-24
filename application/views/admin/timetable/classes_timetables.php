@@ -37,7 +37,7 @@
                         <th colspan="11" style="text-align: center;">
                           <div class="row">
                             <div class="col-md-5">
-                              <h2>GCMHS Boys Chitral</h2>
+                              <h2><strong>GCMHS Boys Chitral</strong></h2>
                             </div>
                             <div class="col-md-5">
 
