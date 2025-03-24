@@ -36,10 +36,12 @@
                       <tr>
                         <th colspan="11" style="text-align: center;">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-5">
                               <h2>Government Centennial Model High School<br> Boys Chitral</h2>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
 
                               <h2>Time Table For Class: <strong><?php echo $class->Class_title; ?>
                                   <span style="color: <?php echo $section->color;  ?>;">
@@ -47,20 +49,31 @@
                                   </span>
                                 </strong></h2>
                               <h4><strong>Incharge Teacher:
-                                  <?php $query = "SELECT teacher_name
+                                  <?php $query = "SELECT teacher_name,
+                                  teacher_id
                                     FROM `classes_time_tables`
                                     WHERE `classes_time_tables`.`class_teacher`='1' 
                                     AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                                     AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
-                                  $class_teacher = $this->db->query($query)->result();
+                                  $class_teacher = $this->db->query($query)->row();
                                   if ($class_teacher) {
-                                    echo $class_teacher[0]->teacher_name;
+                                    echo $class_teacher->teacher_name;
                                   }
                                   ?>
                                 </strong>
                               </h4>
                               </strong>
 
+                            </div>
+                            <div class="col-md-1">
+                              <?php
+                              $user = "";
+                              $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
+                              if ($user->user_image) {
+                                echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
+                              }
+                              ?>
+                              <?php echo $teacher->teacher_name;  ?>
                             </div>
                           </div>
 
