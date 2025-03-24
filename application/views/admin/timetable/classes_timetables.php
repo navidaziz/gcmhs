@@ -27,7 +27,7 @@
   <div class="container">
     <?php foreach ($classes as $class) { ?>
       <?php foreach ($class->sections as $section) { ?>
-        <div class="timetable-page">
+        <div class="timetable-page" style="background-color: <?php echo $section->color;  ?>;">
           <div class="timetable-container">
             <div class="header-section">
               <div class="row">
