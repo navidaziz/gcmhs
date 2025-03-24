@@ -122,11 +122,14 @@
                   </tr>
                 <?php } ?>
               </tbody>
+              <tfoot></tfoot>
+              <tr>
+                <td colspan="7" style="text-align: center;">
+                  <small>Generated on <?php echo date('d/m/Y H:i'); ?> | GCMHS Boys Chitral</small>
+                </td>
+              </tr>
             </table>
 
-            <div class="footer">
-              Generated on <?php echo date('d/m/Y H:i'); ?> | GCMHS Boys Chitral
-            </div>
           </div>
         </div>
       <?php } ?>
