@@ -151,45 +151,50 @@
           <div class="timetable-container">
             <div class="header-section">
               <div class="row">
-                <div class="col-md-8">
-                  <h2 class="school-name"><strong>GCMHS Boys Chitral</strong></h2>
-                  <h3 class="timetable-title">
-                    Time Table For Class: <strong><?php echo $class->Class_title; ?>
-                      <span class="section-highlight" style="color: <?php echo $section->color; ?>;">
+                <div class="col-md-5">
+                  <h2><strong>GCMHS Boys Chitral</strong></h2>
+                </div>
+                <div class="col-md-5">
+
+                  <h2>Time Table For Class: <strong><?php echo $class->Class_title; ?>
+                      <span style="color: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
                       </span>
-                    </strong>
-                  </h3>
-                  <h4 class="incharge-teacher">
-                    <strong>Incharge Teacher:
-                      <?php
-                      $query = "SELECT teacher_name, teacher_id
-                                            FROM `classes_time_tables`
-                                            WHERE `classes_time_tables`.`class_teacher`='1' 
-                                            AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
-                                            AND `classes_time_tables`.`section_id`='" . $section->section_id . "'";
+                    </strong></h2>
+                  <h4><strong>Incharge Teacher:
+                      <?php $query = "SELECT teacher_name,
+                                  teacher_id
+                                    FROM `classes_time_tables`
+                                    WHERE `classes_time_tables`.`class_teacher`='1' 
+                                    AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
+                                    AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
                       $class_teacher = $this->db->query($query)->row();
+                      //var_dump($class_teacher);
                       if ($class_teacher) {
                         echo $class_teacher->teacher_name;
                       }
                       ?>
                     </strong>
                   </h4>
+                  </strong>
+
                 </div>
-                <div class="col-md-4 text-right">
+                <div class="col-md-2">
                   <?php
-                  if ($class_teacher && $class_teacher->teacher_id > 0) {
+                  if ($class_teacher and $class_teacher->teacher_id > 0) {
+                    $user = "";
                     $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                     if ($user->user_image) { ?>
-                      <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>"
-                        height="80" width="80" class="teacher-image">
-                    <?php } else { ?>
-                      <div style="height:80px; width:80px; display:inline-block;"></div>
+                      <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="80" width="80" class="img-circle">
+                    <?php  } else { ?>
+                      <div height="80" width="80" class="img-circle"></div>
                   <?php }
                   }
+
                   ?>
                 </div>
               </div>
+
             </div>
 
             <table class="table table-bordered">
