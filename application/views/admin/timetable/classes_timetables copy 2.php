@@ -10,6 +10,94 @@
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
 
+  <style>
+    /* Default styles for screen */
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    .timetable-container {
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    /* Print-specific styles */
+    @page {
+      size: A4 landscape;
+      /* This enables landscape mode */
+      margin: 10mm;
+    }
+
+
+    /* Rest of your styles... */
+    .header-section {
+      border-bottom: 2px solid #e1e1e1;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+
+    .school-name {
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .timetable-title {
+      color: #3498db;
+      margin-bottom: 5px;
+    }
+
+    .incharge-teacher {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    .teacher-image {
+      border: 2px solid #e1e1e1;
+      border-radius: 50%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .section-highlight {
+      color: inherit;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 10px;
+      color: #7f8c8d;
+    }
+  </style>
 </head>
 
 <body>
