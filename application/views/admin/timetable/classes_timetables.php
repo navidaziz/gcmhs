@@ -19,6 +19,67 @@
       .timetable-page:last-child {
         page-break-after: auto;
       }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th {
+        background-color: #3498db;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+
+      td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .section-highlight {
+        color: inherit;
+        font-weight: bold;
+      }
+
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .section-highlight {
+      color: inherit;
+      font-weight: bold;
     }
   </style>
 </head>
