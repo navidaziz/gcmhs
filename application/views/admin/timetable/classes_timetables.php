@@ -101,7 +101,7 @@
             <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
               <div class="row">
 
-                <div class="col-md-11">
+                <div class="col-md-12">
 
                   <h2 style="padding: 0px;"><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
@@ -130,7 +130,7 @@
                 </div>
 
 
-                <div class="col-md-1">
+                <div style="display: none;" class="col-md-1">
                   <?php
                   if ($class_teacher and $class_teacher->teacher_id > 0) {
                     $user = "";
