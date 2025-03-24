@@ -50,36 +50,38 @@
         font-weight: bold;
       }
 
-    }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
 
-    th {
-      background-color: #3498db;
-      color: white;
-      padding: 8px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
 
-    td {
-      padding: 8px;
-      border: 1px solid #ddd;
-      text-align: center;
-      vertical-align: middle;
-    }
+      th {
+        background-color: #3498db;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
+      td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+      }
 
-    .section-highlight {
-      color: inherit;
-      font-weight: bold;
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .section-highlight {
+        color: inherit;
+        font-weight: bold;
+      }
+
     }
   </style>
 </head>
