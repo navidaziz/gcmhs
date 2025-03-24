@@ -107,7 +107,7 @@
 
                   <h2 style="padding: 0px;"><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
-                      </span> Time Table for Session
+                      </span> Timetable for Session
 
                       <?php
                       $query = "SELECT `session` as a_session FROM `session` WHERE session.active=1 ORDER BY session_id DESC LIMIT 1;";
