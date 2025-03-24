@@ -124,7 +124,7 @@
               </tbody>
               <tfoot></tfoot>
               <tr>
-                <td colspan="7" style="text-align: center;">
+                <td colspan="11" style="text-align: center;">
                   <small>Generated on <?php echo date('d/m/Y H:i'); ?> | GCMHS Boys Chitral</small>
                 </td>
               </tr>
