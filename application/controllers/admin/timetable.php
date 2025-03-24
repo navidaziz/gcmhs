@@ -79,8 +79,9 @@ class Timetable extends Admin_Controller
 		$classes = $result->result();
 		foreach ($classes as $class) {
 			$query = "SELECT
-				`sections`.`section_title`
-				, `sections`.`section_id`
+				`sections`.`section_title`, 
+				`sections`.`color`,
+				`sections`.`section_id`
 			FROM
 			`class_sections`,
 			`sections`
