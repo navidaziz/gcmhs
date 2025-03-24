@@ -100,21 +100,8 @@
           <div class="timetable-container">
             <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
               <div class="row">
-                <div class="col-md-1">
-                  <?php
-                  if ($class_teacher and $class_teacher->teacher_id > 0) {
-                    $user = "";
-                    $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
-                    if ($user->user_image) { ?>
-                      <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="80" width="80">
-                    <?php  } else { ?>
-                      <div height="80" width="80"></div>
-                  <?php }
-                  }
 
-                  ?>
-                </div>
-                <div class="col-md-10">
+                <div class="col-md-11">
 
                   <h2 style="padding: 0px;"><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
@@ -141,20 +128,23 @@
                   </strong>
 
                 </div>
+
+
                 <div class="col-md-1">
                   <?php
                   if ($class_teacher and $class_teacher->teacher_id > 0) {
                     $user = "";
                     $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                     if ($user->user_image) { ?>
-                      <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="80" width="80">
+                      <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" width="100%">
                     <?php  } else { ?>
-                      <div height="80" width="80"></div>
+                      <div width="100%"></div>
                   <?php }
                   }
 
                   ?>
                 </div>
+
               </div>
 
             </div>
