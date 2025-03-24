@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-md-10">
 
-                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
+                  <h2 style="padding: 0px;"><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
                       </span> Time Table for Session
 
@@ -127,6 +127,7 @@
                       ?>
 
                     </strong></h2>
+                  <hr />
                   <h4><strong>Incharge Teacher:
                       <?php
                       //var_dump($class_teacher);
