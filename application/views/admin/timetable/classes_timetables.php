@@ -87,43 +87,19 @@
 <body>
   <div class="container">
     <?php foreach ($classes as $class) { ?>
-      <?php foreach ($class->sections as $section) { ?>
-        <div class="timetable-page">
-          <div class="timetable-container">
-            <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
-              <div class="row">
-                <div class="col-md-10">
-
-                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
-                        <?php echo $section->section_title; ?>
-                      </span> Time Table for Session
-
-                      <?php
-                      $query = "SELECT `session` as a_session FROM `session` WHERE session.active=1 ORDER BY session_id DESC LIMIT 1;";
-                      $a_session = $this->db->query($query)->row();
-                      echo $a_session->a_session;
-                      ?>
-
-                    </strong></h2>
-                  <h4><strong>Incharge Teacher:
-                      <?php $query = "SELECT teacher_name,
+      <?php foreach ($class->sections as $section) {
+        $query = "SELECT teacher_name,
                                   teacher_id
                                     FROM `classes_time_tables`
                                     WHERE `classes_time_tables`.`class_teacher`='1' 
                                     AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                                     AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
-                      $class_teacher = $this->db->query($query)->row();
-                      //var_dump($class_teacher);
-                      if ($class_teacher) {
-                        echo $class_teacher->teacher_name;
-                      }
-                      ?>
-                    </strong><br />
-                    <small><strong>Government Centennial Model High School (Boys) Chitral</strong></small>
-                  </h4>
-                  </strong>
-
-                </div>
+        $class_teacher = $this->db->query($query)->row();
+      ?>
+        <div class="timetable-page">
+          <div class="timetable-container">
+            <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
+              <div class="row">
                 <div class="col-md-2">
                   <?php
                   if ($class_teacher and $class_teacher->teacher_id > 0) {
@@ -138,6 +114,33 @@
 
                   ?>
                 </div>
+                <div class="col-md-10">
+
+                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
+                        <?php echo $section->section_title; ?>
+                      </span> Time Table for Session
+
+                      <?php
+                      $query = "SELECT `session` as a_session FROM `session` WHERE session.active=1 ORDER BY session_id DESC LIMIT 1;";
+                      $a_session = $this->db->query($query)->row();
+                      echo $a_session->a_session;
+                      ?>
+
+                    </strong></h2>
+                  <h4><strong>Incharge Teacher:
+                      <?php
+                      //var_dump($class_teacher);
+                      if ($class_teacher) {
+                        echo $class_teacher->teacher_name;
+                      }
+                      ?>
+                    </strong><br />
+                    <small><strong>Government Centennial Model High School (Boys) Chitral</strong></small>
+                  </h4>
+                  </strong>
+
+                </div>
+
               </div>
 
             </div>
