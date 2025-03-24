@@ -11,6 +11,42 @@
   <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/respons ive.css"); ?>" />
 
   <style>
+    
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse !important;
+  }
+
+  .table th,
+  .table td {
+    border: 1px solid #000 !important;
+    padding: 8px !important;
+    color: #000 !important;
+    background-color: transparent !important;
+  }
+
+  .thead-dark th {
+    background-color: #ddd !important;
+    font-weight: bold;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9 !important;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: inherit !important;
+  }
+
+  /* Hide anything irrelevant for printing */
+  .no-print, .btn, nav, footer {
+    display: none !important;
+  }
 
 @media print {
   body {
