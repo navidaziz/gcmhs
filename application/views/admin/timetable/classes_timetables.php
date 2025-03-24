@@ -41,7 +41,11 @@
                             </div>
                             <div class="col-md-6">
 
-                              <h2>Time Table For Class: <strong><?php echo $class->Class_title; ?> <?php echo $section->section_title; ?> </strong></h2>
+                              <h2>Time Table For Class: <strong><?php echo $class->Class_title; ?>
+                                  <span style="color: <?php echo $section->color;  ?>;">
+                                    <?php echo $section->section_title; ?>
+                                  </span>
+                                </strong></h2>
                               <h4><strong>Incharge Teacher:
                                   <?php $query = "SELECT teacher_name
                                     FROM `classes_time_tables`
