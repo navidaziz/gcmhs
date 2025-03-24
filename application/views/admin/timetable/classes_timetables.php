@@ -72,7 +72,7 @@
                                 $user = "";
                                 $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                                 if ($user->user_image) {
-                                  echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
+                                  echo file_type(base_url("assets/uploads/" . $user->user_image), false, 100, 100);
                                 }
                               }
 
