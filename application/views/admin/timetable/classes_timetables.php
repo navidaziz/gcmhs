@@ -27,13 +27,13 @@
   <div class="container">
     <?php foreach ($classes as $class) { ?>
       <?php foreach ($class->sections as $section) { ?>
-        <div class="timetable-page" style="background-color: <?php echo $section->color;  ?>;">
+        <div class="timetable-page">
           <div class="timetable-container">
-            <div class="header-section">
+            <div class="header-section" style="background-color: <?php echo $section->color;  ?>;">
               <div class="row">
                 <div class="col-md-10">
 
-                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="color: <?php echo $section->color;  ?>;">
+                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="co lor: <?php echo $section->color;  ?>;">
                         <?php echo $section->section_title; ?>
                       </span> Time Table for Session
 
