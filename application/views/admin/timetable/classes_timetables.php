@@ -33,16 +33,16 @@
               <div class="row">
                 <div class="col-md-10">
 
-                  <h2>Class: <strong><?php echo $class->Class_title; ?> Time Table for Session
+                  <h2><strong> Class <?php echo $class->Class_title; ?> <span style="color: <?php echo $section->color;  ?>;">
+                        <?php echo $section->section_title; ?>
+                      </span> Time Table for Session
 
                       <?php
                       $query = "SELECT `session` as a_session FROM `session` WHERE session.active=1 ORDER BY session_id DESC LIMIT 1;";
                       $a_session = $this->db->query($query)->row();
                       echo $a_session->a_session;
                       ?>
-                      <span style="color: <?php echo $section->color;  ?>;">
-                        <?php echo $section->section_title; ?>
-                      </span>
+
                     </strong></h2>
                   <h4><strong>Incharge Teacher:
                       <?php $query = "SELECT teacher_name,
