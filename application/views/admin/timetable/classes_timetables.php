@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Timetable - GCMHS Boys Chitral</title>
 
-  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/cloud-admin.css"); ?>" />
-  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
-  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
+  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/cloud-ad min.css"); ?>" />
+  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/def ault.css"); ?>" id="skin-switcher" />
+  <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/respons ive.css"); ?>" />
 
   <style>
     @media print {
