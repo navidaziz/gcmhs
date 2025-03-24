@@ -74,7 +74,7 @@
                     <?php if ($period->period_id != 7) { ?>
                       <th><?php echo $period->period_title; ?></th>
                     <?php } else { ?>
-                      <th style="width: 12%;" rowspan="6"><?php echo $period->period_title; ?></th>
+                      <th><?php echo $period->period_title; ?></th>
                     <?php } ?>
                   <?php } ?>
                 </tr>
