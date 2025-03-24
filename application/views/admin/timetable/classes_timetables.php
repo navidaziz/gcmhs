@@ -31,10 +31,7 @@
           <div class="timetable-container">
             <div class="header-section">
               <div class="row">
-                <div class="col-md-5">
-                  <h2><strong>GCMHS Boys Chitral</strong></h2>
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-10">
 
                   <h2>Time Table For Class: <strong><?php echo $class->Class_title; ?>
                       <span style="color: <?php echo $section->color;  ?>;">
@@ -55,6 +52,7 @@
                       }
                       ?>
                     </strong>
+                    <small><strong>Government Centennial Model High School (Boys) Chitral</strong></small>
                   </h4>
                   </strong>
 
