@@ -10,6 +10,17 @@
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/themes/default.css"); ?>" id="skin-switcher" />
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
 
+  <style>
+    @media print {
+      .timetable-page {
+        page-break-after: always;
+      }
+
+      .timetable-page:last-child {
+        page-break-after: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
