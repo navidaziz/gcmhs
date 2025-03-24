@@ -106,7 +106,7 @@
 
                           if ($teacher_subjects) { ?>
                             <?php foreach ($teacher_subjects as $teacher_subject) { ?>
-                              <div style="margin-bottom: 5px;">
+                              <div style="margin-bottom: 5px; text-align: center;">
                                 <?php echo $teacher_subject->teacher_name ?><br>
                                 <strong><?php echo $teacher_subject->short_title ?></strong>
                               </div>
