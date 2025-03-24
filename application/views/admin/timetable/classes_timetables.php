@@ -77,7 +77,9 @@
                                 $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                                 if ($user->user_image) { ?>
                                   <img src="<?php echo base_url("assets/uploads/" . $user->user_image) ?>" height="100" width="100" class="img-circle">
-                              <?php  }
+                                <?php  } else { ?>
+                                  <div height="100" width="100" class="img-circle"></div>
+                              <?php }
                               }
 
                               ?>
@@ -146,13 +148,6 @@
                     </tbody>
                   </table>
                 </h5>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
               <?php } ?>
 
               <div class="page-break"></div>
