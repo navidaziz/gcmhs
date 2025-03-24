@@ -51,7 +51,7 @@
                         echo $class_teacher->teacher_name;
                       }
                       ?>
-                    </strong>
+                    </strong><br />
                     <small><strong>Government Centennial Model High School (Boys) Chitral</strong></small>
                   </h4>
                   </strong>
