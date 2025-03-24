@@ -90,7 +90,7 @@
       <?php foreach ($class->sections as $section) { ?>
         <div class="timetable-page">
           <div class="timetable-container">
-            <div class="header-section" style="background-color: <?php echo $section->color;  ?>;">
+            <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
               <div class="row">
                 <div class="col-md-10">
 
