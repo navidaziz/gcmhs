@@ -8,9 +8,12 @@
 
 <head>
   <style>
-    .page-break {
-      page-break-before: always;
-      /* or use 'after' or 'inside' depending on the need */
+    @media print {
+
+      .page,
+      .page-break {
+        break-after: page;
+      }
     }
   </style>
 </head>
