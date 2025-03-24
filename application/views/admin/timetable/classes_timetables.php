@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-md-1">
                               <?php
-                              if ($class_teacher->teacher_id > 0) {
+                              if ($class_teacher and $class_teacher->teacher_id > 0) {
                                 $user = "";
                                 $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
                                 if ($user->user_image) {
