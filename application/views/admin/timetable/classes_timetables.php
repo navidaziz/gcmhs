@@ -73,7 +73,6 @@
                                 echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
                               }
                               ?>
-                              <?php echo $teacher->teacher_name;  ?>
                             </div>
                           </div>
 
