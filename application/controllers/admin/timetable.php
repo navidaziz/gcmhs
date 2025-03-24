@@ -86,7 +86,8 @@ class Timetable extends Admin_Controller
 			`class_sections`,
 			`sections`
 			WHERE `class_sections`.`section_id` = `sections`.`section_id` 
-				AND `class_sections`.`class_id` = '" . $class->class_id . "'";
+				AND `class_sections`.`class_id` = '" . $class->class_id . "'
+				AND section_status=1";
 
 			$result = $this->db->query($query);
 			$class->sections = $result->result();

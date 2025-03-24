@@ -7,6 +7,12 @@
 <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
 
 <head>
+  <style>
+    .page-break {
+      page-break-before: always;
+      /* or use 'after' or 'inside' depending on the need */
+    }
+  </style>
 </head>
 
 <body style="background-color: white;">
@@ -149,7 +155,7 @@
                 <br />
               <?php } ?>
 
-
+              <div class="page-break"></div>
 
             <?php } ?>
           </div>
