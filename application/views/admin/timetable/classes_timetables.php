@@ -168,7 +168,7 @@
 
                 foreach ($weeks as $w_index => $week) { ?>
                   <tr>
-                    <td><strong><?php echo $week; ?></strong></td>
+                    <th><strong><?php echo $week; ?></strong></th>
                     <?php foreach ($periods as $period) {
                       if ($period->period_id != 7) { ?>
                         <td>
