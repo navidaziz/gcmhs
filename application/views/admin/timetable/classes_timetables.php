@@ -56,6 +56,7 @@
                                     AND `classes_time_tables`.`class_id`='" . $class->class_id . "'
                                     AND  `classes_time_tables`.`section_id`='" . $section->section_id . "'";
                                   $class_teacher = $this->db->query($query)->row();
+                                  var_dump($class_teacher);
                                   if ($class_teacher) {
                                     echo $class_teacher->teacher_name;
                                   }
@@ -67,11 +68,12 @@
                             </div>
                             <div class="col-md-1">
                               <?php
-                              $user = "";
-                              $user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
-                              if ($user->user_image) {
-                                echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
-                              }
+                              //$user = "";
+                              //$user = $this->db->get_where('users', array('teacher_id' => $class_teacher->teacher_id))->row();
+                              //if ($user->user_image) {
+                              //echo file_type(base_url("assets/uploads/" . $user->user_image), false, 30, 30);
+                              //}
+
                               ?>
                             </div>
                           </div>
