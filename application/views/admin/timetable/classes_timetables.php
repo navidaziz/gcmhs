@@ -11,35 +11,7 @@
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/responsive.css"); ?>" />
 
   <style>
-    @page {
-      size: A4;
-      margin: 10mm;
-    }
-
-    @media print {
-      body {
-        background-color: white;
-        font-family: 'Open Sans', Arial, sans-serif;
-        font-size: 12px;
-        line-height: 1.4;
-      }
-
-      .timetable-page {
-        page-break-after: always;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-      }
-
-      .timetable-page:last-child {
-        page-break-after: auto;
-      }
-
-      .no-print {
-        display: none;
-      }
-    }
-
+    /* Default styles for screen */
     body {
       font-family: 'Open Sans', Arial, sans-serif;
       font-size: 12px;
@@ -52,9 +24,60 @@
       background-color: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
-      page-break-inside: avoid;
     }
 
+    /* Print-specific styles */
+    @page {
+      size: A4 landscape;
+      /* This enables landscape mode */
+      margin: 10mm;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        font-family: 'Open Sans', Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timetable-page {
+        page-break-after: always;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .timetable-page:last-child {
+        page-break-after: auto;
+      }
+
+      .no-print {
+        display: none;
+      }
+
+      /* Adjust table width for landscape */
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      /* Make sure content fits in landscape */
+      .header-section {
+        padding: 5px 0;
+      }
+
+      .school-name,
+      .timetable-title {
+        margin: 5px 0;
+      }
+    }
+
+    /* Rest of your styles... */
     .header-section {
       border-bottom: 2px solid #e1e1e1;
       padding-bottom: 15px;
