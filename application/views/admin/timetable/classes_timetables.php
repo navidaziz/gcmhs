@@ -36,8 +36,6 @@
                       <tr>
                         <th colspan="11" style="text-align: center;">
                           <div class="row">
-                            <div class="col-md-1">
-                            </div>
                             <div class="col-md-5">
                               <h2>Government Centennial Model High School<br> Boys Chitral</h2>
                             </div>
@@ -66,7 +64,7 @@
                               </strong>
 
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                               <?php
                               if ($class_teacher and $class_teacher->teacher_id > 0) {
                                 $user = "";
