@@ -15,6 +15,7 @@
   body {
     color: #000;
     background: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .table {
