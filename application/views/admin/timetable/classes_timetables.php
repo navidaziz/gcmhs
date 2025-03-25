@@ -11,85 +11,89 @@
   <link rel="stylesheet" media="all" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/respons ive.css"); ?>" />
 
   <style>
-    
-  body {
-    color: #000;
-    background: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+    body {
+      color: #000;
+      background: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  .table {
-    width: 100%;
-    border-collapse: collapse !important;
-  }
+    .table {
+      width: 100%;
+      border-collapse: collapse !important;
+    }
 
-  .table th,
-  .table td {
-    border: 1px solid #000 !important;
-    padding: 8px !important;
-    color: #000 !important;
-    background-color: transparent !important;
-  }
+    .table th,
+    .table td {
+      border: 1px solid #000 !important;
+      padding: 8px !important;
+      color: #000 !important;
+      background-color: transparent !important;
+    }
 
-  .thead-dark th {
-    background-color: #ddd !important;
-    font-weight: bold;
-  }
+    .thead-dark th {
+      background-color: #ddd !important;
+      font-weight: bold;
+    }
 
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9 !important;
-  }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #f9f9f9 !important;
+    }
 
-  .table-hover tbody tr:hover {
-    background-color: inherit !important;
-  }
+    .table-hover tbody tr:hover {
+      background-color: inherit !important;
+    }
 
-  /* Hide anything irrelevant for printing */
-  .no-print, .btn, nav, footer {
-    display: none !important;
-  }
+    /* Hide anything irrelevant for printing */
+    .no-print,
+    .btn,
+    nav,
+    footer {
+      display: none !important;
+    }
 
-@media print {
-  body {
-    color: #000;
-    background: #fff;
-  }
+    @media print {
+      body {
+        color: #000;
+        background: #fff;
+      }
 
-  .table {
-    width: 100%;
-    border-collapse: collapse !important;
-  }
+      .table {
+        width: 100%;
+        border-collapse: collapse !important;
+      }
 
-  .table th,
-  .table td {
-    border: 1px solid #000 !important;
-    padding: 8px !important;
-    color: #000 !important;
-    background-color: transparent !important;
-  }
+      .table th,
+      .table td {
+        border: 1px solid #000 !important;
+        padding: 8px !important;
+        color: #000 !important;
+        background-color: transparent !important;
+      }
 
-  .thead-dark th {
-    background-color: #ddd !important;
-    font-weight: bold;
-  }
+      .thead-dark th {
+        background-color: #ddd !important;
+        font-weight: bold;
+      }
 
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9 !important;
-  }
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+      }
 
-  .table-hover tbody tr:hover {
-    background-color: inherit !important;
-  }
+      .table-hover tbody tr:hover {
+        background-color: inherit !important;
+      }
 
-  /* Hide anything irrelevant for printing */
-  .no-print, .btn, nav, footer {
-    display: none !important;
-  }
-}
+      /* Hide anything irrelevant for printing */
+      .no-print,
+      .btn,
+      nav,
+      footer {
+        display: none !important;
+      }
+    }
 
 
-    @media 
-    print {
+    @media print {
       .timetable-page {
         page-break-after: always;
       }
@@ -160,6 +164,76 @@
         font-weight: bold;
       }
 
+    }
+
+    .timetable-page {
+      page-break-after: always;
+    }
+
+    .timetable-page:last-child {
+      page-break-after: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .section-highlight {
+      color: inherit;
+      font-weight: bold;
+    }
+
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .section-highlight {
+      color: inherit;
+      font-weight: bold;
     }
   </style>
 </head>
