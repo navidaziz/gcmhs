@@ -329,7 +329,7 @@
 
                 foreach ($weeks as $w_index => $week) { ?>
                   <tr>
-                    <th><strong><?php echo $w_index; ?></strong></th>
+                    <th><strong><?php echo ucwords($w_index); ?></strong></th>
                     <?php foreach ($periods as $period) {
                       if ($period->period_id != 7) { ?>
                         <td>
