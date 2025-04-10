@@ -2249,33 +2249,46 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			$studentId = $student->student_id;
 
 			if ($driveLink && strpos($driveLink, 'drive.google.com') !== false) {
-				// Download image data from Google Drive thumbnail URL
-				$imageData = file_get_contents($driveLink); // Now it fetches the image binary
+				echo "🔗 Trying to fetch image from: $driveLink<br>";
 
-				if ($imageData !== false) {
-					$fileName = 'student_' . $studentId . '.jpg';
-					$folderPath = FCPATH . 'uploads/gcmhs/';
-					$filePath = $folderPath . $fileName;
+				$imageData = @file_get_contents($driveLink); // @ suppresses warnings, we’ll check manually
 
-					// Make sure folder exists
-					if (!is_dir($folderPath)) {
-						mkdir($folderPath, 0755, true);
+				if ($imageData === false) {
+					echo "❌ Failed to download image data for Student ID $studentId from $driveLink<br>";
+					$error = error_get_last();
+					echo "⚠️ file_get_contents() error: " . ($error['message'] ?? 'Unknown error') . "<br>";
+					continue;
+				}
+
+				$fileName = 'student_' . $studentId . '.jpg';
+				$folderPath = FCPATH . 'uploads/gcmhs/';
+				$filePath = $folderPath . $fileName;
+
+				// Make sure folder exists
+				if (!is_dir($folderPath)) {
+					echo "📁 Folder not found, creating: $folderPath<br>";
+					if (!mkdir($folderPath, 0755, true)) {
+						echo "❌ Failed to create folder: $folderPath<br>";
+						continue;
 					}
+				}
 
-					// Save image
-					file_put_contents($filePath, $imageData);
-
+				// Try saving the image
+				if (file_put_contents($filePath, $imageData) === false) {
+					echo "❌ Failed to write image to $filePath<br>";
+				} else {
 					// Optional: update DB
 					$this->db->where('student_id', $studentId)
 						->update('students', ['local_image' => $fileName]);
 
-					echo "✅ Saved image for Student ID $studentId<br>";
-				} else {
-					echo "❌ Failed to download image for Student ID $studentId<br>";
+					echo "✅ Image saved and DB updated for Student ID $studentId<br>";
 				}
+			} else {
+				echo "⚠️ Invalid or missing drive link for Student ID $studentId<br>";
 			}
 		}
 	}
+
 
 	private function extractDriveFileId($url)
 	{
