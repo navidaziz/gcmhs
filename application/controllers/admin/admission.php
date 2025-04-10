@@ -2238,4 +2238,63 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data['bank_challan'] = $this->db->query($query)->row();
 		$this->load->view(ADMIN_DIR . "admission/print_bank_challan", $this->data);
 	}
+
+	public function drive_image()
+	{
+		$query = "SELECT drive_img, student_id FROM students WHERE drive_img IS NOT NULL LIMIT 10";
+		$students = $this->db->query($query)->result();
+
+		foreach ($students as $student) {
+			$driveLink = $student->drive_img;
+			$studentId = $student->student_id;
+
+			if ($driveLink && strpos($driveLink, 'drive.google.com') !== false) {
+				$fileId = $this->extractDriveFileId($driveLink);
+				$imageData = $this->downloadFromGoogleDrive($fileId);
+
+				if ($imageData) {
+					$fileName = 'student_' . $studentId . '.jpg';
+					$folderPath = FCPATH . 'uploads/gcmhs/';
+					$filePath = $folderPath . $fileName;
+
+					// Make sure folder exists
+					if (!is_dir($folderPath)) {
+						mkdir($folderPath, 0755, true);
+					}
+
+					// Save image
+					file_put_contents($filePath, $imageData);
+
+					// Optional: update DB
+					$this->db->where('student_id', $studentId)
+						->update('students', ['local_image' => $fileName]);
+
+					echo "✅ Saved image for Student ID $studentId<br>";
+				} else {
+					echo "❌ Failed to download image for Student ID $studentId<br>";
+				}
+			}
+		}
+	}
+	private function extractDriveFileId($url)
+	{
+		preg_match("/\/d\/(.*?)\//", $url, $matches);
+		return $matches[1] ?? null;
+	}
+
+	private function downloadFromGoogleDrive($fileId)
+	{
+		if (!$fileId) return false;
+
+		$url = "https://drive.google.com/uc?export=download&id={$fileId}";
+
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		$data = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		return ($httpCode === 200) ? $data : false;
+	}
 }
