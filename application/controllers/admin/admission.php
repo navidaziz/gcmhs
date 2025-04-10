@@ -2256,7 +2256,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 				if ($imageData === false) {
 					echo "❌ Failed to download image data for Student ID $studentId from $driveLink<br>";
 					$error = error_get_last();
-					echo "⚠️ file_get_contents() error: " . ($error['message'] ?? 'Unknown error') . "<br>";
+					echo "⚠️ file_get_contents() error: " . ($error['message']) . "<br>";
 					continue;
 				}
 
