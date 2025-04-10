@@ -2243,6 +2243,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$query = "SELECT drive_img, student_id FROM students WHERE drive_img IS NOT NULL LIMIT 10";
 		$students = $this->db->query($query)->result();
+		var_dump($students);
 
 		foreach ($students as $student) {
 			$driveLink = $student->drive_img;
