@@ -2252,6 +2252,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 				echo "🔗 Trying to fetch image from: $driveLink<br>";
 
 				$imageData = @file_get_contents($driveLink); // @ suppresses warnings, we’ll check manually
+				var_dump($imageData);
 
 				if ($imageData === false) {
 					echo "❌ Failed to download image data for Student ID $studentId from $driveLink<br>";
