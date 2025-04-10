@@ -2254,7 +2254,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 				if ($imageData) {
 					$fileName = 'student_' . $studentId . '.jpg';
-					$folderPath = FCPATH . 'uploads/gcmhs/';
+					echo $folderPath = FCPATH . 'uploads/gcmhs/';
 					$filePath = $folderPath . $fileName;
 
 					// Make sure folder exists
