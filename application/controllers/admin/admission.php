@@ -2244,36 +2244,11 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 
 
-		$folderPath = FCPATH . 'uploads/gcmhs/';
-		$fileName = 'test_write.txt';
-		$filePath = $folderPath . $fileName;
-
-		// Make sure folder exists
-		if (!is_dir($folderPath)) {
-			echo "📁 Folder doesn't exist. Trying to create: $folderPath<br>";
-			if (!mkdir($folderPath, 0755, true)) {
-				echo "❌ Failed to create folder. Check folder permissions.<br>";
-				return;
-			} else {
-				echo "✅ Folder created: $folderPath<br>";
-			}
-		} else {
-			echo "📁 Folder already exists: $folderPath<br>";
-		}
-
-		// Test writing to the folder
-		$testContent = "This is a test file written at " . date('Y-m-d H:i:s');
-		if (file_put_contents($filePath, $testContent) !== false) {
-			echo "✅ File written successfully at: $filePath<br>";
-		} else {
-			echo "❌ Failed to write file. Check permissions for: $folderPath<br>";
-		}
-
-		exit();
 
 
 
-		$query = "SELECT drive_img, student_id FROM students WHERE drive_img != '' LIMIT 10;";
+
+		$query = "SELECT drive_img, student_id FROM students WHERE drive_img != '' and local_image IS NULL;";
 		$students = $this->db->query($query)->result();
 
 		foreach ($students as $student) {
