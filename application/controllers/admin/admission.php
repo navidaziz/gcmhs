@@ -2279,8 +2279,13 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	private function extractDriveFileId($url)
 	{
 		preg_match("/\/d\/(.*?)\//", $url, $matches);
-		return $matches[1] ?? null;
+		if ($matches[1]) {
+			return $matches[1];
+		} else {
+			return null;
+		}
 	}
+
 
 	private function downloadFromGoogleDrive($fileId)
 	{
