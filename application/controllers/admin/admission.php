@@ -2241,7 +2241,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 	public function drive_image()
 	{
-		echo $query = "SELECT drive_img, student_id FROM students WHERE drive_img IS NOT NULL LIMIT 10";
+		echo $query = "SELECT drive_img, student_id FROM students WHERE drive_img != '' LIMIT 10;";
 		$students = $this->db->query($query)->result();
 		var_dump($students);
 
