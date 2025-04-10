@@ -17,7 +17,7 @@
   <tbody>
     <?php foreach ($students_list as $student) : ?>
       <tr>
-        <td><?php echo site_url('uploads/gcmhs/' . $student->student_image); ?></td>
+
         <td><?php echo $student->student_id; ?></td>
         <td><?php echo $student->student_admission_no; ?></td>
         <td><?php echo $student->student_name; ?></td>
