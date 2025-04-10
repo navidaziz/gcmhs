@@ -122,7 +122,7 @@
               <tr>
 
                 <td id="count_number"><?php echo $count++; ?></td>
-                <td><?php echo site_url('uploads/gcmhs/' . $student->student_image); ?></td>
+                <td><img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="10" height="10" /></td>
                 <td> <span id="class_number"><?php echo $student->student_class_no;  ?></span> </td>
                 <td><span><?php echo $student->student_admission_no; ?></span></td>
                 <td><span><?php echo $student->student_name;  ?></span></td>
