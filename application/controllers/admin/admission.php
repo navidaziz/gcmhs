@@ -2250,7 +2250,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			$studentId = $student->student_id;
 
 			if ($driveLink && strpos($driveLink, 'drive.google.com') !== false) {
-				$fileId = $this->extractDriveFileId($driveLink);
+				echo $fileId = $this->extractDriveFileId($driveLink);
 				//$imageData = $this->downloadFromGoogleDrive($fileId);
 				$imageData = $fileId;
 
