@@ -2249,13 +2249,12 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			$studentId = $student->student_id;
 
 			if ($driveLink && strpos($driveLink, 'drive.google.com') !== false) {
-				//echo $fileId = $this->extractDriveFileId($driveLink);
-				//$imageData = $this->downloadFromGoogleDrive($fileId);
-				echo $imageData = $driveLink;
+				// Download image data from Google Drive thumbnail URL
+				$imageData = file_get_contents($driveLink); // Now it fetches the image binary
 
-				if ($imageData) {
+				if ($imageData !== false) {
 					$fileName = 'student_' . $studentId . '.jpg';
-					echo $folderPath = FCPATH . 'uploads/gcmhs/';
+					$folderPath = FCPATH . 'uploads/gcmhs/';
 					$filePath = $folderPath . $fileName;
 
 					// Make sure folder exists
@@ -2277,6 +2276,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 			}
 		}
 	}
+
 	private function extractDriveFileId($url)
 	{
 		preg_match("/\/d\/(.*?)\//", $url, $matches);
