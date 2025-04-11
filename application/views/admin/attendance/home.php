@@ -162,10 +162,10 @@ $global_counts = $this->db->query("
                                 AND DATE(`date`) = DATE(Now());";
                         $section_to_day_attendance = $this->db->query($query)->row();
                         if ($section_to_day_attendance) { ?>
-                          <th style="text-align: center;" style="background-color: #7cb5ec;"><?php echo $section_to_day_attendance->present; ?></th>
-                          <th style="text-align: center;" style="background-color: #90ed7d;"><?php echo $section_to_day_attendance->leave; ?></th>
-                          <th style="text-align: center;" style="background-color: #f15c80;"><?php echo $section_to_day_attendance->absent; ?></th>
-                          <th style="text-align: center;" style="background-color: #f15c80;"><?php echo $section_to_day_attendance->evening_absent;  ?></th>
+                          <th style="text-align: center; background-color: #7cb5ec;"><?php echo $section_to_day_attendance->present; ?></th>
+                          <th style="text-align: center; background-color: #90ed7d;"><?php echo $section_to_day_attendance->leave; ?></th>
+                          <th style="text-align: center; background-color: #f15c80;"><?php echo $section_to_day_attendance->absent; ?></th>
+                          <th style="text-align: center; background-color: #f15c80;"><?php echo $section_to_day_attendance->evening_absent;  ?></th>
                         <?php } ?>
 
                       </tr>
