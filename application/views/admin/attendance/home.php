@@ -90,6 +90,55 @@ $global_counts = $this->db->query("
       </div>
       <div class="box-body">
         <div class="table-responsive">
+
+          <?php
+          $query = "SELECT sum(present) as present, 
+                                   sum(`leave`) as `leave`, 
+                                   sum(absent) as absent, 
+                                   sum(total) as total, 
+                                   sum(total_students) as total_students, 
+                                   sum(strucked_off) as strucked_off, 
+                                   (sum(total)*100) / sum(total_students) as total_attendance_percentage 
+                            FROM `today_attendance_summery`";
+          $today_attendance_summary = $this->db->query($query)->result()[0];
+
+
+          ?>
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="dashbox panel panel-default">
+                <div class="panel-body">
+                  <div class="panel-left red">
+                    <i class="fa fa-user fa-3x"></i>
+                  </div>
+                  <div class="panel-right">
+                    <div class="number"><?php echo $today_attendance_summary->total_students; ?></div>
+                    <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->strucked_off; ?></strong> - Struck-Off </div>
+                    <!-- <span class="label label-success">
+                    26% <i class="fa fa-arrow-up"></i>
+                  </span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="dash box pa nel pa nel-de fault">
+                <div class="pa nel-b ody" style="padding: 3px;">
+
+                  <h5>Today Attendance Summary - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %</h5>
+                  <table class="table">
+                    <tr>
+                      <th style="background-color: #7cb5ec;">Present-<?php echo $today_attendance_summary->present; ?></th>
+                      <th style="background-color: #f15c80;">Absent-<?php echo $today_attendance_summary->absent; ?></th>
+                      <th style="background-color: #90ed7d;">On leave-<?php echo $today_attendance_summary->leave; ?></th>
+                    </tr>
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-12">
 
@@ -102,7 +151,7 @@ $global_counts = $this->db->query("
                       <th>Total</th>
                       <th>Struck Off</th>
                       <th style="background-color: #7cb5ec;">Present</th>
-                      <th style="background-color: #90ed7d;">On Leaved</th>
+                      <th style="background-color: #90ed7d;">On Leave</th>
                       <th style="background-color: #f15c80;">Absent</th>
                       <th style="background-color: #f15c80;">Evening Absent</th>
                     </tr>
