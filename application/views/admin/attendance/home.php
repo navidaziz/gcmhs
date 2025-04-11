@@ -85,9 +85,7 @@ $global_counts = $this->db->query("
 <div class="row">
   <div class="col-md-12">
     <div class="box border blue" id="messenger">
-      <div class="box-title">
-        <h4><i class="fa fa-book" aria-hidden="true"></i> <?php echo $title; ?></h4>
-      </div>
+
       <div class="box-body">
         <div class="table-responsive">
 
@@ -142,7 +140,7 @@ $global_counts = $this->db->query("
 
               <?php foreach ($classes as $class): ?>
                 <h4><strong>Class:<?php echo $class->Class_title; ?></strong></h4>
-                <table class="table table-bordered">
+                <table class="table table-bordered table_small">
                   <thead>
                     <tr>
                       <th>Sections</th>
