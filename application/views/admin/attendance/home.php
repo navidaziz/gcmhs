@@ -69,16 +69,7 @@
                                                           echo $this->db->query($query)->result()[0]->total;
                                                           ?>
                     </th>
-
-                    <!-- <th><i class="fa fa-edit"></i></th> -->
-                    <th style="text-align: center;">
-                      <i class="fa fa-users" aria-hidden="true"></i>
-
-                    </th>
-                    <th>Promote</th>
-                    <th style="text-align: center;">
-                      <i class="fa fa-bar-chart-o"></i>
-                    </th>
+                    h>
                   </tr>
                 </thead>
                 </body>
@@ -115,42 +106,6 @@
                         ?>
                       </th>
 
-                      <td style="text-align: center;">
-                        <a href="<?php echo site_url(ADMIN_DIR . "admission/struck_off_students") . "/$class->class_id/$section->section_id"; ?>">
-                          <?php $query = "SELECT COUNT(*) as total FROM students as s
-                              WHERE s.class_id = $class->class_id
-                              AND s.section_id = $section->section_id
-                              AND s.status = 2";
-                          echo $this->db->query($query)->result()[0]->total;
-                          ?> <i class="fa fa-eye"></i></a>
-
-
-                      </td>
-
-
-                      <!-- <td>
-                        <a href="<?php echo site_url(ADMIN_DIR . "admission/view_students") . "/$class->class_id/$section->section_id"; ?>">
-                          <i class="fa fa-edit"></i> </a>
-                      </td> -->
-
-                      <td>
-                        <a href="<?php echo site_url(ADMIN_DIR . "admission/students_list") . "/$class->class_id/$section->section_id"; ?>">
-                          <i class="fa fa-user" aria-hidden="true"></i> View Students</a>
-                      </td>
-                      <td>
-                        <a href="<?php echo site_url(ADMIN_DIR . "admission/promote_students") . "/$class->class_id/$section->section_id"; ?>">
-                          Promote</a>
-                      </td>
-
-                      <!-- <td>
-                        <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/award_list") . "/$class->class_id/$section->section_id"; ?>">
-                          Award List</a>
-                      </td> -->
-
-                      <td>
-                        <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/results") . "/$class->class_id/$section->section_id"; ?>">
-                          <i class="fa fa-bar-chart-o"></i> Progress Report</a>
-                      </td>
                     </tr>
                   <?php } ?>
 
