@@ -125,8 +125,8 @@ $global_counts = $this->db->query("
                     <i class="fa fa-user fa-3x"></i>
                   </div>
                   <div class="panel-right">
-                    <div class="number" style="font-size: 14px;">Total Students: <?php echo $global_counts->total_students_all; ?></div>
-                    <div class="title" style="color: #91e8e1;"><strong><?php echo $global_counts->total_struck_off_all; ?></strong> - Struck-Off </div>
+                    <div class="number" style="font-size: 20px;">Total Students: <?php echo $global_counts->total_students_all; ?></div>
+                    <div class="title" style="color: #91e8e1; font-size:18px"><strong><?php echo $global_counts->total_struck_off_all; ?></strong> - Struck-Off </div>
                     <!-- <span class="label label-success">
                     26% <i class="fa fa-arrow-up"></i>
                   </span> -->
