@@ -97,7 +97,7 @@ $global_counts = $this->db->query("
                         sum(`absent`) as `absent`,
                         sum(`evening_absent`) as evening_absent
                          FROM `daily_class_wise_attendance` 
-                                WHERE  DATE(`date`) = DATE(Now());";;
+                        WHERE  DATE(`date`) = DATE(Now());";;
           $today_attendance_summary = $this->db->query($query)->row();
 
 
@@ -110,8 +110,8 @@ $global_counts = $this->db->query("
                     <i class="fa fa-user fa-3x"></i>
                   </div>
                   <div class="panel-right">
-                    <div class="number"><?php echo $today_attendance_summary->total_students; ?></div>
-                    <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->strucked_off; ?></strong> - Struck-Off </div>
+                    <div class="number">Total Students: <?php echo $global_counts->total_students_all; ?></div>
+                    <div class="title" style="color: #91e8e1;"><strong><?php echo $global_counts->total_struck_off_all; ?></strong> - Struck-Off </div>
                     <!-- <span class="label label-success">
                     26% <i class="fa fa-arrow-up"></i>
                   </span> -->
@@ -123,7 +123,7 @@ $global_counts = $this->db->query("
               <div class="dash box pa nel pa nel-de fault">
                 <div class="pa nel-b ody" style="padding: 3px;">
 
-                  <h5>Today Attendance Summary - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %</h5>
+                  <h5>Today Precent Percentage Summary - <?php echo ($global_counts->total_students_all * 100) / $today_attendance_summary->present; ?> %</h5>
                   <table class="table">
                     <tr>
                       <th style="background-color: #7cb5ec;">Present-<?php echo $today_attendance_summary->present; ?></th>
@@ -141,7 +141,7 @@ $global_counts = $this->db->query("
             <div class="col-md-12">
 
               <?php foreach ($classes as $class): ?>
-                <h4><strong> <?php echo $class->Class_title; ?></strong></h4>
+                <h4><strong>Class:<?php echo $class->Class_title; ?></strong></h4>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
