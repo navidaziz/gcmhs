@@ -8,7 +8,7 @@ class Login extends Public_Controller
    */
   public function __construct()
   {
-    $this->load->model("user_model");
+    // $this->load->model("user_m");
     parent::__construct();
 
     //$this->output->enable_profiler(TRUE);
@@ -33,7 +33,7 @@ class Login extends Public_Controller
 
   public function logout()
   {
-    $this->user_m->logout();
+    $this->session->sess_destroy();
     redirect(ADMIN_DIR . "login");
   }
 }
