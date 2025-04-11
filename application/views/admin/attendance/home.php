@@ -134,7 +134,7 @@ $global_counts = $this->db->query("
                                 WHERE class_id='" . $class->class_id . "'
                                 AND section_id='" . $section->section_id . "'
                                 AND DATE(`date`) = DATE(Now());";
-                      $section_to_day_attendance = $this->db->query()->row();
+                      $section_to_day_attendance = $this->db->query($query)->row();
                       if ($section_to_day_attendance) { ?>
                         <td><?php echo $section_to_day_attendance->present; ?></td>
                         <td><?php echo $section_to_day_attendance->leave; ?></td>
