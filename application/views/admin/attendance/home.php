@@ -35,6 +35,7 @@ foreach ($data as $row) {
       'class_id' => $row->class_id,
       'Class_title' => $row->Class_title,
       'total_students' => 0,
+      'struck_off_students' => 0,
       'sections' => []
     ];
   }
@@ -50,6 +51,7 @@ foreach ($data as $row) {
   }
 
   $classes[$row->class_id]->total_students += $row->total_students;
+  $classes[$row->class_id]->struck_off_students += $row->struck_off_students;
 }
 
 // Get global counts
@@ -147,7 +149,25 @@ $global_counts = $this->db->query("
                         </tr>
                       <?php endforeach; ?>
                       <tr>
-                        <td>Total: <?php echo $class->total_students; ?></td>
+                        <td colspan="2">Total: </td>
+                        <th><?php echo $class->total_students; ?></th>
+                        <th><?php echo $class->struck_off_students; ?></th>
+                        <?php
+                        $query = "SELECT sum(`present`) as `present`,
+                        sum(`leave`) as `leave`,
+                        sum(`absent`) as `absent`,
+                        sum(`evening_absent`) as evening_absent,
+                         FROM `daily_class_wise_attendance` 
+                                WHERE class_id='" . $class->class_id . "'
+                                AND DATE(`date`) = DATE(Now());";
+                        $section_to_day_attendance = $this->db->query($query)->row();
+                        if ($section_to_day_attendance) { ?>
+                          <th><?php echo $section_to_day_attendance->present; ?></th>
+                          <th><?php echo $section_to_day_attendance->leave; ?></th>
+                          <th><?php echo $section_to_day_attendance->absent; ?></th>
+                          <th><?php echo $section_to_day_attendance->evening_absent;  ?></th>
+                        <?php } ?>
+
                       </tr>
                     <?php endif; ?>
                   <?php endforeach; ?>
