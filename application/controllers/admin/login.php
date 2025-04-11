@@ -8,7 +8,7 @@ class Login extends Public_Controller
    */
   public function __construct()
   {
-
+    $this->load->model("admin/user_model");
     parent::__construct();
 
     //$this->output->enable_profiler(TRUE);

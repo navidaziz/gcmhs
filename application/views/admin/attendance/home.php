@@ -60,6 +60,32 @@ $global_counts = $this->db->query("
     FROM students
 ")->row();
 ?>
+
+<?php
+$evening_attendance = 0;
+$query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
+            class_id = '" . $class_id . "' and section_id = '" . $section_id . "'
+            AND attendance2 IS NOT NULL  
+            AND date(created_date) = DATE(NOW())";
+$today_evening_attendance = $this->db->query($query)->result()[0]->total;
+
+if ($today_evening_attendance == 0 and date('N') != 7 and $evening) {
+  $evening_attendance = 1;
+}
+$today_attendance = 0;
+$query = "SELECT COUNT(*) as total FROM `students_attendance` 
+            WHERE class_id = '" . $class_id . "' 
+            and section_id = '" . $section_id . "' 
+            AND date(created_date) = DATE(NOW())";
+$today_attendance = $this->db->query($query)->result()[0]->total;
+if ($today_attendance or date('N') == 7) {
+  $today_attendance = 1;
+}
+if (date('N') == 7) {
+  echo "<h4 style=\"color:red;\">Sunday ! School off.</h4>";
+}
+
+?>
 <!-- PAGE HEADER-->
 <div class="row">
   <div class="col-sm-12">
@@ -96,15 +122,38 @@ $global_counts = $this->db->query("
                     <th>Sections</th>
                     <th>Total</th>
                     <th>Struck Off</th>
+                    <?php if ($today_attendance == 0) { ?>
+                      <th style="text-align: center;">Y.day</th>
+                      <th style="text-align: center;">P</th>
+                      <!-- <th style="text-align: center;">CL</th> -->
+                      <th style="text-align: center;">L</th>
+                      <th style="text-align: center;">A</th>
+                      <?php } else {
+                      for ($i = 5; $i >= 0; $i--) {
+                      ?>
+                        <?php if ($i == 0) { ?>
+                          <th style="text-align: center;">T.day</th>
+                        <?php } else { ?>
+                          <th style="text-align: center;"><?php echo date('d', strtotime("-$i days")); ?></th>
+                        <?php } ?>
+
+                      <?php } ?>
+
+                    <?php } ?>
+                    <?php if ($evening_attendance == 1  and $today_attendance == 1) { ?>
+                      <th style="text-align: center;">E-P</th>
+                      <th style="text-align: center;">E-L</th>
+                      <th style="text-align: center;">E-A</th>
+                    <?php } ?>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($classes as $class): ?>
                     <?php if (!empty($class->sections)): ?>
                       <?php foreach ($class->sections as $index => $section): ?>
-                        <tr>
+                        <tr style="background-color: <?php echo $section->color; ?>;">
 
-                          <td style="background-color: <?php echo $section->color; ?>;">
+                          <td>
                             <?php echo $class->Class_title; ?>
                           </td>
                           <td>
