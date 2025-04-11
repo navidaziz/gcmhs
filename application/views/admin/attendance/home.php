@@ -124,31 +124,31 @@ $global_counts = $this->db->query("
                             <?php echo $section->struck_off_students; ?>
                           </td>
 
+                          <?php
+                          $query = "SELECT * FROM `daily_class_wise_attendance` 
+                                WHERE class_id='" . $class->class_id . "'
+                                AND section_id='" . $section->section_id . "'
+                                AND DATE(`date`) = DATE(Now());";
+                          $section_to_day_attendance = $this->db->query($query)->row();
+                          if ($section_to_day_attendance) { ?>
+                            <td><?php echo $section_to_day_attendance->present; ?></td>
+                            <td><?php echo $section_to_day_attendance->leave; ?></td>
+                            <td><?php echo $section_to_day_attendance->absent; ?></td>
+                            <td><?php
+                                if ($section_to_day_attendance->ea == 'y') {
+                                  echo $section_to_day_attendance->evening_absent;
+                                } else {
+                                  echo 'Pending..';
+                                } ?></td>
+                          <?php } else { ?>
+                            <td colspan="4">Attendance Pending</td>
+                          <?php } ?>
+
                         </tr>
                       <?php endforeach; ?>
                       <tr>
                         <td>Total: <?php echo $class->total_students; ?></td>
                       </tr>
-                      <?php
-                      $query = "SELECT * FROM `daily_class_wise_attendance` 
-                                WHERE class_id='" . $class->class_id . "'
-                                AND section_id='" . $section->section_id . "'
-                                AND DATE(`date`) = DATE(Now());";
-                      $section_to_day_attendance = $this->db->query($query)->row();
-                      if ($section_to_day_attendance) { ?>
-                        <td><?php echo $section_to_day_attendance->present; ?></td>
-                        <td><?php echo $section_to_day_attendance->leave; ?></td>
-                        <td><?php echo $section_to_day_attendance->absent; ?></td>
-                        <td><?php
-                            if ($section_to_day_attendance->ea == 'y') {
-                              echo $section_to_day_attendance->evening_absent;
-                            } else {
-                              echo 'Pending..';
-                            } ?></td>
-                      <?php } else { ?>
-                        <td colspan="4">Attendance Pending</td>
-                      <?php } ?>
-                      ?>
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </tbody>
