@@ -88,7 +88,7 @@ $global_counts = $this->db->query("
         <li>
           <i class="fa fa-home"></i>
           <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
-            <?php echo $this->lang->line('Home'); ?>
+            Home
           </a>
         </li>
         <li><?php echo $title; ?></li>
@@ -163,10 +163,11 @@ $global_counts = $this->db->query("
                       <th>Sections</th>
                       <th>Total</th>
                       <th>Struck Off</th>
-                      <th style="background-color: #7cb5ec;">Present</th>
-                      <th style="background-color: #90ed7d;">On Leave</th>
-                      <th style="background-color: #f15c80;">Absent</th>
-                      <th style="background-color: #f15c80;">Evening Absent</th>
+                      <th style="background-color: #7cb5ec;">Pre.</th>
+                      <th style="background-color: #90ed7d;">Lea.</th>
+                      <th style="background-color: #f15c80;">Abs.</th>
+                      <th style="background-color: #f15c80;">Eve. Abs.</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -213,7 +214,7 @@ $global_counts = $this->db->query("
                                                                       echo '-';
                                                                     } ?></td>
                           <?php } ?>
-
+                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Add</a></td>
                         </tr>
                       <?php endforeach; ?>
                       <tr>
