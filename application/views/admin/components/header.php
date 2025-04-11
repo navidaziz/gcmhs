@@ -155,7 +155,7 @@
   <!--<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR . "css/my_fucking_style.css"); ?>" />-->
   <header class="navbar clearfix" id="header">
     <div class="container">
-      <div class="navbar-brand" style="height:78px;">
+      <div class="navbar-brand">
 
         <!-- COMPANY LOGO -->
         <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
