@@ -23,32 +23,43 @@ class School_dashboard extends Admin_Controller
 	public function index()
 	{
 
-		/*var_dump($this->session->userdata('student_name'));
-		exit();
-		*/
-		$query = "SELECT * FROM `classes` WHERE status=1 ORDER BY class_id DESC";
-
+		// Step 1: Get all active classes
+		$query = "SELECT * FROM `classes` WHERE status = 1 ORDER BY class_id DESC";
 		$result = $this->db->query($query);
 		$classes = $result->result();
-		//var_dump($classes);
 
-		foreach ($classes as $classe) {
-			$query = "SELECT DISTINCT 
-						  `sections`.`section_id`,
-						  `sections`.`section_title`,
-						  `sections`.`color` 
-						FROM
-						  `students`,
-						  `sections` 
-						WHERE `students`.`section_id` = `sections`.`section_id`
-						AND `students`.`status` =1
-						AND `students`.`class_id` ='" . $classe->class_id . "'
-				        AND  `sections` . `section_id` != '15'";
+		// Step 2: Get all relevant sections for these classes (excluding section_id = 15)
+		$class_ids = array_column($classes, 'class_id');
+		$class_ids_in = implode(',', array_map('intval', $class_ids));
 
-			$result = $this->db->query($query);
-			$sections = $result->result();
-			$classe->sections = $sections;
+		$section_query = "
+	SELECT 
+		students.class_id,
+		sections.section_id,
+		sections.section_title,
+		sections.color
+	FROM students
+	JOIN sections ON students.section_id = sections.section_id
+	WHERE students.status = 1
+	AND students.class_id IN ($class_ids_in)
+	AND sections.section_id != 15
+	GROUP BY students.class_id, sections.section_id
+";
+
+		$result = $this->db->query($section_query);
+		$section_rows = $result->result();
+
+		// Step 3: Group sections under their respective classes
+		$sections_by_class = [];
+		foreach ($section_rows as $row) {
+			$sections_by_class[$row->class_id][] = $row;
 		}
+
+		// Step 4: Attach sections to their respective class
+		foreach ($classes as $class) {
+			$class->sections = $sections_by_class[$class->class_id] ?? [];
+		}
+
 
 		//var_dump($classes);
 		$this->data['classes'] = $classes;
