@@ -49,7 +49,7 @@
 
         <div class="table-responsive">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <!-- MESSENGER -->
 
               <table class="table table-bordered">
@@ -69,7 +69,7 @@
                                                           echo $this->db->query($query)->result()[0]->total;
                                                           ?>
                     </th>
-                    h>
+
                   </tr>
                 </thead>
                 </body>
@@ -105,6 +105,19 @@
                         echo $this->db->query($query)->result()[0]->total;
                         ?>
                       </th>
+
+                      <td style="text-align: center;">
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/struck_off_students") . "/$class->class_id/$section->section_id"; ?>">
+                          <?php $query = "SELECT COUNT(*) as total FROM students as s
+                              WHERE s.class_id = $class->class_id
+                              AND s.section_id = $section->section_id
+                              AND s.status = 2";
+                          echo $this->db->query($query)->result()[0]->total;
+                          ?> <i class="fa fa-eye"></i></a>
+
+
+                      </td>
+
 
                     </tr>
                   <?php } ?>
