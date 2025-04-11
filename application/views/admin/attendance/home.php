@@ -122,24 +122,7 @@ if (date('N') == 7) {
                     <th>Sections</th>
                     <th>Total</th>
                     <th>Struck Off</th>
-                    <?php if ($today_attendance == 0) { ?>
-                      <th style="text-align: center;">Y.day</th>
-                      <th style="text-align: center;">P</th>
-                      <!-- <th style="text-align: center;">CL</th> -->
-                      <th style="text-align: center;">L</th>
-                      <th style="text-align: center;">A</th>
-                      <?php } else {
-                      for ($i = 5; $i >= 0; $i--) {
-                      ?>
-                        <?php if ($i == 0) { ?>
-                          <th style="text-align: center;">T.day</th>
-                        <?php } else { ?>
-                          <th style="text-align: center;"><?php echo date('d', strtotime("-$i days")); ?></th>
-                        <?php } ?>
 
-                      <?php } ?>
-
-                    <?php } ?>
                     <?php if ($evening_attendance == 1  and $today_attendance == 1) { ?>
                       <th style="text-align: center;">E-P</th>
                       <th style="text-align: center;">E-L</th>
@@ -167,6 +150,14 @@ if (date('N') == 7) {
                           <td style="text-align: center;">
                             <?php echo $section->struck_off_students; ?>
                           </td>
+                          <?php if ($today_attendance == 0) { ?>
+                            <th style="text-align: center;">Y.day</th>
+                            <th style="text-align: center;">Present</th>
+                            <th style="text-align: center;">Leaved</th>
+                            <th style="text-align: center;">Absent</th>
+                          <?php } else { ?>
+                            <td><a href="">Add Today Attendance</a></td>
+                          <?php } ?>
                         </tr>
                       <?php endforeach; ?>
                       <tr>
