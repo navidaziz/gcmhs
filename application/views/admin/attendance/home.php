@@ -92,28 +92,25 @@ $global_counts = $this->db->query("
         <div class="table-responsive">
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Classes</th>
-                    <th>Sections</th>
-                    <th>Total</th>
-                    <th>Struck Off</th>
-                    <th style="background-color: #7cb5ec;">Present</th>
-                    <th style="background-color: #90ed7d;">On Leaved</th>
-                    <th style="background-color: #f15c80;">Absent</th>
-                    <th style="background-color: #f15c80;">Evening Absent</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach ($classes as $class): ?>
+              <h4><strong> <?php echo $class->Class_title; ?></strong></h4>
+              <?php foreach ($classes as $class): ?>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Sections</th>
+                      <th>Total</th>
+                      <th>Struck Off</th>
+                      <th style="background-color: #7cb5ec;">Present</th>
+                      <th style="background-color: #90ed7d;">On Leaved</th>
+                      <th style="background-color: #f15c80;">Absent</th>
+                      <th style="background-color: #f15c80;">Evening Absent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     <?php if (!empty($class->sections)): ?>
                       <?php foreach ($class->sections as $index => $section): ?>
                         <tr>
 
-                          <th style="background-color: <?php echo $section->color; ?>;">
-                            <?php echo $class->Class_title; ?>
-                          </th>
                           <th style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $section->section_title; ?>
                           </th>
@@ -157,7 +154,7 @@ $global_counts = $this->db->query("
                         </tr>
                       <?php endforeach; ?>
                       <tr>
-                        <th style="text-align: center;" colspan="2">Total: </th>
+                        <th style="text-align: center;">Total: </th>
                         <th style="text-align: center;"><?php echo $class->total_students; ?></th>
                         <th style="text-align: center;"><?php echo $class->struck_off_students; ?></th>
                         <?php
@@ -178,9 +175,10 @@ $global_counts = $this->db->query("
 
                       </tr>
                     <?php endif; ?>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              <?php endforeach; ?>
+
             </div>
           </div>
         </div>
