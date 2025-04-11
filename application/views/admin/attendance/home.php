@@ -61,31 +61,6 @@ $global_counts = $this->db->query("
 ")->row();
 ?>
 
-<?php
-$evening_attendance = 0;
-$query = "SELECT COUNT(*) as total FROM `students_attendance` WHERE 
-            class_id = '" . $class_id . "' and section_id = '" . $section_id . "'
-            AND attendance2 IS NOT NULL  
-            AND date(created_date) = DATE(NOW())";
-$today_evening_attendance = $this->db->query($query)->result()[0]->total;
-
-if ($today_evening_attendance == 0 and date('N') != 7 and $evening) {
-  $evening_attendance = 1;
-}
-$today_attendance = 0;
-$query = "SELECT COUNT(*) as total FROM `students_attendance` 
-            WHERE class_id = '" . $class_id . "' 
-            and section_id = '" . $section_id . "' 
-            AND date(created_date) = DATE(NOW())";
-$today_attendance = $this->db->query($query)->result()[0]->total;
-if ($today_attendance or date('N') == 7) {
-  $today_attendance = 1;
-}
-if (date('N') == 7) {
-  echo "<h4 style=\"color:red;\">Sunday ! School off.</h4>";
-}
-
-?>
 <!-- PAGE HEADER-->
 <div class="row">
   <div class="col-sm-12">
@@ -122,12 +97,10 @@ if (date('N') == 7) {
                     <th>Sections</th>
                     <th>Total</th>
                     <th>Struck Off</th>
-
-                    <?php if ($evening_attendance == 1  and $today_attendance == 1) { ?>
-                      <th style="text-align: center;">E-P</th>
-                      <th style="text-align: center;">E-L</th>
-                      <th style="text-align: center;">E-A</th>
-                    <?php } ?>
+                    <th>Present</th>
+                        <th>On Leaved</th>
+                        <th>Absent</th>
+                        <th>Evening</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -150,19 +123,33 @@ if (date('N') == 7) {
                           <td style="text-align: center;">
                             <?php echo $section->struck_off_students; ?>
                           </td>
-                          <?php if ($today_attendance == 0) { ?>
-                            <th style="text-align: center;">Y.day</th>
-                            <th style="text-align: center;">Present</th>
-                            <th style="text-align: center;">Leaved</th>
-                            <th style="text-align: center;">Absent</th>
-                          <?php } else { ?>
-                            <td><a href="">Add Today Attendance</a></td>
-                          <?php } ?>
+
                         </tr>
                       <?php endforeach; ?>
                       <tr>
                         <td>Total: <?php echo $class->total_students; ?></td>
                       </tr>
+                      <?php
+                      $query = "SELECT * FROM `daily_class_wise_attendance` 
+                                WHERE class_id='" . $class->class_id . "'
+                                AND section_id='" . $section->section_id . "'
+                                AND DATE(`date`) = DATE(Now());";
+                      $section_to_day_attendance = $this->db->query()->row();
+                      if ($section_to_day_attendance) { ?>
+                        <td><?php echo $section_to_day_attendance->present; ?></td>
+                        <td><?php echo $section_to_day_attendance->leave; ?></td>
+                        <td><?php echo $section_to_day_attendance->absent; ?></td>
+                        <td><?php
+                            if ($section_to_day_attendance->ea == 'y'){
+                              echo $section_to_day_attendance->evening_absent; 
+                              
+                            }echo {
+                              echo 'Pending..';
+                            }?></td>
+                      <?php } else { ?>
+                        <td  colspan="4">Attendance Pending</td>
+                      <?php } ?>
+                      ?>
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </tbody>
