@@ -111,12 +111,12 @@ $global_counts = $this->db->query("
                       <?php foreach ($class->sections as $index => $section): ?>
                         <tr>
 
-                          <td style="background-color: <?php echo $section->color; ?>;">
+                          <th style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $class->Class_title; ?>
-                          </td>
-                          <td style="background-color: <?php echo $section->color; ?>;">
+                          </th>
+                          <th style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $section->section_title; ?>
-                          </td>
+                          </th>
 
                           <th style="text-align: center;">
                             <?php echo $section->active_students; ?>
@@ -140,10 +140,18 @@ $global_counts = $this->db->query("
                                                                     if ($section_to_day_attendance->ea == 'y') {
                                                                       echo $section_to_day_attendance->evening_absent;
                                                                     } else {
-                                                                      echo 'Pending..';
+                                                                      echo '-';
                                                                     } ?></td>
                           <?php } else { ?>
-                            <td colspan="4">Attendance Pending</td>
+                            <td style="background-color: #7cb5ec;">-</td>
+                            <td style="background-color: #90ed7d;">-</td>
+                            <td style="background-color: #f15c80;">-</td>
+                            <td style="background-color: #f15c80;"><?php
+                                                                    if ($section_to_day_attendance->ea == 'y') {
+                                                                      echo $section_to_day_attendance->evening_absent;
+                                                                    } else {
+                                                                      echo '-';
+                                                                    } ?></td>
                           <?php } ?>
 
                         </tr>
