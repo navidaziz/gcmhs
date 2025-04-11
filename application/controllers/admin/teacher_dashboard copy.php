@@ -65,7 +65,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Teacher Dashboard";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/dashboard";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
     public function add_students_subject_result($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
@@ -161,7 +161,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Subject Marks";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_list";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
     public function students_result($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
@@ -219,7 +219,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Subject Marks";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_result";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
     public function students_result_update($exam_id, $class_id, $section_id, $class_subject_id, $subject_id)
@@ -275,7 +275,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Subject Marks";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/students_result";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
     public function save_student_result()
     {
@@ -372,7 +372,7 @@ class Teacher_dashboard extends Admin_Controller
         $this->data['teacher_subjects'] = $this->db->query($query)->result();
         $this->data["title"] = "Teacher Dashboard";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/test_exams_list";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
     public function add_student_attendance_form($class, $section, $attendance_date, $evening = false)
@@ -390,7 +390,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance_form";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
 
@@ -430,7 +430,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
 
@@ -450,7 +450,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/edit_student_attendance_form";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
 
 
@@ -468,7 +468,7 @@ class Teacher_dashboard extends Admin_Controller
 
         $this->data["title"] = "Class " . $class_title . " " . $section_title . " Attendance";
         $this->data["view"] = ADMIN_DIR . "teacher_dashboard/add_student_attendance";
-        $this->load->view(ADMIN_DIR . "layout", $this->data);
+        $this->load->view(ADMIN_DIR . "layout_mobile", $this->data);
     }
     public function add_attendance()
     {
