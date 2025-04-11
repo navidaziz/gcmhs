@@ -8,7 +8,7 @@ class Login extends Public_Controller
    */
   public function __construct()
   {
-    // $this->load->model("user_m");
+    $this->load->model("user_m");
     parent::__construct();
 
     //$this->output->enable_profiler(TRUE);
@@ -27,13 +27,13 @@ class Login extends Public_Controller
 
       redirect(ADMIN_DIR . $this->session->userdata("role_homepage_uri"), 'refresh');
     } else {
-      redirect(base_url(ADMIN_DIR . 'login'), 'refresh');
+      redirect(base_url(ADMIN_DIR . 'users/login'), 'refresh');
     }
   }
 
   public function logout()
   {
     $this->session->sess_destroy();
-    redirect(ADMIN_DIR . "login");
+    redirect(ADMIN_DIR . "users/login");
   }
 }
