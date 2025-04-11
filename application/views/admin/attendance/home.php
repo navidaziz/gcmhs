@@ -107,12 +107,12 @@ $global_counts = $this->db->query("
                   <?php foreach ($classes as $class): ?>
                     <?php if (!empty($class->sections)): ?>
                       <?php foreach ($class->sections as $index => $section): ?>
-                        <tr style="background-color: <?php echo $section->color; ?>;">
+                        <tr>
 
-                          <td>
+                          <td style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $class->Class_title; ?>
                           </td>
-                          <td>
+                          <td style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $section->section_title; ?>
                           </td>
 
