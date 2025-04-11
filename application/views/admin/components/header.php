@@ -159,7 +159,7 @@
 
         <!-- COMPANY LOGO -->
         <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>">
-          <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:70px; height:70px !important;"></a>
+          <img src="<?php echo site_url("assets/uploads/" . $system_global_settings[0]->sytem_admin_logo); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" class="img-responsive " style="width:30px; height:30px !important;"></a>
         <!-- /COMPANY LOGO -->
         <!-- TEAM STATUS FOR MOBILE -->
         <div class="visible-xs "> <a href="#" class="team-status-toggle switcher btn dropdown-toggle"> <i class="fa fa-users"></i> </a> </div>
@@ -175,11 +175,6 @@
 
       <!-- BEGIN TOP NAVIGATION MENU -->
       <ul class="nav navbar-nav pull-right">
-        <h3 style="color:white; float:right; display:block;"><?php //echo $system_global_settings[0]->system_title 
-                                                              ?></h3>
-        <br>
-
-
 
         <li style="float:right;" class="dropdown user" id="header-user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img alt="" src="<?php echo site_url("assets/uploads/" . $this->session->userdata("user_image")); ?>" /> <span class="username"><?php echo $this->session->userdata("user_title"); ?></span> <i class="fa fa-angle-down"></i> </a>
           <ul class="dropdown-menu">
