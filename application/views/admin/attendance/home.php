@@ -102,15 +102,9 @@ $global_counts = $this->db->query("
                     <?php if (!empty($class->sections)): ?>
                       <?php foreach ($class->sections as $index => $section): ?>
                         <tr>
-                          <?php if ($index === 0): ?>
-                            <th style="text-align: center;" rowspan="<?php echo count($class->sections); ?>">
-                              <?php echo $class->Class_title; ?>
-                              <br /><small><?php echo $class->total_students; ?></small>
-                            </th>
-                          <?php endif; ?>
 
                           <td style="background-color: <?php echo $section->color; ?>;">
-                            <?php echo $section->section_title; ?>
+                            <?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?>
                           </td>
 
                           <th style="text-align: center;">
@@ -125,6 +119,9 @@ $global_counts = $this->db->query("
                           </td>
                         </tr>
                       <?php endforeach; ?>
+                      <tr>
+                        <td>Total: <?php echo $class->total_students; ?></td>
+                      </tr>
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </tbody>
