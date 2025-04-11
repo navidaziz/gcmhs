@@ -156,7 +156,7 @@ $global_counts = $this->db->query("
                         $query = "SELECT sum(`present`) as `present`,
                         sum(`leave`) as `leave`,
                         sum(`absent`) as `absent`,
-                        sum(`evening_absent`) as evening_absent,
+                        sum(`evening_absent`) as evening_absent
                          FROM `daily_class_wise_attendance` 
                                 WHERE class_id='" . $class->class_id . "'
                                 AND DATE(`date`) = DATE(Now());";
