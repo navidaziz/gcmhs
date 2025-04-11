@@ -99,10 +99,10 @@ $global_counts = $this->db->query("
                     <th>Sections</th>
                     <th>Total</th>
                     <th>Struck Off</th>
-                    <th>Present</th>
-                    <th>On Leaved</th>
-                    <th>Absent</th>
-                    <th>Evening</th>
+                    <th style="background-color: #7cb5ec;">Present</th>
+                    <th style="background-color: #90ed7d;">On Leaved</th>
+                    <th style="background-color: #f15c80;">Absent</th>
+                    <th style="background-color: #f15c80;">Evening Absent</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -133,15 +133,15 @@ $global_counts = $this->db->query("
                                 AND DATE(`date`) = DATE(Now());";
                           $section_to_day_attendance = $this->db->query($query)->row();
                           if ($section_to_day_attendance) { ?>
-                            <td><?php echo $section_to_day_attendance->present; ?></td>
-                            <td><?php echo $section_to_day_attendance->leave; ?></td>
-                            <td><?php echo $section_to_day_attendance->absent; ?></td>
-                            <td><?php
-                                if ($section_to_day_attendance->ea == 'y') {
-                                  echo $section_to_day_attendance->evening_absent;
-                                } else {
-                                  echo 'Pending..';
-                                } ?></td>
+                            <td style="background-color: #7cb5ec;"><?php echo $section_to_day_attendance->present; ?></td>
+                            <td style="background-color: #90ed7d;"><?php echo $section_to_day_attendance->leave; ?></td>
+                            <td style="background-color: #f15c80;"><?php echo $section_to_day_attendance->absent; ?></td>
+                            <td style="background-color: #f15c80;"><?php
+                                                                    if ($section_to_day_attendance->ea == 'y') {
+                                                                      echo $section_to_day_attendance->evening_absent;
+                                                                    } else {
+                                                                      echo 'Pending..';
+                                                                    } ?></td>
                           <?php } else { ?>
                             <td colspan="4">Attendance Pending</td>
                           <?php } ?>
@@ -149,9 +149,9 @@ $global_counts = $this->db->query("
                         </tr>
                       <?php endforeach; ?>
                       <tr>
-                        <td colspan="2">Total: </td>
-                        <th><?php echo $class->total_students; ?></th>
-                        <th><?php echo $class->struck_off_students; ?></th>
+                        <th style="text-align: center;" colspan="2">Total: </th>
+                        <th style="text-align: center;"><?php echo $class->total_students; ?></th>
+                        <th style="text-align: center;"><?php echo $class->struck_off_students; ?></th>
                         <?php
                         $query = "SELECT sum(`present`) as `present`,
                         sum(`leave`) as `leave`,
@@ -162,10 +162,10 @@ $global_counts = $this->db->query("
                                 AND DATE(`date`) = DATE(Now());";
                         $section_to_day_attendance = $this->db->query($query)->row();
                         if ($section_to_day_attendance) { ?>
-                          <th><?php echo $section_to_day_attendance->present; ?></th>
-                          <th><?php echo $section_to_day_attendance->leave; ?></th>
-                          <th><?php echo $section_to_day_attendance->absent; ?></th>
-                          <th><?php echo $section_to_day_attendance->evening_absent;  ?></th>
+                          <th style="text-align: center;" style="background-color: #7cb5ec;"><?php echo $section_to_day_attendance->present; ?></th>
+                          <th style="text-align: center;" style="background-color: #90ed7d;"><?php echo $section_to_day_attendance->leave; ?></th>
+                          <th style="text-align: center;" style="background-color: #f15c80;"><?php echo $section_to_day_attendance->absent; ?></th>
+                          <th style="text-align: center;" style="background-color: #f15c80;"><?php echo $section_to_day_attendance->evening_absent;  ?></th>
                         <?php } ?>
 
                       </tr>
