@@ -92,9 +92,10 @@ $global_counts = $this->db->query("
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th colspan="2">Classes-Sections - <small><?php echo $global_counts->total_students_all; ?></small></th>
+                    <th>Classes</th>
+                    <th>Sections</th>
                     <th>Total</th>
-                    <th title="struck Off">Struck Off - <?php echo $global_counts->total_struck_off_all; ?></th>
+                    <th>Struck Off</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -104,7 +105,10 @@ $global_counts = $this->db->query("
                         <tr>
 
                           <td style="background-color: <?php echo $section->color; ?>;">
-                            <?php echo $class->Class_title; ?> - <?php echo $section->section_title; ?>
+                            <?php echo $class->Class_title; ?>
+                          </td>
+                          <td>
+                            <?php echo $section->section_title; ?>
                           </td>
 
                           <th style="text-align: center;">
@@ -112,10 +116,7 @@ $global_counts = $this->db->query("
                           </th>
 
                           <td style="text-align: center;">
-                            <a href="<?php echo site_url(ADMIN_DIR . "admission/struck_off_students/{$class->class_id}/{$section->section_id}"); ?>">
-                              <?php echo $section->struck_off_students; ?>
-                              <i class="fa fa-eye"></i>
-                            </a>
+                            <?php echo $section->struck_off_students; ?>
                           </td>
                         </tr>
                       <?php endforeach; ?>
