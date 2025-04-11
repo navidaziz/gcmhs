@@ -1,3 +1,20 @@
+<style>
+  .table_small>thead>tr>th,
+  .table_small>tbody>tr>th,
+  .table_small>tfoot>tr>th,
+  .table_small>thead>tr>td,
+  .table_small>tbody>tr>td,
+  .table_small>tfoot>tr>td {
+    padding: 4px;
+    line-height: 1;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    font-size: 12px !important;
+    color: black;
+    margin: 0px !important;
+  }
+</style>
+
 <?php
 // Single optimized query to fetch all required data
 $query = "
