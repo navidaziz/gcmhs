@@ -92,8 +92,9 @@ $global_counts = $this->db->query("
         <div class="table-responsive">
           <div class="row">
             <div class="col-md-12">
-              <h4><strong> <?php echo $class->Class_title; ?></strong></h4>
+
               <?php foreach ($classes as $class): ?>
+                <h4><strong> <?php echo $class->Class_title; ?></strong></h4>
                 <table class="table table-bordered">
                   <thead>
                     <tr>
