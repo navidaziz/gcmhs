@@ -98,9 +98,9 @@ $global_counts = $this->db->query("
                     <th>Total</th>
                     <th>Struck Off</th>
                     <th>Present</th>
-                        <th>On Leaved</th>
-                        <th>Absent</th>
-                        <th>Evening</th>
+                    <th>On Leaved</th>
+                    <th>Absent</th>
+                    <th>Evening</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,14 +140,13 @@ $global_counts = $this->db->query("
                         <td><?php echo $section_to_day_attendance->leave; ?></td>
                         <td><?php echo $section_to_day_attendance->absent; ?></td>
                         <td><?php
-                            if ($section_to_day_attendance->ea == 'y'){
-                              echo $section_to_day_attendance->evening_absent; 
-                              
-                            }echo {
+                            if ($section_to_day_attendance->ea == 'y') {
+                              echo $section_to_day_attendance->evening_absent;
+                            } else {
                               echo 'Pending..';
-                            }?></td>
+                            } ?></td>
                       <?php } else { ?>
-                        <td  colspan="4">Attendance Pending</td>
+                        <td colspan="4">Attendance Pending</td>
                       <?php } ?>
                       ?>
                     <?php endif; ?>
