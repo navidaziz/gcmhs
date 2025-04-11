@@ -123,7 +123,7 @@ $global_counts = $this->db->query("
               <div class="dash box pa nel pa nel-de fault">
                 <div class="pa nel-b ody" style="padding: 3px;">
 
-                  <h5>Today Precent Percentage Summary - <?php echo ($today_attendance_summary->present * 100) / $global_counts->total_students_all; ?> %</h5>
+                  <h5>Today Precent Percentage Summary - <?php echo round(($today_attendance_summary->present * 100) / $global_counts->total_students_all, 2); ?> %</h5>
                   <table class="table">
                     <tr>
                       <th style="background-color: #7cb5ec;">Present-<?php echo $today_attendance_summary->present; ?></th>
