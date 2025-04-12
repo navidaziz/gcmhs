@@ -207,7 +207,7 @@ $monthlyAvg = $this->db->query("
     FROM daily_class_wise_attendance
     WHERE YEAR(created_date) = YEAR(CURDATE()) 
       AND MONTH(created_date) = MONTH(CURDATE()) 
-    GROUP BY section_title
+    GROUP BY class_title, section_title
     ORDER BY avg_absent DESC 
     LIMIT 10
 ")->result();
