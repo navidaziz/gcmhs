@@ -122,48 +122,10 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <?php
-  // 1. Fetch daily attendance summary for the last 30 days
-  $dailyQuery = "
-    SELECT DATE(created_date) as day, 
-           SUM(absent) as absent, 
-           SUM(total) as total, 
-           SUM(present) as present 
-    FROM daily_class_wise_attendance
-    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
-    GROUP BY DATE(created_date)
-";
-  $dailyData = $this->db->query($dailyQuery)->result();
-
-  // 2. Format for chart
-  $dayWise = [];
-  foreach ($dailyData as $row) {
-    $day = date('Y-m-d', strtotime($row->day)); // Use full date for more precise matching
-    $dayWise[$day] = $row;
-  }
-
-  $categories = $daily_absent = $daily_total = $daily_present = [];
-  for ($i = 30; $i >= 0; $i--) {
-    $date = date('Y-m-d', strtotime("-$i days"));
-    $categories[] = date('j M', strtotime($date)); // e.g., "12 Apr"
-    if (isset($dayWise[$date])) {
-      $daily_absent[] = (int)$dayWise[$date]->absent;
-      $daily_total[]  = (int)$dayWise[$date]->total;
-      $daily_present[] = (int)$dayWise[$date]->present;
-    } else {
-      $daily_absent[] = null;
-      $daily_total[] = null;
-      $daily_present[] = null;
-    }
-  }
 
 
-  // 3. Get monthly absent average
-  $avgAbsentQuery = "
-    SELECT AVG(absent) as absent 
-    FROM daily_total_attendance 
-    WHERE YEAR(created_date) = YEAR(CURDATE())
-      AND MONTH(created_date) = MONTH(CURDATE())";
-  $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
+
+
 
   // 4. Today's class-wise summary
   $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
@@ -192,84 +154,10 @@
     }
   }
 
-  // 5. Monthly avg by class (top 10)
-  $monthlyAvg = $this->db->query("
-    SELECT class_title, section_title, AVG(absent) as avg_absent 
-    FROM daily_class_wise_attendance
-    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
-    GROUP BY class_title, section_title
-    ORDER BY avg_absent DESC
-")->result();
 
-  $monthly_absent_avg = [];
-  foreach ($monthlyAvg as $row) {
-    $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
-  }
 
   ?>
   <script>
-    Highcharts.chart('daily_attendance', {
-      chart: {
-        type: 'spline'
-      },
-      title: {
-        text: 'Last 30 Day Attendance Trend Analysis'
-      },
-      subtitle: {
-        text: 'Total - Present - Absent - AVG Absent Per Day.'
-      },
-      xAxis: {
-        categories: <?php echo json_encode($categories); ?>
-      },
-      yAxis: {
-        title: {
-          text: 'Total Students'
-        },
-        plotLines: [{
-          id: 'avg',
-          value: <?php echo $dailyabseentaverage; ?>,
-          color: '#f15c80',
-          dashStyle: 'dash',
-          width: 1,
-          label: {
-            text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
-            align: 'right',
-            style: {
-              color: '#f15c80'
-            }
-          },
-          zIndex: 4
-        }]
-      },
-      plotOptions: {
-        line: {
-          dataLabels: {
-            enabled: true
-          },
-          enableMouseTracking: false
-        },
-        series: {
-          connectNulls: true
-        }
-      },
-      series: [{
-          name: 'Absent',
-          data: <?php echo json_encode($daily_absent); ?>,
-          color: '#f15c80'
-        },
-        {
-          name: 'Total',
-          data: <?php echo json_encode($daily_total); ?>,
-          visible: false
-        },
-        {
-          name: 'Present',
-          data: <?php echo json_encode($daily_present); ?>,
-          // visible: false
-        }
-      ]
-    });
-
     Highcharts.chart('today_attendance_summary_colum_chart_class', {
       chart: {
         type: 'column'
@@ -330,6 +218,45 @@
         }
       ]
     });
+
+
+    <?php
+    // 1. Fetch daily attendance summary for the last 30 days
+    $dailyQuery = "
+    SELECT DATE(created_date) as day, 
+           SUM(absent) as absent, 
+           SUM(total) as total, 
+           SUM(present) as present 
+    FROM daily_class_wise_attendance
+    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
+    GROUP BY DATE(created_date)
+";
+    $dailyData = $this->db->query($dailyQuery)->result();
+
+    // 2. Format for chart
+    $dayWise = [];
+    foreach ($dailyData as $row) {
+      $day = date('Y-m-d', strtotime($row->day)); // Use full date for more precise matching
+      $dayWise[$day] = $row;
+    }
+
+    $categories = $daily_absent = $daily_total = $daily_present = [];
+    for ($i = 30; $i >= 0; $i--) {
+      $date = date('Y-m-d', strtotime("-$i days"));
+      $categories[] = date('j M', strtotime($date)); // e.g., "12 Apr"
+      if (isset($dayWise[$date])) {
+        $daily_absent[] = (int)$dayWise[$date]->absent;
+        $daily_total[]  = (int)$dayWise[$date]->total;
+        $daily_present[] = (int)$dayWise[$date]->present;
+      } else {
+        $daily_absent[] = null;
+        $daily_total[] = null;
+        $daily_present[] = null;
+      }
+    }
+    ?>
+
+
 
     Highcharts.chart('today_attendance_summary_colum_chart', {
       chart: {
@@ -392,6 +319,102 @@
       ]
     });
 
+
+
+
+
+
+
+    Highcharts.chart('daily_attendance', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Last 30 Day Attendance Trend Analysis'
+      },
+      subtitle: {
+        text: 'Total - Present - Absent - AVG Absent Per Day.'
+      },
+      xAxis: {
+        categories: <?php echo json_encode($categories); ?>
+      },
+      yAxis: {
+        title: {
+          text: 'Total Students'
+        },
+
+        <?php
+        // 3. Get monthly absent average
+        $avgAbsentQuery = "
+    SELECT AVG(absent) as absent 
+    FROM daily_total_attendance 
+    WHERE YEAR(created_date) = YEAR(CURDATE())
+      AND MONTH(created_date) = MONTH(CURDATE())";
+        $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
+        ?>
+
+        plotLines: [{
+          id: 'avg',
+          value: <?php echo $dailyabseentaverage; ?>,
+          color: '#f15c80',
+          dashStyle: 'dash',
+          width: 1,
+          label: {
+            text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
+            align: 'right',
+            style: {
+              color: '#f15c80'
+            }
+          },
+          zIndex: 4
+        }]
+      },
+      plotOptions: {
+        line: {
+          dataLabels: {
+            enabled: true
+          },
+          enableMouseTracking: false
+        },
+        series: {
+          connectNulls: true
+        }
+      },
+      series: [{
+          name: 'Absent',
+          data: <?php echo json_encode($daily_absent); ?>,
+          color: '#f15c80'
+        },
+        {
+          name: 'Total',
+          data: <?php echo json_encode($daily_total); ?>,
+          visible: false
+        },
+        {
+          name: 'Present',
+          data: <?php echo json_encode($daily_present); ?>,
+          // visible: false
+        }
+      ]
+    });
+
+    <?php
+
+    // 5. Monthly avg by class (top 10)
+    $monthlyAvg = $this->db->query("
+    SELECT class_title, section_title, AVG(absent) as avg_absent 
+    FROM daily_class_wise_attendance
+    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
+    GROUP BY class_title, section_title
+    ORDER BY avg_absent DESC
+")->result();
+
+    $monthly_absent_avg = [];
+    foreach ($monthlyAvg as $row) {
+      $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
+    }
+
+    ?>
     Highcharts.chart('monthly_absent_avg', {
       chart: {
         type: 'column'
