@@ -132,7 +132,7 @@
   sum(`absent`) as `absent`,
   sum(`present`) as `present`,
   sum(`leave`) as `leave`,
-   sum(`struck_off`) as `struck_off`,
+   sum(`struck_off`) as `struck_off`
    FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
   $c_cat = $absent = $present = $leave = $struck_off = [];
   foreach ($todaySummary as $t) {
