@@ -130,8 +130,78 @@
 <script src="https://code.highcharts.com/modules/lollipop.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<?php
+// 1. Fetch daily attendance summary for the current month
+$dailyQuery = "
+    SELECT DATE(created_date) as day, 
+           SUM(absent) as absent, 
+           SUM(total) as total, 
+           SUM(present) as present 
+    FROM daily_class_wise_attendance
+    WHERE YEAR(created_date) = YEAR(CURDATE())
+      AND MONTH(created_date) = MONTH(CURDATE())
+    GROUP BY DATE(created_date)
+";
+$dailyData = $this->db->query($dailyQuery)->result();
 
+// 2. Format for chart
+$dayWise = [];
+foreach ($dailyData as $row) {
+  $day = (int)date('j', strtotime($row->day));
+  $dayWise[$day] = $row;
+}
 
+$categories = $daily_absent = $daily_total = $daily_present = [];
+for ($i = 1; $i <= 30; $i++) {
+  $categories[] = (string)$i;
+  if (isset($dayWise[$i])) {
+    $daily_absent[] = (int)$dayWise[$i]->absent;
+    $daily_total[]  = (int)$dayWise[$i]->total;
+    $daily_present[] = (int)$dayWise[$i]->present;
+  } else {
+    $daily_absent[] = null;
+    $daily_total[] = null;
+    $daily_present[] = null;
+  }
+}
+
+// 3. Get monthly absent average
+$avgAbsentQuery = "
+    SELECT AVG(absent) as absent 
+    FROM daily_total_attendance 
+    WHERE YEAR(created_date) = YEAR(CURDATE())
+      AND MONTH(created_date) = MONTH(CURDATE())
+";
+$dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
+
+// 4. Today's class-wise summary
+$todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
+$cat = $absent = $present = $leave = $struck_off = [];
+foreach ($todaySummary as $t) {
+  $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
+  $absent[] = (int)($t->absent ?? 0);
+  $present[] = (int)($t->present ?? 0);
+  $leave[] = (int)($t->leave ?? 0);
+  $struck_off[] = (int)($t->strucked_off ?? 0);
+}
+
+// 5. Monthly avg by class (top 10)
+$monthlyAvg = $this->db->query("
+    SELECT class_name, AVG(absent) as avg_absent 
+    FROM daily_class_wise_attendance
+    WHERE YEAR(created_date) = YEAR(CURDATE()) 
+      AND MONTH(created_date) = MONTH(CURDATE()) 
+    GROUP BY class_name 
+    ORDER BY avg_absent DESC 
+    LIMIT 10
+")->result();
+
+$monthly_absent_avg = [];
+foreach ($monthlyAvg as $row) {
+  $monthly_absent_avg[] = [$row->class_name, round($row->avg_absent)];
+}
+
+?>
 <script>
   Highcharts.chart('daily_attendance', {
     chart: {
@@ -144,39 +214,7 @@
       text: 'Total-Present-Absent-AVG Absent Per Day.'
     },
     xAxis: {
-      categories: [
-        <?php
-        $query = "SELECT AVG(`absent`) as absent FROM `daily_total_attendance` 
-                            WHERE YEAR(created_date) = YEAR(NOW()) 
-                            AND MONTH(created_date) = MONTH(NOW())";
-        $dailyabseentaverage = $this->db->query($query)->result()[0]->absent;
-        $daily_absent = '';
-        $daily_total = '';
-        $daily_present = '';
-        for ($i = 1; $i <= 30; $i++) {
-
-
-          $query = "SELECT SUM(absent) as absent, 
-                                     SUM(total) as total,
-                                     SUM(present) as present
-                                       FROM `daily_class_wise_attendance`
-                        WHERE  DATE(created_date) = DATE('" . date("Y-m-") . $i . "')";
-          $attendance_summary = $this->db->query($query)->result();
-          if ($attendance_summary[0]->total) {
-            echo  "'" . $i . "', ";
-            $daily_absent .= $attendance_summary[0]->absent . ", ";
-            $absent_sum += $attendance_summary[0]->absent;
-            $daily_total .= $attendance_summary[0]->total . ", ";
-            $daily_present .= $attendance_summary[0]->present . ", ";
-          } else {
-            echo  "'" . $i . "', ";
-            $daily_absent .= "null, ";
-            $daily_total .= "null, ";
-            $daily_present .= "null, ";
-          } ?>
-        <?php } ?>
-      ],
-
+      categories: <?php echo json_encode($categories); ?>
     },
     yAxis: {
       title: {
@@ -188,12 +226,11 @@
         color: '#f15c80',
         dashStyle: 'dash',
         width: 1,
-
         label: {
           text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
           align: 'right',
           style: {
-            color: '#f15c80',
+            color: '#f15c80'
           }
         },
         zIndex: 4
@@ -205,7 +242,6 @@
           enabled: true
         },
         enableMouseTracking: false
-
       },
       series: {
         connectNulls: true
@@ -213,16 +249,17 @@
     },
     series: [{
         name: 'Absent',
-        data: [<?php echo $daily_absent; ?>],
+        data: <?php echo json_encode($daily_absent); ?>,
         color: '#f15c80'
-      }, {
+      },
+      {
         name: 'Total',
-        data: [<?php echo $daily_total; ?>],
+        data: <?php echo json_encode($daily_total); ?>,
         visible: false
       },
       {
         name: 'Present',
-        data: [<?php echo $daily_present; ?>],
+        data: <?php echo json_encode($daily_present); ?>,
         visible: false
       }
     ]
@@ -236,45 +273,7 @@
       text: 'Today Class and Section Wise Attendance Summary'
     },
     xAxis: {
-
-      <?php
-      $query = "SELECT * FROM `today_attendance_summery`";
-      $todayattendances  = $this->db->query($query)->result();
-      ?>
-
-      categories: [
-        <?php
-        $absent = '';
-        $present = '';
-        $leave = '';
-        $struck_off = '';
-        foreach ($todayattendances as $todayattendance) {
-          if ($todayattendance->absent) {
-            $absent .= $todayattendance->absent . ', ';
-          } else {
-            $absent .= '0, ';
-          }
-
-          if ($todayattendance->present) {
-            $present .= $todayattendance->present . ', ';
-          } else {
-            $present .= '0, ';
-          }
-
-          if ($todayattendance->leave) {
-            $leave .= $todayattendance->leave . ', ';
-          } else {
-            $leave .= '0, ';
-          }
-          if ($todayattendance->strucked_off) {
-            $struck_off .= $todayattendance->strucked_off . ', ';
-          } else {
-            $struck_off .= '0, ';
-          }
-
-        ?> '<?php echo $todayattendance->Class_title . "-" . substr($todayattendance->section_title, 0, 1); ?>',
-        <?php } ?>
-      ]
+      categories: <?php echo json_encode($cat); ?>
     },
     yAxis: {
       min: 0,
@@ -284,14 +283,11 @@
       stackLabels: {
         enabled: true,
         style: {
-          color: ( // theme
-            Highcharts.defaultOptions.title.style &&
-            Highcharts.defaultOptions.title.style.color
-          ) || 'gray'
+          color: (Highcharts.defaultOptions.title.style &&
+            Highcharts.defaultOptions.title.style.color) || 'gray'
         }
       }
     },
-
     tooltip: {
       headerFormat: '<b>{point.x}</b><br/>',
       pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
@@ -307,73 +303,61 @@
     series: [{
         name: 'Absent',
         color: '#f15c80',
-
-        data: [<?php echo $absent; ?>]
-      }, {
+        data: <?php echo json_encode($absent); ?>
+      },
+      {
         name: 'Present',
         color: '#7cb5ec',
         visible: false,
-        data: [<?php echo $present; ?>]
-      }, {
+        data: <?php echo json_encode($present); ?>
+      },
+      {
         name: 'leave',
         color: '#90ed7d',
         visible: false,
-        data: [<?php echo $leave; ?>]
+        data: <?php echo json_encode($leave); ?>
       },
       {
         name: 'Struck Off',
         color: '#91e8e1',
         visible: false,
-        data: [<?php echo $struck_off; ?>]
-      },
-
+        data: <?php echo json_encode($struck_off); ?>
+      }
     ]
   });
 
-
-
   Highcharts.chart('monthly_absent_avg', {
-
     chart: {
       type: 'lollipop'
     },
-
     accessibility: {
       point: {
         valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
       }
     },
-
     legend: {
       enabled: false
     },
-
     subtitle: {
-      text: '2018'
+      text: '<?php echo date("Y") ?>'
     },
-
     title: {
-      text: 'Top 10 Countries by Population'
+      text: 'Top 10 Classes by Avg Absentees'
     },
-
     tooltip: {
       shared: true
     },
-
     xAxis: {
       type: 'category'
     },
-
     yAxis: {
       title: {
-        text: 'Population'
+        text: 'Average Absentees'
       }
     },
-
     series: [{
-      name: 'Population',
-      data: [<?php echo $monthly_absent_avg; ?>]
+      name: 'Avg Absentees',
+      data: <?php echo json_encode($monthly_absent_avg); ?>
     }]
-
   });
 </script>
