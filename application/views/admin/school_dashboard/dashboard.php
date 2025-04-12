@@ -128,10 +128,15 @@
 
 
   // 4. Today's class-wise summary
-  $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery GROUP BY class_title")->result();
+  $todaySummary = $this->db->query("SELECT class_title
+  sum(`absent`) as `absent`,
+  sum(`present`) as `present`,
+  sum(`leave`) as `leave`,
+   sum(`struck_off`) as `struck_off`,
+   FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
   $c_cat = $absent = $present = $leave = $struck_off = [];
   foreach ($todaySummary as $t) {
-    $c_cat[] = $t->Class_title;
+    $c_cat[] = $t->class_title;
     if ($t->absent) {
       $absent[] = (int) $t->absent;
     } else {
