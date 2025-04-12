@@ -128,7 +128,7 @@
 
 
   // 4. Today's class-wise summary
-  $todaySummary = $this->db->query("SELECT class_title
+  $todaySummary = $this->db->query("SELECT class_title,
   sum(`absent`) as `absent`,
   sum(`present`) as `present`,
   sum(`leave`) as `leave`,
