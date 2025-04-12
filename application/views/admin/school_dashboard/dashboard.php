@@ -17,7 +17,7 @@
 						  `sections`.`color` 
 						FROM
 						  `sections` 
-						WHERE  `section`.`status` =1";
+						WHERE  `sections`.`status` =1";
 
         $result = $this->db->query($query);
         $sections = $result->result();
