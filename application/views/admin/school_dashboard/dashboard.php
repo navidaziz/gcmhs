@@ -203,18 +203,18 @@ foreach ($todaySummary as $t) {
 
 // 5. Monthly avg by class (top 10)
 $monthlyAvg = $this->db->query("
-    SELECT Class_name, AVG(absent) as avg_absent 
+    SELECT class_title, AVG(absent) as avg_absent 
     FROM daily_class_wise_attendance
     WHERE YEAR(created_date) = YEAR(CURDATE()) 
       AND MONTH(created_date) = MONTH(CURDATE()) 
-    GROUP BY Class_name 
+    GROUP BY class_title
     ORDER BY avg_absent DESC 
     LIMIT 10
 ")->result();
 
 $monthly_absent_avg = [];
 foreach ($monthlyAvg as $row) {
-  $monthly_absent_avg[] = [$row->Class_name, round($row->avg_absent)];
+  $monthly_absent_avg[] = [$row->class_title, round($row->avg_absent)];
 }
 
 ?>
