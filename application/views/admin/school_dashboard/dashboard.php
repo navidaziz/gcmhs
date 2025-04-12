@@ -282,7 +282,7 @@ foreach ($monthlyAvg as $row) {
 
   Highcharts.chart('today_attendance_summary_colum_chart', {
     chart: {
-      type: 'bar'
+      type: 'column'
     },
     title: {
       text: 'Today Class and Section Wise Attendance Summary'
@@ -323,7 +323,7 @@ foreach ($monthlyAvg as $row) {
       {
         name: 'Present',
         color: '#7cb5ec',
-        visible: false,
+        //visible: false,
         data: <?php echo json_encode($present); ?>
       },
       {
