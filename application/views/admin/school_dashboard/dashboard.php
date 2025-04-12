@@ -107,11 +107,6 @@
           </div>
         </div>
       </div>
-
-
-
-
-
     </div>
   </div>
 
@@ -162,41 +157,7 @@
   }
 
 
-  // 3. Get monthly absent average
-  $avgAbsentQuery = "
-    SELECT AVG(absent) as absent 
-    FROM daily_total_attendance 
-    WHERE YEAR(created_date) = YEAR(CURDATE())
-      AND MONTH(created_date) = MONTH(CURDATE())
-";
-  $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
 
-  // 4. Today's class-wise summary
-  $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
-  $cat = $absent = $present = $leave = $struck_off = [];
-  foreach ($todaySummary as $t) {
-    $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
-    if ($t->absent) {
-      $absent[] = (int) $t->absent;
-    } else {
-      $absent[] = 0;
-    }
-    if ($t->present) {
-      $present[] = (int) $t->present;
-    } else {
-      $present[] = 0;
-    }
-    if ($t->present) {
-      $leave[] = (int) $t->leave;
-    } else {
-      $leave[] = 0;
-    }
-    if ($t->struck_off) {
-      $struck_off[] = (int) $t->struck_off;
-    } else {
-      $struck_off[] = 0;
-    }
-  }
 
   // 5. Monthly avg by class (top 10)
   $monthlyAvg = $this->db->query("
@@ -276,12 +237,42 @@
       ]
     });
 
+    <?php
+
+
+    // 4. Today's class-wise summary
+    $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery GROUP BY class_title")->result();
+    $cat = $absent = $present = $leave = $struck_off = [];
+    foreach ($todaySummary as $t) {
+      $cat[] = $t->class_title;
+      if ($t->absent) {
+        $c_absent[] = (int) $t->absent;
+      } else {
+        $c_absent[] = 0;
+      }
+      if ($t->present) {
+        $c_present[] = (int) $t->present;
+      } else {
+        $c_present[] = 0;
+      }
+      if ($t->leave) {
+        $c_leave[] = (int) $t->leave;
+      } else {
+        $c_leave[] = 0;
+      }
+      if ($t->struck_off) {
+        $c_struck_off[] = (int) $t->struck_off;
+      } else {
+        $c_struck_off[] = 0;
+      }
+    }
+    ?>
     Highcharts.chart('today_attendance_summary_colum_chart_class', {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Today Class and Section Wise Attendance Summary'
+        text: 'Today Class  Wise Attendance Summary'
       },
       xAxis: {
         categories: <?php echo json_encode($cat); ?>
@@ -336,7 +327,35 @@
         }
       ]
     });
+    <?php
 
+    // 4. Today's class-wise summary
+    $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
+    $cat = $absent = $present = $leave = $struck_off = [];
+    foreach ($todaySummary as $t) {
+      $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
+      if ($t->absent) {
+        $absent[] = (int) $t->absent;
+      } else {
+        $absent[] = 0;
+      }
+      if ($t->present) {
+        $present[] = (int) $t->present;
+      } else {
+        $present[] = 0;
+      }
+      if ($t->leave) {
+        $leave[] = (int) $t->leave;
+      } else {
+        $leave[] = 0;
+      }
+      if ($t->struck_off) {
+        $struck_off[] = (int) $t->struck_off;
+      } else {
+        $struck_off[] = 0;
+      }
+    }
+    ?>
     Highcharts.chart('today_attendance_summary_colum_chart', {
       chart: {
         type: 'column'
