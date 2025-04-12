@@ -80,12 +80,12 @@
       <div class="col-md-4">
         <div class="quick-pie panel panel-default">
           <div class="panel-body">
-            <div id="today_attendance_summary_colum_chart_class"></div>
+            <div id="today_attendance_summary_colum_chart_class" style="height: 300px;"></div>
           </div>
         </div>
       </div>
       <div class="col-md-8">
-        <div class="quick-pie panel panel-default" style="margin-top: -15px;">
+        <div class="quick-pie panel panel-default">
           <div class="panel-body">
             <div id="today_attendance_summary_colum_chart" style="height: 300px;"></div>
           </div>
@@ -165,7 +165,7 @@
   <script>
     Highcharts.chart('today_attendance_summary_colum_chart_class', {
       chart: {
-        type: 'column'
+        type: 'bar'
       },
       title: {
         text: 'Today Class Wise Attendance Summary'
@@ -268,7 +268,7 @@
 
     Highcharts.chart('today_attendance_summary_colum_chart', {
       chart: {
-        type: 'bar'
+        type: 'column'
       },
       title: {
         text: 'Today Class and Section Wise Attendance Summary'
