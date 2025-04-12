@@ -165,7 +165,7 @@
   <script>
     Highcharts.chart('today_attendance_summary_colum_chart_class', {
       chart: {
-        type: 'bar'
+        type: 'column'
       },
       title: {
         text: 'Today Class Wise Attendance Summary'
