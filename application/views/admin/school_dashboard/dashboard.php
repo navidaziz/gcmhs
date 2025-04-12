@@ -131,15 +131,14 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <?php
-// 1. Fetch daily attendance summary for the current month
+// 1. Fetch daily attendance summary for the last 30 days
 $dailyQuery = "
     SELECT DATE(created_date) as day, 
            SUM(absent) as absent, 
            SUM(total) as total, 
            SUM(present) as present 
     FROM daily_class_wise_attendance
-    WHERE YEAR(created_date) = YEAR(CURDATE())
-      AND MONTH(created_date) = MONTH(CURDATE())
+    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
     GROUP BY DATE(created_date)
 ";
 $dailyData = $this->db->query($dailyQuery)->result();
@@ -147,23 +146,25 @@ $dailyData = $this->db->query($dailyQuery)->result();
 // 2. Format for chart
 $dayWise = [];
 foreach ($dailyData as $row) {
-  $day = (int)date('j', strtotime($row->day));
+  $day = date('Y-m-d', strtotime($row->day)); // Use full date for more precise matching
   $dayWise[$day] = $row;
 }
 
 $categories = $daily_absent = $daily_total = $daily_present = [];
-for ($i = 1; $i <= 30; $i++) {
-  $categories[] = (string)$i;
-  if (isset($dayWise[$i])) {
-    $daily_absent[] = (int)$dayWise[$i]->absent;
-    $daily_total[]  = (int)$dayWise[$i]->total;
-    $daily_present[] = (int)$dayWise[$i]->present;
+for ($i = 29; $i >= 0; $i--) {
+  $date = date('Y-m-d', strtotime("-$i days"));
+  $categories[] = date('j M', strtotime($date)); // e.g., "12 Apr"
+  if (isset($dayWise[$date])) {
+    $daily_absent[] = (int)$dayWise[$date]->absent;
+    $daily_total[]  = (int)$dayWise[$date]->total;
+    $daily_present[] = (int)$dayWise[$date]->present;
   } else {
     $daily_absent[] = null;
     $daily_total[] = null;
     $daily_present[] = null;
   }
 }
+
 
 // 3. Get monthly absent average
 $avgAbsentQuery = "
