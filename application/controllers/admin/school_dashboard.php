@@ -57,7 +57,7 @@ class School_dashboard extends Admin_Controller
 
 		// Step 4: Attach sections to their respective class
 		foreach ($classes as $class) {
-			$class->sections = $sections_by_class[$class->class_id] ?? [];
+			$class->sections = $sections_by_class[$class->class_id];
 		}
 
 
