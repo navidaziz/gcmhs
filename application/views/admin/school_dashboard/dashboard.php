@@ -129,9 +129,9 @@
 
   // 4. Today's class-wise summary
   $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery GROUP BY class_title")->result();
-  $cat = $absent = $present = $leave = $struck_off = [];
+  $c_cat = $absent = $present = $leave = $struck_off = [];
   foreach ($todaySummary as $t) {
-    $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
+    $c_cat[] = $t->Class_title;
     if ($t->absent) {
       $absent[] = (int) $t->absent;
     } else {
@@ -163,10 +163,10 @@
         type: 'column'
       },
       title: {
-        text: 'Today Class and Section Wise Attendance Summary'
+        text: 'Today Class Wise Attendance Summary'
       },
       xAxis: {
-        categories: <?php echo json_encode($cat); ?>
+        categories: <?php echo json_encode($c_cat); ?>
       },
       yAxis: {
         min: 0,
