@@ -47,11 +47,8 @@
                 <i class="fa fa-user fa-3x"></i>
               </div>
               <div class="panel-right">
-                <div class="number"><?php echo $today_attendance_summary->total_students; ?></div>
+                <div class="number">Total Students<?php echo $today_attendance_summary->total_students; ?></div>
                 <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->strucked_off; ?></strong> - Struck-Off </div>
-                <!-- <span class="label label-success">
-                    26% <i class="fa fa-arrow-up"></i>
-                  </span> -->
               </div>
             </div>
           </div>
@@ -66,6 +63,7 @@
                   <th style="background-color: #7cb5ec;">Present-<?php echo $today_attendance_summary->present; ?></th>
                   <th style="background-color: #f15c80;">Absent-<?php echo $today_attendance_summary->absent; ?></th>
                   <th style="background-color: #90ed7d;">On leave-<?php echo $today_attendance_summary->leave; ?></th>
+                  <th style="background-color: #91E8E0;">Strucked Off-<?php echo $today_attendance_summary->leave; ?></th>
                 </tr>
 
               </table>
@@ -77,14 +75,22 @@
 
     </div>
     <div class="row">
-      <div class="col-md-4">
+
+      <div class="col-md-3">
+        <div class="quick-pie panel panel-default">
+          <div class="panel-body">
+            <div id="attendance-chart" style="height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
         <div class="quick-pie panel panel-default">
           <div class="panel-body">
             <div id="today_attendance_summary_colum_chart_class" style="height: 300px;"></div>
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="quick-pie panel panel-default">
           <div class="panel-body">
             <div id="today_attendance_summary_colum_chart" style="height: 300px;"></div>
@@ -121,6 +127,66 @@
   <script src="https://code.highcharts.com/modules/lollipop.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+  <script>
+    Highcharts.chart('attendance-chart', {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Today\'s Attendance Summary'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          colors: ['#7cb5ec', '#f15c80', '#90ed7d', '#91E8E0'],
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.y}'
+          }
+        }
+      },
+      series: [{
+        name: 'Count',
+        colorByPoint: true,
+        data: [{
+          name: 'Present',
+          y: <?php if ($today_attendance_summary->present) {
+                echo $today_attendance_summary->present;
+              } else {
+                echo 0;
+              } ?>
+        }, {
+          name: 'Absent',
+          y: <?php if ($today_attendance_summary->absent) {
+                echo $today_attendance_summary->absent;
+              } else {
+                echo 0;
+              } ?>
+
+        }, {
+          name: 'On Leave',
+          y: <?php if ($today_attendance_summary->leave) {
+                echo $today_attendance_summary->leave;
+              } else {
+                echo 0;
+              } ?>
+        }, {
+          name: 'Struck Off',
+          y: <?php if ($today_attendance_summary->struck_off) {
+                echo $today_attendance_summary->struck_off;
+              } else {
+                echo 0;
+              } ?>
+        }]
+      }]
+    });
+  </script>
+
   <?php
 
 
