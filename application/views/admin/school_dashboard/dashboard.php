@@ -3,15 +3,15 @@
     <div class="row">
 
       <?php
-      $query = "SELECT sum(present) as present, 
-                                   sum(`leave`) as `leave`, 
-                                   sum(absent) as absent, 
-                                   sum(total) as total, 
-                                   sum(total_students) as total_students, 
-                                   sum(strucked_off) as strucked_off, 
-                                   (sum(total)*100) / sum(total_students) as total_attendance_percentage 
-                            FROM `today_attendance_summery`";
-      $today_attendance_summary = $this->db->query($query)->result()[0];
+      // $query = "SELECT sum(present) as present, 
+      //                              sum(`leave`) as `leave`, 
+      //                              sum(absent) as absent, 
+      //                              sum(total) as total, 
+      //                              sum(total_students) as total_students, 
+      //                              sum(strucked_off) as strucked_off, 
+      //                              (sum(total)*100) / sum(total_students) as total_attendance_percentage 
+      //                       FROM `today_attendance_summery`";
+      // $today_attendance_summary = $this->db->query($query)->result()[0];
 
 
       ?>
