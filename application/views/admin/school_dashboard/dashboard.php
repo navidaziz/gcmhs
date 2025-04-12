@@ -57,7 +57,7 @@
           <div class="dash box pa nel pa nel-de fault">
             <div class="pa nel-b ody" style="padding: 3px;">
 
-              <h5>Today Attendance Summary - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %</h5>
+              <h5>Today Attendance Summary - <?php echo round($today_attendance_summary->total_attendance_percentage); ?> %</h5>
               <table class="table">
                 <tr>
                   <th style="background-color: #7cb5ec;">Present - <?php echo $today_attendance_summary->present; ?></th>
@@ -138,7 +138,7 @@
         text: 'Today\'s Attendance Summary'
       },
       subtitle: {
-        text: 'Total Attendance - <?php echo $today_attendance_summary->total_students . ' / ' . $today_attendance_summary->total_students->total; ?>'
+        text: 'Total Attendance - <?php echo $today_attendance_summary->total_students . ' / ' . $today_attendance_summary->total; ?>'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.y}</b>'
