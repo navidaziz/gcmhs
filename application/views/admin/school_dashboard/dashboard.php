@@ -47,8 +47,8 @@
                 <i class="fa fa-user fa-3x"></i>
               </div>
               <div class="panel-right">
-                <div class="number">Total Students<?php echo $today_attendance_summary->total_students; ?></div>
-                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->strucked_off; ?></strong> - Struck-Off </div>
+                <div class="number"><strong>Total Students: <?php echo $today_attendance_summary->total_students; ?></strong></div>
+                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->strucked_off; ?> - Struck-Off </strong></div>
               </div>
             </div>
           </div>
@@ -60,10 +60,11 @@
               <h5>Today Attendance Summary - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %</h5>
               <table class="table">
                 <tr>
-                  <th style="background-color: #7cb5ec;">Present-<?php echo $today_attendance_summary->present; ?></th>
-                  <th style="background-color: #f15c80;">Absent-<?php echo $today_attendance_summary->absent; ?></th>
-                  <th style="background-color: #90ed7d;">On leave-<?php echo $today_attendance_summary->leave; ?></th>
-                  <th style="background-color: #91E8E0;">Strucked Off-<?php echo $today_attendance_summary->leave; ?></th>
+                  <th style="background-color: #7cb5ec;">Present - <?php echo $today_attendance_summary->present; ?></th>
+                  <th style="background-color: #f15c80;">Absent - <?php echo $today_attendance_summary->absent; ?></th>
+                  <th style="background-color: #90ed7d;">On leave - <?php echo $today_attendance_summary->leave; ?></th>
+                  <th style="background-color: #91E8E0;">Struck Off - <?php echo $today_attendance_summary->leave; ?></th>
+                  <th style="background-color:rgb(2, 2, 2);">Struck Off - <?php echo $today_attendance_summary->total_students; ?></th>
                 </tr>
 
               </table>
@@ -136,6 +137,9 @@
       title: {
         text: 'Today\'s Attendance Summary'
       },
+      subtitle: {
+        text: 'Total Attendance - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %'
+      },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.y}</b>'
       },
@@ -156,14 +160,14 @@
         data: [{
           name: 'Present',
           y: <?php if ($today_attendance_summary->present) {
-                echo $today_attendance_summary->present;
+                echo round($today_attendance_summary->present * 100 / $today_attendance_summary->total_students, 2);
               } else {
                 echo 0;
               } ?>
         }, {
           name: 'Absent',
           y: <?php if ($today_attendance_summary->absent) {
-                echo $today_attendance_summary->absent;
+                echo round($today_attendance_summary->absent * 100 / $today_attendance_summary->total_students, 2);
               } else {
                 echo 0;
               } ?>
@@ -171,14 +175,14 @@
         }, {
           name: 'On Leave',
           y: <?php if ($today_attendance_summary->leave) {
-                echo $today_attendance_summary->leave;
+                echo round($today_attendance_summary->leave * 100 / $today_attendance_summary->total_students, 2);
               } else {
                 echo 0;
               } ?>
         }, {
           name: 'Struck Off',
           y: <?php if ($today_attendance_summary->struck_off) {
-                echo $today_attendance_summary->struck_off;
+                echo round($today_attendance_summary->struck_off * 100 / $today_attendance_summary->total_students, 2);
               } else {
                 echo 0;
               } ?>
