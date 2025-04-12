@@ -268,7 +268,7 @@
 
     Highcharts.chart('today_attendance_summary_colum_chart', {
       chart: {
-        type: 'column'
+        type: 'bar'
       },
       title: {
         text: 'Today Class and Section Wise Attendance Summary'
