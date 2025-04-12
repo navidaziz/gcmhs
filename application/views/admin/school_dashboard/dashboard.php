@@ -220,13 +220,13 @@ foreach ($monthlyAvg as $row) {
 <script>
   Highcharts.chart('daily_attendance', {
     chart: {
-      type: 'line'
+      type: 'spline'
     },
     title: {
-      text: '<?php echo date("F, Y") ?> Day Wise Attendance '
+      text: 'Last 30 Day Attendance Trend Analysis'
     },
     subtitle: {
-      text: 'Total-Present-Absent-AVG Absent Per Day.'
+      text: 'Total - Present - Absent - AVG Absent Per Day.'
     },
     xAxis: {
       categories: <?php echo json_encode($categories); ?>
@@ -282,7 +282,7 @@ foreach ($monthlyAvg as $row) {
 
   Highcharts.chart('today_attendance_summary_colum_chart', {
     chart: {
-      type: 'column'
+      type: 'bar'
     },
     title: {
       text: 'Today Class and Section Wise Attendance Summary'
@@ -357,7 +357,7 @@ foreach ($monthlyAvg as $row) {
       text: '<?php echo date("Y") ?>'
     },
     title: {
-      text: 'Top 10 Classes by Avg Absentees'
+      text: 'Last 30 Days Class-Section Wise AVG Absenteeism'
     },
     tooltip: {
       shared: true
@@ -367,11 +367,11 @@ foreach ($monthlyAvg as $row) {
     },
     yAxis: {
       title: {
-        text: 'Average Absentees'
+        text: 'Average Absenteeism'
       }
     },
     series: [{
-      name: 'Avg Absentees',
+      name: 'Avg Absenteeism',
       data: <?php echo json_encode($monthly_absent_avg); ?>
     }]
   });
