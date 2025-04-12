@@ -107,7 +107,7 @@
     <div class="col-md-12">
       <div class="quick-pie panel panel-default">
         <div class="panel-body">
-          <div id="monthly_absent_avg2"></div>
+          <div id="monthly_absent_avg"></div>
         </div>
       </div>
     </div>
