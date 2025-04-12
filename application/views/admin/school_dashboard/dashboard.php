@@ -138,7 +138,7 @@
         text: 'Today\'s Attendance Summary'
       },
       subtitle: {
-        text: 'Total Attendance - <?php echo $today_attendance_summary->total_attendance_percentage; ?> %'
+        text: 'Total Attendance - <?php echo $today_attendance_summary->total_students; ?> %'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.y}</b>'
