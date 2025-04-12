@@ -179,10 +179,26 @@ $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->resu
 $cat = $absent = $present = $leave = $struck_off = [];
 foreach ($todaySummary as $t) {
   $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
-  $absent[] = (int)($t->absent ?? 0);
-  $present[] = (int)($t->present ?? 0);
-  $leave[] = (int)($t->leave ?? 0);
-  $struck_off[] = (int)($t->strucked_off ?? 0);
+  if ($t->absent) {
+    $absent[] = (int) $t->absent;
+  } else {
+    $absent[] = 0;
+  }
+  if ($t->present) {
+    $present[] = (int) $t->present;
+  } else {
+    $present[] = 0;
+  }
+  if ($t->present) {
+    $leave[] = (int) $t->leave;
+  } else {
+    $leave[] = 0;
+  }
+  if ($t->struck_off) {
+    $struck_off[] = (int) $t->struck_off;
+  } else {
+    $struck_off[] = 0;
+  }
 }
 
 // 5. Monthly avg by class (top 10)
