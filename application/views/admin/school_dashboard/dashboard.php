@@ -205,11 +205,9 @@ foreach ($todaySummary as $t) {
 $monthlyAvg = $this->db->query("
     SELECT class_title, section_title, AVG(absent) as avg_absent 
     FROM daily_class_wise_attendance
-    WHERE YEAR(created_date) = YEAR(CURDATE()) 
-      AND MONTH(created_date) = MONTH(CURDATE()) 
+    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
     GROUP BY class_title, section_title
-    ORDER BY avg_absent DESC 
-    LIMIT 10
+    ORDER BY avg_absent DESC
 ")->result();
 
 $monthly_absent_avg = [];
