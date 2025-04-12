@@ -30,7 +30,7 @@
                                    sum(absent) as absent, 
                                    sum(total) as total, 
                                    sum(total_students) as total_students, 
-                                   sum(strucked_off) as strucked_off, 
+                                   sum(strucked_off) as struck_off, 
                                    (sum(total)*100) / sum(total_students) as total_attendance_percentage 
                             FROM `today_attendance_summery`";
       $today_attendance_summary = $this->db->query($query)->result()[0];
@@ -63,8 +63,8 @@
                   <th style="background-color: #7cb5ec;">Present - <?php echo $today_attendance_summary->present; ?></th>
                   <th style="background-color: #f15c80;">Absent - <?php echo $today_attendance_summary->absent; ?></th>
                   <th style="background-color: #90ed7d;">On leave - <?php echo $today_attendance_summary->leave; ?></th>
-                  <th style="background-color: #91E8E0;">Struck Off - <?php echo $today_attendance_summary->leave; ?></th>
-                  <th style="background-color:rgb(2, 2, 2);">Struck Off - <?php echo $today_attendance_summary->total_students; ?></th>
+                  <th style="background-color: #91E8E0;">Struck Off - <?php echo $today_attendance_summary->struck_off; ?></th>
+                  <th style="background-color:rgb(255, 255, 255);">Total - <?php echo $today_attendance_summary->total_students; ?></th>
                 </tr>
 
               </table>
@@ -138,7 +138,7 @@
         text: 'Today\'s Attendance Summary'
       },
       subtitle: {
-        text: 'Total Attendance - <?php echo $today_attendance_summary->total_students; ?> %'
+        text: 'Total Attendance - <?php echo $today_attendance_summary->total_students; ?>'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.y}</b>'
