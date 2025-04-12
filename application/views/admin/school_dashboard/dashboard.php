@@ -128,7 +128,7 @@
 
 
   // 4. Today's class-wise summary
-  $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
+  $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery GROUP BY class_title")->result();
   $cat = $absent = $present = $leave = $struck_off = [];
   foreach ($todaySummary as $t) {
     $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
@@ -159,6 +159,109 @@
   ?>
   <script>
     Highcharts.chart('today_attendance_summary_colum_chart_class', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Today Class and Section Wise Attendance Summary'
+      },
+      xAxis: {
+        categories: <?php echo json_encode($cat); ?>
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Total Students'
+        },
+        stackLabels: {
+          enabled: true,
+          style: {
+            color: (Highcharts.defaultOptions.title.style &&
+              Highcharts.defaultOptions.title.style.color) || 'gray'
+          }
+        }
+      },
+      tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      series: [{
+          name: 'Absent',
+          color: '#f15c80',
+          data: <?php echo json_encode($absent); ?>
+        },
+        {
+          name: 'Present',
+          color: '#7cb5ec',
+          //visible: false,
+          data: <?php echo json_encode($present); ?>
+        },
+        {
+          name: 'leave',
+          color: '#90ed7d',
+          //visible: false,
+          data: <?php echo json_encode($leave); ?>
+        },
+        {
+          name: 'Struck Off',
+          color: '#91e8e1',
+          //visible: false,
+          data: <?php echo json_encode($struck_off); ?>
+        }
+      ]
+    });
+
+
+
+
+
+    <?php
+
+
+
+
+
+    // 4. Today's class-wise summary
+    $todaySummary = $this->db->query("SELECT * FROM today_attendance_summery")->result();
+    $cat = $absent = $present = $leave = $struck_off = [];
+    foreach ($todaySummary as $t) {
+      $cat[] = $t->Class_title . '-' . substr($t->section_title, 0, 1);
+      if ($t->absent) {
+        $absent[] = (int) $t->absent;
+      } else {
+        $absent[] = 0;
+      }
+      if ($t->present) {
+        $present[] = (int) $t->present;
+      } else {
+        $present[] = 0;
+      }
+      if ($t->present) {
+        $leave[] = (int) $t->leave;
+      } else {
+        $leave[] = 0;
+      }
+      if ($t->struck_off) {
+        $struck_off[] = (int) $t->struck_off;
+      } else {
+        $struck_off[] = 0;
+      }
+    }
+
+
+
+    ?>
+
+
+    Highcharts.chart('today_attendance_summary_colum_chart', {
       chart: {
         type: 'column'
       },
@@ -255,71 +358,6 @@
       }
     }
     ?>
-
-
-
-    Highcharts.chart('today_attendance_summary_colum_chart', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Today Class and Section Wise Attendance Summary'
-      },
-      xAxis: {
-        categories: <?php echo json_encode($cat); ?>
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Total Students'
-        },
-        stackLabels: {
-          enabled: true,
-          style: {
-            color: (Highcharts.defaultOptions.title.style &&
-              Highcharts.defaultOptions.title.style.color) || 'gray'
-          }
-        }
-      },
-      tooltip: {
-        headerFormat: '<b>{point.x}</b><br/>',
-        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-      },
-      plotOptions: {
-        column: {
-          stacking: 'normal',
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      series: [{
-          name: 'Absent',
-          color: '#f15c80',
-          data: <?php echo json_encode($absent); ?>
-        },
-        {
-          name: 'Present',
-          color: '#7cb5ec',
-          //visible: false,
-          data: <?php echo json_encode($present); ?>
-        },
-        {
-          name: 'leave',
-          color: '#90ed7d',
-          //visible: false,
-          data: <?php echo json_encode($leave); ?>
-        },
-        {
-          name: 'Struck Off',
-          color: '#91e8e1',
-          //visible: false,
-          data: <?php echo json_encode($struck_off); ?>
-        }
-      ]
-    });
-
-
 
 
 
