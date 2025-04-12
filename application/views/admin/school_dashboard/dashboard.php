@@ -214,7 +214,7 @@ $monthlyAvg = $this->db->query("
 
 $monthly_absent_avg = [];
 foreach ($monthlyAvg as $row) {
-  $monthly_absent_avg[] = [$row->class_title . '-' . $row->class_title, round($row->avg_absent)];
+  $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
 }
 
 ?>
@@ -344,7 +344,7 @@ foreach ($monthlyAvg as $row) {
 
   Highcharts.chart('monthly_absent_avg', {
     chart: {
-      type: 'bar'
+      type: 'column'
     },
     accessibility: {
       point: {
