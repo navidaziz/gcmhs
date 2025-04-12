@@ -150,7 +150,7 @@
           colors: ['#7cb5ec', '#f15c80', '#90ed7d', '#91E8E0'],
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>: {point.y}'
+            format: '<b>{point.name}</b>: {point.y} %'
           }
         }
       },
