@@ -74,31 +74,22 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="quick-pie panel panel-default">
-              <div class="panel-body">
-                <div id="today_attendance_summary_colum_chart_class"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="quick-pie panel panel-default" style="margin-top: -15px;">
-              <div class="panel-body">
-                <div id="today_attendance_summary_colum_chart" style="height: 300px;"></div>
-              </div>
-            </div>
-          </div>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="quick-pie panel panel-default">
+        <div class="panel-body">
+          <div id="today_attendance_summary_colum_chart_class"></div>
         </div>
       </div>
-
-
-
-
-
-
-
-
+    </div>
+    <div class="col-md-8">
+      <div class="quick-pie panel panel-default" style="margin-top: -15px;">
+        <div class="panel-body">
+          <div id="today_attendance_summary_colum_chart" style="height: 300px;"></div>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="quick-pie panel panel-default">
