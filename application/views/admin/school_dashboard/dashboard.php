@@ -147,12 +147,12 @@
     } else {
       $present[] = 0;
     }
-    if ($t->present) {
+    if ($t->leave) {
       $leave[] = (int) $t->leave;
     } else {
       $leave[] = 0;
     }
-    if ($t->struck_off) {
+    if ($t->strucked_off) {
       $struck_off[] = (int) $t->strucked_off;
     } else {
       $struck_off[] = 0;
@@ -249,12 +249,12 @@
       } else {
         $present[] = 0;
       }
-      if ($t->present) {
+      if ($t->leave) {
         $leave[] = (int) $t->leave;
       } else {
         $leave[] = 0;
       }
-      if ($t->struck_off) {
+      if ($t->strucked_off) {
         $struck_off[] = (int) $t->strucked_off;
       } else {
         $struck_off[] = 0;
