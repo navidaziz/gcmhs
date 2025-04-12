@@ -11,8 +11,7 @@
       //var_dump($classes);
 
       foreach ($classes as $classe) {
-        $query = "SELECT DISTINCT 
-						  `sections`.`section_id`,
+        $query = "SELECT `sections`.`section_id`,
 						  `sections`.`section_title`,
 						  `sections`.`color` 
 						FROM
@@ -76,7 +75,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="quick-pie panel panel-default">
+              <div class="panel-body">
+                <div id="today_attendance_summary_colum_chart_class"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
             <div class="quick-pie panel panel-default" style="margin-top: -15px;">
               <div class="panel-body">
                 <div id="today_attendance_summary_colum_chart" style="height: 300px;"></div>
@@ -92,15 +98,16 @@
 
 
 
-      <div class="col-md-6">
-        <div class="quick-pie panel panel-default">
-          <div class="panel-body">
-            <div id="daily_attendance"></div>
-          </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="quick-pie panel panel-default">
+        <div class="panel-body">
+          <div id="daily_attendance"></div>
         </div>
       </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="quick-pie panel panel-default">
         <div class="panel-body">
           <div id="monthly_absent_avg"></div>
@@ -272,6 +279,67 @@ foreach ($monthlyAvg as $row) {
         name: 'Present',
         data: <?php echo json_encode($daily_present); ?>,
         // visible: false
+      }
+    ]
+  });
+
+  Highcharts.chart('today_attendance_summary_colum_chart_class', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Today Class and Section Wise Attendance Summary'
+    },
+    xAxis: {
+      categories: <?php echo json_encode($cat); ?>
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Total Students'
+      },
+      stackLabels: {
+        enabled: true,
+        style: {
+          color: (Highcharts.defaultOptions.title.style &&
+            Highcharts.defaultOptions.title.style.color) || 'gray'
+        }
+      }
+    },
+    tooltip: {
+      headerFormat: '<b>{point.x}</b><br/>',
+      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+    series: [{
+        name: 'Absent',
+        color: '#f15c80',
+        data: <?php echo json_encode($absent); ?>
+      },
+      {
+        name: 'Present',
+        color: '#7cb5ec',
+        //visible: false,
+        data: <?php echo json_encode($present); ?>
+      },
+      {
+        name: 'leave',
+        color: '#90ed7d',
+        //visible: false,
+        data: <?php echo json_encode($leave); ?>
+      },
+      {
+        name: 'Struck Off',
+        color: '#91e8e1',
+        //visible: false,
+        data: <?php echo json_encode($struck_off); ?>
       }
     ]
   });
