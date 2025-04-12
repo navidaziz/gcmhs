@@ -151,7 +151,7 @@ foreach ($dailyData as $row) {
 }
 
 $categories = $daily_absent = $daily_total = $daily_present = [];
-for ($i = 29; $i >= 0; $i--) {
+for ($i = 36; $i >= 5; $i--) {
   $date = date('Y-m-d', strtotime("-$i days"));
   $categories[] = date('j M', strtotime($date)); // e.g., "12 Apr"
   if (isset($dayWise[$date])) {
