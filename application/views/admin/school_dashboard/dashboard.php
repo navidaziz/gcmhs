@@ -275,7 +275,7 @@ foreach ($monthlyAvg as $row) {
       {
         name: 'Present',
         data: <?php echo json_encode($daily_present); ?>,
-        visible: false
+        // visible: false
       }
     ]
   });
@@ -329,13 +329,13 @@ foreach ($monthlyAvg as $row) {
       {
         name: 'leave',
         color: '#90ed7d',
-        visible: false,
+        //visible: false,
         data: <?php echo json_encode($leave); ?>
       },
       {
         name: 'Struck Off',
         color: '#91e8e1',
-        visible: false,
+        //visible: false,
         data: <?php echo json_encode($struck_off); ?>
       }
     ]
