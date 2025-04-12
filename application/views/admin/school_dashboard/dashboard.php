@@ -16,12 +16,8 @@
 						  `sections`.`section_title`,
 						  `sections`.`color` 
 						FROM
-						  `students`,
 						  `sections` 
-						WHERE `students`.`section_id` = `sections`.`section_id`
-						AND `students`.`status` =1
-						AND `students`.`class_id` ='" . $classe->class_id . "'
-				        AND  `sections` . `section_id` != '15'";
+						WHERE  `section`.`status` =1";
 
         $result = $this->db->query($query);
         $sections = $result->result();
