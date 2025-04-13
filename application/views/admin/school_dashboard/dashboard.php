@@ -48,7 +48,7 @@
               </div>
               <div class="panel-right">
                 <div class="number"><strong>Total Students: <?php echo $today_attendance_summary->total_students; ?></strong></div>
-                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off; ?> - Struck-Off </strong></div>
+                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off_over_all; ?> - Struck-Off </strong></div>
               </div>
             </div>
           </div>
