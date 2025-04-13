@@ -30,7 +30,7 @@
                                    sum(absent) as absent, 
                                    sum(total) as total, 
                                    sum(total_students) as total_students, 
-                                   sum(strucked_off) as struck_off, 
+                                   sum(struck_off) as struck_off, 
                                    (sum(total)*100) / sum(total) as total_attendance_percentage 
                             FROM `today_attendance_summery`";
       $today_attendance_summary = $this->db->query($query)->result()[0];
@@ -202,7 +202,7 @@
   sum(`absent`) as `absent`,
   sum(`present`) as `present`,
   sum(`leave`) as `leave`,
-   sum(`strucked_off`) as `strucked_off`
+   sum(`struck_off`) as `struck_off`
    FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
   $c_cat = $absent = $present = $leave = $struck_off = [];
   foreach ($todaySummary as $t) {
@@ -222,8 +222,8 @@
     } else {
       $leave[] = 0;
     }
-    if ($t->strucked_off) {
-      $struck_off[] = (int) $t->strucked_off;
+    if ($t->struck_off) {
+      $struck_off[] = (int) $t->struck_off;
     } else {
       $struck_off[] = 0;
     }
@@ -324,8 +324,8 @@
       } else {
         $leave[] = 0;
       }
-      if ($t->strucked_off) {
-        $struck_off[] = (int) $t->strucked_off;
+      if ($t->struck_off) {
+        $struck_off[] = (int) $t->struck_off;
       } else {
         $struck_off[] = 0;
       }
