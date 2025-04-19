@@ -171,12 +171,12 @@ $global_counts = $this->db->query("
                     <tr>
                       <th>Sections</th>
                       <th>Total</th>
-                      <th>Struck Off</th>
-                      <th style="background-color: #7cb5ec;">Pre.</th>
-                      <th style="background-color: #90ed7d;">Lea.</th>
-                      <th style="background-color: #f15c80;">Abs.</th>
-                      <th style="background-color: #f15c80;">Eve. Abs.</th>
-                      <th colspan="2">Attendance</th>
+                      <th>S-Off</th>
+                      <th style="background-color: #7cb5ec;">P</th>
+                      <th style="background-color: #90ed7d;">L</th>
+                      <th style="background-color: #f15c80;">A</th>
+                      <th style="background-color: #f15c80;">Eve-A</th>
+                      <th colspan="2">Atten.</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -224,8 +224,8 @@ $global_counts = $this->db->query("
                                                                       echo '-';
                                                                     } ?></td>
                           <?php } ?>
-                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Morning</a></td>
-                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Evening</a></td>
+                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Mor.</a></td>
+                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Even.</a></td>
 
                         </tr>
                       <?php endforeach; ?>
