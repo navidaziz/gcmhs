@@ -212,6 +212,7 @@ $global_counts = $this->db->query("
                                                                     } else {
                                                                       echo '-';
                                                                     } ?></td>
+
                           <?php } else { ?>
                             <td style="background-color: #7cb5ec;">-</td>
                             <td style="background-color: #90ed7d;">-</td>
