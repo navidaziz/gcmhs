@@ -176,7 +176,7 @@ $global_counts = $this->db->query("
                       <th style="background-color: #90ed7d;">Lea.</th>
                       <th style="background-color: #f15c80;">Abs.</th>
                       <th style="background-color: #f15c80;">Eve. Abs.</th>
-                      <th>Action</th>
+                      <th colspan="2">Attendance</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -223,7 +223,9 @@ $global_counts = $this->db->query("
                                                                       echo '-';
                                                                     } ?></td>
                           <?php } ?>
-                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Add</a></td>
+                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Morning</a></td>
+                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Evening</a></td>
+
                         </tr>
                       <?php endforeach; ?>
                       <tr>
