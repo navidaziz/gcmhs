@@ -60,8 +60,8 @@
                         $('#form_b').inputmask('99999-9999999-9');
                     }
                     if (value == 'Afghani') {
-                        $('#father_nic').inputmask('aa9999-9999999-9');
-                        $('#form_b').inputmask('aa999-9999999-9');
+                        $('#father_nic').inputmask('aa*99-9999999-9');
+                        $('#form_b').inputmask('aa*99-9999999-9');
                     }
 
                     if (value == 'Other') {
