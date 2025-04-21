@@ -46,7 +46,7 @@
 
             <tr>
                 <th>Place Of Birth: </th>
-                <td><input required type="text" name="place_of_birth" /></td>
+                <td><input required type="text" name="place_of_birth" value="Chitral" /></td>
             </tr>
             <tr>
                 <th>Mother Tongue: </th>
