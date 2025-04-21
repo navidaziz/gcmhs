@@ -150,6 +150,19 @@
                 <th>School Name:</th>
                 <td><input required type="text" style="width:100%" name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
             </tr>
+
+            <tr>
+                <th>Hafiz-e-Quran: </th>
+                <td>
+
+                    <input required type="radio" name="hafiz" value="Yes" <?php if ($students[0]->hafiz == 'Yes') { ?>checked<?php } ?> />
+                    Yes
+                    <span style="margin-left: 20px;"></span>
+
+                    <input required type="radio" name="hafiz" value="No" <?php if ($students[0]->hafiz == 'No') { ?>checked<?php } ?> />
+                    No
+                </td>
+            </tr>
             <tr>
                 <th>Orphan: </th>
                 <td>
