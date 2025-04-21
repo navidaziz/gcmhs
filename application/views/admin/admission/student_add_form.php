@@ -124,7 +124,7 @@
 
             <tr>
                 <th>Guardian Relation:</th>
-                <td><input required type="text" style="width:100%" name="guardian_relation" /></td>
+                <td><input type="text" style="width:100%" name="guardian_relation" /></td>
             </tr>
 
             <tr>
