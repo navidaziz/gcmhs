@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <th>Mother Tongue: </th>
-                <td><input type="text" name="mother_tongue" value="Khowar" /></td>
+                <td><input required type="text" name="mother_tongue" value="Khowar" /></td>
             </tr>
             <tr>
                 <th>Admission Date:</th>
@@ -134,7 +134,7 @@
 
             <tr>
                 <th>Mother Contact No:</th>
-                <td><input required type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" /></td>
+                <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" /></td>
             </tr>
             <tr>
                 <th>Religion:</th>
