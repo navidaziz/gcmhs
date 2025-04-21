@@ -80,6 +80,8 @@ class Admission extends Admin_Controller
 		$input["mother_mobile_no"] = $this->input->post("mother_mobile_no");
 		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
 		$input["guardian_relation"] = $this->input->post("guardian_relation");
+		$input["guardian_name"] = $this->input->post("guardian_name");
+
 		$input["mother_tongue"] = $this->input->post("mother_tongue");
 
 		$this->db->where("student_id", $student_id);
@@ -1291,6 +1293,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
 		$input["guardian_relation"] = $this->input->post("guardian_relation");
 		$input["mother_tongue"] = $this->input->post("mother_tongue");
+		$input["guardian_name"] = $this->input->post("guardian_name");
 
 		if ($input["vaccinated"] == 'Yes') {
 			$input["first_dose"] = $this->input->post("first_dose");
