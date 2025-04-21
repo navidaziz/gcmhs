@@ -105,7 +105,7 @@
             </tr>
             <tr>
                 <th>Guardian Name:</th>
-                <td><input required type="text" style="width:100%" name="guardian_name" value="<?php echo $students[0]->guardian_name; ?>" /></td>
+                <td><input type="text" style="width:100%" name="guardian_name" value="<?php echo $students[0]->guardian_name; ?>" /></td>
             </tr>
 
             <tr>
