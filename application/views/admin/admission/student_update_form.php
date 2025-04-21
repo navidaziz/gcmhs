@@ -119,7 +119,7 @@
 
             <tr>
                 <th>Mother Contact No:</th>
-                <td><input required type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
+                <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
             </tr>
             <tr>
                 <th>Religion:</th>
@@ -223,8 +223,8 @@
                 $('#form_b').inputmask('99999-9999999-9');
             <?php } ?>
             <?php if ($students[0]->nationality == 'Afghani') { ?>
-                $('#father_nic').inputmask('aa999-9999999-9');
-                $('#form_b').inputmask('aa999-9999999-9');
+                $('#father_nic').inputmask('aaa99-9999999-9');
+                $('#form_b').inputmask('aaa99-9999999-9');
             <?php } ?>
             $('#father_mobile_number').inputmask('9999-9999999');
         });

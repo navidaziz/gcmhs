@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <th>Mother Tongue: </th>
-                <td><input required type="text" name="mother_tongue" value="Khowar" /></td>
+                <td><input type="text" name="mother_tongue" value="Khowar" /></td>
             </tr>
             <tr>
                 <th>Admission Date:</th>
@@ -235,8 +235,8 @@
                 $('#form_b').inputmask('99999-9999999-9');
             <?php } ?>
             <?php if ($students[0]->nationality == 'Afghani') { ?>
-                $('#father_nic').inputmask('aa999-9999999-9');
-                $('#form_b').inputmask('aa999-9999999-9');
+                $('#father_nic').inputmask('aaa99-9999999-9');
+                $('#form_b').inputmask('aaa99-9999999-9');
             <?php } ?>
             $('#father_mobile_number').inputmask('0399-9999999');
         });
