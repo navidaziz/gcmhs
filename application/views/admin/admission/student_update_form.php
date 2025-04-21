@@ -9,7 +9,6 @@
 
     <form action="<?php echo site_url(ADMIN_DIR . "admission/update_profile/" . $students[0]->student_id) ?>" method="post" style="text-align: center;">
         <input type="hidden" name="redirect_to" value="students_list" />
-        dfasdfadsfas
         <table class="table table_small">
             <tr>
                 <th style="width: 300px;">Class No: </th>
@@ -33,7 +32,14 @@
                 <td><input required type="date" name="student_data_of_birth" value="<?php echo date('Y-m-d', strtotime($students[0]->student_data_of_birth)); ?>" /></td>
             </tr>
 
-
+            <tr>
+                <th>Place Of Birth: </th>
+                <td><input required type="text" name="place_of_birth" value="<?php echo $students[0]->place_of_birth; ?>" /></td>
+            </tr>
+            <tr>
+                <th>Mother Tongue: </th>
+                <td><input required type="text" name="mother_tongue" value="<?php echo $students[0]->mother_tongue; ?>" /></td>
+            </tr>
             <tr>
                 <th>Admission Date:</th>
                 <td><input required type="date" name="admission_date" value="<?php echo date('Y-m-d', strtotime($students[0]->admission_date)); ?>" /></td>
@@ -91,14 +97,29 @@
                 <th>Student Form B No:</th>
                 <td><input type="text" style="width:100%" id="form_b" name="form_b" value="<?php echo $students[0]->form_b; ?>" /></td>
             </tr>
-            <tr>
-                <th>Contact No:</th>
-                <td><input required type="text" style="width:100%" id="father_mobile_number" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
-            </tr>
+
 
             <tr>
                 <th>Father Occupation:</th>
                 <td><input required type="text" style="width:100%" name="guardian_occupation" value="<?php echo $students[0]->guardian_occupation; ?>" /></td>
+            </tr>
+            <tr>
+                <th>Guardian Name:</th>
+                <td><input required type="text" style="width:100%" name="guardian_name" value="<?php echo $students[0]->guardian_name; ?>" /></td>
+            </tr>
+
+            <tr>
+                <th>Guardian Relation:</th>
+                <td><input required type="text" style="width:100%" name="guardian_relation" value="<?php echo $students[0]->guardian_relation; ?>" /></td>
+            </tr>
+            <tr>
+                <th>Father / Guardian Contact No:</th>
+                <td><input required type="text" style="width:100%" id="father_mobile_number" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
+            </tr>
+
+            <tr>
+                <th>Mother Contact No:</th>
+                <td><input required type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
             </tr>
             <tr>
                 <th>Religion:</th>
@@ -143,17 +164,7 @@
             </tr>
 
 
-            <tr>
-                <th>Vaccinated: </th>
-                <td>
-                    <input required type="radio" name="vaccinated" value="Yes" <?php if ($students[0]->vaccinated == 'Yes') { ?>checked<?php } ?> />
-                    Yes
-                    <span style="margin-left: 20px;"></span>
 
-                    <input required type="radio" name="vaccinated" value="No" <?php if ($students[0]->vaccinated == 'No') { ?>checked<?php } ?> />
-                    No
-                </td>
-            </tr>
 
             <tr>
                 <th>Is Disable: </th>

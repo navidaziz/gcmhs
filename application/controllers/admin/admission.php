@@ -75,6 +75,13 @@ class Admission extends Admin_Controller
 		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
 		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
 		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
+		$input["hafiz"] = $this->input->post("hafiz");
+		$input["place_of_birth"] = $this->input->post("place_of_birth");
+		$input["mother_mobile_no"] = $this->input->post("mother_mobile_no");
+		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
+		$input["guardian_relation"] = $this->input->post("guardian_relation");
+		$input["mother_tongue"] = $this->input->post("mother_tongue");
+
 		$this->db->where("student_id", $student_id);
 		if ($this->db->update("students", $input)) {
 			$this->session->set_flashdata("msg_success", $this->lang->line("success"));
@@ -1277,6 +1284,14 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$input["is_disable"] = ucwords(strtolower($this->input->post("is_disable")));
 		$input["ehsaas"] = ucwords(strtolower($this->input->post("ehsaas")));
 		$input["nic_issue_date"] = $this->input->post("nic_issue_date");
+
+		$input["hafiz"] = $this->input->post("hafiz");
+		$input["place_of_birth"] = $this->input->post("place_of_birth");
+		$input["mother_mobile_no"] = $this->input->post("mother_mobile_no");
+		$input["father_mobile_number"] = $this->input->post("father_mobile_number");
+		$input["guardian_relation"] = $this->input->post("guardian_relation");
+		$input["mother_tongue"] = $this->input->post("mother_tongue");
+
 		if ($input["vaccinated"] == 'Yes') {
 			$input["first_dose"] = $this->input->post("first_dose");
 			$input["second_dose"] = $this->input->post("second_dose");
