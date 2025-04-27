@@ -169,8 +169,8 @@
 
                             <?php
                             $query = "SELECT
-    `classes`.`Class_title`,
-    `classes`.`class_id`,
+    `classes`.`Class_title`
+    , `classes`.`class_id`
     , `sections`.`section_title`
     , `sections`.`color`
     , `subjects`.`subject_title`
