@@ -348,7 +348,7 @@ class Timetable extends Admin_Controller
 
 		$query .= " GROUP BY `teachers`.`teacher_id`
 				ORDER BY `teachers`.`order` ASC;";
-		echo $query;
+		//echo $query;
 		$result = $this->db->query($query);
 		$teachers = $result->result();
 
