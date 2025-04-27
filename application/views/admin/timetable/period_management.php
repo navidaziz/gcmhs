@@ -169,7 +169,8 @@
 
                             <?php
                             $query = "SELECT
-    `classes`.`Class_title`
+    `classes`.`Class_title`,
+    `classes`.`class_id`,
     , `sections`.`section_title`
     , `sections`.`color`
     , `subjects`.`subject_title`
@@ -208,8 +209,10 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
                               ">
                                   <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week; */ ?>
-                                  <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
+                                  <a href="<?php echo site_url(ADMIN_DIR . "timetable/period_management/" . $period_subject->class_id); ?>" style="color:#fff; text-decoration:none">
+                                    <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week;  ?>
+                                  </a>
                                   <?php //if ($period_subject->total_class_week != 6) { 
                                   ?>
                                   <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i>

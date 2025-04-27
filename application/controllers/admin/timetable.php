@@ -324,7 +324,7 @@ class Timetable extends Admin_Controller
 		}
 	}
 
-	public function period_management()
+	public function period_management($class_id = NULL)
 	{
 
 
@@ -341,8 +341,12 @@ class Timetable extends Admin_Controller
 						ON (`class_section_subject_teachers`.`teacher_id` = `teachers`.`teacher_id`)
 					LEFT JOIN `class_subjects` 
 						ON (`class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id`)
-				WHERE teachers.status=1		
-				GROUP BY `teachers`.`teacher_id`
+				WHERE teachers.status=1 ";
+		if ($class_id) {
+			$query .= " AND `class_section_subject_teachers`.`class_id` = '" . $class_id . "' ";
+		}
+
+		$query .= " GROUP BY `teachers`.`teacher_id`
 				ORDER BY `teachers`.`order` ASC;";
 		$result = $this->db->query($query);
 		$teachers = $result->result();
