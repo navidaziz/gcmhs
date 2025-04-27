@@ -209,14 +209,15 @@ AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
                               ">
                                   <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week; */ ?>
-                                  <a href="<?php echo site_url(ADMIN_DIR . "timetable/period_management/" . $period_subject->class_id); ?>" style="color:#fff; text-decoration:none">
-                                    <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
+
+                                  <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
         - " . $period_subject->total_class_week;  ?>
-                                  </a>
+
                                   <?php //if ($period_subject->total_class_week != 6) { 
                                   ?>
                                   <i onClick="update_weeks('Update Weekly Classes', '<?php echo $period_subject->period_subject_id; ?>')" class="fa fa-calendar" aria-hidden="true"></i>
                                   <a href="<?php echo site_url(ADMIN_DIR . "timetable/remove_teacher_subject_period/$period_subject->period_subject_id"); ?>">x</a>
+                                  <a href="<?php echo site_url(ADMIN_DIR . "timetable/period_management/" . $period_subject->class_id); ?>" style="color:#fff; text-decoration:none"> ? </a>
                                   <?php if ($period_subject->total_class_week < 6) {
                                     echo '<br /><small>';
                                     $query = "SELECT * FROM `period_subjects` WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
