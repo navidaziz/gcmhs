@@ -114,12 +114,12 @@
                 $period_subjects = $this->db->query($query)->result();
               ?>
 
-                <td style="text-align: center;">
+                <td style="text-align: center; padding: 2px;">
                   <?php
                   if (!empty($period_subjects)) {
                     foreach ($period_subjects as $period_subject) {
                   ?>
-                      <div class="period-cell" style="width:100%; padding:3px; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
+                      <div class="period-cell" style="width:100%; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
                         <?php
                         echo $period_subject->Class_title . " : " . $period_subject->section_title . "<br />";
                         echo substr($period_subject->subject_title, 0, 10) . "<br />";
