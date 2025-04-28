@@ -48,7 +48,7 @@
     <section>
       <div class="heading">
         <h3>Government Centennial Model High School, Boys Chitral</h3>
-        <h4>Teacher Wise General Time Table for Session 2021-2022</h4>
+        <h4>Teacher Wise General Time Table for Session 2025-2026</h4>
       </div>
 
       <table class="table table-bordered">
@@ -70,7 +70,7 @@
           ?>
             <tr>
               <td><?php echo $count++; ?></td>
-              <td><?php echo $teacher->teacher_name . '-' . $teacher->teacher_designation; ?></td>
+              <th style="text-align: left;"><?php echo $teacher->teacher_name . '-' . $teacher->teacher_designation; ?></th>
 
               <?php
               $query = "SELECT Class_title, section_title, color 
