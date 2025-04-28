@@ -108,7 +108,7 @@
                   ?>
 
 
-                    <td style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
+                    <td>
 
 
 
@@ -125,7 +125,7 @@
 
 
                       ?>
-                          <span>
+                          <div style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
                             <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
                                     - " . $period_subject->total_class_week; */ ?>
                             <?php echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . " <br />" . $period_subject->subject_title . " <br />
@@ -162,7 +162,7 @@
 
                             <?php } ?>
 
-                          </span>
+                          </div>
                           <?php //} 
                           ?>
 
