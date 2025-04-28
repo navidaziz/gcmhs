@@ -64,7 +64,7 @@
                         SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran FROM students AS s 
                         INNER JOIN classes AS c ON c.class_id = s.class_id 
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
-                        AND c.class_id IN (2, 3, 4, 5, 6) 
+                        AND c.class_id IN (2, 3, 4, 5, 6, 7) 
                         GROUP BY c.class_id, c.Class_title;";
                 $student_addmission_summary = $this->db->query($query)->result();
 
@@ -82,16 +82,15 @@
                 <table class="table table-bordered table-striped table_small">
                   <thead>
                     <tr style="background-color: #f2f2f2;">
-
                       <th>Class</th>
                       <th>Total Students</th>
                       <th>Struck Off</th>
                       <th>New Admission</th>
-                      <th>Private Schools</th>
-                      <th>Government Schools</th>
+                      <th>Private</th>
+                      <th>Govt.</th>
                       <th>Orphans</th>
                       <th>Afghanis</th>
-                      <th>Hafiz-e-Quran</th>
+                      <th>Hafiz</th>
                     </tr>
                   </thead>
                   <tbody>
