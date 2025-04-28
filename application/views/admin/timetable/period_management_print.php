@@ -119,10 +119,10 @@
                   if (!empty($period_subjects)) {
                     foreach ($period_subjects as $period_subject) {
                   ?>
-                      <div class="period-cell" style="width:100%; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
+                      <div class="period-cell" style="width:100%; padding:3px; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
                         <?php
-                        echo $period_subject->Class_title . " : " . substr($period_subject->section_title, 0, 10) . "<br />";
-                        echo $period_subject->subject_title . "<br />";
+                        echo $period_subject->Class_title . " : " . $period_subject->section_title . "<br />";
+                        echo substr($period_subject->subject_title, 0, 10) . "<br />";
 
                         if ($period_subject->total_class_week < 6 && $period_subject->total_class_week > 0) {
                           $week_query = "SELECT * FROM period_subjects 
@@ -130,7 +130,7 @@
                           $weeks = $this->db->query($week_query)->result();
 
                           if (!empty($weeks)) {
-                            echo '<small>';
+                            echo '<strong>';
                             foreach ($weeks as $week) {
                               if ($week->mon) echo "M-";
                               if ($week->tue) echo "T-";
@@ -139,7 +139,7 @@
                               if ($week->fri) echo "F-";
                               if ($week->sat) echo "S";
                             }
-                            echo '</small>';
+                            echo '</strong>';
                           }
                         }
                         ?>
