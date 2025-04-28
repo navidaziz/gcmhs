@@ -1,206 +1,167 @@
-<!-- PAGE HEADER-->
 <!DOCTYPE html>
+<html>
 
 <head>
+  <meta charset="UTF-8">
+  <title>Teacher Wise General Time Table</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 5px 10px;
+      width: 95%;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 10px;
+    }
+
+    thead {
+      font-weight: bold;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid gray;
+      height: 17px;
+      text-align: center;
+    }
+
+    .heading {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .period-cell {
+      width: 100px;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- /PAGE HEADER -->
+  <div class="container">
+    <section>
+      <div class="heading">
+        <h3>Government Centennial Model High School, Boys Chitral</h3>
+        <h4>Teacher Wise General Time Table for Session 2021-2022</h4>
+      </div>
 
-  <!-- PAGE MAIN CONTENT -->
-  <div class="row" style="font-size:12px !important; font-family: Open Sans !important">
-    <!-- MESSENGER -->
-    <div class="col-md-12">
-      <div class="container">
-        <section>
-          <style>
-            table {
-              border-collapse: collapse;
-              margin: 5px;
-              margin-left: 10px;
-              font-family: Verdana, Geneva, sans-serif !important;
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Teacher</th>
+            <th>Incharge</th>
+            <th>Total</th>
+            <?php foreach ($periods as $period) { ?>
+              <th><?php echo $period->period_title; ?></th>
+            <?php } ?>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $count = 1;
+          foreach ($teachers as $teacher) {
+          ?>
+            <tr>
+              <td><?php echo $count++; ?></td>
+              <td><?php echo $teacher->teacher_name . '-' . $teacher->teacher_designation; ?></td>
 
-            }
-
-            thead {
-              font-weight: bold;
-            }
-
-            table,
-            th,
-            td {
-              border: 1px solid gray;
-              height: 17px;
-            }
-          </style>
-
-          <div style="margin-top: 20px !important; text-align: center;">
-            <h3>Government Centennial Model High School, Boys Chitral</h2>
-              <h4>Teacher Wise General Time Table for Session 2021-2022</h2>
-          </div>
-          <table class="table table-bordered" style="font-size:10px !important; width: 95%; margin: 5px;">
-            <thead>
-              <th>#</th>
-              <th>Teacher</th>
-              <th>inch</th>
-              <th>Tot</th>
               <?php
+              $query = "SELECT Class_title, section_title, color 
+                                  FROM classes_time_tables 
+                                  WHERE class_teacher = '1' 
+                                  AND teacher_id = '" . $teacher->teacher_id . "'";
+              $class_teacher = $this->db->query($query)->result();
 
-              foreach ($periods as $period) { ?>
-                <th><?php echo $period->period_title;  ?></th>
-              <?php } ?>
+              if (!empty($class_teacher)) {
+                echo '<td style="background-color:' . $class_teacher[0]->color . '">';
+                echo str_replace("th", "", $class_teacher[0]->Class_title) . '-' . substr($class_teacher[0]->section_title, 0, 1);
+                echo '</td>';
+              } else {
+                echo '<td></td>';
+              }
+              ?>
 
-            </thead>
-            <tbody>
+              <td><?php echo $teacher->class_total; ?></td>
+
               <?php
-              $count = 1;
-              foreach ($teachers as $teacher) { ?>
-                <tr>
-                  <td><?php echo $count++; ?></td>
-                  <td><?php echo $teacher->teacher_name;  ?>-<?php echo $teacher->teacher_designation; ?>
-                  </td>
+              foreach ($periods as $period) {
+                $query = "SELECT 
+                                        classes.Class_title, sections.section_title, sections.color, 
+                                        subjects.subject_title, subjects.short_title, 
+                                        class_subjects.total_class_week, period_subjects.period_subject_id
+                                      FROM 
+                                        class_section_subject_teachers,
+                                        period_subjects,
+                                        classes,
+                                        sections,
+                                        class_subjects,
+                                        subjects
+                                      WHERE 
+                                        class_section_subject_teachers.class_section_subject_teacher_id = period_subjects.class_section_subject_teacher_id
+                                        AND classes.class_id = class_section_subject_teachers.class_id
+                                        AND sections.section_id = class_section_subject_teachers.section_id
+                                        AND class_subjects.class_subject_id = class_section_subject_teachers.class_subject_id
+                                        AND subjects.subject_id = class_subjects.subject_id
+                                        AND period_subjects.period_id = '" . $period->period_id . "'
+                                        AND period_subjects.teacher_id = '" . $teacher->teacher_id . "'";
+                $period_subjects = $this->db->query($query)->result();
+              ?>
 
-                  <?php $query = "SELECT Class_title, section_title, color 
-                                          FROM `classes_time_tables`  
-                                          WHERE `classes_time_tables`.`class_teacher`='1' 
-                                          and teacher_id='" . $teacher->teacher_id . "'";
-                  $class_teacher = $this->db->query($query)->result();
-                  if ($class_teacher) {
-                    echo '<td style="background-color:' . $class_teacher[0]->color . '">';
-                    echo str_replace("th", "", $class_teacher[0]->Class_title) . "-" . substr($class_teacher[0]->section_title, 0, 1);
-                    echo '</td>';
+                <td>
+                  <?php
+                  if (!empty($period_subjects)) {
+                    foreach ($period_subjects as $period_subject) {
+                  ?>
+                      <div class="period-cell" style="background-color:<?php echo $period_subject->color; ?>;">
+                        <?php
+                        echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . "<br />";
+                        echo $period_subject->subject_title . "<br />";
+
+                        if ($period_subject->total_class_week < 6 && $period_subject->total_class_week > 0) {
+                          $week_query = "SELECT * FROM period_subjects 
+                                                           WHERE period_subject_id = '" . $period_subject->period_subject_id . "'";
+                          $weeks = $this->db->query($week_query)->result();
+
+                          if (!empty($weeks)) {
+                            echo '<small>';
+                            foreach ($weeks as $week) {
+                              if ($week->mon) echo "M-";
+                              if ($week->tue) echo "T-";
+                              if ($week->wed) echo "W-";
+                              if ($week->thu) echo "T-";
+                              if ($week->fri) echo "F-";
+                              if ($week->sat) echo "S";
+                            }
+                            echo '</small>';
+                          }
+                        }
+                        ?>
+                      </div>
+                  <?php
+                    }
                   } else {
-                    echo '<td></td>';
+                    if ($period->period_id == 7) {
+                      echo '<p style="text-align:center">-</p>';
+                    }
                   }
                   ?>
-
-                  <td><?php echo $teacher->class_total;  ?></td>
-                  <?php
-
-                  foreach ($periods as $period) {
-                    $query = "SELECT
-                                  `classes`.`Class_title`
-                                  , `sections`.`section_title`
-                                  , `sections`.`color`
-                                  , `subjects`.`subject_title`
-                                  , `subjects`.`short_title`
-                                  , `class_subjects`.`total_class_week`
-                                , `period_subjects`.`period_subject_id`
-                                , `subjects`.`short_title`
-                              FROM
-                              `class_section_subject_teachers`
-                              , `period_subjects` 
-                              , `classes`
-                              , `sections`
-                              , `class_subjects`
-                              , `subjects`  
-                              WHERE `class_section_subject_teachers`.`class_section_subject_teacher_id` = `period_subjects`.`class_section_subject_teacher_id`
-                              AND `classes`.`class_id` = `class_section_subject_teachers`.`class_id`
-                              AND `sections`.`section_id` = `class_section_subject_teachers`.`section_id`
-                              AND `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id`
-                              AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
-                              AND  `period_subjects`.`period_id`= '$period->period_id'
-                              AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
-                    $result = $this->db->query($query);
-                    $period_subjects = $result->result();
-
-                  ?>
-
-
-                    <td>
-
-
-
-
-                      <?php
-
-                      if ($period_subjects) {
-                        $subject_count = 0;
-                        foreach ($period_subjects as $period_subject) {
-
-
-                          $subject_count += $period_subject->total_class_week;
-
-
-
-                      ?>
-                          <div style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
-                            <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
-                                    - " . $period_subject->total_class_week; */ ?>
-                            <?php echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . " <br />" . $period_subject->subject_title . " <br />
-                              ";  ?>
-                            <?php //if ($period_subject->total_class_week != 6) { 
-                            ?>
-                            <?php if ($period_subject->total_class_week < 6 and $period_subject->total_class_week > 0) {
-                              echo '<br /><small> ';
-                              $query = "SELECT * FROM `period_subjects` 
-                              WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
-                              $period_weeks = $this->db->query($query)->result();
-                              foreach ($period_weeks as $weeks) {
-                                if ($weeks->mon) {
-                                  echo "M-";
-                                }
-                                if ($weeks->tue) {
-                                  echo "T-";
-                                }
-                                if ($weeks->wed) {
-                                  echo "W-";
-                                }
-                                if ($weeks->thu) {
-                                  echo "T-";
-                                }
-                                if ($weeks->fri) {
-                                  echo "F-";
-                                }
-                                if ($weeks->sat) {
-                                  echo "S";
-                                }
-                              }
-                              echo '</small>'
-                            ?>
-
-                            <?php } ?>
-
-                          </div>
-                          <?php //} 
-                          ?>
-
-
-
-                        <?php } ?>
-
-
-
-
-
-
-
-
-                      <?php  } else { ?>
-                        <?php if ($period->period_id != 7) { ?>
-
-                        <?php } else { ?>
-                          <p style="text-align:center">-</p>
-                        <?php } ?>
-
-                      <?php } ?>
-                    <?php } ?>
-                    </td>
-
-
-                </tr>
+                </td>
               <?php } ?>
-            </tbody>
-          </table>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
 
-        </section>
-      </div>
-    </div>
+    </section>
   </div>
-  </div>
-  <!-- /MESSENGER -->
-  </div>
+
 </body>
 
 </html>
