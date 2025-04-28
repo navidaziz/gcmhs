@@ -40,7 +40,7 @@
 
 
       <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-6">
           <div class="dashbox panel panel-default">
             <div class="panel-body">
               <div class="panel-left red">
@@ -142,7 +142,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
           <div class="dash box pa nel pa nel-de fault">
             <div class="pa nel-b ody" style="padding: 3px;">
               <div class="table-responsive">
