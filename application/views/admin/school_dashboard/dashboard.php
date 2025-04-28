@@ -95,7 +95,7 @@
                         SUM(IF(s.private_public_school = 'G', 1, 0)) AS government_schools, 
                         SUM(IF(s.orphan = 'yes', 1, 0)) AS orphans, SUM(IF(s.nationality = 'Afghani', 1, 0)) AS afghanis, 
                         SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran 
-                        students AS s 
+                       FROM students AS s 
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
                         AND s.class_id = '" . $class->class_id . "'";
                       $row = $this->db->query($query)->row();
