@@ -83,7 +83,7 @@
                   </thead>
                   <tbody>
                     <?php
-                    $query = "SEELCT c.class_id, c.Class_title as class_name 
+                    $query = "SELECT c.class_id, c.Class_title as class 
                     FROM `classes` as c WHERE c.status=1 ORDER BY c.class_id DESC";
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
@@ -104,7 +104,7 @@
                     ?>
                       <tr>
 
-                        <td><?php echo $row->class; ?></td>
+                        <td><?php echo $class->class; ?></td>
                         <td><?php echo $row->total_students;
                             $sum_total_students += $row->total_students; ?></td>
                         <td><?php echo $row->struck_off;
