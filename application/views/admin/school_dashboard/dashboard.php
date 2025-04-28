@@ -54,20 +54,7 @@
               </div>
               <div>
                 <?php
-                $query = "SELECT c.class_id, c.Class_title AS class, 
-                        (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=1) as total_students, 
-                        (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=2) as struck_off, 
-                        COUNT(*) AS new_admission, 
-                        SUM(IF(s.private_public_school = 'P', 1, 0)) AS private_schools, 
-                        SUM(IF(s.private_public_school = 'G', 1, 0)) AS government_schools, 
-                        SUM(IF(s.orphan = 'yes', 1, 0)) AS orphans, SUM(IF(s.nationality = 'Afghani', 1, 0)) AS afghanis, 
-                        SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran 
-                        FROM classes AS c 
-                        LEFT JOIN students AS s ON s.class_id  = c.class_id
-                        WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
-                        AND c.class_id IN (2, 3, 4, 5, 6, 7) 
-                        GROUP BY c.class_id, c.Class_title;";
-                $student_addmission_summary = $this->db->query($query)->result();
+
 
                 // Initialize sum variables
                 $sum_total_students = 0;
@@ -95,7 +82,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($student_addmission_summary as $row): ?>
+                    <?php
+                    $query = "SEELCT c.class_id, c.Class_title as class_name 
+                    FROM `classes` as c WHERE c.status=1 ORDER BY c.class_id DESC";
+                    $classes = $this->db->query($query)->result();
+                    foreach ($classes as $class):
+                      $query = "SELECT 
+                        (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=1) as total_students, 
+                        (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=2) as struck_off, 
+                        COUNT(*) AS new_admission, 
+                        SUM(IF(s.private_public_school = 'P', 1, 0)) AS private_schools, 
+                        SUM(IF(s.private_public_school = 'G', 1, 0)) AS government_schools, 
+                        SUM(IF(s.orphan = 'yes', 1, 0)) AS orphans, SUM(IF(s.nationality = 'Afghani', 1, 0)) AS afghanis, 
+                        SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran 
+                        students AS s ON s.class_id  = c.class_id
+                        WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
+                        AND c.class_id IN ('' . $class->class_id . '')";
+                      $row = $this->db->query($query)->row();
+
+
+                    ?>
                       <tr>
 
                         <td><?php echo $row->class; ?></td>
