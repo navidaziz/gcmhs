@@ -79,7 +79,7 @@
                   <?php foreach ($periods as $period) { ?>
 
 
-                    <td style="width:100px !important; white-space: nowrap;">
+                    <td style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
 
 
 
@@ -120,17 +120,15 @@
 
 
                       ?>
-                          <span style="background-color:<?php echo $period_subject->color; ?>; 
-                                margin-bottom: 4px; padding:3px; border-radius:6px; display: block; 
-                              ">
+                          <span>
                             <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
                                     - " . $period_subject->total_class_week; */ ?>
-                            <?php echo str_replace("th", "", $period_subject->Class_title) . " " . substr($period_subject->section_title, 0, 1) . " " . substr($period_subject->short_title ,0,3 ). " 
+                            <?php echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . " 
                               ";  ?>
                             <?php //if ($period_subject->total_class_week != 6) { 
                             ?>
                             <?php if ($period_subject->total_class_week < 6) {
-                              echo '<small> ';
+                              echo '<br /><small> ';
                               $query = "SELECT * FROM `period_subjects` WHERE period_subject_id='" . $period_subject->period_subject_id . "'";
                               $period_weeks = $this->db->query($query)->result();
                               foreach ($period_weeks as $weeks) {
