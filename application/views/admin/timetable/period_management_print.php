@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Teacher Wise General Time Table</title>
+  <title>Teachers Wise General Time Table</title>
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
@@ -48,14 +48,14 @@
     <section>
       <div class="heading">
         <h3>Government Centennial Model High School, Boys Chitral</h3>
-        <h4>Teacher Wise General Time Table for Session 2025-2026</h4>
+        <h4>Teachers Wise General Time Table for Session 2025-2026</h4>
       </div>
 
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>#</th>
-            <th>Teacher</th>
+            <th>Teachers</th>
             <th>Incharge</th>
             <th>Total</th>
             <?php foreach ($periods as $period) { ?>
