@@ -62,7 +62,7 @@
                         SUM(IF(s.private_public_school = 'G', 1, 0)) AS government_schools, 
                         SUM(IF(s.orphan = 'yes', 1, 0)) AS orphans, SUM(IF(s.nationality = 'Afghani', 1, 0)) AS afghanis, 
                         SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran FROM students AS s 
-                        INNER JOIN classes AS c ON c.class_id = s.class_id 
+                        LEFT JOIN classes AS c ON c.class_id = s.class_id 
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
                         AND c.class_id IN (2, 3, 4, 5, 6, 7) 
                         GROUP BY c.class_id, c.Class_title;";
