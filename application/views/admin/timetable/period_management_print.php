@@ -114,19 +114,19 @@
                 $period_subjects = $this->db->query($query)->result();
               ?>
 
-                <td>
+                <td style="text-align: center;">
                   <?php
                   if (!empty($period_subjects)) {
                     foreach ($period_subjects as $period_subject) {
                   ?>
                       <div class="period-cell" style="background-color:<?php echo $period_subject->color; ?>;">
                         <?php
-                        echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . "<br />";
+                        echo $period_subject->Class_title . " : " . $period_subject->section_title . "<br />";
                         echo $period_subject->subject_title . "<br />";
 
                         if ($period_subject->total_class_week < 6 && $period_subject->total_class_week > 0) {
                           $week_query = "SELECT * FROM period_subjects 
-                                                           WHERE period_subject_id = '" . $period_subject->period_subject_id . "'";
+                                        WHERE period_subject_id = '" . $period_subject->period_subject_id . "'";
                           $weeks = $this->db->query($week_query)->result();
 
                           if (!empty($weeks)) {
@@ -144,6 +144,7 @@
                         }
                         ?>
                       </div>
+                      <hr />
                   <?php
                     }
                   } else {
