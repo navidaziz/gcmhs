@@ -76,16 +76,10 @@
                   ?>
 
                   <td><?php echo $teacher->class_total;  ?></td>
-                  <?php foreach ($periods as $period) { ?>
+                  <?php
 
-
-                    <td style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
-
-
-
-
-                      <?php
-                      $query = "SELECT
+                  foreach ($periods as $period) {
+                    $query = "SELECT
                                   `classes`.`Class_title`
                                   , `sections`.`section_title`
                                   , `sections`.`color`
@@ -108,8 +102,19 @@
                               AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
                               AND  `period_subjects`.`period_id`= '$period->period_id'
                               AND `period_subjects`.`teacher_id`= '$teacher->teacher_id'";
-                      $result = $this->db->query($query);
-                      $period_subjects = $result->result();
+                    $result = $this->db->query($query);
+                    $period_subjects = $result->result();
+
+                  ?>
+
+
+                    <td style="width:100px !important; white-space: nowrap; background-color:<?php echo $period_subject->color; ?>;">
+
+
+
+
+                      <?php
+
                       if ($period_subjects) {
                         $subject_count = 0;
                         foreach ($period_subjects as $period_subject) {
