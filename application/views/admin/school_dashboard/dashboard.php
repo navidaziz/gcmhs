@@ -52,7 +52,7 @@
 
 
               </div>
-              <div>
+              <div style="padding: 4px;">
                 <?php
 
 
@@ -66,7 +66,7 @@
                 $sum_afghanis = 0;
                 $sum_hafiz_e_quran = 0;
                 ?>
-
+                <h5><strong>Total and New Admissions From March <?php echo date('Y'); ?> So Far</strong></h5>
                 <table class="table table-bordered table-striped table_small">
                   <thead>
                     <tr style="background-color: #f2f2f2;">
@@ -84,7 +84,7 @@
                   <tbody>
                     <?php
                     $query = "SELECT c.class_id, c.Class_title as class 
-                    FROM `classes` as c WHERE c.status=1 AND c.class_id IN(2,3,4,5,6) ORDER BY c.class_id DESC";
+                    FROM `classes` as c WHERE c.status=1 AND c.class_id IN(2,3,4,5,6) ORDER BY c.class_id ASC";
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
                       $query = "SELECT 
@@ -104,13 +104,13 @@
                     ?>
                       <tr>
 
-                        <td><?php echo $class->class; ?></td>
-                        <td><?php echo $row->total_students;
-                            $sum_total_students += $row->total_students; ?></td>
-                        <td><?php echo $row->struck_off;
-                            $sum_struck_off += $row->struck_off; ?></td>
-                        <td><?php echo $row->new_admission;
-                            $sum_new_admission += $row->new_admission; ?></td>
+                        <th><?php echo $class->class; ?></th>
+                        <th><?php echo $row->total_students;
+                            $sum_total_students += $row->total_students; ?></th>
+                        <th><?php echo $row->struck_off;
+                            $sum_struck_off += $row->struck_off; ?></th>
+                        <th><?php echo $row->new_admission;
+                            $sum_new_admission += $row->new_admission; ?></th>
                         <td><?php echo $row->private_schools;
                             $sum_private_schools += $row->private_schools; ?></td>
                         <td><?php echo $row->government_schools;
@@ -145,18 +145,19 @@
         <div class="col-lg-7">
           <div class="dash box pa nel pa nel-de fault">
             <div class="pa nel-b ody" style="padding: 3px;">
+              <div class="table-responsive">
+                <h5>Today Attendance Summary - <?php echo round($today_attendance_summary->total_attendance_percentage); ?> %</h5>
+                <table class="table">
+                  <tr>
+                    <th style="background-color: #7cb5ec;">Present - <?php echo $today_attendance_summary->present; ?></th>
+                    <th style="background-color: #f15c80;">Absent - <?php echo $today_attendance_summary->absent; ?></th>
+                    <th style="background-color: #90ed7d;">On leave - <?php echo $today_attendance_summary->leave; ?></th>
+                    <th style="background-color: #91E8E0;">Struck Off - <?php echo $today_attendance_summary->struck_off; ?></th>
+                    <th style="background-color:rgb(255, 255, 255);">Total - <?php echo $today_attendance_summary->total; ?></th>
+                  </tr>
 
-              <h5>Today Attendance Summary - <?php echo round($today_attendance_summary->total_attendance_percentage); ?> %</h5>
-              <table class="table">
-                <tr>
-                  <th style="background-color: #7cb5ec;">Present - <?php echo $today_attendance_summary->present; ?></th>
-                  <th style="background-color: #f15c80;">Absent - <?php echo $today_attendance_summary->absent; ?></th>
-                  <th style="background-color: #90ed7d;">On leave - <?php echo $today_attendance_summary->leave; ?></th>
-                  <th style="background-color: #91E8E0;">Struck Off - <?php echo $today_attendance_summary->struck_off; ?></th>
-                  <th style="background-color:rgb(255, 255, 255);">Total - <?php echo $today_attendance_summary->total; ?></th>
-                </tr>
-
-              </table>
+                </table>
+              </div>
 
             </div>
           </div>
