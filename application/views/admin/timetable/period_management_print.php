@@ -123,7 +123,7 @@
                           <span>
                             <?php /* echo $period_subject->Class_title . " " . substr($period_subject->section_title, 0, 1) . " " . $period_subject->short_title . " 
                                     - " . $period_subject->total_class_week; */ ?>
-                            <?php echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title . " 
+                            <?php echo str_replace("th", "-", $period_subject->Class_title) . " : " . $period_subject->section_title, 0, 5 . " " . substr($period_subject->short_title, 0, 10) . " 
                               ";  ?>
                             <?php //if ($period_subject->total_class_week != 6) { 
                             ?>
