@@ -115,53 +115,54 @@
               ?>
 
                 <td style="text-align: center; padding: 2px;">
-                  <?php
-                  if (!empty($period_subjects)) {
-                    foreach ($period_subjects as $period_subject) {
-                  ?>
-                      <div class="period-cell" style="width:100%; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
-                        <?php
-                        echo $period_subject->Class_title . " : " . $period_subject->section_title . "<br />";
-                        echo substr($period_subject->subject_title, 0, 10) . "<br />";
+                  <strong>
+                    <?php
+                    if (!empty($period_subjects)) {
+                      foreach ($period_subjects as $period_subject) {
+                    ?>
+                        <div class="period-cell" style="width:100%; margin-bottom:2px; background-color:<?php echo $period_subject->color; ?>;">
+                          <?php
+                          echo $period_subject->Class_title . " : " . $period_subject->section_title . "<br />";
+                          echo substr($period_subject->subject_title, 0, 10) . "<br />";
 
-                        if ($period_subject->total_class_week < 6 && $period_subject->total_class_week > 0) {
-                          $week_query = "SELECT * FROM period_subjects 
+                          if ($period_subject->total_class_week < 6 && $period_subject->total_class_week > 0) {
+                            $week_query = "SELECT * FROM period_subjects 
                                         WHERE period_subject_id = '" . $period_subject->period_subject_id . "'";
-                          $weeks = $this->db->query($week_query)->result();
+                            $weeks = $this->db->query($week_query)->result();
 
-                          if (!empty($weeks)) {
-                            echo '<strong>';
-                            foreach ($weeks as $week) {
-                              if ($week->mon) echo "M-";
-                              if ($week->tue) echo "T-";
-                              if ($week->wed) echo "W-";
-                              if ($week->thu) echo "T-";
-                              if ($week->fri) echo "F-";
-                              if ($week->sat) echo "S";
+                            if (!empty($weeks)) {
+
+                              foreach ($weeks as $week) {
+                                if ($week->mon) echo "M-";
+                                if ($week->tue) echo "T-";
+                                if ($week->wed) echo "W-";
+                                if ($week->thu) echo "T-";
+                                if ($week->fri) echo "F-";
+                                if ($week->sat) echo "S";
+                              }
                             }
-                            echo '</strong>';
                           }
-                        }
-                        ?>
-                      </div>
-
-                  <?php
-                    }
-                  } else {
-                    if ($period->period_id == 7) {
-                      echo '<p style="text-align:center">-</p>';
-                    }
-                  }
-                  ?>
-                </td>
-              <?php } ?>
-            </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-
-    </section>
+                          ?>
+                  </strong>
   </div>
+
+<?php
+                      }
+                    } else {
+                      if ($period->period_id == 7) {
+                        echo '<p style="text-align:center">-</p>';
+                      }
+                    }
+?>
+</td>
+<?php } ?>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+
+</section>
+</div>
 
 </body>
 
