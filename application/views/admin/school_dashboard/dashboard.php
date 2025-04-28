@@ -97,7 +97,7 @@
                         SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran 
                         students AS s ON s.class_id  = c.class_id
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
-                        AND c.class_id IN ('' . $class->class_id . '')";
+                        AND c.class_id = '" . $class->class_id . "')";
                       $row = $this->db->query($query)->row();
 
 
