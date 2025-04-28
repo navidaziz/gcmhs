@@ -84,11 +84,11 @@
                   <tbody>
                     <?php
                     $query = "SELECT c.class_id, c.Class_title as class 
-                    FROM `classes` as c WHERE c.status=1 ORDER BY c.class_id DESC";
+                    FROM `classes` as c WHERE c.status=1 AND c.class_id IN(2,3,4,5,6) ORDER BY c.class_id DESC";
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
                       $query = "SELECT 
-                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.status=1) as total_students, 
+                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.status IN (1,2)) as total_students, 
                         (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.status=2) as struck_off, 
                         COUNT(*) AS new_admission, 
                         SUM(IF(s.private_public_school = 'P', 1, 0)) AS private_schools, 
