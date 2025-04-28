@@ -49,10 +49,10 @@
               <div class="panel-right">
                 <div class="number"><strong>Total Students: <?php echo $today_attendance_summary->total_students; ?></strong></div>
                 <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off_over_all; ?> - Struck-Off </strong></div>
+
                 <div>
-                  <div>
-                    <?php
-                    $query = "SELECT c.class_id, c.Class_title AS class, 
+                  <?php
+                  $query = "SELECT c.class_id, c.Class_title AS class, 
                         (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=1) as total_students, 
                         (SELECT COUNT(*) FROM students WHERE students.class_id = c.class_id and students.status=2) as struck_off, 
                         COUNT(*) AS new_admission, 
@@ -64,73 +64,72 @@
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
                         AND c.class_id IN (2, 3, 4, 5, 6) 
                         GROUP BY c.class_id, c.Class_title;";
-                    $student_addmission_summary = $this->db->query($query)->result();
+                  $student_addmission_summary = $this->db->query($query)->result();
 
-                    // Initialize sum variables
-                    $sum_total_students = 0;
-                    $sum_struck_off = 0;
-                    $sum_new_admission = 0;
-                    $sum_private_schools = 0;
-                    $sum_government_schools = 0;
-                    $sum_orphans = 0;
-                    $sum_afghanis = 0;
-                    $sum_hafiz_e_quran = 0;
-                    ?>
+                  // Initialize sum variables
+                  $sum_total_students = 0;
+                  $sum_struck_off = 0;
+                  $sum_new_admission = 0;
+                  $sum_private_schools = 0;
+                  $sum_government_schools = 0;
+                  $sum_orphans = 0;
+                  $sum_afghanis = 0;
+                  $sum_hafiz_e_quran = 0;
+                  ?>
 
-                    <table border="1" cellpadding="5" cellspacing="0" style="width:100%; border-collapse: collapse;">
-                      <thead>
-                        <tr style="background-color: #f2f2f2;">
-                          <th>Class ID</th>
-                          <th>Class</th>
-                          <th>Total Students</th>
-                          <th>Struck Off</th>
-                          <th>New Admission</th>
-                          <th>Private Schools</th>
-                          <th>Government Schools</th>
-                          <th>Orphans</th>
-                          <th>Afghanis</th>
-                          <th>Hafiz-e-Quran</th>
+                  <table class="table table-bordered table-striped table_small">
+                    <thead>
+                      <tr style="background-color: #f2f2f2;">
+
+                        <th>Class</th>
+                        <th>Total Students</th>
+                        <th>Struck Off</th>
+                        <th>New Admission</th>
+                        <th>Private Schools</th>
+                        <th>Government Schools</th>
+                        <th>Orphans</th>
+                        <th>Afghanis</th>
+                        <th>Hafiz-e-Quran</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($student_addmission_summary as $row): ?>
+                        <tr>
+
+                          <td><?php echo $row->class; ?></td>
+                          <td><?php echo $row->total_students;
+                              $sum_total_students += $row->total_students; ?></td>
+                          <td><?php echo $row->struck_off;
+                              $sum_struck_off += $row->struck_off; ?></td>
+                          <td><?php echo $row->new_admission;
+                              $sum_new_admission += $row->new_admission; ?></td>
+                          <td><?php echo $row->private_schools;
+                              $sum_private_schools += $row->private_schools; ?></td>
+                          <td><?php echo $row->government_schools;
+                              $sum_government_schools += $row->government_schools; ?></td>
+                          <td><?php echo $row->orphans;
+                              $sum_orphans += $row->orphans; ?></td>
+                          <td><?php echo $row->afghanis;
+                              $sum_afghanis += $row->afghanis; ?></td>
+                          <td><?php echo $row->hafiz_e_quran;
+                              $sum_hafiz_e_quran += $row->hafiz_e_quran; ?></td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($student_addmission_summary as $row): ?>
-                          <tr>
-                            <td><?php echo $row->class_id; ?></td>
-                            <td><?php echo $row->class; ?></td>
-                            <td><?php echo $row->total_students;
-                                $sum_total_students += $row->total_students; ?></td>
-                            <td><?php echo $row->struck_off;
-                                $sum_struck_off += $row->struck_off; ?></td>
-                            <td><?php echo $row->new_admission;
-                                $sum_new_admission += $row->new_admission; ?></td>
-                            <td><?php echo $row->private_schools;
-                                $sum_private_schools += $row->private_schools; ?></td>
-                            <td><?php echo $row->government_schools;
-                                $sum_government_schools += $row->government_schools; ?></td>
-                            <td><?php echo $row->orphans;
-                                $sum_orphans += $row->orphans; ?></td>
-                            <td><?php echo $row->afghanis;
-                                $sum_afghanis += $row->afghanis; ?></td>
-                            <td><?php echo $row->hafiz_e_quran;
-                                $sum_hafiz_e_quran += $row->hafiz_e_quran; ?></td>
-                          </tr>
-                        <?php endforeach; ?>
-                      </tbody>
-                      <tfoot>
-                        <tr style="background-color: #e6e6e6; font-weight: bold;">
-                          <td colspan="2">Total</td>
-                          <td><?php echo $sum_total_students; ?></td>
-                          <td><?php echo $sum_struck_off; ?></td>
-                          <td><?php echo $sum_new_admission; ?></td>
-                          <td><?php echo $sum_private_schools; ?></td>
-                          <td><?php echo $sum_government_schools; ?></td>
-                          <td><?php echo $sum_orphans; ?></td>
-                          <td><?php echo $sum_afghanis; ?></td>
-                          <td><?php echo $sum_hafiz_e_quran; ?></td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
+                      <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                      <tr style="background-color: #e6e6e6; font-weight: bold;">
+                        <td colspan="2">Total</td>
+                        <td><?php echo $sum_total_students; ?></td>
+                        <td><?php echo $sum_struck_off; ?></td>
+                        <td><?php echo $sum_new_admission; ?></td>
+                        <td><?php echo $sum_private_schools; ?></td>
+                        <td><?php echo $sum_government_schools; ?></td>
+                        <td><?php echo $sum_orphans; ?></td>
+                        <td><?php echo $sum_afghanis; ?></td>
+                        <td><?php echo $sum_hafiz_e_quran; ?></td>
+                      </tr>
+                    </tfoot>
+                  </table>
                 </div>
               </div>
             </div>
