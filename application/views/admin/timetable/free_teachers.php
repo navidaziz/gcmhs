@@ -57,8 +57,8 @@
                             <?php
                             $teacher_count = 1;
                             foreach ($free_teachers as $free_teacher) { ?>
-                              <small style="color:black">
-                                <li><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?> (Total Classes:
+                              <strong style="color:black">
+                                <li><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?> (
                                   <?php
                                   if ($free_teacher->total_classes) {
                                     echo $free_teacher->total_classes;
@@ -85,7 +85,7 @@
 
                                   ?>
                                 </li>
-                              </small>
+                              </strong>
 
                             <?php } ?>
 
