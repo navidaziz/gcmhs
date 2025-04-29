@@ -252,7 +252,7 @@
       ?>
         <div class="timetable-page">
           <div class="timetable-container">
-            <div class="header-section" style="co lor: <?php echo $section->color;  ?> !important;">
+            <div class="header-section" style="color: <?php echo $section->color;  ?> !important;">
               <div class="row">
 
                 <div class="col-md-12">
