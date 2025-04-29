@@ -42,8 +42,8 @@
                   <?php foreach ($periods as $period) {
                     if ($period->period_id != 7) {  ?>
 
-                      <td style="text-align: center;">
-                        <ul style="list-style-type: none; padding: 0px;">
+                      <td>
+                        <ol>
                           <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`)  
                                                             FROM `class_section_subject_teachers`, `class_subjects`
                                                              WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
@@ -58,8 +58,15 @@
                             $teacher_count = 1;
                             foreach ($free_teachers as $free_teacher) { ?>
                               <small style="color:black">
-                                <li><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?>
-                                  <?php echo $free_teacher->total_classes ?>
+                                <li><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?> (Total Classes:
+                                  <?php
+                                  if ($free_teacher->total_classes) {
+                                    echo $free_teacher->total_classes;
+                                  } else {
+                                    echo 0;
+                                  }
+                                  ?>
+                                  )
                                   <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
                                                   WHERE teacher_id = $free_teacher->teacher_id
                                                   AND period_id='" . ($period->period_id - 1) . "'";
@@ -85,7 +92,7 @@
                           <?php } else { ?>
                             -
                           <?php } ?>
-                        </ul>
+                        </ol>
                       </td>
                     <?php } ?>
                   <?php } ?>
