@@ -43,7 +43,7 @@
                     if ($period->period_id != 7) {  ?>
 
                       <td style="text-align: center;">
-                        <table style="width: 100%;">
+                        <ul style="list-style-type: none; padding: 0px;">
                           <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`)  
                                                             FROM `class_section_subject_teachers`, `class_subjects`
                                                              WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
@@ -58,31 +58,26 @@
                             $teacher_count = 1;
                             foreach ($free_teachers as $free_teacher) { ?>
                               <small style="color:black">
-                                <tr>
-                                  <td><?php echo $teacher_count++ ?></td>
-                                  <td style="text-align: left;"><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?></td>
-                                  <td> <?php echo $free_teacher->total_classes ?></td>
-                                  <td>
-                                    <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
+                                <li><?php echo str_ireplace("Muhammad", "M.", $free_teacher->teacher_name) ?>
+                                  <?php echo $free_teacher->total_classes ?>
+                                  <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
                                                   WHERE teacher_id = $free_teacher->teacher_id
                                                   AND period_id='" . ($period->period_id - 1) . "'";
-                                    if ($this->db->query($query)->result()[0]->total > 0) {
-                                      echo "<";
-                                    }
+                                  if ($this->db->query($query)->result()[0]->total > 0) {
+                                    echo "<";
+                                  }
 
-                                    ?>
+                                  ?>
 
-                                    <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
+                                  <?php $query = "SELECT COUNT(*) as total FROM `classes_time_tables` 
                                                   WHERE teacher_id = $free_teacher->teacher_id
                                                   AND period_id='" . ($period->period_id + 1) . "'";
-                                    if ($this->db->query($query)->result()[0]->total > 0) {
-                                      echo ">";
-                                    }
+                                  if ($this->db->query($query)->result()[0]->total > 0) {
+                                    echo ">";
+                                  }
 
-                                    ?>
-
-                                  </td>
-                                </tr>
+                                  ?>
+                                </li>
                               </small>
 
                             <?php } ?>
@@ -90,7 +85,7 @@
                           <?php } else { ?>
                             -
                           <?php } ?>
-                        </table>
+                        </ul>
                       </td>
                     <?php } ?>
                   <?php } ?>
