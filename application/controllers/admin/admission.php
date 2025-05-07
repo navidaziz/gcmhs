@@ -115,8 +115,8 @@ class Admission extends Admin_Controller
 				AND (s.student_name LIKE $search
 				OR s.student_father_name LIKE $search
 				OR s.student_admission_no = $search2 )
-				AND s.status != 0 
 				LIMIT 20";
+		//AND s.status != 0 
 
 		$students_list = $this->db->query($query)->result();
 
