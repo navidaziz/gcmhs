@@ -87,10 +87,7 @@
                   </thead>
                   <tbody>
                     <?php
-                    $query = "SELECT c.class_id, c.Class_title, s.section_id, s.section_title as class 
-                    FROM `classes` as c 
-                    INNER JOIN `sections` as s ON c.class_id = s.class_id 
-                    WHERE s.status=1 AND c.status=1 AND c.class_id IN(2,3,4,5,6) GROUP BY c.class_id , s.section_id";
+                    $query = "SELECT c.class_id, c.Class_title, s.section_id, s.section_title as class FROM `classes` as c INNER JOIN class_sections as cs ON cs.class_id = c.class_id INNER JOIN `sections` as s ON s.section_id = cs.section_id WHERE s.status=1 AND c.status=1 AND c.class_id IN(2,3,4,5,6) GROUP BY c.class_id , s.section_id;";
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
                       $query = "SELECT 
