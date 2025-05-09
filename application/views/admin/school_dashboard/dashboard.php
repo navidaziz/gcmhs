@@ -165,12 +165,12 @@
                 <?php
                 // Initialize totals
                 $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
-                $todaySummary = $this->db->query("SELECT class_title,
+                $todaySummary = $this->db->query("SELECT class_title, section_title
                 sum(`absent`) as `absent`,
                 sum(`present`) as `present`,
                 sum(`leave`) as `leave`,
                 sum(`struck_off`) as `struck_off`
-                FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
+                FROM today_attendance_summery GROUP BY section_title ORDER BY class_id")->result();
 
                 // Calculate totals and populate arrays
                 foreach ($todaySummary as $t) {
@@ -193,6 +193,7 @@
                   <thead>
                     <tr>
                       <th>Class Title</th>
+                      <th>Section</th>
                       <th>Absent</th>
                       <th>Present</th>
                       <th>Leave</th>
@@ -203,6 +204,7 @@
                     <?php foreach ($todaySummary as $t): ?>
                       <tr>
                         <td><?php echo htmlspecialchars($t->class_title) ?></td>
+                        <td><?php echo htmlspecialchars($t->section_title) ?></td>
                         <td><?php echo $t->absent ?></td>
                         <td><?php echo $t->present ?></td>
                         <td><?php echo $t->leave ?></td>
@@ -212,7 +214,7 @@
                   </tbody>
                   <tfoot>
                     <tr style="font-weight:bold;">
-                      <td>Total</td>
+                      <td colspan="2">Total</td>
                       <td><?php echo $totalAbsent ?></td>
                       <td><?php echo $totalPresent ?></td>
                       <td><?php echo $totalLeave ?></td>
