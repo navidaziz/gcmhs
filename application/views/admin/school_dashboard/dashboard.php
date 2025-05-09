@@ -71,7 +71,7 @@
                 $sum_hafiz_e_quran = 0;
                 ?>
                 <h5><strong>Total and New Admissions From March <?php echo date('Y'); ?> So Far</strong></h5>
-                <table class="table table-bordered table-striped table_small">
+                <table border="1" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
                   <thead>
                     <tr style="background-color: #f2f2f2;">
                       <th>Class</th>
@@ -132,7 +132,7 @@
                   </tbody>
                   <tfoot>
                     <tr style="background-color: #e6e6e6; font-weight: bold;">
-                      <td>Total</td>
+                      <td colspan="2">Total</td>
                       <td><?php echo $sum_total_students; ?></td>
                       <td><?php echo $sum_struck_off; ?></td>
                       <td><?php echo $sum_new_admission; ?></td>
