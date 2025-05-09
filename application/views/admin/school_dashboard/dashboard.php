@@ -104,7 +104,7 @@
                        FROM students AS s 
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
                         AND s.class_id = '" . $class->class_id . "'
-                        AND s.section_id = '" . $class->section_id . "'
+                        AND s.section_id = '" . $class->section_id . "'";
                       $row = $this->db->query($query)->row();
 
 
