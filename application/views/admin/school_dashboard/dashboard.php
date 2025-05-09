@@ -165,7 +165,7 @@
                 <?php
                 // Initialize totals
                 $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
-                $todaySummary = $this->db->query("SELECT class_title, section_title
+                $todaySummary = $this->db->query("SELECT class_title, section_title,
                 sum(`absent`) as `absent`,
                 sum(`present`) as `present`,
                 sum(`leave`) as `leave`,
