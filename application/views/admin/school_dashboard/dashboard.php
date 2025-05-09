@@ -87,8 +87,10 @@
                   </thead>
                   <tbody>
                     <?php
-                    $query = "SELECT c.class_id, c.Class_title as class 
-                    FROM `classes` as c WHERE c.status=1 AND c.class_id IN(2,3,4,5,6) ORDER BY c.class_id ASC";
+                    $query = "SELECT c.class_id, c.Class_title, s.section_id, s.section_title as class 
+                    FROM `classes` as c 
+                    INNER JOIN `sections` as s ON c.class_id = s.class_id 
+                    WHERE s.status=1 AND c.status=1 AND c.class_id IN(2,3,4,5,6) GROUP BY c.class_id , s.section_id";
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
                       $query = "SELECT 
@@ -101,7 +103,8 @@
                         SUM(IF(s.hafiz = 'Yes', 1, 0)) AS hafiz_e_quran 
                        FROM students AS s 
                         WHERE DATE(s.admission_date) >= '" . date('Y') . "-03-01' 
-                        AND s.class_id = '" . $class->class_id . "'";
+                        AND s.class_id = '" . $class->class_id . "'
+                        AND s.section_id = '" . $class->section_id . "'
                       $row = $this->db->query($query)->row();
 
 
@@ -109,6 +112,7 @@
                       <tr>
 
                         <th><?php echo $class->class; ?></th>
+                        <th><?php echo $class->section_title; ?></th>
                         <th><?php echo $row->total_students;
                             $sum_total_students += $row->total_students; ?></th>
                         <th><?php echo $row->struck_off;
@@ -166,10 +170,12 @@
                 <div class="text-warning" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->struck_off / $today_attendance_summary->total) * 100, 2) ?>%</div>
                 <small class="text-muted">Struck Off</small>
               </div>
+              <div class="col-xs-3 text-center">
+                <div class="text-warning" style="font-size:18px; font-weight:bold;"><?php echo  $today_attendance_summary->total ?></div>
+                <small class="text-muted">Total Student</small>
+              </div>
             </div>
-            <div class="text-right text-muted" style="margin-top:10px; font-size:12px;">
-              Total Students: <?php echo  $today_attendance_summary->total ?>
-            </div>
+
           </div>
           <?php
           // Initialize totals
