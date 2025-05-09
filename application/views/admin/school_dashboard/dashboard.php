@@ -162,6 +162,88 @@
 
                 </table>
 
+                <div style="
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+">
+                  <h3 style="
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #495057;
+        font-size: 1.25rem;
+        border-bottom: 2px solid #6c757d;
+        padding-bottom: 8px;
+    ">Attendance Summary (Percentage)</h3>
+
+                  <ul style="
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0 0 15px 0;
+    ">
+                    <li style="
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ced4da;
+        ">
+                      <span style="font-weight: 500; color: #212529;">Present:</span>
+                      <span style="color: #2b8a3e; font-weight: 600;">
+                        <?php echo  round(($today_attendance_summary->present / $today_attendance_summary->total) * 100, 2) ?>%
+                      </span>
+                    </li>
+                    <li style="
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ced4da;
+        ">
+                      <span style="font-weight: 500; color: #212529;">Absent:</span>
+                      <span style="color: #c92a2a; font-weight: 600;">
+                        <?php echo  round(($today_attendance_summary->absent / $today_attendance_summary->total) * 100, 2) ?>%
+                      </span>
+                    </li>
+                    <li style="
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ced4da;
+        ">
+                      <span style="font-weight: 500; color: #212529;">Leave:</span>
+                      <span style="color: #5c940d; font-weight: 600;">
+                        <?php echo  round(($today_attendance_summary->leave / $today_attendance_summary->total) * 100, 2) ?>%
+                      </span>
+                    </li>
+                    <li style="
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+        ">
+                      <span style="font-weight: 500; color: #212529;">Struck Off:</span>
+                      <span style="color: #862e9c; font-weight: 600;">
+                        <?php echo  round(($today_attendance_summary->struck_off / $today_attendance_summary->total) * 100, 2) ?>%
+                      </span>
+                    </li>
+                  </ul>
+
+                  <p style="
+        margin: 0;
+        padding-top: 8px;
+        text-align: right;
+        font-size: 0.9rem;
+        color: #495057;
+        border-top: 1px solid #dee2e6;
+    ">
+                    <strong>Total Students:</strong>
+                    <span style="font-weight: 600;"><?php echo  $today_attendance_summary->total ?></span>
+                  </p>
+                </div>
+
+
+
                 <?php
                 // Initialize totals
                 $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
@@ -215,16 +297,6 @@
                   </tfoot>
                 </table>
 
-                <div style="margin-top:20px; padding:10px; background:#f5f5f5; border:1px solid #ddd;">
-                  <h3>Attendance Summary (Percentage)</h3>
-                  <ul>
-                    <li>Present: <?php echo round(($totalPresent / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Absent: <?php echo round(($totalAbsent / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Leave: <?php echo round(($totalLeave / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Struck Off: <?php echo round(($totalStruckOff / $totalStudents) * 100, 2) ?>%</li>
-                  </ul>
-                  <p>Total Students: <?php echo $totalStudents ?></p>
-                </div>
 
               </div>
 
