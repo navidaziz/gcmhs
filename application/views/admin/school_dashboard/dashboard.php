@@ -171,21 +171,6 @@
                 sum(`leave`) as `leave`,
                 sum(`struck_off`) as `struck_off`
                 FROM today_attendance_summery GROUP BY section_title ORDER BY class_id")->result();
-
-                // Calculate totals and populate arrays
-                foreach ($todaySummary as $t) {
-                  $c_cat[] = $t->class_title;
-                  $absent[] = $t->absent;
-                  $present[] = $t->present;
-                  $leave[] = $t->leave;
-                  $struck_off[] = $t->struck_off;
-
-                  $totalAbsent += $t->absent;
-                  $totalPresent += $t->present;
-                  $totalLeave += $t->leave;
-                  $totalStruckOff += $t->struck_off;
-                }
-
                 $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
                 ?>
 
