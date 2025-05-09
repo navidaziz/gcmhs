@@ -47,7 +47,11 @@
                 <i class="fa fa-user fa-3x"></i>
               </div>
               <div class="panel-right">
-                <div class="number"><strong>Total Students: <?php echo $today_attendance_summary->total_students; ?></strong></div>
+                <div class="number"><strong>Total Students: <?php
+
+                                                            $query = "SELECT * FROM students WHERE status IN ()";
+
+                                                            echo $today_attendance_summary->total_students; ?></strong></div>
                 <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off_over_all; ?> - Struck-Off </strong></div>
 
 
@@ -157,6 +161,71 @@
                   </tr>
 
                 </table>
+
+                <?php
+                // Initialize totals
+                $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
+
+                // Calculate totals and populate arrays
+                foreach ($todaySummary as $t) {
+                  $c_cat[] = $t->class_title;
+                  $absent[] = $t->absent;
+                  $present[] = $t->present;
+                  $leave[] = $t->leave;
+                  $struck_off[] = $t->struck_off;
+
+                  $totalAbsent += $t->absent;
+                  $totalPresent += $t->present;
+                  $totalLeave += $t->leave;
+                  $totalStruckOff += $t->struck_off;
+                }
+
+                $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
+                ?>
+
+                <table border="1" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
+                  <thead>
+                    <tr>
+                      <th>Class Title</th>
+                      <th>Absent</th>
+                      <th>Present</th>
+                      <th>Leave</th>
+                      <th>Struck Off</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($todaySummary as $t): ?>
+                      <tr>
+                        <td><?php htmlspecialchars($t->class_title) ?></td>
+                        <td><?php $t->absent ?></td>
+                        <td><?php $t->present ?></td>
+                        <td><?php $t->leave ?></td>
+                        <td><?php $t->struck_off ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                  <tfoot>
+                    <tr style="font-weight:bold;">
+                      <td>Total</td>
+                      <td><?php $totalAbsent ?></td>
+                      <td><?php $totalPresent ?></td>
+                      <td><?php $totalLeave ?></td>
+                      <td><?php $totalStruckOff ?></td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div style="margin-top:20px; padding:10px; background:#f5f5f5; border:1px solid #ddd;">
+                  <h3>Attendance Summary (Percentage)</h3>
+                  <ul>
+                    <li>Present: <?php round(($totalPresent / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Absent: <?php round(($totalAbsent / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Leave: <?php round(($totalLeave / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Struck Off: <?php round(($totalStruckOff / $totalStudents) * 100, 2) ?>%</li>
+                  </ul>
+                  <p>Total Students: <?php $totalStudents ?></p>
+                </div>
+
               </div>
 
             </div>
