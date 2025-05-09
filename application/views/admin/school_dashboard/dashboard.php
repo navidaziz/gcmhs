@@ -171,7 +171,7 @@
                 sum(`leave`) as `leave`,
                 sum(`struck_off`) as `struck_off`
                 FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
-                
+
                 // Calculate totals and populate arrays
                 foreach ($todaySummary as $t) {
                   $c_cat[] = $t->class_title;
@@ -202,21 +202,21 @@
                   <tbody>
                     <?php foreach ($todaySummary as $t): ?>
                       <tr>
-                        <td><?php htmlspecialchars($t->class_title) ?></td>
-                        <td><?php $t->absent ?></td>
-                        <td><?php $t->present ?></td>
-                        <td><?php $t->leave ?></td>
-                        <td><?php $t->struck_off ?></td>
+                        <td><?php echo htmlspecialchars($t->class_title) ?></td>
+                        <td><?php echo $t->absent ?></td>
+                        <td><?php echo $t->present ?></td>
+                        <td><?php echo $t->leave ?></td>
+                        <td><?php echo $t->struck_off ?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
                   <tfoot>
                     <tr style="font-weight:bold;">
                       <td>Total</td>
-                      <td><?php $totalAbsent ?></td>
-                      <td><?php $totalPresent ?></td>
-                      <td><?php $totalLeave ?></td>
-                      <td><?php $totalStruckOff ?></td>
+                      <td><?php echo $totalAbsent ?></td>
+                      <td><?php echo $totalPresent ?></td>
+                      <td><?php echo $totalLeave ?></td>
+                      <td><?php echo $totalStruckOff ?></td>
                     </tr>
                   </tfoot>
                 </table>
@@ -224,12 +224,12 @@
                 <div style="margin-top:20px; padding:10px; background:#f5f5f5; border:1px solid #ddd;">
                   <h3>Attendance Summary (Percentage)</h3>
                   <ul>
-                    <li>Present: <?php round(($totalPresent / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Absent: <?php round(($totalAbsent / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Leave: <?php round(($totalLeave / $totalStudents) * 100, 2) ?>%</li>
-                    <li>Struck Off: <?php round(($totalStruckOff / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Present: <?php echo round(($totalPresent / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Absent: <?php echo round(($totalAbsent / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Leave: <?php echo round(($totalLeave / $totalStudents) * 100, 2) ?>%</li>
+                    <li>Struck Off: <?php echo round(($totalStruckOff / $totalStudents) * 100, 2) ?>%</li>
                   </ul>
-                  <p>Total Students: <?php $totalStudents ?></p>
+                  <p>Total Students: <?php echo $totalStudents ?></p>
                 </div>
 
               </div>
