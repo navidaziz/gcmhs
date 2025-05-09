@@ -152,23 +152,23 @@
           <div class="well" style="margin-top:20px; padding:15px;">
             <h5>Today Attendance Summary (Percentage)</h5>
             <div class="row">
-              <div class="col-xs-3 text-center border-right">
+              <div class="col-xs-2 text-center border-right">
                 <div class="text-success" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->present / $today_attendance_summary->total) * 100, 2) ?>%</div>
                 <small class="text-muted">Present</small>
               </div>
-              <div class="col-xs-3 text-center border-right">
+              <div class="col-xs-2 text-center border-right">
                 <div class="text-danger" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->absent / $today_attendance_summary->total) * 100, 2) ?>%</div>
                 <small class="text-muted">Absent</small>
               </div>
-              <div class="col-xs-3 text-center border-right">
+              <div class="col-xs-2 text-center border-right">
                 <div class="text-primary" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->leave / $today_attendance_summary->total) * 100, 2) ?>%</div>
                 <small class="text-muted">Leave</small>
               </div>
-              <div class="col-xs-3 text-center">
+              <div class="col-xs-2 text-center">
                 <div class="text-warning" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->struck_off / $today_attendance_summary->total) * 100, 2) ?>%</div>
                 <small class="text-muted">Struck Off</small>
               </div>
-              <div class="col-xs-3 text-center">
+              <div class="col-xs-2 text-center">
                 <div class="text-warning" style="font-size:18px; font-weight:bold;"><?php echo  $today_attendance_summary->total ?></div>
                 <small class="text-muted">Total Student</small>
               </div>
