@@ -186,7 +186,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($todaySummary as $t): ?>
+                    <?php foreach ($todaySummary as $t):
+                      $totalAbsent += $t->absent;
+                      $totalPresent += $t->present;
+                      $totalLeave += $t->leave;
+                      $totalStruckOff += $t->struck_off;
+                    ?>
                       <tr>
                         <td><?php echo htmlspecialchars($t->class_title) ?></td>
                         <td><?php echo htmlspecialchars($t->section_title) ?></td>
@@ -195,7 +200,9 @@
                         <td><?php echo $t->leave ?></td>
                         <td><?php echo $t->struck_off ?></td>
                       </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;
+                    $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr style="font-weight:bold;">
