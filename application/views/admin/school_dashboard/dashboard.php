@@ -170,7 +170,7 @@
                 sum(`present`) as `present`,
                 sum(`leave`) as `leave`,
                 sum(`struck_off`) as `struck_off`
-                FROM today_attendance_summery GROUP BY section_title ORDER BY class_id")->result();
+                FROM today_attendance_summery GROUP BY section_title, class_title ORDER BY class_id")->result();
                 $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
                 ?>
 
