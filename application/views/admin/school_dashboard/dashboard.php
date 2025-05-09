@@ -165,7 +165,12 @@
                 <?php
                 // Initialize totals
                 $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
-
+                $todaySummary = $this->db->query("SELECT class_title,
+                sum(`absent`) as `absent`,
+                sum(`present`) as `present`,
+                sum(`leave`) as `leave`,
+                sum(`struck_off`) as `struck_off`
+                FROM today_attendance_summery GROUP BY class_title ORDER BY class_id")->result();
                 // Calculate totals and populate arrays
                 foreach ($todaySummary as $t) {
                   $c_cat[] = $t->class_title;
