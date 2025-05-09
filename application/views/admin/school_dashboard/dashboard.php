@@ -92,8 +92,8 @@
                     $classes = $this->db->query($query)->result();
                     foreach ($classes as $class):
                       $query = "SELECT 
-                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.status IN (1,2)) as total_students, 
-                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.status=2) as struck_off, 
+                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.section_id = '" . $class->section_id . "' and students.status IN (1,2)) as total_students, 
+                        (SELECT COUNT(*) FROM students WHERE students.class_id = '" . $class->class_id . "' and students.section_id = '" . $class->section_id . "' and students.status=2) as struck_off, 
                         COUNT(*) AS new_admission, 
                         SUM(IF(s.private_public_school = 'P', 1, 0)) AS private_schools, 
                         SUM(IF(s.private_public_school = 'G', 1, 0)) AS government_schools, 
