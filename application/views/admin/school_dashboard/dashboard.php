@@ -180,7 +180,7 @@
           <?php
           // Initialize totals
           $totalAbsent = $totalPresent = $totalLeave = $totalStruckOff = 0;
-          $todaySummary = $this->db->query("SELECT class_title, section_title,
+          $todaySummary = $this->db->query("SELECT class_id, section_id, class_title, section_title,
                 sum(`absent`) as `absent`,
                 sum(`present`) as `present`,
                 sum(`leave`) as `leave`,
@@ -213,8 +213,8 @@
                   <td><?php echo htmlspecialchars($t->section_title) ?></td>
                   <th><?php
                       $query = "SELECT `teacher_name` FROM `classes_time_tables` 
-                                      WHERE class_teacher=1 and class_id='" . $class->class_id . "' 
-                                      AND section_id='" . $class->section_id . "';";
+                                      WHERE class_teacher=1 and class_id='" . $t->class_id . "' 
+                                      AND section_id='" . $t->section_id . "';";
                       $class_teacher = $this->db->query($query)->row();
                       if ($class_teacher) {
                         echo $class_teacher->teacher_name;
