@@ -76,7 +76,7 @@
                     <tr style="background-color: #f2f2f2;">
                       <th>Class</th>
                       <th>Section</th>
-                      <th>Class Teacher</th>
+
                       <th>Total Students</th>
                       <th>Struck Off</th>
                       <th>New Admission</th>
@@ -112,15 +112,7 @@
 
                         <th><?php echo $class->Class_title; ?></th>
                         <th><?php echo $class->section_title; ?></th>
-                        <th><?php
-                            $query = "SELECT `teacher_name` FROM `classes_time_tables` 
-                                      WHERE class_teacher=1 and class_id='" . $class->class_id . "' 
-                                      AND section_id='" . $class->section_id . "';";
-                            $class_teacher = $this->db->query($query)->row();
-                            if ($class_teacher) {
-                              echo $class_teacher->teacher_name;
-                            }
-                            ?></th>
+
                         <th><?php echo $row->total_students;
                             $sum_total_students += $row->total_students; ?></th>
                         <th><?php echo $row->struck_off;
@@ -142,7 +134,7 @@
                   </tbody>
                   <tfoot>
                     <tr style="background-color: #e6e6e6; font-weight: bold;">
-                      <td colspan="3">Total</td>
+                      <td colspan="2">Total</td>
                       <td><?php echo $sum_total_students; ?></td>
                       <td><?php echo $sum_struck_off; ?></td>
                       <td><?php echo $sum_new_admission; ?></td>
@@ -202,6 +194,7 @@
               <tr>
                 <th>Class Title</th>
                 <th>Section</th>
+                <th>Class Teacher</th>
                 <th>Absent</th>
                 <th>Present</th>
                 <th>Leave</th>
@@ -218,6 +211,15 @@
                 <tr>
                   <td><?php echo htmlspecialchars($t->class_title) ?></td>
                   <td><?php echo htmlspecialchars($t->section_title) ?></td>
+                  <th><?php
+                      $query = "SELECT `teacher_name` FROM `classes_time_tables` 
+                                      WHERE class_teacher=1 and class_id='" . $class->class_id . "' 
+                                      AND section_id='" . $class->section_id . "';";
+                      $class_teacher = $this->db->query($query)->row();
+                      if ($class_teacher) {
+                        echo $class_teacher->teacher_name;
+                      }
+                      ?></th>
                   <td><?php echo $t->absent ?></td>
                   <td><?php echo $t->present ?></td>
                   <td><?php echo $t->leave ?></td>
@@ -229,7 +231,7 @@
             </tbody>
             <tfoot>
               <tr style="font-weight:bold;">
-                <td colspan="2">Total</td>
+                <td colspan="3">Total</td>
                 <td><?php echo $totalAbsent ?></td>
                 <td><?php echo $totalPresent ?></td>
                 <td><?php echo $totalLeave ?></td>
