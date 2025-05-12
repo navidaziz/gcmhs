@@ -52,7 +52,7 @@
                                                             $query = "SELECT * FROM students WHERE status IN ()";
 
                                                             echo $today_attendance_summary->total_students; ?></strong></div>
-                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off_over_all; ?> - Struck-Off </strong></div>
+                <div class="title" style="color: #91e8e1;"><strong><?php echo $today_attendance_summary->struck_off; ?> - Struck-Off </strong></div>
 
 
               </div>
@@ -202,7 +202,7 @@
                 <th>Leave</th>
                 <th>Struck Off</th>
                 <th>Total</th>
-                <th>Evening Attendance</th>
+                <th>Last Class</th>
                 <th>Evening Absent</th>
               </tr>
             </thead>
@@ -232,8 +232,23 @@
                   <td><?php echo $t->leave ?></td>
                   <td><?php echo $t->struck_off ?></td>
                   <td><?php echo ($t->present + $t->absent + $t->leave + $t->struck_off); ?></td>
-                  <td><?php echo $t->evening_attendance ?></td>
-                  <td><?php echo $t->evening_absent ?></td>
+                  <td>
+                    <?php
+                    $query = "SELECT `teacher_name` FROM `classes_time_tables` 
+                                      WHERE period_id=10 and class_id='" . $t->class_id . "' 
+                                      AND section_id='" . $t->section_id . "';";
+                    $class_teacher = $this->db->query($query)->row();
+                    if ($class_teacher) {
+                      echo $class_teacher->teacher_name;
+                    }
+                    ?>
+                  </td>
+                  <td><?php
+                      if ($t->evening_attendance == 'n') {
+                        echo '<small style="color:red">Pending</small>';
+                      } else {
+                        echo $t->evening_absent;
+                      } ?></td>
                 </tr>
               <?php endforeach;
               $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
