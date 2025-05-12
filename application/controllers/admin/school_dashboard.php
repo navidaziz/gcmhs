@@ -27,4 +27,10 @@ class School_dashboard extends Admin_Controller
 		$this->data["view"] = ADMIN_DIR . "school_dashboard/dashboard";
 		$this->load->view(ADMIN_DIR . "dashboard_layout", $this->data);
 	}
+
+	public function students_attendance_list()
+	{
+		$this->data["view"] = ADMIN_DIR . "school_dashboard/students_attendance_list";
+		$this->load->view(ADMIN_DIR . "dashboard_layout", $this->data);
+	}
 }
