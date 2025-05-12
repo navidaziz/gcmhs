@@ -1,3 +1,28 @@
+<style>
+  .image-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .image-tooltip .tooltip {
+    visibility: hidden;
+    width: 150px;
+    background-color: transparent;
+    position: absolute;
+    z-index: 100;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .image-tooltip:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -44,7 +69,12 @@
             <td><?php echo $sa->admission_no; ?></td>
             <th><?php echo $sa->contact_no; ?></th>
             <td><?php if ($sa->image) { ?>
-                <img src="<?php echo site_url('uploads/gcmhs/' . $sa->image); ?>" width="30" height="30" />
+                <span class="image-tooltip">
+                  <img src="<?php echo site_url('uploads/gcmhs/' . $sa->image); ?>" width="30" height="30" />
+                  <span class="tooltip">
+                    <img src="<?php echo site_url('uploads/gcmhs/' . $sa->image); ?>" width="150" style="border: 2px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.3);" />
+                  </span>
+                </span>
               <?php } ?>
             </td>
             <td><?php echo $sa->status; ?></td>
