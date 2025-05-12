@@ -165,7 +165,7 @@
     function get_student_information(student_id) {
       $.ajax({
           method: "POST",
-          url: "<?php echo site_url('teacher_dashboard/get_student_information'); ?>",
+          url: "<?php echo site_url(ADMIN_DIR . 'teacher_dashboard/get_student_information'); ?>",
           data: {
             student_id: student_id
           },
