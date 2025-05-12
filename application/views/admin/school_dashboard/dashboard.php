@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dat aTables.min.css" />
 <div class="row" style="background-color: white; padding-top: 10px;">
   <div class="col-md-12">
     <div class="row">
