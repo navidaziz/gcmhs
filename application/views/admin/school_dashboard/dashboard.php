@@ -232,7 +232,7 @@
                   <td><?php echo $t->leave ?></td>
                   <td><?php echo $t->struck_off ?></td>
                   <td><?php echo ($t->present + $t->absent + $t->leave + $t->struck_off); ?></td>
-                  <td>
+                  <th>
                     <?php
                     $query = "SELECT `teacher_name` FROM `classes_time_tables` 
                                       WHERE period_id=10 and class_id='" . $t->class_id . "' 
@@ -242,7 +242,7 @@
                       echo $class_teacher->teacher_name;
                     }
                     ?>
-                  </td>
+                  </th>
                   <td><?php
                       if ($t->evening_attendance == 'n') {
                         echo '<small style="color:red">Pending</small>';
