@@ -17,6 +17,7 @@
           <th>STUDENT NAME</th>
           <th>FATHER NAME</th>
           <th>ADMISSION NO.</th>
+          <th>CONTACT</th>
           <th>IMAGE</th>
           <th>STATUS</th>
           <th>CLASS</th>
@@ -41,6 +42,7 @@
             <td><?php echo $sa->name; ?></td>
             <td><?php echo $sa->father_name; ?></td>
             <td><?php echo $sa->admission_no; ?></td>
+            <th><?php echo $sa->contact_no; ?></th>
             <td><?php echo $sa->image; ?></td>
             <td><?php echo $sa->status; ?></td>
             <td><?php echo $sa->class_title; ?></td>
