@@ -188,9 +188,7 @@
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  
-                                        <?php echo $student->father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
-                                        " tabindex="<?php echo $count++; ?>" role="button" data-toggle="popover" data-trigger="focus" class="pop-top" data-title="Top" data-toggle="popover" data-original-title="" title="<?php echo $student->student_name; ?>">
+                                        <a href="javascript:void(0);" onclick="get_student_information('<?php echo $student->student_id; ?>')">
                                             <?php echo $student->student_name; ?>
 
                                             <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
