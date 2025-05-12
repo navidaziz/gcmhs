@@ -192,13 +192,14 @@
           <table border="1" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
               <tr>
-                <th>Class Title</th>
+                <th>Class</th>
                 <th>Section</th>
                 <th>Class Teacher</th>
-                <th>Absent</th>
                 <th>Present</th>
+                <th>Absent</th>
                 <th>Leave</th>
                 <th>Struck Off</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -220,10 +221,11 @@
                         echo $class_teacher->teacher_name;
                       }
                       ?></th>
-                  <td><?php echo $t->absent ?></td>
                   <td><?php echo $t->present ?></td>
+                  <td><?php echo $t->absent ?></td>
                   <td><?php echo $t->leave ?></td>
                   <td><?php echo $t->struck_off ?></td>
+                  <td><?php echo ($t->present + $t->absent + $t->leave + $t->struck_off); ?></td>
                 </tr>
               <?php endforeach;
               $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
@@ -232,10 +234,12 @@
             <tfoot>
               <tr style="font-weight:bold;">
                 <td colspan="3">Total</td>
-                <td><?php echo $totalAbsent ?></td>
                 <td><?php echo $totalPresent ?></td>
+                <td><?php echo $totalAbsent ?></td>
+
                 <td><?php echo $totalLeave ?></td>
                 <td><?php echo $totalStruckOff ?></td>
+                <td><?php echo ($totalPresent + $totalAbsent + $totalLeave + $totalStruckOff) ?></td>
               </tr>
             </tfoot>
           </table>
