@@ -162,22 +162,20 @@
     </div>
   </div>
   <script>
-    < script >
-      function get_student_information(student_id) {
-        $.ajax({
-            method: "POST",
-            url: "<?php echo site_url('teacher_dashboard/get_student_information'); ?>",
-            data: {
-              student_id: student_id
-            },
-          })
-          .done(function(respose) {
-            $('#modal').modal('show');
-            $('#modal_title').html('Student Information');
-            $('#modal_body').html(respose);
-          });
-      } <
-      />
+    function get_student_information(student_id) {
+      $.ajax({
+          method: "POST",
+          url: "<?php echo site_url('teacher_dashboard/get_student_information'); ?>",
+          data: {
+            student_id: student_id
+          },
+        })
+        .done(function(respose) {
+          $('#modal').modal('show');
+          $('#modal_title').html('Student Information');
+          $('#modal_body').html(respose);
+        });
+    }
   </script>
 
 
