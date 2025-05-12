@@ -140,6 +140,29 @@
 
 <body>
 
+  <!-- Modal -->
+
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width: 90%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal_title" style="display: inline;"></h4>
+          <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal_body">
+          ...
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <style>
     .navbar .navbar-brand img {
       position: absolute;

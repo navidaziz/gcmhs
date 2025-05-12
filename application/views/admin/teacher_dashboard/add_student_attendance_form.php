@@ -34,6 +34,25 @@
     }
 </script>
 
+<script>
+    function get_student_information(student_id) {
+        $.ajax({
+                method: "POST",
+                url: "<?php echo site_url('teacher_dashboard/get_student_information'); ?>",
+                data: {
+                    student_id: student_id
+                },
+            })
+            .done(function(respose) {
+                $('#modal').modal('show');
+                $('#modal_title').html('Student Information');
+                $('#modal_body').html(respose);
+            });
+    }
+</script>
+
+
+
 <div class="row" style="height: 38px !important;">
     <div class="col-sm-12">
         <div class="page-header" style="min-height: 30px !important">
@@ -146,28 +165,7 @@
                                     <td>
                                         <div class="student-info-container">
                                             <!-- Clickable student name with popover details -->
-                                            <a href="javascript:void(0);"
-                                                class="student-name-popover"
-                                                data-toggle="popover"
-                                                data-html="true"
-                                                data-placement="auto"
-                                                data-trigger="click"
-                                                title="<strong><?php echo htmlspecialchars($student->student_name); ?></strong>"
-                                                data-content="
-                                                    <div class='student-details'>
-                                                    <p><strong>Father:</strong> <?php echo htmlspecialchars($student->student_father_name); ?></p>
-                                                    <p><strong>Father NIC:</strong> <?php echo htmlspecialchars($student->father_nic); ?></p>
-                                                    <p><strong>Contact:</strong> 
-                                                        <a href='tel:<?php echo htmlspecialchars(preg_replace('/[^0-9]/', '', $student->father_mobile_number)); ?>'>
-                                                        <?php echo htmlspecialchars($student->father_mobile_number); ?>
-                                                        </a>
-                                                        <br>
-                                                        <a href='https://wa.me/<?php echo htmlspecialchars(preg_replace('/[^0-9]/', '', $student->father_mobile_number)); ?>' target='_blank' class='whatsapp-link'>
-                                                        <i class='fa fa-whatsapp'></i> WhatsApp
-                                                        </a>
-                                                    </p>
-                                                    </div>
-                                                ">
+                                            <a href="javascript:void(0);" onclick="get_student_information('<?php echo $student->student_id; ?>')" class="student-name">
                                                 <?php echo htmlspecialchars($student->student_name); ?>
                                                 <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                                             </a>

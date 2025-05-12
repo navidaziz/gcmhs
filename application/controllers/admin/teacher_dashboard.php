@@ -575,4 +575,10 @@ class Teacher_dashboard extends Admin_Controller
             redirect(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class_id . "/" . $section_id);
         }
     }
+
+    public function get_student_information()
+    {
+        echo $student_id = $this->input->post("student_id");
+        echo 'we are here';
+    }
 }
