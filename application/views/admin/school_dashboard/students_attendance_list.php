@@ -43,7 +43,10 @@
             <td><?php echo $sa->father_name; ?></td>
             <td><?php echo $sa->admission_no; ?></td>
             <th><?php echo $sa->contact_no; ?></th>
-            <td><?php echo $sa->image; ?></td>
+            <td><?php if ($sa->image) { ?>
+                <img src="<?php echo site_url('uploads/gcmhs/' . $sa->image; ?>" width="30" height="30" />
+              <?php } ?>
+            </td>
             <td><?php echo $sa->status; ?></td>
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section; ?></td>
