@@ -184,7 +184,9 @@
                 sum(`absent`) as `absent`,
                 sum(`present`) as `present`,
                 sum(`leave`) as `leave`,
-                sum(`struck_off`) as `struck_off`
+                sum(`struck_off`) as `struck_off`,
+                SUM(evening_absent) as evening_absent,
+                ea as evening_attendance
                 FROM today_attendance_summery GROUP BY section_title, class_title ORDER BY class_id")->result();
           $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
           ?>
@@ -200,6 +202,8 @@
                 <th>Leave</th>
                 <th>Struck Off</th>
                 <th>Total</th>
+                <th>Evening Attendance</th>
+                <th>Evening Absent</th>
               </tr>
             </thead>
             <tbody>
@@ -208,6 +212,8 @@
                 $totalPresent += $t->present;
                 $totalLeave += $t->leave;
                 $totalStruckOff += $t->struck_off;
+                $evening_absent += $t->evening_absent;
+
               ?>
                 <tr>
                   <td><?php echo htmlspecialchars($t->class_title) ?></td>
@@ -226,6 +232,8 @@
                   <td><?php echo $t->leave ?></td>
                   <td><?php echo $t->struck_off ?></td>
                   <td><?php echo ($t->present + $t->absent + $t->leave + $t->struck_off); ?></td>
+                  <td><?php echo $t->evening_attendance ?></td>
+                  <td><?php echo $t->evening_absent ?></td>
                 </tr>
               <?php endforeach;
               $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
@@ -240,6 +248,8 @@
                 <td><?php echo $totalLeave ?></td>
                 <td><?php echo $totalStruckOff ?></td>
                 <td><?php echo ($totalPresent + $totalAbsent + $totalLeave + $totalStruckOff) ?></td>
+                <td></td>
+                <td><?php echo $evening_absent; ?></td>
               </tr>
             </tfoot>
           </table>
