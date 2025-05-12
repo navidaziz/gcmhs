@@ -191,7 +191,7 @@
           $totalStudents = $totalAbsent + $totalPresent + $totalLeave + $totalStruckOff;
           ?>
 
-          <table border="1" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
+          <table border="1" id="today_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
               <tr>
                 <th>Class</th>
@@ -760,5 +760,29 @@ foreach ($todaySummary as $t) {
       name: 'Avg Absenteeism',
       data: <?php echo json_encode($monthly_absent_avg); ?>
     }]
+  });
+</script>
+
+<script type="text/javascript" src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    var table = $('#today_attendance').DataTable({
+      "bPaginate": false,
+      dom: 'Bfrtip',
+      "columnDefs": [{
+        "searchable": false,
+        "orderable": false,
+        "targets": 0
+      }],
+      "order": [
+        [1, 'asc']
+      ]
+    });
+
+
   });
 </script>
