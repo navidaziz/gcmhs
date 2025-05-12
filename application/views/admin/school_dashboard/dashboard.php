@@ -195,6 +195,7 @@
           <table border="1" id="today_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Class</th>
                 <th>Section</th>
                 <th>Class Teacher</th>
@@ -208,7 +209,9 @@
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($todaySummary as $t):
+              <?php
+              $count = 1;
+              foreach ($todaySummary as $t):
                 $totalAbsent += $t->absent;
                 $totalPresent += $t->present;
                 $totalLeave += $t->leave;
@@ -217,6 +220,7 @@
 
               ?>
                 <tr>
+                  <td><?php echo $count++; ?></td>
                   <td><?php echo htmlspecialchars($t->class_title) ?></td>
                   <td><?php echo htmlspecialchars($t->section_title) ?></td>
                   <th><?php
@@ -257,7 +261,7 @@
             </tbody>
             <tfoot>
               <tr style="font-weight:bold;">
-                <td colspan="3">Total</td>
+                <td colspan="4">Total</td>
                 <td><?php echo $totalPresent ?></td>
                 <td><?php echo $totalAbsent ?></td>
 
