@@ -589,7 +589,7 @@ class Teacher_dashboard extends Admin_Controller
         }
 
         // Prepare the image path
-        $image_path = site_url('uploads/gcmhs/' . $student->image);
+        $image_path = site_url('uploads/gcmhs/' . $student->student_image);
 
         // Clean data for output
         $clean_data = [
