@@ -772,18 +772,15 @@ foreach ($todaySummary as $t) {
 <script>
   $(document).ready(function() {
     var table = $('#today_attendance').DataTable({
-      "bPaginate": false,
+      bPaginate: false,
       dom: 'Bfrtip',
-      "columnDefs": [{
-        "searchable": false,
-        "orderable": false,
-        "targets": 0
-      }],
-      "order": [
-        [1, 'asc']
-      ]
+      searching: false, // Disable search box
+      buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
+      columnDefs: [{
+        searchable: false,
+        orderable: false,
+        targets: 0 // Disable sorting for the first column
+      }]
     });
-
-
   });
 </script>
