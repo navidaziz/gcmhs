@@ -249,9 +249,11 @@
                     $query = "SELECT `teacher_name` FROM `classes_time_tables` 
                                       WHERE period_id=10 and class_id='" . $t->class_id . "' 
                                       AND section_id='" . $t->section_id . "';";
-                    $class_teacher = $this->db->query($query)->row();
-                    if ($class_teacher) {
-                      echo $class_teacher->teacher_name;
+                    $class_teachers = $this->db->query($query)->result();
+                    if ($class_teachers) {
+                      foreach ($class_teachers as $class_teacher) {
+                        echo $class_teacher->teacher_name . ', <br />';
+                      }
                     }
                     ?>
                   </th>
