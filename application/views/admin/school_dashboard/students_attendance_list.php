@@ -96,7 +96,7 @@
                 //echo $sa->status; 
                 ?></td>
             <td><?php echo $sa->class_title; ?></td>
-            <td><?php echo $sa->section; ?></td>
+            <td><?php echo $sa->section_title; ?></td>
             <td><?php echo $sa->m_p; ?></td>
             <td><?php echo $sa->m_a; ?></td>
             <td><?php echo $sa->m_l; ?></td>
