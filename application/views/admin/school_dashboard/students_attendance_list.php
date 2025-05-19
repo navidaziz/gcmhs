@@ -55,7 +55,7 @@
       </thead>
       <tbody>
         <?php
-        $query = "SELECT * FROM `students_attendance_list`";
+        $query = "SELECT * FROM `students_attendance_list` WHERE `students_attendance_list`.`status` IN(1,2)";
         $students_attendance = $this->db->query($query)->result();
         $count = 1;
         foreach ($students_attendance as $sa):
@@ -77,7 +77,23 @@
                 </span>
               <?php } ?>
             </td>
-            <td><?php echo $sa->status; ?></td>
+            <td><?php
+                if ($student->status == 1) {
+                  echo "Admit";
+                }
+                if ($student->status == 2) {
+                  echo "Struck Off";
+                }
+
+                if ($student->status == 3) {
+                  echo "SLC";
+                }
+
+                if ($student->status == 0) {
+                  echo "Deleted";
+                }
+
+                echo $sa->status; ?></td>
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section; ?></td>
             <td><?php echo $sa->m_p; ?></td>
