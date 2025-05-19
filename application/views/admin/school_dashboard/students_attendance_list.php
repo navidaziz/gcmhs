@@ -78,22 +78,23 @@
               <?php } ?>
             </td>
             <td><?php
-                if ($student->status == 1) {
+                if ($sa->status == 1) {
                   echo "Admit";
                 }
-                if ($student->status == 2) {
+                if ($sa->status == 2) {
                   echo "Struck Off";
                 }
 
-                if ($student->status == 3) {
+                if ($sa->status == 3) {
                   echo "SLC";
                 }
 
-                if ($student->status == 0) {
+                if ($sa->status == 0) {
                   echo "Deleted";
                 }
 
-                echo $sa->status; ?></td>
+                //echo $sa->status; 
+                ?></td>
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section; ?></td>
             <td><?php echo $sa->m_p; ?></td>
