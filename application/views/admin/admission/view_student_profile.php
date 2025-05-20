@@ -669,76 +669,40 @@ $section_id = $students[0]->section_id;
         </table>
 
         <h4>Attendance History</h4>
-        <?php
-        // Settings
-        $startDate = strtotime('first Monday of May last year');
-        $endDate = strtotime('last Friday of this month');
-        $days = ['Mon', 'Wed', 'Fri']; // Shown rows
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <td>Class</td>
+                    <td>Section</td>
+                    <td>Year</td>
+                    <td>Term</td>
+                    <td>Total Days</td>
+                    <td>Present Days</td>
+                    <td>Absent Days</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($student_acadmics as $student_acadmic) : ?>
+                    <tr>
+                        <td><?php echo $student_acadmic->Class_title; ?></td>
+                        <td><?php echo $student_acadmic->section_title; ?></td>
+                        <td><?php echo $student_acadmic->year; ?></td>
+                        <td><?php echo $student_acadmic->term; ?></td>
+                        <td><?php echo $student_acadmic->total_days; ?></td>
+                        <td><?php echo $student_acadmic->present_days; ?></td>
+                        <td><?php echo $student_acadmic->absent_days; ?></td>
 
-        // Build weeks
-        $weeks = [];
-        $cur = $startDate;
-        while ($cur <= $endDate) {
-            $weekKey = date('o-W', $cur); // ISO year-week
-            foreach ($days as $dayName) {
-                $dow = date('N', $cur); // 1 (Mon) to 7 (Sun)
-                $targetDOW = [
-                    'Mon' => 1,
-                    'Tue' => 2,
-                    'Wed' => 3,
-                    'Thu' => 4,
-                    'Fri' => 5,
-                    'Sat' => 6,
-                    'Sun' => 7
-                ][$dayName];
-                $diff = $targetDOW - $dow;
-                $date = strtotime("$diff days", $cur);
-                $weeks[$weekKey][$dayName] = $date;
-            }
-            $cur = strtotime('+1 week', $cur);
-        }
-
-        // Build table
-        echo "<style>
-    table { border-collapse: collapse; background: #0d1117; color: #c9d1d9; font-family: sans-serif; }
-    th, td { padding: 4px 6px; text-align: center; }
-    th.month { text-align: left; font-weight: bold; font-size: 12px; }
-    td.day-cell { width: 20px; height: 20px; border-radius: 3px; }
-</style>";
-
-        echo "<table><tr><th></th>";
-
-        // Print month headers (aligned with weeks)
-        $printedMonths = [];
-        foreach ($weeks as $weekKey => $weekDays) {
-            $m = date('M', reset($weekDays));
-            if (!in_array($m, $printedMonths)) {
-                echo "<th class='month'>$m</th>";
-                $printedMonths[] = $m;
-            } else {
-                echo "<th></th>";
-            }
-        }
-        echo "</tr>";
-
-        // Rows for Mon, Wed, Fri
-        foreach ($days as $dayName) {
-            echo "<tr><td><strong>$dayName</strong></td>";
-            foreach ($weeks as $week) {
-                if (isset($week[$dayName])) {
-                    $day = date('j', $week[$dayName]); // Day number
-                    echo "<td class='day-cell' style='background-color: #238636;'>$day</td>";
-                } else {
-                    echo "<td></td>";
-                }
-            }
-            echo "</tr>";
-        }
-        echo "</table>";
-        ?>
-
-
-
-
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <?php for ($months = 1; $months <= 12; $month++) { ?>
+                <tr>
+                    <th><?php echo $month; ?></th>
+                    <?php for ($day = 1; $day <= 31; $day++) { ?>
+                        <td><?php $day; ?></td>
+                    <?php } ?>
+                </tr>
+            <?php } ?>
+        </table>
     </div>
 </div>
