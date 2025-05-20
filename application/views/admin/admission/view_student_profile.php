@@ -740,7 +740,10 @@ $section_id = $students[0]->section_id;
                                     $day
                                 ])->row();
                             ?>
-                                <td>
+                                <td
+                                    style="background-color: <?php if ($students_attendance->attendance == 'A') { ?> red <?php } ?>
+                                    <?php if ($students_attendance->attendance == 'P') { ?> green <?php } ?>
+                                    ;">
                                     <?php echo $students_attendance->attendance; ?>
                                 </td>
                             <?php } ?>
