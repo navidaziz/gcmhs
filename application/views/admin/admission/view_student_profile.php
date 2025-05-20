@@ -573,7 +573,7 @@ $section_id = $students[0]->section_id;
 
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-9">
         <div class="col-md-4">
             <h3 class="title">History</h3>
             <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
@@ -630,7 +630,7 @@ $section_id = $students[0]->section_id;
 
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-8">
             <h3 class="title">Academic History</h3>
             <?php
             $query = "SELECT *, e.year,e.term, e.exam_data  FROM `student_results` as sr, exams as e 
@@ -689,7 +689,7 @@ $section_id = $students[0]->section_id;
         </style>
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 9px;">
+            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
@@ -741,8 +741,8 @@ $section_id = $students[0]->section_id;
                                 ])->row();
                             ?>
                                 <td
-                                    style="background-color: <?php if ($students_attendance->attendance == 'A') { ?> red <?php } ?>
-                                    <?php if ($students_attendance->attendance == 'P') { ?> green <?php } ?>
+                                    style="text-align:center; background-color: <?php if ($students_attendance->attendance == 'A') { ?> #D8534E <?php } ?>
+                                    <?php if ($students_attendance->attendance == 'P') { ?> #96AE5F <?php } ?>
                                     ;">
                                     <?php echo $students_attendance->attendance; ?>
                                 </td>
