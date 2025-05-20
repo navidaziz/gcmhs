@@ -741,11 +741,7 @@ $section_id = $students[0]->section_id;
                                 ])->row();
                             ?>
                                 <td>
-                                    <?php
-                                    if (!empty($students_attendance)) {
-                                        echo $students_attendance->attendance;
-                                    }
-                                    ?>
+                                    <?php echo $students_attendance->attendance; ?>
                                 </td>
                             <?php } ?>
                         </tr>
