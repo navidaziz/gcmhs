@@ -670,67 +670,74 @@ $section_id = $students[0]->section_id;
 
         <h4>Attendance History</h4>
         <?php
-        // Set the desired month and year
-        $month = date('n'); // Numeric representation (1-12)
-        $year = date('Y');  // 4-digit year
+        // Configuration
+        $startDate = strtotime('-11 months'); // 1 year ago
+        $endDate = strtotime('now');
+        $daysToShow = ($endDate - $startDate) / 86400;
 
-        // First day of the month and total days in month
-        $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
-        $daysInMonth = date('t', $firstDayOfMonth);
+        $dayData = []; // Store activity data
 
-        // Get the name of the month
-        $monthName = date('F', $firstDayOfMonth);
-
-        // Get which day of the week the month starts on (0=Sunday, 6=Saturday)
-        $startDayOfWeek = date('w', $firstDayOfMonth);
-
-        // Days of the week
-        $daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-        // Start calendar table
-        echo "<table border='1' cellpadding='5' cellspacing='0' style='text-align:center; border-collapse:collapse;'>";
-
-        // Month name row
-        echo "<tr><th colspan='7' style='font-size:20px;'>$monthName $year</th></tr>";
-
-        // Day names row
-        echo "<tr>";
-        foreach ($daysOfWeek as $day) {
-            echo "<th>$day</th>";
-        }
-        echo "</tr>";
-
-        // Start the first row of dates
-        echo "<tr>";
-
-        // Print empty cells before the first day of the month
-        for ($i = 0; $i < $startDayOfWeek; $i++) {
-            echo "<td></td>";
+        // Generate fake activity values (0 to 4)
+        for ($i = 0; $i <= $daysToShow; $i++) {
+            $date = date('Y-m-d', strtotime("+$i days", $startDate));
+            $dayOfWeek = date('w', strtotime($date)); // 0 (Sun) - 6 (Sat)
+            $dayData[$date] = rand(0, 4); // Activity level: 0 to 4
         }
 
-        // Print the days of the month
-        $dayCounter = 1;
-        for ($i = $startDayOfWeek; $i < 7; $i++) {
-            echo "<td>$dayCounter</td>";
-            $dayCounter++;
+        // Group by week
+        $weeks = [];
+        foreach ($dayData as $date => $value) {
+            $week = date('W', strtotime($date)); // Week number
+            $year = date('o', strtotime($date)); // ISO year
+            $weeks["$year-W$week"][$date] = $value;
         }
-        echo "</tr>";
 
-        // Continue printing the remaining weeks
-        while ($dayCounter <= $daysInMonth) {
-            echo "<tr>";
-            for ($i = 0; $i < 7; $i++) {
-                if ($dayCounter <= $daysInMonth) {
-                    echo "<td>$dayCounter</td>";
-                    $dayCounter++;
-                } else {
-                    echo "<td></td>"; // Blank cell after month end
-                }
+        // Color classes based on activity level
+        $colors = [
+            0 => "#161b22", // empty
+            1 => "#0e4429",
+            2 => "#006d32",
+            3 => "#26a641",
+            4 => "#39d353",
+        ];
+
+        // HTML output
+        echo "<style>
+    .calendar { display: flex; gap: 2px; }
+    .week { display: flex; flex-direction: column; gap: 2px; }
+    .day { width: 12px; height: 12px; border-radius: 2px; }
+    .labels { display: flex; gap: 20px; margin-bottom: 5px; font-size: 12px; color: #ccc; }
+</style>";
+
+        echo "<div class='labels'>";
+        $printedMonths = [];
+        foreach ($dayData as $date => $value) {
+            $month = date('M', strtotime($date));
+            $dayOfWeek = date('w', strtotime($date));
+            if (!in_array($month, $printedMonths) && $dayOfWeek == 0) {
+                echo "<div style='width: 14px;'>$month</div>";
+                $printedMonths[] = $month;
             }
-            echo "</tr>";
         }
+        echo "</div>";
 
-        echo "</table>";
+        echo "<div class='calendar'>";
+        foreach ($weeks as $week) {
+            echo "<div class='week'>";
+            for ($i = 0; $i < 7; $i++) {
+                // Find correct date for this week
+                $date = array_keys($week)[0];
+                $timestamp = strtotime($date);
+                $currentDay = date('w', $timestamp);
+                $dayDate = date('Y-m-d', strtotime("-$currentDay days +$i days", $timestamp));
+
+                $value = $dayData[$dayDate] ?? 0;
+                $color = $colors[$value];
+                echo "<div class='day' style='background-color: $color;' title='$dayDate: $value contributions'></div>";
+            }
+            echo "</div>";
+        }
+        echo "</div>";
         ?>
 
 
