@@ -673,7 +673,7 @@ $section_id = $students[0]->section_id;
 
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped" style="width:100%">
+            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 9px;">
                 <thead>
                     <th>Month / Days</th>
                     <?php for ($day = 1; $day <= 31; $day++) { ?>
