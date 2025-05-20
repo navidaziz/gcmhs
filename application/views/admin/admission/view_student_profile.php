@@ -671,20 +671,51 @@ $section_id = $students[0]->section_id;
         <h4>Attendance History</h4>
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
-
+                <th>Month / Days</th>
+                <?php for ($day = 1; $day <= 31; $day++) { ?>
+                    <td><?php echo $day; ?></td>
+                <?php } ?>
             </thead>
             <tbody>
+                <?php
+                $monthNames = [
+                    1 => 'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December'
+                ];
 
+                $currentYear = date('Y'); // This will be 2025
 
-                <?php for ($month = 1; $month <= 12; $month++) { ?>
+                for ($month = 1; $month <= 12; $month++) {
+                    $daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $currentYear));
+                ?>
                     <tr>
-                        <th><?php echo $month; ?></th>
-                        <?php for ($day = 1; $day <= 31; $day++) { ?>
-                            <td><?php echo $day; ?></td>
+                        <th><?php echo $monthNames[$month]; ?></th>
+                        <?php
+                        for ($day = 1; $day <= 31; $day++) {
+                            $class = ($day <= $daysInMonth) ? '' : 'class="disabled-day"';
+                            $content = ($day <= $daysInMonth) ? '' : '';
+                        ?>
+                            <td <?php echo $class; ?>><?php echo $content; ?></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
+
+        <style>
+            .disabled-day {
+                background-color: #f5f5f5;
+            }
+        </style>
     </div>
 </div>
