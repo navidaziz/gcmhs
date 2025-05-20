@@ -742,9 +742,13 @@ $section_id = $students[0]->section_id;
                             ?>
                                 <td
                                     style="text-align:center; background-color: <?php if ($students_attendance->attendance == 'A') { ?> #D8534E <?php } ?>
-                                    <?php if ($students_attendance->attendance == 'P') { ?> #96AE5F <?php } ?>
-                                    ;">
-                                    <?php echo $students_attendance->attendance; ?>
+                                    <?php if ($students_attendance->attendance == 'P' and ($student_attendance->attendance2 = NULL or $student_attendance->attendance2 = 'P')) { ?> #96AE5F <?php } ?>
+                                   <?php if ($students_attendance->attendance == 'P' and ($student_attendance->attendance2 = 'A')) { ?> ##F0AD4E <?php } ?>;">
+                                    <?php echo $students_attendance->attendance;
+                                    if($students_attendance->attendance2){
+                                        echo " - ". $students_attendance->attendance2
+                                    }
+                                    ?>
                                 </td>
                             <?php } ?>
                         </tr>
