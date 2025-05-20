@@ -740,13 +740,27 @@ $section_id = $students[0]->section_id;
                                     $day
                                 ])->row();
                             ?>
-                                <td
-                                    style="text-align:center; background-color: <?php if ($students_attendance->attendance == 'A') { ?> #D8534E <?php } ?>
-                                    <?php if ($students_attendance->attendance == 'P' and ($student_attendance->attendance2 = NULL or $student_attendance->attendance2 = 'P')) { ?> #96AE5F <?php } ?>
-                                   <?php if ($students_attendance->attendance == 'P' and ($student_attendance->attendance2 = 'A')) { ?> ##F0AD4E <?php } ?>;">
-                                    <?php echo $students_attendance->attendance;
-                                    if ($students_attendance->attendance2) {
-                                        echo " - " . $students_attendance->attendance2;
+                                <td style="text-align:center; 
+    <?php
+                                if (!empty($students_attendance)) {
+                                    // Set background color based on attendance status
+                                    if ($students_attendance->attendance == 'A') {
+                                        echo 'background-color: #D8534E;';  // Red for absent
+                                    } elseif ($students_attendance->attendance == 'P') {
+                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                            echo 'background-color: #96AE5F;';  // Green for present
+                                        } elseif ($students_attendance->attendance2 == 'A') {
+                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                        }
+                                    }
+                                }
+    ?>">
+                                    <?php
+                                    if (!empty($students_attendance)) {
+                                        echo htmlspecialchars($students_attendance->attendance ?? '');
+                                        if (!empty($students_attendance->attendance2)) {
+                                            echo " - " . htmlspecialchars($students_attendance->attendance2);
+                                        }
                                     }
                                     ?>
                                 </td>
