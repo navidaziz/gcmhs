@@ -668,5 +668,73 @@ $section_id = $students[0]->section_id;
             </tbody>
         </table>
 
+        <h4>Attendance History</h4>
+        <?php
+        // Set the desired month and year
+        $month = date('n'); // Numeric representation (1-12)
+        $year = date('Y');  // 4-digit year
+
+        // First day of the month and total days in month
+        $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
+        $daysInMonth = date('t', $firstDayOfMonth);
+
+        // Get the name of the month
+        $monthName = date('F', $firstDayOfMonth);
+
+        // Get which day of the week the month starts on (0=Sunday, 6=Saturday)
+        $startDayOfWeek = date('w', $firstDayOfMonth);
+
+        // Days of the week
+        $daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        // Start calendar table
+        echo "<table border='1' cellpadding='5' cellspacing='0' style='text-align:center; border-collapse:collapse;'>";
+
+        // Month name row
+        echo "<tr><th colspan='7' style='font-size:20px;'>$monthName $year</th></tr>";
+
+        // Day names row
+        echo "<tr>";
+        foreach ($daysOfWeek as $day) {
+            echo "<th>$day</th>";
+        }
+        echo "</tr>";
+
+        // Start the first row of dates
+        echo "<tr>";
+
+        // Print empty cells before the first day of the month
+        for ($i = 0; $i < $startDayOfWeek; $i++) {
+            echo "<td></td>";
+        }
+
+        // Print the days of the month
+        $dayCounter = 1;
+        for ($i = $startDayOfWeek; $i < 7; $i++) {
+            echo "<td>$dayCounter</td>";
+            $dayCounter++;
+        }
+        echo "</tr>";
+
+        // Continue printing the remaining weeks
+        while ($dayCounter <= $daysInMonth) {
+            echo "<tr>";
+            for ($i = 0; $i < 7; $i++) {
+                if ($dayCounter <= $daysInMonth) {
+                    echo "<td>$dayCounter</td>";
+                    $dayCounter++;
+                } else {
+                    echo "<td></td>"; // Blank cell after month end
+                }
+            }
+            echo "</tr>";
+        }
+
+        echo "</table>";
+        ?>
+
+
+
+
     </div>
 </div>
