@@ -670,74 +670,71 @@ $section_id = $students[0]->section_id;
 
         <h4>Attendance History</h4>
         <?php
-        // Configuration
-        $startDate = strtotime('-11 months'); // 1 year ago
-        $endDate = strtotime('now');
-        $daysToShow = ($endDate - $startDate) / 86400;
+        // Settings
+        $startDate = strtotime('first Monday of May last year');
+        $endDate = strtotime('last Friday of this month');
+        $days = ['Mon', 'Wed', 'Fri']; // Shown rows
 
-        $dayData = []; // Store activity data
-
-        // Generate fake activity values (0 to 4)
-        for ($i = 0; $i <= $daysToShow; $i++) {
-            $date = date('Y-m-d', strtotime("+$i days", $startDate));
-            $dayOfWeek = date('w', strtotime($date)); // 0 (Sun) - 6 (Sat)
-            $dayData[$date] = rand(0, 4); // Activity level: 0 to 4
-        }
-
-        // Group by week
+        // Build weeks
         $weeks = [];
-        foreach ($dayData as $date => $value) {
-            $week = date('W', strtotime($date)); // Week number
-            $year = date('o', strtotime($date)); // ISO year
-            $weeks["$year-W$week"][$date] = $value;
+        $cur = $startDate;
+        while ($cur <= $endDate) {
+            $weekKey = date('o-W', $cur); // ISO year-week
+            foreach ($days as $dayName) {
+                $dow = date('N', $cur); // 1 (Mon) to 7 (Sun)
+                $targetDOW = [
+                    'Mon' => 1,
+                    'Tue' => 2,
+                    'Wed' => 3,
+                    'Thu' => 4,
+                    'Fri' => 5,
+                    'Sat' => 6,
+                    'Sun' => 7
+                ][$dayName];
+                $diff = $targetDOW - $dow;
+                $date = strtotime("$diff days", $cur);
+                $weeks[$weekKey][$dayName] = $date;
+            }
+            $cur = strtotime('+1 week', $cur);
         }
 
-        // Color classes based on activity level
-        $colors = [
-            0 => "#161b22", // empty
-            1 => "#0e4429",
-            2 => "#006d32",
-            3 => "#26a641",
-            4 => "#39d353",
-        ];
-
-        // HTML output
+        // Build table
         echo "<style>
-    .calendar { display: flex; gap: 2px; }
-    .week { display: flex; flex-direction: column; gap: 2px; }
-    .day { width: 12px; height: 12px; border-radius: 2px; }
-    .labels { display: flex; gap: 20px; margin-bottom: 5px; font-size: 12px; color: #ccc; }
+    table { border-collapse: collapse; background: #0d1117; color: #c9d1d9; font-family: sans-serif; }
+    th, td { padding: 4px 6px; text-align: center; }
+    th.month { text-align: left; font-weight: bold; font-size: 12px; }
+    td.day-cell { width: 20px; height: 20px; border-radius: 3px; }
 </style>";
 
-        echo "<div class='labels'>";
+        echo "<table><tr><th></th>";
+
+        // Print month headers (aligned with weeks)
         $printedMonths = [];
-        foreach ($dayData as $date => $value) {
-            $month = date('M', strtotime($date));
-            $dayOfWeek = date('w', strtotime($date));
-            if (!in_array($month, $printedMonths) && $dayOfWeek == 0) {
-                echo "<div style='width: 14px;'>$month</div>";
-                $printedMonths[] = $month;
+        foreach ($weeks as $weekKey => $weekDays) {
+            $m = date('M', reset($weekDays));
+            if (!in_array($m, $printedMonths)) {
+                echo "<th class='month'>$m</th>";
+                $printedMonths[] = $m;
+            } else {
+                echo "<th></th>";
             }
         }
-        echo "</div>";
+        echo "</tr>";
 
-        echo "<div class='calendar'>";
-        foreach ($weeks as $week) {
-            echo "<div class='week'>";
-            for ($i = 0; $i < 7; $i++) {
-                // Find correct date for this week
-                $date = array_keys($week)[0];
-                $timestamp = strtotime($date);
-                $currentDay = date('w', $timestamp);
-                $dayDate = date('Y-m-d', strtotime("-$currentDay days +$i days", $timestamp));
-
-                $value = $dayData[$dayDate];
-                $color = $colors[$value];
-                echo "<div class='day' style='background-color: $color;' title='$dayDate: $value contributions'>$dayDate</div>";
+        // Rows for Mon, Wed, Fri
+        foreach ($days as $dayName) {
+            echo "<tr><td><strong>$dayName</strong></td>";
+            foreach ($weeks as $week) {
+                if (isset($week[$dayName])) {
+                    $day = date('j', $week[$dayName]); // Day number
+                    echo "<td class='day-cell' style='background-color: #238636;'>$day</td>";
+                } else {
+                    echo "<td></td>";
+                }
             }
-            echo "</div>";
+            echo "</tr>";
         }
-        echo "</div>";
+        echo "</table>";
         ?>
 
 
