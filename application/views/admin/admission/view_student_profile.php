@@ -743,7 +743,7 @@ $section_id = $students[0]->section_id;
                                 <td>
                                     <?php
                                     if (!empty($students_attendance)) {
-                                        echo htmlspecialchars($students_attendance->attendance ?? '');
+                                        echo $students_attendance->attendance;
                                     }
                                     ?>
                                 </td>
