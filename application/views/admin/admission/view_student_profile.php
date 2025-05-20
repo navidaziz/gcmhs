@@ -733,7 +733,7 @@ $section_id = $students[0]->section_id;
 
                 $value = $dayData[$dayDate];
                 $color = $colors[$value];
-                echo "<div class='day' style='background-color: $color;' title='$dayDate: $value contributions'></div>";
+                echo "<div class='day' style='background-color: $color;' title='$dayDate: $value contributions'>$dayDate</div>";
             }
             echo "</div>";
         }
