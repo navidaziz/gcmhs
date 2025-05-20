@@ -731,7 +731,7 @@ $section_id = $students[0]->section_id;
                 $currentDay = date('w', $timestamp);
                 $dayDate = date('Y-m-d', strtotime("-$currentDay days +$i days", $timestamp));
 
-                $value = $dayData[$dayDate] ?? 0;
+                $value = $dayData[$dayDate];
                 $color = $colors[$value];
                 echo "<div class='day' style='background-color: $color;' title='$dayDate: $value contributions'></div>";
             }
