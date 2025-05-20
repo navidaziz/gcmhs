@@ -699,18 +699,18 @@ $section_id = $students[0]->section_id;
                 <tbody>
                     <?php
                     $monthNames = [
-                        1 => 'January',
-                        'February',
-                        'March',
-                        'April',
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December'
+                        '01',
+                        '02',
+                        '03',
+                        '04',
+                        '05',
+                        '06',
+                        '07',
+                        '08',
+                        '09',
+                        '10',
+                        '11',
+                        '12'
                     ];
 
                     $currentYear = date('Y'); // This will be 2025
@@ -722,10 +722,20 @@ $section_id = $students[0]->section_id;
                             <th><?php echo $monthNames[$month]; ?></th>
                             <?php
                             for ($day = 1; $day <= 31; $day++) {
-                                $class = ($day <= $daysInMonth) ? '' : 'class="disabled-day"';
-                                $content = ($day <= $daysInMonth) ? '' : '';
+                                $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? ";
+                                $students_attendance = $this->db->query($query, [$student->student_id])->row();
                             ?>
-                                <td <?php echo $class; ?>><?php echo $content; ?></td>
+                                <td>
+                                    <?php
+                                    echo $students_attendance->attendance;
+                                    if ($students_attendance->attendance) {
+                                        echo " - " . $students_attendance->attendance;
+                                    }
+
+                                    ?>
+
+                                </td>
+
                             <?php } ?>
                         </tr>
                     <?php } ?>
