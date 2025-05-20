@@ -671,38 +671,20 @@ $section_id = $students[0]->section_id;
         <h4>Attendance History</h4>
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
-                <tr>
-                    <td>Class</td>
-                    <td>Section</td>
-                    <td>Year</td>
-                    <td>Term</td>
-                    <td>Total Days</td>
-                    <td>Present Days</td>
-                    <td>Absent Days</td>
-                </tr>
+
             </thead>
             <tbody>
-                <?php foreach ($student_acadmics as $student_acadmic) : ?>
-                    <tr>
-                        <td><?php echo $student_acadmic->Class_title; ?></td>
-                        <td><?php echo $student_acadmic->section_title; ?></td>
-                        <td><?php echo $student_acadmic->year; ?></td>
-                        <td><?php echo $student_acadmic->term; ?></td>
-                        <td><?php echo $student_acadmic->total_days; ?></td>
-                        <td><?php echo $student_acadmic->present_days; ?></td>
-                        <td><?php echo $student_acadmic->absent_days; ?></td>
 
+
+                <?php for ($month = 1; $month <= 12; $month++) { ?>
+                    <tr>
+                        <th><?php echo $month; ?></th>
+                        <?php for ($day = 1; $day <= 31; $day++) { ?>
+                            <td><?php echo $day; ?></td>
+                        <?php } ?>
                     </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
-            <?php for ($months = 1; $months <= 12; $month++) { ?>
-                <tr>
-                    <th><?php echo $month; ?></th>
-                    <?php for ($day = 1; $day <= 31; $day++) { ?>
-                        <td><?php $day; ?></td>
-                    <?php } ?>
-                </tr>
-            <?php } ?>
         </table>
     </div>
 </div>
