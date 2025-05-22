@@ -119,10 +119,10 @@ for ($i = 7; $i >= 0; $i--) {
       <?php foreach ($date_headers as $header): ?>
         <th colspan="2"><?php echo $header['date']; ?></th>
       <?php endforeach; ?>
-      <th rowspan="3">M-P</th>
-      <th rowspan="3">M-A</th>
-      <th rowspan="3">M-L</th>
-      <th rowspan="3">E-A</th>
+      <th rowspan="3">MP</th>
+      <th rowspan="3">MA</th>
+      <th rowspan="3">ML</th>
+      <th rowspan="3">EA</th>
     </tr>
     <!-- Second Header Row: Day of Week -->
     <tr>
