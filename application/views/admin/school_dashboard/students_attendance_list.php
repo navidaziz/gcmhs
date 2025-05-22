@@ -290,26 +290,52 @@ for ($i = 7; $i >= 0; $i--) {
     var table = $('#attendance_table').DataTable({
       bPaginate: false,
       dom: 'Bfrtip',
-      searching: true, // Disable search box
-      buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
+      searching: true,
+      buttons: [{
+          extend: 'excel',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          orientation: 'landscape',
+          pageSize: 'A4',
+          exportOptions: {
+            columns: ':visible'
+          },
+          customize: function(doc) {
+            doc.styles.tableHeader.alignment = 'center';
+            doc.styles.tableBodyEven.alignment = 'center';
+            doc.styles.tableBodyOdd.alignment = 'center';
+            doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+          }
+        }
+      ],
       columnDefs: [{
         searchable: false,
         orderable: false,
-        targets: 0 // First column (Serial No.) not sortable/searchable
+        targets: 0
       }],
-      order: [] // Optional: avoid initial sorting
+      order: []
     });
 
-    // Auto-indexing the first column (Serial No.)
-    table.on('order.dt search.dt draw.dt', function() {
+    // Auto-indexing Serial No. column
+    function updateSerialNumbers() {
       table.column(0, {
-          search: 'applied',
-          order: 'applied'
-        })
-        .nodes()
-        .each(function(cell, i) {
-          cell.innerHTML = i + 1;
-        });
-    }).draw();
+        search: 'applied',
+        order: 'applied'
+      }).nodes().each(function(cell, i) {
+        cell.innerHTML = i + 1;
+      });
+    }
+
+    // Trigger indexing on these events
+    table.on('order.dt search.dt draw.dt', function() {
+      updateSerialNumbers();
+    });
+
+    // Initial draw
+    updateSerialNumbers();
   });
 </script>
