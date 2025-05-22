@@ -199,14 +199,10 @@ for ($i = 7; $i >= 0; $i--) {
                       }
                       ?>">
             <?php
-            if (isset($attendance_data->attendance2)) {
-              if ($attendance_data->attendance == 'A') {
-                echo 'A';
-              } else {
-                echo $attendance_data->attendance2;
-              }
+            if ($attendance_data->attendance != 'P') {
+              echo $attendance_data->attendance2;
             } else {
-              echo '<small style="font-size:5px">Null</small>';
+              echo $attendance_data->attendance;
             }
             ?>
           </td>
