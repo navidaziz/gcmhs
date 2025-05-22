@@ -131,8 +131,8 @@
               $date->modify("-$i days");
               $formatted_date = $date->format('Y-m-d');
               if ($date->format('w') == 0) { ?>
-                <td style="background-color: #fff;"></td>
-                <td style="background-color: #fff;"></td>
+                <td style="background-color: gray;"></td>
+                <td style="background-color: gray;"></td>
               <?php } else {
                 $query = "SELECT * FROM `students_attendance` 
               WHERE `student_id` = ? AND DATE(`date`) = ?";
@@ -144,7 +144,7 @@
                   ?>
                 </td>
                 <?php if ($date->format('w') == 5) {  ?>
-                  <td style="background-color: #fff;"></td>
+                  <td style="background-color: gray;"></td>
                 <?php } else { ?>
                   <td>
                     <?php
