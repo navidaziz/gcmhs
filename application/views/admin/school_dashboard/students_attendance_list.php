@@ -153,6 +153,9 @@
                 <?php } else { ?>
                   <td style="background-color:<?php if ($students_attendance->attendance2 == 'A') {
                                                 echo '#fd7e14';
+                                              } ?>
+                                              <?php if ($students_attendance->attendance2 == 'P') {
+                                                echo '#28a745';
                                               } ?>">
                     <?php
                     echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '<small style="font-size:5px">NULL</small>';
