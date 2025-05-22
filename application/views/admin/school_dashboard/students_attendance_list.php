@@ -112,9 +112,10 @@
               $date->modify("-$i days");
             ?>
               <?php
-              $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
-                              AND DATE(`date`) = ? ";
-              $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('d, F')])->row();
+              $query = "SELECT * FROM `students_attendance` 
+              WHERE `student_id` = ? 
+              AND DATE(`date`) = ? ";
+              $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('Y-m-d')])->row();
 
               ?>
               <td><?php echo $students_attendance->attendance;  ?></td>
