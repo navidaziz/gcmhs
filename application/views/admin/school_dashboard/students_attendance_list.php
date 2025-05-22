@@ -243,12 +243,21 @@ for ($i = 7; $i >= 0; $i--) {
                       ?>">
             <?php
             if ($attendance_data->attendance != 'P') {
+              if ($attendance_data->attendance == 'A') {
+                echo 'M-A';
+              } else {
+                echo $attendance_data->attendance;
+              }
               echo $attendance_data->attendance;
             } else {
               if (isset($attendance_data->attendance2)) {
-                echo $attendance_data->attendance2;
+                if ($attendance_data->attendance2 == 'A') {
+                  echo 'E-A';
+                } else {
+                  echo $attendance_data->attendance2;
+                }
               } else {
-                echo '<small style="font-size:5px">M</small>';
+                echo 'M';
               }
             }
             ?>
