@@ -138,7 +138,12 @@
               WHERE `student_id` = ? AND DATE(`date`) = ?";
                 $students_attendance = $this->db->query($query, [$sa->student_id, $formatted_date])->row();
               ?>
-                <td>
+                <td style="background-color: <?php if ($students_attendance->attendance == 'P') {
+                                                echo '#28a745';
+                                              } ?>
+                                              <?php if ($students_attendance->attendance == 'A') {
+                                                echo '#dc3545';
+                                              } ?>;">
                   <?php
                   echo isset($students_attendance->attendance) ? $students_attendance->attendance : '<small style="font-size:5px">NULL</small>';
                   ?>
@@ -146,7 +151,9 @@
                 <?php if ($date->format('w') == 5) {  ?>
                   <td style="background-color: gray;"></td>
                 <?php } else { ?>
-                  <td>
+                  <td style="background-color:<?php if ($students_attendance->attendance2 == 'A') {
+                                                echo '#fd7e14';
+                                              } ?>">
                     <?php
                     echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '<small style="font-size:5px">NULL</small>';
                     ?>
