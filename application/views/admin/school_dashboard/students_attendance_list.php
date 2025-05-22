@@ -220,7 +220,7 @@ for ($i = 7; $i >= 0; $i--) {
 
 <script>
   $(document).ready(function() {
-    var table = $('#today_attendance').DataTable({
+    var table = $('#attendance_table').DataTable({
       bPaginate: false,
       dom: 'Bfrtip',
       searching: true, // Disable search box
