@@ -215,18 +215,21 @@ for ($i = 7; $i >= 0; $i--) {
                       if ($header['is_sunday']) {
                         echo 'sunday';
                       } elseif ($attendance_data->attendance == 'P') {
-
-                        if ($attendance_data->attendance2 == 'P') {
-                          echo 'present';
-                        }
-                        if ($attendance_data->attendance2 == 'A') {
-                          echo 'evening-absent';
-                        }
-                        if ($attendance_data->attendance2 == 'L') {
-                          echo 'leave';
-                        }
-                        if ($attendance_data->attendance2 == 'SO') {
-                          echo 'strock_off';
+                        if (isset($attendance_data->attendance2)) {
+                          if ($attendance_data->attendance2 == 'P') {
+                            echo 'present';
+                          }
+                          if ($attendance_data->attendance2 == 'A') {
+                            echo 'evening-absent';
+                          }
+                          if ($attendance_data->attendance2 == 'L') {
+                            echo 'leave';
+                          }
+                          if ($attendance_data->attendance2 == 'SO') {
+                            echo 'strock_off';
+                          }
+                        } else {
+                          echo 'sunday';
                         }
                       } else {
                         if ($attendance_data->attendance == 'L') {
