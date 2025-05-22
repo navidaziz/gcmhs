@@ -245,7 +245,11 @@ for ($i = 7; $i >= 0; $i--) {
             if ($attendance_data->attendance != 'P') {
               echo $attendance_data->attendance;
             } else {
-              echo $attendance_data->attendance2;
+              if (isset($attendance_data->attendance2)) {
+                echo $attendance_data->attendance2;
+              } else {
+                echo '<small style="font-size:5px">M</small>';
+              }
             }
             ?>
           </td>
