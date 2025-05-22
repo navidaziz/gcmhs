@@ -52,7 +52,7 @@
             $date = new DateTime();
             $date->modify("-$i days");
           ?>
-            <th><?php echo $date->format('d, F'); ?></th>
+            <th colspan="2"><?php echo $date->format('d, F'); ?></th>
           <?php  } ?>
           <th>PRESENT</th>
           <th>ABSENT</th>
@@ -111,7 +111,14 @@
               $date = new DateTime();
               $date->modify("-$i days");
             ?>
-              <th><?php  ?></th>
+              <?php
+              $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                              AND DATE(`date`) = ? ";
+              $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('d, F')])->row();
+
+              ?>
+              <td><?php echo $students_attendance->attendance;  ?></td>
+              <td><?php echo $students_attendance->attendance2;  ?></td>
             <?php  } ?>
             <td><?php echo $sa->m_p; ?></td>
             <td><?php echo $sa->m_a; ?></td>
