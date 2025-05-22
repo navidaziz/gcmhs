@@ -214,28 +214,32 @@ for ($i = 7; $i >= 0; $i--) {
           <td class="<?php
                       if ($header['is_sunday']) {
                         echo 'sunday';
-                      } elseif (isset($attendance_data->attendance2)) {
-                        if ($attendance_data->attendance == 'P') {
-                          if ($attendance_data->attendance2 == 'P') {
-                            echo 'present';
-                          }
-                          if ($attendance_data->attendance2 == 'A') {
-                            echo 'evening-absent';
-                          }
-                          if ($attendance_data->attendance2 == 'L') {
-                            echo 'leave';
-                          }
-                          if ($attendance_data->attendance2 == 'SO') {
-                            echo 'absent';
-                          }
-                        } else {
-                          if ($attendance_data->attendance == 'L') {
-                            echo 'leave';
-                          } else {
-                            echo 'absent';
-                          }
+                      } elseif ($attendance_data->attendance == 'P') {
+
+                        if ($attendance_data->attendance2 == 'P') {
+                          echo 'present';
                         }
+                        if ($attendance_data->attendance2 == 'A') {
+                          echo 'evening-absent';
+                        }
+                        if ($attendance_data->attendance2 == 'L') {
+                          echo 'leave';
+                        }
+                        if ($attendance_data->attendance2 == 'SO') {
+                          echo 'strock_off';
+                        }
+                      } else {
+                        if ($attendance_data->attendance == 'L') {
+                          echo 'leave';
+                        };
+                        if ($attendance_data->attendance == 'A') {
+                          echo 'absent';
+                        };
+                        if ($attendance_data->attendance == 'SO') {
+                          echo 'strock_off';
+                        };
                       }
+
                       ?>">
             <?php
             if ($attendance_data->attendance != 'P') {
