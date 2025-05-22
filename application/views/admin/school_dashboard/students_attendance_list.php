@@ -47,6 +47,13 @@
           <th>STATUS</th>
           <th>CLASS</th>
           <th>SECTION</th>
+          <?php
+          for ($i = 0; $i < 7; $i++) {
+            $date = new DateTime();
+            $date->modify("-$i days");
+          ?>
+            <th><?php $date->format('Y-m-d'); ?></th>
+          <?php  } ?>
           <th>PRESENT</th>
           <th>ABSENT</th>
           <th>LEAVE</th>
@@ -95,8 +102,17 @@
 
                 //echo $sa->status; 
                 ?></td>
+
+
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section_title; ?></td>
+            <?php
+            for ($i = 0; $i < 7; $i++) {
+              $date = new DateTime();
+              $date->modify("-$i days");
+            ?>
+              <th><?php  ?></th>
+            <?php  } ?>
             <td><?php echo $sa->m_p; ?></td>
             <td><?php echo $sa->m_a; ?></td>
             <td><?php echo $sa->m_l; ?></td>
