@@ -52,7 +52,7 @@
             $date = new DateTime();
             $date->modify("-$i days");
           ?>
-            <th><?php $date->format('Y-m-d'); ?></th>
+            <th><?php echo $date->format('d, F'); ?></th>
           <?php  } ?>
           <th>PRESENT</th>
           <th>ABSENT</th>
