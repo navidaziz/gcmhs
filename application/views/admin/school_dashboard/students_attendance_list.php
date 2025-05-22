@@ -244,14 +244,14 @@ for ($i = 7; $i >= 0; $i--) {
             <?php
             if ($attendance_data->attendance != 'P') {
               if ($attendance_data->attendance == 'A') {
-                echo 'M-A';
+                echo 'MA';
               } else {
                 echo $attendance_data->attendance;
               }
             } else {
               if (isset($attendance_data->attendance2)) {
                 if ($attendance_data->attendance2 == 'A') {
-                  echo 'E-A';
+                  echo 'EA';
                 } else {
                   echo $attendance_data->attendance2;
                 }
