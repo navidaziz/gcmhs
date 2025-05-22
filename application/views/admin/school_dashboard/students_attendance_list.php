@@ -33,7 +33,7 @@
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 <div class="row" style="background-color: white; padding-top: 10px;">
   <div class="col-md-12">
-    <table class="table table-striped" id="today_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
+    <table class="table table-striped table_small" id="today_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
       <thead>
         <tr>
           <th>#</th>
