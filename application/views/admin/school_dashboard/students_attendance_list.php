@@ -61,6 +61,12 @@
 
   }
 
+  .strock_off {
+    background-color: rgb(243, 132, 143) !important;
+    color: white;
+    border: 1px solid rgb(243, 132, 143) !important;
+  }
+
   .absent {
     background-color: #dc3545 !important;
     color: white;
@@ -186,7 +192,18 @@ for ($i = 7; $i >= 0; $i--) {
                       if ($header['is_sunday']) {
                         echo 'sunday';
                       } elseif (isset($attendance_data->attendance)) {
-                        echo ($attendance_data->attendance == 'P') ? 'present' : 'absent';
+                        if ($attendance_data->attendance == 'P') {
+                          echo 'present';
+                        };
+                        if ($attendance_data->attendance == 'L') {
+                          echo 'leave';
+                        };
+                        if ($attendance_data->attendance == 'A') {
+                          echo 'absent';
+                        };
+                        if ($attendance_data->attendance == 'SO') {
+                          echo 'strock_off';
+                        };
                       }
                       ?>">
             <?php
