@@ -48,7 +48,7 @@
           <th>CLASS</th>
           <th>SECTION</th>
           <?php
-          for ($i = 7; $i < 1; $i--) {
+          for ($i = 7; $i >= 1; $i--) {
             $date = new DateTime();
             $date->modify("-$i days");
           ?>
@@ -108,7 +108,7 @@
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section_title; ?></td>
             <?php
-            for ($i = 7; $i < 1; $i--) {
+            for ($i = 7; $i >= 1; $i--) {
               $date = new DateTime();
               $date->modify("-$i days");
             ?>
