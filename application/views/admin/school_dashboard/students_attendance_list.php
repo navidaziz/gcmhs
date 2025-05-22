@@ -111,22 +111,25 @@
             for ($i = 7; $i >= 0; $i--) {
               $date = new DateTime();
               $date->modify("-$i days");
-            ?>
-              <?php
-              $query = "SELECT * FROM `students_attendance` 
-              WHERE `student_id` = '" . $sa->student_id . "' 
-              AND DATE(`date`) = '" . $date->format('Y-m-d') . "' ";
-              // $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('Y-m-d')])->row();
+              $formatted_date = $date->format('Y-m-d');
 
-              ?>
-              <td><?php echo $students_attendance->attendance;  ?></td>
-              <td><?php
-                  if ($students_attendance->attendance2) {
-                    echo $students_attendance->attendance2;
-                  } else {
-                    echo "-";
-                  }  ?></td>
-            <?php  } ?>
+              // Safe and proper query
+              $query = "SELECT * FROM `students_attendance` 
+            WHERE `student_id` = ? AND DATE(`date`) = ?";
+              $students_attendance = $this->db->query($query, [$sa->student_id, $formatted_date])->row();
+            ?>
+              <td>
+                <?php
+                echo isset($students_attendance->attendance) ? $students_attendance->attendance : '-';
+                ?>
+              </td>
+              <td>
+                <?php
+                echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '-';
+                ?>
+              </td>
+            <?php } ?>
+
             <td><?php echo $sa->m_p; ?></td>
             <td><?php echo $sa->m_a; ?></td>
             <td><?php echo $sa->m_l; ?></td>
