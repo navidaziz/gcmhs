@@ -248,7 +248,6 @@ for ($i = 7; $i >= 0; $i--) {
               } else {
                 echo $attendance_data->attendance;
               }
-              echo $attendance_data->attendance;
             } else {
               if (isset($attendance_data->attendance2)) {
                 if ($attendance_data->attendance2 == 'A') {
