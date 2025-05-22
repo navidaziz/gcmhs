@@ -55,10 +55,10 @@
             <th><?php echo $date->format('d, F'); ?> - M</th>
             <th><?php echo $date->format('d, F'); ?> - E</th>
           <?php  } ?>
-          <th>PRESENT</th>
-          <th>ABSENT</th>
-          <th>LEAVE</th>
-          <th>EVE. ABSENT</th>
+          <th>M-P</th>
+          <th>M-A</th>
+          <th>M-L</th>
+          <th>E-A</th>
         </tr>
       </thead>
       <tbody>
