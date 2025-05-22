@@ -120,7 +120,12 @@
 
               ?>
               <td><?php echo $students_attendance->attendance;  ?></td>
-              <td><?php echo $students_attendance->attendance2;  ?></td>
+              <td><?php
+                  if ($students_attendance->attendance2) {
+                    echo $students_attendance->attendance2;
+                  } else {
+                    echo "N/A";
+                  }  ?></td>
             <?php  } ?>
             <td><?php echo $sa->m_p; ?></td>
             <td><?php echo $sa->m_a; ?></td>
