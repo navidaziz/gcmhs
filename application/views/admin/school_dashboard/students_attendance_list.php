@@ -207,3 +207,42 @@ for ($i = 7; $i >= 0; $i--) {
     <?php endforeach; ?>
   </tbody>
 </table>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+    var table = $('#today_attendance').DataTable({
+      bPaginate: false,
+      dom: 'Bfrtip',
+      searching: true, // Disable search box
+      buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
+      columnDefs: [{
+        searchable: false,
+        orderable: false,
+        targets: 0 // First column (Serial No.) not sortable/searchable
+      }],
+      order: [] // Optional: avoid initial sorting
+    });
+
+    // Auto-indexing the first column (Serial No.)
+    table.on('order.dt search.dt draw.dt', function() {
+      table.column(0, {
+          search: 'applied',
+          order: 'applied'
+        })
+        .nodes()
+        .each(function(cell, i) {
+          cell.innerHTML = i + 1;
+        });
+    }).draw();
+  });
+</script>
