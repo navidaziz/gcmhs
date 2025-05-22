@@ -54,6 +54,13 @@
     border: 1px solid #1e7e34 !important;
   }
 
+  .leave {
+    background-color: rgb(157, 248, 178) !important;
+    color: white;
+    border: 1px solid rgb(157, 248, 178) !important;
+
+  }
+
   .absent {
     background-color: #dc3545 !important;
     color: white;
@@ -191,10 +198,25 @@ for ($i = 7; $i >= 0; $i--) {
                       if ($header['is_sunday']) {
                         echo 'sunday';
                       } elseif (isset($attendance_data->attendance2)) {
-                        if ($attendance_data->attendance == 'A') {
-                          echo 'evening-absent';
+                        if ($attendance_data->attendance == 'P') {
+                          if ($attendance_data->attendance2 == 'P') {
+                            echo 'present';
+                          }
+                          if ($attendance_data->attendance2 == 'A') {
+                            echo 'evening-absent';
+                          }
+                          if ($attendance_data->attendance2 == 'L') {
+                            echo 'leave';
+                          }
+                          if ($attendance_data->attendance2 == 'SO') {
+                            echo 'absent';
+                          }
                         } else {
-                          echo ($attendance_data->attendance2 == 'P') ? 'present' : 'evening-absent';
+                          if ($attendance_data->attendance == 'L') {
+                            echo 'leave';
+                          } else {
+                            echo 'absent';
+                          }
                         }
                       }
                       ?>">
