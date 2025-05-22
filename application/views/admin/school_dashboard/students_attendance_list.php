@@ -200,9 +200,9 @@ for ($i = 7; $i >= 0; $i--) {
                       ?>">
             <?php
             if ($attendance_data->attendance != 'P') {
-              echo $attendance_data->attendance2;
-            } else {
               echo $attendance_data->attendance;
+            } else {
+              echo $attendance_data->attendance2;
             }
             ?>
           </td>
