@@ -48,13 +48,13 @@
           <th>CLASS</th>
           <th>SECTION</th>
           <?php
-          for ($i = 7; $i >= 1; $i--) {
+          for ($i = 7; $i >= 0; $i--) {
             $date = new DateTime();
-            $date->modify("$i days");
+            $date->modify("-$i days");
           ?>
             <th><?php echo $date->format('d, F'); ?> - M</th>
             <th><?php echo $date->format('d, F'); ?> - E</th>
-          <?php  } ?>
+          <?php } ?>
           <th>M-P</th>
           <th>M-A</th>
           <th>M-L</th>
@@ -108,9 +108,9 @@
             <td><?php echo $sa->class_title; ?></td>
             <td><?php echo $sa->section_title; ?></td>
             <?php
-            for ($i = 7; $i >= 1; $i--) {
+            for ($i = 7; $i >= 0; $i--) {
               $date = new DateTime();
-              $date->modify("$i days");
+              $date->modify("-$i days");
             ?>
               <?php
               $query = "SELECT * FROM `students_attendance` 
