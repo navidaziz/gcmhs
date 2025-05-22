@@ -113,10 +113,10 @@
               $date->modify("-$i days");
             ?>
               <?php
-              $query = "SELECT * FROM `students_attendance` 
-              WHERE `student_id` = ? 
-              AND DATE(`date`) = ? ";
-              $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('Y-m-d')])->row();
+              echo $query = "SELECT * FROM `students_attendance` 
+              WHERE `student_id` = '" . $sa->student_id . "' 
+              AND DATE(`date`) = '" . $date->format('Y-m-d') . "' ";
+              // $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('Y-m-d')])->row();
 
               ?>
               <td><?php echo $students_attendance->attendance;  ?></td>
@@ -124,7 +124,7 @@
                   if ($students_attendance->attendance2) {
                     echo $students_attendance->attendance2;
                   } else {
-                    echo "N/A";
+                    echo "-";
                   }  ?></td>
             <?php  } ?>
             <td><?php echo $sa->m_p; ?></td>
