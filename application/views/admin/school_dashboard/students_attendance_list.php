@@ -101,7 +101,8 @@ for ($i = 7; $i >= 0; $i--) {
   ];
 }
 ?>
-
+<h4>Last 7 Days Student Attendance Analysis Dashboard</h4>
+<hr />
 <table id="attendance_table" class="table table-bordered table_small" style="width:100%;">
   <thead>
     <!-- First Header Row: Dates -->
