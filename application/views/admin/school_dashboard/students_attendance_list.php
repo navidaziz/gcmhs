@@ -120,12 +120,12 @@
             ?>
               <td>
                 <?php
-                echo isset($students_attendance->attendance) ? $students_attendance->attendance : '-';
+                echo isset($students_attendance->attendance) ? $students_attendance->attendance : '<small>NULL</small>';
                 ?>
               </td>
               <td>
                 <?php
-                echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '-';
+                echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '<small>NULL</small>';
                 ?>
               </td>
             <?php } ?>
