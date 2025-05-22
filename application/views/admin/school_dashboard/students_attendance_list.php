@@ -130,22 +130,29 @@
               $date = new DateTime();
               $date->modify("-$i days");
               $formatted_date = $date->format('Y-m-d');
-
-              // Safe and proper query
-              $query = "SELECT * FROM `students_attendance` 
-            WHERE `student_id` = ? AND DATE(`date`) = ?";
-              $students_attendance = $this->db->query($query, [$sa->student_id, $formatted_date])->row();
-            ?>
-              <td>
-                <?php
-                echo isset($students_attendance->attendance) ? $students_attendance->attendance : '<small style="font-size:5px">NULL</small>';
-                ?>
-              </td>
-              <td>
-                <?php
-                echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '<small style="font-size:5px">NULL</small>';
-                ?>
-              </td>
+              if ($date->format('w') == 0) { ?>
+                <td style="background-color: #fff;"></td>
+                <td style="background-color: #fff;"></td>
+              <?php } else {
+                $query = "SELECT * FROM `students_attendance` 
+              WHERE `student_id` = ? AND DATE(`date`) = ?";
+                $students_attendance = $this->db->query($query, [$sa->student_id, $formatted_date])->row();
+              ?>
+                <td>
+                  <?php
+                  echo isset($students_attendance->attendance) ? $students_attendance->attendance : '<small style="font-size:5px">NULL</small>';
+                  ?>
+                </td>
+                <?php if ($date->format('w') == 5) {  ?>
+                  <td style="background-color: #fff;"></td>
+                <?php } else { ?>
+                  <td>
+                    <?php
+                    echo isset($students_attendance->attendance2) ? $students_attendance->attendance2 : '<small style="font-size:5px">NULL</small>';
+                    ?>
+                  </td>
+                <?php } ?>
+              <?php } ?>
             <?php } ?>
 
             <td><?php echo $sa->m_p; ?></td>
