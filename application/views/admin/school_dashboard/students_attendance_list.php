@@ -191,11 +191,23 @@ for ($i = 7; $i >= 0; $i--) {
                       if ($header['is_sunday']) {
                         echo 'sunday';
                       } elseif (isset($attendance_data->attendance2)) {
-                        echo ($attendance_data->attendance2 == 'P') ? 'present' : 'evening-absent';
+                        if ($attendance_data->attendance == 'A') {
+                          echo 'evening-absent';
+                        } else {
+                          echo ($attendance_data->attendance2 == 'P') ? 'present' : 'evening-absent';
+                        }
                       }
                       ?>">
             <?php
-            echo isset($attendance_data->attendance2) ? $attendance_data->attendance2 : '';
+            if (isset($attendance_data->attendance2)) {
+              if ($attendance_data->attendance == 'A') {
+                echo 'A';
+              } else {
+                echo $attendance_data->attendance2;
+              }
+            } else {
+              echo '<small style="font-size:5px">Null</small>';
+            }
             ?>
           </td>
         <?php endforeach; ?>
