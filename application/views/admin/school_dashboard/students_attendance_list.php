@@ -22,6 +22,26 @@
     opacity: 1;
   }
 </style>
+<style>
+  .table_small>thead>tr>th,
+  .table_small>tbody>tr>th,
+  .table_small>tfoot>tr>th,
+  .table_small>thead>tr>td,
+  .table_small>tbody>tr>td,
+  .table_small>tfoot>tr>td {
+    padding: 4px;
+    line-height: 1;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    font-size: 10px !important;
+    color: black;
+    margin: 0px !important;
+  }
+
+  .panel-heading {
+    padding: 5px;
+  }
+</style>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -39,8 +59,7 @@
           <th>#</th>
           <th>STUDENT ID</th>
           <th>CLASS NO.</th>
-          <th>STUDENT NAME</th>
-          <th>FATHER NAME</th>
+          <th>STUDENT</th>
           <th>ADMISSION NO.</th>
           <th>CONTACT</th>
           <th>IMAGE</th>
@@ -72,8 +91,7 @@
             <td><?php echo $count++; ?></td>
             <td><?php echo $sa->student_id; ?></td>
             <td><?php echo $sa->class_no; ?></td>
-            <td><?php echo $sa->name; ?></td>
-            <td><?php echo $sa->father_name; ?></td>
+            <td><?php echo $sa->name; ?> S/O <?php echo $sa->father_name; ?></td>
             <td><?php echo $sa->admission_no; ?></td>
             <th><?php echo $sa->contact_no; ?></th>
             <td><?php if ($sa->image) { ?>
