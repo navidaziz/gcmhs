@@ -50,7 +50,7 @@
           <?php
           for ($i = 7; $i >= 1; $i--) {
             $date = new DateTime();
-            $date->modify("-$i days");
+            $date->modify("$i days");
           ?>
             <th><?php echo $date->format('d, F'); ?> - M</th>
             <th><?php echo $date->format('d, F'); ?> - E</th>
@@ -110,10 +110,10 @@
             <?php
             for ($i = 7; $i >= 1; $i--) {
               $date = new DateTime();
-              $date->modify("-$i days");
+              $date->modify("$i days");
             ?>
               <?php
-              echo $query = "SELECT * FROM `students_attendance` 
+              $query = "SELECT * FROM `students_attendance` 
               WHERE `student_id` = '" . $sa->student_id . "' 
               AND DATE(`date`) = '" . $date->format('Y-m-d') . "' ";
               // $students_attendance = $this->db->query($query, [$sa->student_id, $date->format('Y-m-d')])->row();
