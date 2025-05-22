@@ -124,7 +124,9 @@
 
 
             <td><?php echo $sa->class_title; ?></td>
-            <td style="background-color: <?php echo $sa->section_title; ?>;"><?php echo $sa->section_title; ?></td>
+            <td style="color: <?php echo $sa->section_title; ?>;"><strong>
+                <?php echo $sa->section_title; ?> </strong>
+            </td>
             <?php
             for ($i = 7; $i >= 0; $i--) {
               $date = new DateTime();
