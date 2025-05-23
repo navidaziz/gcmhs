@@ -677,7 +677,7 @@ foreach ($todaySummary as $t) {
   ?>
   Highcharts.chart('daily_attendance_percentage', {
     chart: {
-      type: 'spline'
+      type: 'column'
     },
     title: {
       text: 'Last 30 Day Attendance Trend Analysis'
@@ -686,32 +686,25 @@ foreach ($todaySummary as $t) {
       text: 'Total - Present - Absent - AVG Absent Per Day.'
     },
     xAxis: {
-      categories: <?php echo json_encode($categories); ?>
+      categories: <?php echo json_encode($categories); ?>,
+      crosshair: true
     },
     yAxis: {
+      min: 0,
+      max: 100,
       title: {
-        text: 'Total Students'
-      },
-      plotLines: [{
-        id: 'avg',
-        value: <?php echo round($dailyabseentaverage, 2); ?>,
-        color: '#f15c80',
-        dashStyle: 'dash',
-        width: 1,
-        label: {
-          text: 'AVG Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
-          align: 'right',
-          style: {
-            color: '#f15c80'
-          }
-        },
-        zIndex: 4
-      }]
+        text: 'Attendance Percentage (%)'
+      }
+    },
+    tooltip: {
+      shared: true,
+      valueSuffix: '%'
     },
     plotOptions: {
-      line: {
+      column: {
         dataLabels: {
-          enabled: true
+          enabled: true,
+          format: '{point.y:.2f}%'
         },
         enableMouseTracking: true
       },
@@ -725,7 +718,8 @@ foreach ($todaySummary as $t) {
       color: '#f15c80'
     }, {
       name: 'Present %',
-      data: <?php echo json_encode($present_percent); ?>
+      data: <?php echo json_encode($present_percent); ?>,
+      color: '#7cb5ec'
     }]
   });
 
@@ -819,8 +813,7 @@ foreach ($todaySummary as $t) {
     $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
   }
 
-  ?>
-  Highcharts.chart('monthly_absent_avg', {
+  ?> Highcharts.chart('monthly_absent_avg', {
     chart: {
       type: 'column'
     },
