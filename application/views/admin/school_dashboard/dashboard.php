@@ -317,6 +317,7 @@
     <div class="col-md-6">
       <div class="quick-pie panel panel-default">
         <div class="panel-body">
+          <div id="daily_attendance_percentage"></div>
           <div id="daily_attendance"></div>
         </div>
       </div>
@@ -645,11 +646,85 @@ foreach ($todaySummary as $t) {
       $daily_total[] = null;
       $daily_present[] = null;
     }
+    $absent = (int)$dayWise[$date]->absent;
+    $total = (int)$dayWise[$date]->total;
+    $present = (int)$dayWise[$date]->present;
+    // Avoid division by zero
+    if ($total > 0) {
+      $absent_percent[] = round(($absent / $total) * 100, 2);
+      $present_percent[] = round(($present / $total) * 100, 2);
+    } else {
+      $absent_percent[] = NULL;
+      $present_percent[] = NULL;
+    }
   }
   ?>
 
 
 
+  <?php
+  // Get average daily absent
+  $avgAbsentQuery = "
+    SELECT AVG(absent) AS absent 
+    FROM daily_total_attendance 
+    WHERE YEAR(created_date) = YEAR(CURDATE())
+    AND MONTH(created_date) = MONTH(CURDATE())";
+
+  $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent ?? 0;
+  ?>
+  Highcharts.chart('daily_attendance_percentage', {
+    chart: {
+      type: 'spline'
+    },
+    title: {
+      text: 'Last 30 Day Attendance Trend Analysis'
+    },
+    subtitle: {
+      text: 'Total - Present - Absent - AVG Absent Per Day.'
+    },
+    xAxis: {
+      categories: <?php echo json_encode($categories); ?>
+    },
+    yAxis: {
+      title: {
+        text: 'Total Students'
+      },
+      plotLines: [{
+        id: 'avg',
+        value: <?php echo round($dailyabseentaverage, 2); ?>,
+        color: '#f15c80',
+        dashStyle: 'dash',
+        width: 1,
+        label: {
+          text: 'AVG Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
+          align: 'right',
+          style: {
+            color: '#f15c80'
+          }
+        },
+        zIndex: 4
+      }]
+    },
+    plotOptions: {
+      line: {
+        dataLabels: {
+          enabled: true
+        },
+        enableMouseTracking: true
+      },
+      series: {
+        connectNulls: true
+      }
+    },
+    series: [{
+      name: 'Absent %',
+      data: <?php echo json_encode($absent_percent); ?>,
+      color: '#f15c80'
+    } {
+      name: 'Present',
+      data: <?php echo json_encode($present_percent); ?>
+    }]
+  });
 
 
   Highcharts.chart('daily_attendance', {
