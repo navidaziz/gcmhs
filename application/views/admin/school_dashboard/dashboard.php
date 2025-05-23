@@ -723,8 +723,8 @@ foreach ($todaySummary as $t) {
       name: 'Absent %',
       data: <?php echo json_encode($absent_percent); ?>,
       color: '#f15c80'
-    } {
-      name: 'Present',
+    }, {
+      name: 'Present %',
       data: <?php echo json_encode($present_percent); ?>
     }]
   });
