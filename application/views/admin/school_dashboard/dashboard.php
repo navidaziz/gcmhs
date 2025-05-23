@@ -680,6 +680,7 @@ foreach ($todaySummary as $t) {
   } else {
     $dailyabseentaverage = 0;
   }
+  $absent_average = !empty($absent_percent) ? array_sum($absent_percent) / count($absent_percent) : 0;
   ?>
   Highcharts.chart('daily_attendance_percentage', {
     chart: {
@@ -702,33 +703,49 @@ foreach ($todaySummary as $t) {
         text: 'Attendance Percentage (%)'
       }
     },
-    tooltip: {
-      shared: true,
-      valueSuffix: '%'
-    },
-    plotOptions: {
-      column: {
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:.2f}%'
-        },
-        enableMouseTracking: true
-      },
-      series: {
-        connectNulls: true
-      }
-    },
-    series: [{
-      name: 'Present %',
-      data: <?php echo json_encode($present_percent); ?>,
-      color: '#7cb5ec'
-    }, {
-      name: 'Absent %',
-      data: <?php echo json_encode($absent_percent); ?>,
+    plotLines: [{
+      id: 'avg_absent',
+      value: <?php echo round($absent_average, 2); ?>,
       color: '#f15c80',
-      type: 'spline',
-
+      dashStyle: 'ShortDash',
+      width: 1,
+      label: {
+        text: 'Avg Absent % - <?php echo round($absent_average, 2); ?>',
+        align: 'right',
+        style: {
+          color: '#f15c80'
+        }
+      },
+      zIndex: 3
     }]
+  },
+  tooltip: {
+    shared: true,
+    valueSuffix: '%'
+  },
+  plotOptions: {
+    column: {
+      dataLabels: {
+        enabled: true,
+        format: '{point.y:.2f}%'
+      },
+      enableMouseTracking: true
+    },
+    series: {
+      connectNulls: true
+    }
+  },
+  series: [{
+    name: 'Present %',
+    data: <?php echo json_encode($present_percent); ?>,
+    color: '#7cb5ec'
+  }, {
+    name: 'Absent %',
+    data: <?php echo json_encode($absent_percent); ?>,
+    color: '#f15c80',
+    type: 'spline',
+
+  }]
   });
 
 
