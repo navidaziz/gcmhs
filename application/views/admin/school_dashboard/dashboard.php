@@ -669,8 +669,11 @@ foreach ($todaySummary as $t) {
     FROM daily_total_attendance 
     WHERE YEAR(created_date) = YEAR(CURDATE())
     AND MONTH(created_date) = MONTH(CURDATE())";
-
-  $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent ?? 0;
+  if ($this->db->query($avgAbsentQuery)->row()->absent) {
+    $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
+  } else {
+    $dailyabseentaverage = 0;
+  }
   ?>
   Highcharts.chart('daily_attendance_percentage', {
     chart: {
