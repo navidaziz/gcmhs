@@ -622,14 +622,16 @@ foreach ($todaySummary as $t) {
   <?php
   // 1. Fetch daily attendance summary for the last 30 days
   $dailyQuery = "
-    SELECT DATE(created_date) as day, 
-           SUM(absent) as absent, 
-           SUM(total) as total, 
-           SUM(present) as present,
-           SUM(leave) as `leave` 
-    FROM daily_class_wise_attendance
-    WHERE created_date >= CURDATE() - INTERVAL 30 DAY
-    GROUP BY DATE(created_date)
+    SELECT 
+  DATE(created_date) AS day, 
+  SUM(absent) AS absent, 
+  SUM(total) AS total, 
+  SUM(present) AS present,
+  SUM(`leave`) AS leave_count
+FROM daily_class_wise_attendance
+WHERE created_date >= CURDATE() - INTERVAL 30 DAY
+GROUP BY DATE(created_date)
+ORDER BY day ASC;
 ";
   $dailyData = $this->db->query($dailyQuery)->result();
 
@@ -656,7 +658,7 @@ foreach ($todaySummary as $t) {
     $absent = (int)$dayWise[$date]->absent;
     $total = (int)$dayWise[$date]->total;
     $present = (int)$dayWise[$date]->present;
-    $leave = (int)$dayWise[$date]->leave;
+    $leave = (int)$dayWise[$date]->leave_count;
     // Avoid division by zero
     if ($total > 0) {
       $absent_percent[] = round(($absent / $total) * 100, 2);
