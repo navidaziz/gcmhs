@@ -627,7 +627,8 @@ foreach ($todaySummary as $t) {
   SUM(absent) AS absent, 
   SUM(total) AS total, 
   SUM(present) AS present,
-  SUM(`leave`) AS leave_count
+  SUM(`leave`) AS leave_count,
+  SUM(`evening_absent`) as e_absent
 FROM daily_class_wise_attendance
 WHERE created_date >= CURDATE() - INTERVAL 30 DAY
 GROUP BY DATE(created_date)
@@ -664,10 +665,12 @@ ORDER BY day ASC;
       $absent_percent[] = round(($absent / $total) * 100, 2);
       $present_percent[] = round(($present / $total) * 100, 2);
       $leave_percent[] = round(($leave / $total) * 100, 2);
+      $e_absent_percent[] = round(($e_absent / $total) * 100, 2);
     } else {
       $absent_percent[] = NULL;
       $present_percent[] = NULL;
       $leave_percent[] = NULL;
+      $e_absent_percent[] = NULL;
     }
   }
   ?>
@@ -759,7 +762,14 @@ ORDER BY day ASC;
         type: 'spline',
         data: <?php echo json_encode($leave_percent); ?>,
         color: '#A3F791'
+      },
+      {
+        name: 'Evening Absent %',
+        type: 'spline',
+        data: <?php echo json_encode($e_absent_percent); ?>,
+        color: '#f15a45'
       }
+
     ]
 
   });
