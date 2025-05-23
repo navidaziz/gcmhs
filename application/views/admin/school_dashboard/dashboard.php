@@ -701,51 +701,55 @@ foreach ($todaySummary as $t) {
       max: 100,
       title: {
         text: 'Attendance Percentage (%)'
-      }
+      },
+      plotLines: [{
+        id: 'avg_absent',
+        value: <?php echo round($absent_average, 2); ?>,
+        color: '#f15c80',
+        dashStyle: 'ShortDash',
+        width: 1,
+        label: {
+          text: 'Avg Absent % - <?php echo round($absent_average, 2); ?>',
+          align: 'right',
+          style: {
+            color: '#f15c80'
+          }
+        },
+        zIndex: 3
+      }]
     },
-    plotLines: [{
-      id: 'avg_absent',
-      value: <?php echo round($absent_average, 2); ?>,
-      color: '#f15c80',
-      dashStyle: 'ShortDash',
-      width: 1,
-      label: {
-        text: 'Avg Absent % - <?php echo round($absent_average, 2); ?>',
-        align: 'right',
-        style: {
-          color: '#f15c80'
+    tooltip: {
+      shared: true,
+      valueSuffix: '%'
+    },
+    plotOptions: {
+      column: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}%'
+        },
+        enableMouseTracking: true
+      },
+      spline: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.2f}%'
         }
       },
-      zIndex: 3
-    }]
-  },
-  tooltip: {
-    shared: true,
-    valueSuffix: '%'
-  },
-  plotOptions: {
-    column: {
-      dataLabels: {
-        enabled: true,
-        format: '{point.y:.2f}%'
-      },
-      enableMouseTracking: true
+      series: {
+        connectNulls: true
+      }
     },
-    series: {
-      connectNulls: true
-    }
-  },
-  series: [{
-    name: 'Present %',
-    data: <?php echo json_encode($present_percent); ?>,
-    color: '#7cb5ec'
-  }, {
-    name: 'Absent %',
-    data: <?php echo json_encode($absent_percent); ?>,
-    color: '#f15c80',
-    type: 'spline',
-
-  }]
+    series: [{
+      name: 'Present %',
+      data: <?php echo json_encode($present_percent); ?>,
+      color: '#7cb5ec'
+    }, {
+      name: 'Absent %',
+      type: 'spline',
+      data: <?php echo json_encode($absent_percent); ?>,
+      color: '#f15c80'
+    }]
   });
 
 
