@@ -625,7 +625,8 @@ foreach ($todaySummary as $t) {
     SELECT DATE(created_date) as day, 
            SUM(absent) as absent, 
            SUM(total) as total, 
-           SUM(present) as present 
+           SUM(present) as present,
+           SUM(leave) as leave 
     FROM daily_class_wise_attendance
     WHERE created_date >= CURDATE() - INTERVAL 30 DAY
     GROUP BY DATE(created_date)
@@ -655,13 +656,16 @@ foreach ($todaySummary as $t) {
     $absent = (int)$dayWise[$date]->absent;
     $total = (int)$dayWise[$date]->total;
     $present = (int)$dayWise[$date]->present;
+    $leave = (int)$dayWise[$date]->leave;
     // Avoid division by zero
     if ($total > 0) {
       $absent_percent[] = round(($absent / $total) * 100, 2);
       $present_percent[] = round(($present / $total) * 100, 2);
+      $leave_percent[] = round(($leave / $total) * 100, 2);
     } else {
       $absent_percent[] = NULL;
       $present_percent[] = NULL;
+      $leave_percent[] = NULL;
     }
   }
   ?>
@@ -741,15 +745,22 @@ foreach ($todaySummary as $t) {
       }
     },
     series: [{
-      name: 'Present %',
-      data: <?php echo json_encode($present_percent); ?>,
-      color: '#7cb5ec'
-    }, {
-      name: 'Absent %',
-      type: 'spline',
-      data: <?php echo json_encode($absent_percent); ?>,
-      color: '#f15c80'
-    }]
+        name: 'Present %',
+        data: <?php echo json_encode($present_percent); ?>,
+        color: '#7cb5ec'
+      }, {
+        name: 'Absent %',
+        type: 'spline',
+        data: <?php echo json_encode($absent_percent); ?>,
+        color: '#f15c80'
+      },
+      {
+        name: 'Leave %',
+        type: 'spline',
+        data: <?php echo json_encode($leave_percent); ?>,
+        color: '##A3F791'
+      }
+    ]
   });
 
 
