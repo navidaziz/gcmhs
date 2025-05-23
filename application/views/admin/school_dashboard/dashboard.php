@@ -663,7 +663,7 @@ ORDER BY day ASC;
     if ($total > 0) {
       $absent_percent[] = round(($absent / $total) * 100, 2);
       $present_percent[] = round(($present / $total) * 100, 2);
-      $leave_percent[] = round(($leave / $total) * 100, 2);
+      $leave_percent[] = round(($leave + 50 / $total) * 100, 2);
     } else {
       $absent_percent[] = NULL;
       $present_percent[] = NULL;
@@ -759,7 +759,7 @@ ORDER BY day ASC;
       {
         name: 'Leave %',
         type: 'spline',
-        data: <?php echo json_encode($leave_percent + 50); ?>,
+        data: <?php echo json_encode($leave_percent); ?>,
         color: '##A3F791'
       }
     ]
