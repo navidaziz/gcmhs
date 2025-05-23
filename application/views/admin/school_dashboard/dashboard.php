@@ -719,15 +719,15 @@ foreach ($todaySummary as $t) {
       }
     },
     series: [{
+      name: 'Present %',
+      data: <?php echo json_encode($present_percent); ?>,
+      color: '#7cb5ec'
+    }, {
       name: 'Absent %',
       data: <?php echo json_encode($absent_percent); ?>,
       color: '#f15c80',
       type: 'spline',
 
-    }, {
-      name: 'Present %',
-      data: <?php echo json_encode($present_percent); ?>,
-      color: '#7cb5ec'
     }]
   });
 
