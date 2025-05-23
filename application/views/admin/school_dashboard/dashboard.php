@@ -758,7 +758,7 @@ ORDER BY day ASC;
       },
       {
         name: 'Leave %',
-        type: 'column',
+        type: 'line',
         data: <?php echo json_encode($leave_percent); ?>,
         color: '##A3F791'
       }
