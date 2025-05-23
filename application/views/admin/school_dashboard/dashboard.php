@@ -660,6 +660,7 @@ ORDER BY day ASC;
     $total = (int)$dayWise[$date]->total;
     $present = (int)$dayWise[$date]->present;
     $leave = (int)$dayWise[$date]->leave_count;
+    $e_absent = (int)$dayWise[$date]->e_absent;
     // Avoid division by zero
     if ($total > 0) {
       $absent_percent[] = round(($absent / $total) * 100, 2);
