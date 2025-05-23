@@ -314,10 +314,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="quick-pie panel panel-default">
         <div class="panel-body">
           <div id="daily_attendance_percentage"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="quick-pie panel panel-default">
+        <div class="panel-body">
           <div id="daily_attendance"></div>
         </div>
       </div>
