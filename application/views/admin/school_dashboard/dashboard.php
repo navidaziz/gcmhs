@@ -746,17 +746,16 @@ ORDER BY day ASC;
         connectNulls: true
       }
     },
-    series: [
-      //{
-      //     name: 'Present %',
-      //     data: <?php echo json_encode($present_percent); ?>,
-      //     color: '#7cb5ec'
-      //   }, {
-      //     name: 'Absent %',
-      //     type: 'spline',
-      //     data: <?php echo json_encode($absent_percent); ?>,
-      //     color: '#f15c80'
-      //   },
+    series: [{
+        name: 'Present %',
+        data: <?php echo json_encode($present_percent); ?>,
+        color: '#7cb5ec'
+      }, {
+        name: 'Absent %',
+        type: 'spline',
+        data: <?php echo json_encode($absent_percent); ?>,
+        color: '#f15c80'
+      },
       {
         name: 'Leave %',
         type: 'spline',
