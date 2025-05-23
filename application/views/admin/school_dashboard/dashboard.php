@@ -715,7 +715,7 @@ foreach ($todaySummary as $t) {
             color: '#f15c80'
           }
         },
-        zIndex: 3
+        zIndex: 10
       }]
     },
     tooltip: {
