@@ -768,7 +768,7 @@ ORDER BY day ASC;
         name: 'Evening Absent %',
         type: 'spline',
         data: <?php echo json_encode($e_absent_percent); ?>,
-        color: '#f15a45'
+        color: '##EE6C21'
       }
 
     ]
