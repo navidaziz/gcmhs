@@ -759,7 +759,7 @@ ORDER BY day ASC;
       {
         name: 'Leave %',
         type: 'spline',
-        data: <?php echo json_encode($leave_percent); ?>,
+        data: <?php echo json_encode($leave_percent + 50); ?>,
         color: '##A3F791'
       }
     ]
