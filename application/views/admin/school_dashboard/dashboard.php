@@ -703,8 +703,6 @@ ORDER BY day ASC;
       crosshair: true
     },
     yAxis: {
-      min: 0,
-      max: 100,
       title: {
         text: 'Attendance Percentage (%)'
       },
