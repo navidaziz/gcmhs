@@ -689,160 +689,161 @@ ORDER BY day ASC;
   $absent_average = !empty($absent_percent) ? array_sum($absent_percent) / count($absent_percent) : 0;
   ?>
   Highcharts.chart('daily_attendance_percentage', {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'Last 30 Day Attendance Trend Analysis'
-    },
-    subtitle: {
-      text: 'Total - Present - Absent - AVG Absent Per Day.'
-    },
-    xAxis: {
-      categories: <?php echo json_encode($categories); ?>,
-      crosshair: true
-    },
-    yAxis: {
-      min: 0,
-      max: 100,
-      title: {
-        text: 'Attendance Percentage (%)'
-      },
-      plotLines: [{
-        id: 'avg_absent',
-        value: <?php echo round($absent_average, 2); ?>,
-        color: '#f15c80',
-        dashStyle: 'ShortDash',
-        width: 1,
-        label: {
-          text: 'Avg Absent % - <?php echo round($absent_average, 2); ?>',
-          align: 'right',
-          style: {
-            color: '#f15c80'
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Last 30 Day Attendance Trend Analysis'
+        },
+        subtitle: {
+          text: 'Total - Present - Absent - AVG Absent Per Day.'
+        },
+        xAxis: {
+          categories: <?php echo json_encode($categories); ?>,
+          crosshair: true
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: 'Attendance Percentage (%)'
+          },
+          plotLines: [{
+            id: 'avg_absent',
+            value: <?php echo round($absent_average, 2); ?>,
+            color: '#f15c80',
+            dashStyle: 'ShortDash',
+            width: 1,
+            label: {
+              text: 'Avg Absent % - <?php echo round($absent_average, 2); ?>',
+              align: 'right',
+              style: {
+                color: '#f15c80'
+              }
+            },
+            zIndex: 10
+          }]
+        },
+        tooltip: {
+          shared: true,
+          valueSuffix: '%'
+        },
+        plotOptions: {
+          column: {
+            dataLabels: {
+              enabled: true,
+              format: '{point.y:.2f}%'
+            },
+            enableMouseTracking: true
+          },
+          spline: {
+            dataLabels: {
+              enabled: true,
+              format: '{point.y:.2f}%'
+            }
+          },
+          series: {
+            connectNulls: true
           }
         },
-        zIndex: 10
-      }]
-    },
-    tooltip: {
-      shared: true,
-      valueSuffix: '%'
-    },
-    plotOptions: {
-      column: {
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:.2f}%'
+        series: [
+          //{
+            //     name: 'Present %',
+            //     data: <?php echo json_encode($present_percent); ?>,
+            //     color: '#7cb5ec'
+            //   }, {
+            //     name: 'Absent %',
+            //     type: 'spline',
+            //     data: <?php echo json_encode($absent_percent); ?>,
+            //     color: '#f15c80'
+            //   },
+            {
+              name: 'Leave %',
+              type: 'line',
+              data: <?php echo json_encode($leave_percent); ?>,
+              color: '##A3F791'
+            }
+          ]
+        });
+
+
+      Highcharts.chart('daily_attendance', {
+        chart: {
+          type: 'spline'
         },
-        enableMouseTracking: true
-      },
-      spline: {
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:.2f}%'
-        }
-      },
-      series: {
-        connectNulls: true
-      }
-    },
-    series: [{
-        name: 'Present %',
-        data: <?php echo json_encode($present_percent); ?>,
-        color: '#7cb5ec'
-      }, {
-        name: 'Absent %',
-        type: 'spline',
-        data: <?php echo json_encode($absent_percent); ?>,
-        color: '#f15c80'
-      },
-      {
-        name: 'Leave %',
-        type: 'line',
-        data: <?php echo json_encode($leave_percent); ?>,
-        color: '##A3F791'
-      }
-    ]
-  });
+        title: {
+          text: 'Last 30 Day Attendance Trend Analysis'
+        },
+        subtitle: {
+          text: 'Total - Present - Absent - AVG Absent Per Day.'
+        },
+        xAxis: {
+          categories: <?php echo json_encode($categories); ?>
+        },
+        yAxis: {
+          title: {
+            text: 'Total Students'
+          },
 
-
-  Highcharts.chart('daily_attendance', {
-    chart: {
-      type: 'spline'
-    },
-    title: {
-      text: 'Last 30 Day Attendance Trend Analysis'
-    },
-    subtitle: {
-      text: 'Total - Present - Absent - AVG Absent Per Day.'
-    },
-    xAxis: {
-      categories: <?php echo json_encode($categories); ?>
-    },
-    yAxis: {
-      title: {
-        text: 'Total Students'
-      },
-
-      <?php
-      // 3. Get monthly absent average
-      $avgAbsentQuery = "
+          <?php
+          // 3. Get monthly absent average
+          $avgAbsentQuery = "
     SELECT AVG(absent) as absent 
     FROM daily_total_attendance 
     WHERE YEAR(created_date) = YEAR(CURDATE())
       AND MONTH(created_date) = MONTH(CURDATE())";
-      $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
-      ?>
+          $dailyabseentaverage = $this->db->query($avgAbsentQuery)->row()->absent;
+          ?>
 
-      plotLines: [{
-        id: 'avg',
-        value: <?php echo $dailyabseentaverage; ?>,
-        color: '#f15c80',
-        dashStyle: 'dash',
-        width: 1,
-        label: {
-          text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
-          align: 'right',
-          style: {
-            color: '#f15c80'
+          plotLines: [{
+            id: 'avg',
+            value: <?php echo $dailyabseentaverage; ?>,
+            color: '#f15c80',
+            dashStyle: 'dash',
+            width: 1,
+            label: {
+              text: 'AVG-Absentees - <?php echo round($dailyabseentaverage); ?> Per Day',
+              align: 'right',
+              style: {
+                color: '#f15c80'
+              }
+            },
+            zIndex: 4
+          }]
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          },
+          series: {
+            connectNulls: true
           }
         },
-        zIndex: 4
-      }]
-    },
-    plotOptions: {
-      line: {
-        dataLabels: {
-          enabled: true
-        },
-        enableMouseTracking: false
-      },
-      series: {
-        connectNulls: true
-      }
-    },
-    series: [{
-        name: 'Absent',
-        data: <?php echo json_encode($daily_absent); ?>,
-        color: '#f15c80'
-      },
-      {
-        name: 'Total',
-        data: <?php echo json_encode($daily_total); ?>,
-        visible: false
-      },
-      {
-        name: 'Present',
-        data: <?php echo json_encode($daily_present); ?>,
-        // visible: false
-      }
-    ]
-  });
+        series: [{
+            name: 'Absent',
+            data: <?php echo json_encode($daily_absent); ?>,
+            color: '#f15c80'
+          },
+          {
+            name: 'Total',
+            data: <?php echo json_encode($daily_total); ?>,
+            visible: false
+          },
+          {
+            name: 'Present',
+            data: <?php echo json_encode($daily_present); ?>,
+            // visible: false
+          }
+        ]
+      });
 
-  <?php
+      <?php
 
-  // 5. Monthly avg by class (top 10)
-  $monthlyAvg = $this->db->query("
+      // 5. Monthly avg by class (top 10)
+      $monthlyAvg = $this->db->query("
     SELECT class_title, section_title, AVG(absent) as avg_absent 
     FROM daily_class_wise_attendance
     WHERE created_date >= CURDATE() - INTERVAL 30 DAY
@@ -850,45 +851,45 @@ ORDER BY day ASC;
     ORDER BY avg_absent DESC
 ")->result();
 
-  $monthly_absent_avg = [];
-  foreach ($monthlyAvg as $row) {
-    $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
-  }
+      $monthly_absent_avg = [];
+      foreach ($monthlyAvg as $row) {
+        $monthly_absent_avg[] = [$row->class_title . '-' . $row->section_title, round($row->avg_absent)];
+      }
 
-  ?> Highcharts.chart('monthly_absent_avg', {
-    chart: {
-      type: 'column'
-    },
-    accessibility: {
-      point: {
-        valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
-      }
-    },
-    legend: {
-      enabled: false
-    },
-    subtitle: {
-      text: '<?php echo date("Y") ?>'
-    },
-    title: {
-      text: 'Last 30 Days Class-Section Wise AVG Absenteeism'
-    },
-    tooltip: {
-      shared: true
-    },
-    xAxis: {
-      type: 'category'
-    },
-    yAxis: {
-      title: {
-        text: 'Average Absenteeism'
-      }
-    },
-    series: [{
-      name: 'Avg Absenteeism',
-      data: <?php echo json_encode($monthly_absent_avg); ?>
-    }]
-  });
+      ?> Highcharts.chart('monthly_absent_avg', {
+        chart: {
+          type: 'column'
+        },
+        accessibility: {
+          point: {
+            valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+          }
+        },
+        legend: {
+          enabled: false
+        },
+        subtitle: {
+          text: '<?php echo date("Y") ?>'
+        },
+        title: {
+          text: 'Last 30 Days Class-Section Wise AVG Absenteeism'
+        },
+        tooltip: {
+          shared: true
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Average Absenteeism'
+          }
+        },
+        series: [{
+          name: 'Avg Absenteeism',
+          data: <?php echo json_encode($monthly_absent_avg); ?>
+        }]
+      });
 </script>
 
 <script>
