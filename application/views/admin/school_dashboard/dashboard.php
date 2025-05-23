@@ -626,7 +626,7 @@ foreach ($todaySummary as $t) {
            SUM(absent) as absent, 
            SUM(total) as total, 
            SUM(present) as present,
-           SUM(leave) as leave 
+           SUM(leave) as `leave` 
     FROM daily_class_wise_attendance
     WHERE created_date >= CURDATE() - INTERVAL 30 DAY
     GROUP BY DATE(created_date)
