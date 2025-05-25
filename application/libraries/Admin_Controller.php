@@ -57,18 +57,18 @@ class Admin_Controller extends MY_Controller
                 }
             }
 
-            // //now we will check if the current module is assigned to the user or not
-            // //$this->method_name
-            // $this->data['current_action_id'] = $current_action_id = $this->module_m->actionIdFromName($this->controller_name, 'index');
-            // $allowed_modules = $this->mr_m->rightsByRole($this->session->userdata("role_id"));
+            //now we will check if the current module is assigned to the user or not
+            //$this->method_name
+            $this->data['current_action_id'] = $current_action_id = $this->module_m->actionIdFromName($this->controller_name, 'index');
+            $allowed_modules = $this->mr_m->rightsByRole($this->session->userdata("role_id"));
 
-            // //add role homepage to allowed modules
-            // $allowed_modules[] = $this->session->userdata("role_homepage_id");
+            //add role homepage to allowed modules
+            $allowed_modules[] = $this->session->userdata("role_homepage_id");
 
-            // if (!in_array($current_action_id, $allowed_modules)) {
-            //     $this->session->set_flashdata('msg_error', 'id: ' . $current_action_id . ' You are not allowed to access this module');
-            //     redirect(ADMIN_DIR . $this->session->userdata("role_homepage_uri"));
-            // }
+            if (!in_array($current_action_id, $allowed_modules)) {
+                $this->session->set_flashdata('msg_error', 'id: ' . $current_action_id . ' You are not allowed to access this module');
+                redirect(ADMIN_DIR . $this->session->userdata("role_homepage_uri"));
+            }
         }
     }
 }
