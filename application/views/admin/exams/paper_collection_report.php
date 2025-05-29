@@ -159,10 +159,8 @@
                       <h3><?php echo $class->Class_title; ?> </h3>
 
                       <div id="error"></div>
-                      <table class="table table-bordered" style="font-size:9px !important">
+                      <table class="table table-bordered table-striped" style="font-size:9px !important">
                         <thead>
-                        </thead>
-                        <tbody>
                           <tr>
                             <th>Sections</th>
                             <?php foreach ($class->subjects as $subject) : ?>
@@ -170,6 +168,9 @@
                               </td>
                             <?php endforeach; ?>
                           </tr>
+                        </thead>
+                        <tbody>
+
                           <?php foreach ($class->sections as $section) { ?>
                             <tr>
                               <td><?php echo $section->section_title; ?></td>
