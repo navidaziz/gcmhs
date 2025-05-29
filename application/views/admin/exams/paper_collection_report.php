@@ -86,10 +86,10 @@
                             //         FROM `students_exams_subjects_marks` 
                             //         WHERE class_id = ? AND class_id = ? AND exam_id = ? AND subject_id = ?";
                             // $result = $this->db->query($query, [$class->class_id, $section->section_id, $exam_id, $subject->subject_id]);
-                            echo $query = "SELECT COUNT(*) as total
+                            $query = "SELECT COUNT(*) as total
                                     FROM `students_exams_subjects_marks` 
                                     WHERE class_id = '" . $class->class_id . "' 
-                                    AND class_id = '" . $section->section_id . "' 
+                                    AND section = '" . $section->section_id . "' 
                                     AND exam_id = '" . $exam_id . "' 
                                     AND subject_id = '" . $subject->subject_id . "'";
                             $result = $this->db->query($query);
