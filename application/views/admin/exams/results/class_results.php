@@ -69,7 +69,7 @@
                                         <td>
                                             <?php
                                             $query = "SELECT obtain_make, total_marks, passing_marks, `percentage`
-                                            FROM `students_exams_subjects_marks` as se
+                                            FROM `students_exams_subjects_marks` 
                                             WHERE student_id = ?
                                             AND exam_id = ?
                                             AND subject_id = ?";
