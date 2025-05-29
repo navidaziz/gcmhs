@@ -1,6 +1,6 @@
 <!-- PAGE HEADER-->
 <!DOCTYPE html>
-<html lang="en" dir="<?php echo $this->lang->line('direction'); ?>" />
+<html lang="en" dir="<?php echo $this->lang->line('direction'); ?>">
 <!-- JQUERY -->
 <script src="<?php echo site_url("assets/" . ADMIN_DIR . "js/jquery/jquery-2.0.3.min.js"); ?>"></script>
 
@@ -141,7 +141,7 @@
         });
     </script>
     <script type="text/javascript" src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.data Tables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
