@@ -1022,6 +1022,7 @@ class Exam_list extends Admin_Controller
 	function paper_collection_report($exam_id)
 	{
 		$exam_id = (int) $exam_id;
+		$this->data['exam_id'] = $exam_id;
 		$query = "SELECT  `Class_title`, `class_id`
 					FROM
 					`classes` 
