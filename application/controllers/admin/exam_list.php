@@ -1021,75 +1021,45 @@ class Exam_list extends Admin_Controller
 
 	function paper_collection_report($exam_id)
 	{
-
-
-
-
-
 		$exam_id = (int) $exam_id;
-
-		$this->data['exam_id'] = $exam_id;
-		$query = "SELECT
-						DISTINCT `classes`.`Class_title`, `classes`.`class_id`
+		$query = "SELECT  `Class_title`, `class_id`
 					FROM
-					`students`,
 					`classes` 
-					WHERE `students`.`class_id` = `classes`.`class_id`";
+					WHERE `class_id` IN(2,3,4,5,6) AND status=1";
 
 		$result = $this->db->query($query);
 		$classes = $result->result();
-		//var_dump($classes);
-
-		foreach ($classes as $classe) {
-			$query = "SELECT DISTINCT 
-						  `sections`.`section_id`,
-						  `sections`.`section_title` 
-						FROM
-						  `students`,
-						  `sections` 
-						WHERE `students`.`section_id` = `sections`.`section_id`
-						AND `students`.`class_id` =" . $classe->class_id;
+		foreach ($classes as $class) {
+			$query = "SELECT
+				`sections`.`section_title`
+				, `sections`.`section_id`
+			FROM
+			`class_sections`,
+			`sections`
+			WHERE `class_sections`.`section_id` = `sections`.`section_id` 
+				AND `class_sections`.`class_id` = '" . $class->class_id . "'";
 
 			$result = $this->db->query($query);
-			$sections = $result->result();
-			$classe->sections = $sections;
+			$class->sections = $result->result();
 
-
-			$query = "SELECT 
-				  `class_subjects`.`class_subject_id`,
-				  `subjects`.`subject_title`,
-				  `subjects`.`subject_id`,
-				  `class_subjects`.`class_id` 
-				FROM
-				  `subjects`,
-				  `class_subjects` 
-				WHERE `subjects`.`subject_id` = `class_subjects`.`subject_id`
-				AND `class_subjects`.`class_id` =" . $classe->class_id . " ORDER BY `subjects`.`subject_title` ASC ";
+			$query = "SELECT
+				`subjects`.`subject_title`
+				, `subjects`.`short_title`
+				, `subjects`.`subject_id`
+				, `class_subjects`.`total_class_week`
+				, `class_subjects`.`class_subject_id`
+			FROM
+			`class_subjects`,
+			`subjects` 
+			WHERE `class_subjects`.`subject_id` = `subjects`.`subject_id`
+			AND `class_subjects`.`class_id` = '" . $class->class_id . "'
+			AND subjects.status=1
+			ORDER BY  `subjects`.`group`  ASC ";
+			//ORDER BY `class_subjects`.`total_class_week`, `subjects`.`order`, `subjects`.`subject_title`, `subjects`.`group`  ASC ";
 			$result = $this->db->query($query);
-			$subjects = $result->result();
-			$classe->subjects = $subjects;
-
-			//var_dump($subjects);
-			//var_dump($subjects);
-			/*foreach($sections as $section)
-			$query="SELECT 
-					  COUNT(`student_exam_subject_mark_id`) AS total,
-					  ,
-					  ,
-					  `subject_id`,
-					  `exam_id` 
-					FROM `students_exams_subjects_marks`
-					WHERE `class_id` = '".$classe->class_id."'
-					AND `section_id` = '".$section->section_id."';
-					";
-		}*/
+			$class->subjects = $result->result();
 		}
 
-		//var_dump($classes);
-		$this->data['classes'] = $classes;
-		$this->data["exams"] = $this->exam_model->get_exam($exam_id);
-		$this->data["title"] = $this->lang->line('Exam Details');
-		$this->data["view"] = ADMIN_DIR . "exams/paper_collection_report";
 		$this->load->view(ADMIN_DIR . "exams/paper_collection_report", $this->data);
 	}
 
