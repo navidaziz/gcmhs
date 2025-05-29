@@ -1683,7 +1683,9 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
   `subjects`.`short_title`,
   `class_subjects`.`class_id`,
   `class_subjects`.`marks`,
-  `class_subjects`.`passing_mark` 
+  `class_subjects`.`passing_mark`,
+   `class_subjects`.`passing_mark`,
+    
 FROM
 `class_subjects` ,
 `class_subject_teacher`,
@@ -1702,7 +1704,7 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				$students[$student_index]->subjects[$class_subject->class_subject_id]['total_marks'] = $class_subject->marks;
 				$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->marks;
 				$query = "SELECT 
-					`obtain_mark`
+					`obtain_mark`, `total_marks`, `passing_marks`, `percentage`
 							FROM
 							`students_exams_subjects_marks`
 							WHERE `students_exams_subjects_marks`.`student_id` = '" . $student->student_id . "'
