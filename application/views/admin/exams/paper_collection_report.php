@@ -187,37 +187,8 @@
             <div class="box-body">
               <div class="table-responsive" style="font-size:11px !important;">
                 <div class="row">
-                  <!-- MESSENGER -->
-                  <script>
-                    function update_per_week_classes(class_subject_id) {
-                      var total_class_week = $('#total_class_week' + class_subject_id).val();
 
-                      $.ajax({
-                        type: "POST",
-                        url: "<?php echo site_url(ADMIN_DIR . "timetable/update_total_class_week"); ?>/" + class_subject_id,
-                        data: {
-                          total_class_week: total_class_week
-                        }
-                      }).done(function(msg) {
-                        //$("#status-"+id).html(msg) 
-                        //alert(msg);
-                      });
 
-                    }
-                  </script>
-
-                  <?php
-                  $query = "SELECT * FROM `teachers` 
-                  WHERE teachers.status=1
-                  Order By `teachers`.`teacher_name`
-                  ASC";
-                  $result = $this->db->query($query);
-                  $teachers = $result->result();
-                  $options = '';
-                  foreach ($teachers as $teacher) {
-                    $options .= '<option value="' . $teacher->teacher_id . '">' . $teacher->teacher_name . ' (' . $teacher->teacher_designation . ')</option>';
-                  }
-                  ?>
 
 
                   <?php foreach ($classes as $class) { ?>
@@ -260,17 +231,6 @@
                                   <?php if ($total == 0) { ?>
 
 
-
-
-                                    <form action="<?php echo site_url(ADMIN_DIR . "timetable/add_teacher"); ?>" method="post">
-                                      <input type="hidden" name="class_id" value="<?php echo $class->class_id; ?>" />
-                                      <input type="hidden" name="section_id" value="<?php echo $section->section_id; ?>" />
-                                      <input type="hidden" name="class_subject_id" value="<?php echo $subject->class_subject_id; ?>" />
-                                      <select style="width:60px !important" onchange="this.form.submit()" name="teacher_id">
-                                        <option value="0"> Teachers </option>
-                                        <?php echo $options; ?>
-                                      </select>
-                                    </form>
                                   <?php } else { ?>
 
                                     <?php
