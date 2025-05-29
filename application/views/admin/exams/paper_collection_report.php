@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <section id="page" class="container mt-4">
+  <section id="page" class="container">
     <div class="row">
       <div class="col-12">
         <div class="card border-primary mb-4">
