@@ -54,8 +54,8 @@
         </div>
         <div class="card-body">
           <?php foreach ($classes as $class) { ?>
-            <div class="mb-4">
-              <h3>Class <?php echo $class->Class_title; ?></h3>
+            <div class="mb-1">
+              <h5><strong>Class <?php echo $class->Class_title; ?></strong></h5>
               <div class="table-responsive">
                 <table class="table table-bordered table-striped table_small">
                   <thead class="thead-light">
