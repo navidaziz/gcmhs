@@ -97,9 +97,14 @@
                 $fail = 0;
                 $total_subject_marks = 0;
                 foreach ($class_subjects as $class_subject) { ?>
-                  <th><?php echo substr($class_subject->short_title, 0, 7); ?></th>
+                  <th><?php
+
+                      echo substr($class_subject->short_title, 0, 7); ?> (<?php
+                                                                          $total_subject_marks += $class_subject->marks;
+
+                                                                          echo $class_subject->marks; ?>)</th>
                 <?php } ?>
-                <th>Obtain Marks</th>
+                <th>Obtain Marks. (<?php echo $total_subject_marks; ?>)</th>
                 <th>%</th>
                 <td>Remarks</td>
               </tr>
