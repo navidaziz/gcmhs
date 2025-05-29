@@ -212,47 +212,35 @@
                             <tr>
                               <td><?php echo $section->section_title; ?></td>
                               <?php foreach ($class->subjects as $subject) :
-
-                                $query = "SELECT COUNT(*) as total FROM `class_section_subject_teachers` 
-                    WHERE `class_id` = '" . $class->class_id . "'
-                    AND `section_id` = '" . $section->section_id . "' 
-                    AND `class_subject_id` = '" . $subject->class_subject_id . "'";
-                                $result = $this->db->query($query);
-                                $total = $result->result()[0]->total;
-
-
                               ?>
-                                <td <?php if ($total != 0) { ?> style="background-color:#f9f9f9 !important;" <?php } ?>>
-                                  <?php if ($total == 0) { ?>
+                                <td>
 
 
-                                  <?php } else { ?>
-
-                                    <?php
-                                    $query = "SELECT
-								`teachers`.`teacher_name`
-                , `teachers`.`status`
-								, `teachers`.`teacher_id`
-								, `teachers`.`teacher_designation`
-								, `class_section_subject_teachers`.`class_section_subject_teacher_id` 
-							FROM
-							`teachers`,
-							`class_section_subject_teachers` 
-							WHERE `teachers`.`teacher_id` = `class_section_subject_teachers`.`teacher_id`
-							AND `class_id` = '" . $class->class_id . "'
-							AND `section_id` = '" . $section->section_id . "' 
-							AND `class_subject_id` = '" . $subject->class_subject_id . "'
+                                  <?php
+                                  $query = "SELECT
+                                    `teachers`.`teacher_name`
+                                    , `teachers`.`status`
+                                    , `teachers`.`teacher_id`
+                                    , `teachers`.`teacher_designation`
+                                    , `class_section_subject_teachers`.`class_section_subject_teacher_id` 
+                                  FROM
+                                  `teachers`,
+                                  `class_section_subject_teachers` 
+                                  WHERE `teachers`.`teacher_id` = `class_section_subject_teachers`.`teacher_id`
+                                  AND `class_id` = '" . $class->class_id . "'
+                                  AND `section_id` = '" . $section->section_id . "' 
+                                  AND `class_subject_id` = '" . $subject->class_subject_id . "'
 							";
-                                    $result = $this->db->query($query);
-                                    $assigned_teacher = $result->result()[0];
+                                  $result = $this->db->query($query);
+                                  $assigned_teacher = $result->result()[0];
 
-                                    ?>
-                                    <strong <?php if ($assigned_teacher->status == 0) { ?> style="color:red;" <?php } ?>>
-                                      <?php
+                                  ?>
+                                  <strong <?php if ($assigned_teacher->status == 0) { ?> style="color:red;" <?php } ?>>
+                                    <?php
 
-                                      echo "$assigned_teacher->teacher_name - $assigned_teacher->teacher_designation"; ?>
+                                    echo "$assigned_teacher->teacher_name - $assigned_teacher->teacher_designation"; ?>
 
-                                    <?php } ?>
+
 
                                 </td>
                               <?php endforeach; ?>
