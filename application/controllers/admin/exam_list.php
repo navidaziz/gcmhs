@@ -1550,6 +1550,45 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 	}
 
 
+	public function class_result($exam_id, $class_id, $section_id, $order = NULL)
+	{
+
+		$this->data["class_id"] = $class_id = (int) $class_id;
+		$this->data["section_id"] = $section_id = (int) $section_id;
+		$this->data["exam_id"] = $exam_id = (int) $exam_id;
+
+		//get class name 
+
+		$query = "SELECT * FROM `classes` WHERE `classes`.`class_id` = ? ";
+		$this->data['class'] = $this->db->query($query, [$class_id])->row();
+		$query = "SELECT * FROM `sections` WHERE `sections`.`section_id` = ? ";
+		$this->data['section'] = $this->db->query($query, [$section_id])->row();
+
+		$query = "SELECT * FROM `exams` WHERE exam_id = ? ";
+		$this->data['exam'] = $this->db->query($query, [$exam_id])->row();
+
+		$query = 'SELECT c.Class_title as class, sub.subject_title, sub.short_title, sub.subject_id 
+		          FROM `class_subjects` as cs
+				  INNER JOIN subjects as sub ON(sub.subject_id = cs.subject_id)
+				  INNER JOIN classes as c ON(c.class_id = cs.class_id)  
+				  ORDER BY `class` ASC;';
+		$this->data['subjects'] = $this->db->query($query, [$class_id,])->row();
+
+		$query = 'SELECT 
+		          s.student_id, s.student_name as name, 
+				  s.student_father_name as father_name, 
+				  s.student_class_no as class_no, 
+				  s.student_admission_no as adminssion_no 
+				  FROM `students_exams_subjects_marks` as se 
+				  INNER JOIN students as s ON(s.student_id = se.student_id) 
+				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? ;';
+		$this->data['students']  = $this->db->query($query, [$exam_id, $class_id, $section_id])->result();
+
+		$this->data["title"] = "Student Class Results";
+		$this->data["view"] = ADMIN_DIR . "exams/class_results";
+		$this->load->view(ADMIN_DIR . "exams/results/class_results", $this->data);
+	}
+
 
 
 	public function view_subjects_result($exam_id, $class_id, $section_id, $order = NULL)
