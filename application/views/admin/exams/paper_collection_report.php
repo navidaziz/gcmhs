@@ -89,7 +89,7 @@
                             $query = "SELECT COUNT(*) as total
                                     FROM `students_exams_subjects_marks` 
                                     WHERE class_id = '" . $class->class_id . "' 
-                                    AND section = '" . $section->section_id . "' 
+                                    AND section_id = '" . $section->section_id . "' 
                                     AND exam_id = '" . $exam_id . "' 
                                     AND subject_id = '" . $subject->subject_id . "'";
                             $result = $this->db->query($query);
