@@ -70,7 +70,7 @@
                                 $result = $this->db->query($query);
                                 $assigned_teacher = $result->row();
                               ?>
-                                <td><?php echo $assigned_teacher->teacher_name ?? '-'; ?></td>
+                                <td><?php echo $assigned_teacher->teacher_name; ?></td>
                               <?php } ?>
                             </tr>
                           <?php } ?>
