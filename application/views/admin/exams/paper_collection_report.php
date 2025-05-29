@@ -80,6 +80,7 @@
                                         AND `class_subject_id` = '" . $subject->class_subject_id . "'";
                           $result = $this->db->query($query);
                           $assigned_teacher = $result->row();
+                          $color = 'gray';
                           $query = "SELECT COUNT(*) as total
                                     FROM `students_exams_subjects_marks` 
                                     WHERE class_id = ? AND class_id = ? AND exam_id = ? AND subject_id = ?";
@@ -89,6 +90,8 @@
                             $total = $result->row()->total;
                             if ($total > 0) {
                               $color = 'Green';
+                            } else {
+                              $color = 'Red';
                             }
                           }
                         ?>
