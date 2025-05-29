@@ -205,11 +205,6 @@
                             <th>Sections</th>
                             <?php foreach ($class->subjects as $subject) : ?>
                               <td style="background-color:#FF0; color:#000; width:300px !important"><strong><?php echo substr($subject->subject_title, 0, 15); ?></strong>
-                                <span class="pull-right"><?php echo $subject->total_class_week; ?></span>
-
-                                <!--<br />
-                      Total Class:
-                      <input  onkeyup="update_per_week_classes('<?php echo $subject->class_subject_id;  ?>')" style="width:100%" type="text" name="marks" value="<?php echo $subject->total_class_week; ?>" id="total_class_week<?php echo $subject->class_subject_id;  ?>"   required="required" title="Per Week Class" placeholder="Per Week Class">-->
                               </td>
                             <?php endforeach; ?>
                           </tr>
