@@ -86,17 +86,17 @@
                                     FROM `students_exams_subjects_marks` 
                                     WHERE class_id = ? AND class_id = ? AND exam_id = ? AND subject_id = ?";
                             $result = $this->db->query($query, [$class->class_id, $section->section_id, $exam_id, $subject->subject_id]);
-                            $color = 'Red';
+
                             if ($result->num_rows() > 0) {
                               $total = $result->row()->total;
                               if ($total > 0) {
-                                $color = 'Green';
+                                $color = '#8BE78A';
                               } else {
-                                $color = 'Red';
+                                $color = '#F86F72';
                               }
                             }
                           } else {
-                            $color = 'gray';
+                            $color = '#E9ECEF';
                           }
                         ?>
                           <td style="background-color: <?php echo $color; ?>;"><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
