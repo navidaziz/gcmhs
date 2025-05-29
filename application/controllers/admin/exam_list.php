@@ -1683,9 +1683,7 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
   `subjects`.`short_title`,
   `class_subjects`.`class_id`,
   `class_subjects`.`marks`,
-  `class_subjects`.`passing_mark`,
-   `class_subjects`.`passing_mark`,
-    
+  `class_subjects`.`passing_mark`  
 FROM
 `class_subjects` ,
 `class_subject_teacher`,
