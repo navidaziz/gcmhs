@@ -1581,7 +1581,8 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				  s.student_admission_no as adminssion_no 
 				  FROM `students_exams_subjects_marks` as se 
 				  INNER JOIN students as s ON(s.student_id = se.student_id) 
-				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? ;';
+				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? 
+				  GROUP BY s.student_id;';
 		$this->data['students']  = $this->db->query($query, [$exam_id, $class_id, $section_id])->result();
 
 		$this->data["title"] = "Student Class Results";
