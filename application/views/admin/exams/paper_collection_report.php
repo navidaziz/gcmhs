@@ -83,7 +83,7 @@
                           $query = "SELECT COUNT(*) as total
                                     FROM `students_exams_subjects_marks` 
                                     WHERE c lass_id = ? AND class_id = ? AND exam_id = ? AND subject_id = ?";
-                          $result = $this->db->query($query, [$class->class_id, $section->section_id, $exam->exam_id, $subject->subject_id]);
+                          $result = $this->db->query($query, [$class->class_id, $section->section_id, $exam_id, $subject->subject_id]);
                           $color = 'Red';
                           if ($result->num_rows() > 0) {
                             $total = $result->row()->total;
