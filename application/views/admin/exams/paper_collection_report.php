@@ -164,8 +164,7 @@
                           <tr>
                             <th>Sections</th>
                             <?php foreach ($class->subjects as $subject) : ?>
-                              <td><strong><?php echo substr($subject->subject_title, 0, 15); ?></strong>
-                              </td>
+                              <th><?php echo substr($subject->subject_title, 0, 15); ?> </th>
                             <?php endforeach; ?>
                           </tr>
                         </thead>
@@ -173,14 +172,10 @@
 
                           <?php foreach ($class->sections as $section) { ?>
                             <tr>
-                              <td><?php echo $section->section_title; ?></td>
-                              <?php foreach ($class->subjects as $subject) :
-                              ?>
-                                <td>
-
-
-                                  <?php
-                                  $query = "SELECT
+                              <th><?php echo $section->section_title; ?></th>
+                              <?php foreach ($class->subjects as $subject) : ?>
+                                <td><?php
+                                    $query = "SELECT
                                     `teachers`.`teacher_name`
                                     , `teachers`.`status`
                                     , `teachers`.`teacher_id`
@@ -193,10 +188,10 @@
                                   AND `class_id` = '" . $class->class_id . "'
                                   AND `section_id` = '" . $section->section_id . "' 
                                   AND `class_subject_id` = '" . $subject->class_subject_id . "'";
-                                  $result = $this->db->query($query);
-                                  $assigned_teacher = $result->row();
-                                  echo $assigned_teacher->teacher_name;
-                                  ?>
+                                    $result = $this->db->query($query);
+                                    $assigned_teacher = $result->row();
+                                    echo $assigned_teacher->teacher_name;
+                                    ?>
                                 </td>
                               <?php endforeach; ?>
 
