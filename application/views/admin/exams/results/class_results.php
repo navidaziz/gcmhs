@@ -17,32 +17,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
-    <style>
-        body {
-            font-size: 12px !important;
-            font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-        }
 
-        .dataTables_filter,
-        .dataTables_info,
-        .dt-button,
-        .buttons-print {
-            display: none;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        table th,
-        table td {
-            font-size: 12px;
-        }
-    </style>
 
     <script>
         document.title = "Award List Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) <?php echo $exam->term . " " . $exam->year ?>";
