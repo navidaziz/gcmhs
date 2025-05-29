@@ -25,6 +25,22 @@
       vertical-align: middle !important;
       font-size: 12px;
     }
+
+    .table_small>tbody>tr>td,
+    .table_small>tbody>tr>th,
+    .table_small>tfoot>tr>td,
+    .table_small>tfoot>tr>th,
+    .table_small>thead>tr>td,
+    .table_small>thead>tr>th {
+      padding: 2px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+      font-size: 9px;
+      border: 0.1px solid gray !important;
+      font-weight: bold !important;
+      color: black !important;
+    }
   </style>
 </head>
 
@@ -41,7 +57,7 @@
             <div class="mb-4">
               <h3>Class <?php echo $class->Class_title; ?></h3>
               <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped table_small">
                   <thead class="thead-light">
                     <tr>
                       <th>Sections</th>
@@ -78,7 +94,3 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Bootstrap 4 JS (Optional) -->
-  <script src="https:
