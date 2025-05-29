@@ -1571,8 +1571,9 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 		          FROM `class_subjects` as cs
 				  INNER JOIN subjects as sub ON(sub.subject_id = cs.subject_id)
 				  INNER JOIN classes as c ON(c.class_id = cs.class_id)  
+				  WHERE cs.class_id = ? 
 				  ORDER BY `class` ASC;';
-		$this->data['subjects'] = $this->db->query($query, [$class_id,])->row();
+		$this->data['subjects'] = $this->db->query($query, [$class_id,])->result();
 
 		$query = 'SELECT 
 		          s.student_id, s.student_name as student_name, 
