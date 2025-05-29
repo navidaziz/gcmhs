@@ -50,7 +50,7 @@
     <div class="col-12">
       <div class="card border-primary mb-4">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0"><i class="fa fa-bell"></i> Paper Collection Report</h4>
+          <h4 class="mb-0"><i class="fa fa-paper-plane" aria-hidden="true"></i> Paper Collection Report</h4>
         </div>
         <div class="card-body">
           <?php foreach ($classes as $class) { ?>
@@ -80,8 +80,19 @@
                                         AND `class_subject_id` = '" . $subject->class_subject_id . "'";
                           $result = $this->db->query($query);
                           $assigned_teacher = $result->row();
+                          $query = "SELECT COUNT(*) as total
+                                    FROM `students_exams_subjects_marks` 
+                                    WHERE class_id = ? AND class_id = ? AND exam_id = ? AND subject_id = ?";
+                          $result = $this->db->query($query, [$class->class_id, $section->section_id, $exam->exam_id, $subject->subject_id]);
+                          $color = 'Red';
+                          if ($result->num_rows() > 0) {
+                            $total = $result->row()->total;
+                            if ($total > 0) {
+                              $color = 'Green';
+                            }
+                          }
                         ?>
-                          <td><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
+                          <td style="background-color: <?php echo $color; ?>;"><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
                         <?php } ?>
                       </tr>
                     <?php } ?>
