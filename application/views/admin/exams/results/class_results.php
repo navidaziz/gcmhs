@@ -54,7 +54,7 @@
     <div class="container-fluid">
         <section class="mt-4">
             <div class="table-responsive">
-                <table id="example" class="table table-bordered table-striped">
+                <table id="example" class="table table-bordered table-striped table_small">
                     <thead>
                         <tr>
                             <th colspan="<?php echo (count($subjects) + 7); ?>" class="text-center">
@@ -158,5 +158,22 @@
         });
     </script>
 </body>
+<style>
+    .table_small>tbody>tr>td,
+    .table_small>tbody>tr>th,
+    .table_small>tfoot>tr>td,
+    .table_small>tfoot>tr>th,
+    .table_small>thead>tr>td,
+    .table_small>thead>tr>th {
+        padding: 2px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        font-size: 9px;
+        border: 0.1px solid gray !important;
+        font-weight: bold !important;
+        color: black !important;
+    }
+</style>
 
 </html>
