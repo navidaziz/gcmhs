@@ -29,56 +29,56 @@
 </head>
 
 <body>
-  <section id="page" class="container" style="padding: 0px; margin:0px">
-    <div class="row">
-      <div class="col-12">
-        <div class="card border-primary mb-4">
-          <div class="card-header bg-primary text-white">
-            <h4 class="mb-0"><i class="fa fa-bell"></i> Paper Collection Report</h4>
-          </div>
-          <div class="card-body">
-            <?php foreach ($classes as $class) { ?>
-              <div class="mb-4">
-                <h3>Class <?php echo $class->Class_title; ?></h3>
-                <div class="table-responsive">
-                  <table class="table table-bordered table-striped">
-                    <thead class="thead-light">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card border-primary mb-4">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0"><i class="fa fa-bell"></i> Paper Collection Report</h4>
+        </div>
+        <div class="card-body">
+          <?php foreach ($classes as $class) { ?>
+            <div class="mb-4">
+              <h3>Class <?php echo $class->Class_title; ?></h3>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Sections</th>
+                      <?php foreach ($class->subjects as $subject) : ?>
+                        <th><?php echo substr($subject->subject_title, 0, 15); ?></th>
+                      <?php endforeach; ?>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($class->sections as $section) { ?>
                       <tr>
-                        <th>Sections</th>
-                        <?php foreach ($class->subjects as $subject) : ?>
-                          <th><?php echo substr($subject->subject_title, 0, 15); ?></th>
-                        <?php endforeach; ?>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($class->sections as $section) { ?>
-                        <tr>
-                          <th><?php echo $section->section_title; ?></th>
-                          <?php foreach ($class->subjects as $subject) {
-                            $query = "SELECT
+                        <th><?php echo $section->section_title; ?></th>
+                        <?php foreach ($class->subjects as $subject) {
+                          $query = "SELECT
                                         `teachers`.`teacher_name`
                                         FROM `teachers`, `class_section_subject_teachers`
                                         WHERE `teachers`.`teacher_id` = `class_section_subject_teachers`.`teacher_id`
                                         AND `class_id` = '" . $class->class_id . "'
                                         AND `section_id` = '" . $section->section_id . "'
                                         AND `class_subject_id` = '" . $subject->class_subject_id . "'";
-                            $result = $this->db->query($query);
-                            $assigned_teacher = $result->row();
-                          ?>
-                            <td><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
-                          <?php } ?>
-                        </tr>
-                      <?php } ?>
-                    </tbody>
-                  </table>
-                </div>
+                          $result = $this->db->query($query);
+                          $assigned_teacher = $result->row();
+                        ?>
+                          <td><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
+                        <?php } ?>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
               </div>
-            <?php } ?>
-          </div>
+            </div>
+          <?php } ?>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+
 
   <!-- Bootstrap 4 JS (Optional) -->
   <script src="https:
