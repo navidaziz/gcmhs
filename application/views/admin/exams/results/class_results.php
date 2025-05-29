@@ -33,9 +33,8 @@
 
                         <thead>
                             <tr>
-                                <td colspan="17">
+                                <td colspan="<?php echo (count($subjects) + 7) ?>">
                                     <h1 style="text-align:center;">
-
                                         Award List Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) <?php echo $exam->term . " " . $exam->year  ?>
                                     </h1>
                                 </td>
@@ -57,9 +56,7 @@
                         <tbody>
                             <?php
                             $count = 1;
-                            foreach ($students as $student) :
-
-                            ?>
+                            foreach ($students as $student) { ?>
                                 <tr>
                                     <td><?php //echo $count++; 
                                         ?></td>
@@ -78,7 +75,7 @@
                                     <td></td>
                                     <td> </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php } ?>
 
 
 
