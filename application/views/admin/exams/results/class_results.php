@@ -65,7 +65,7 @@
                                         ?></td>
                                     <td><?php echo $student->class_no; ?></td>
                                     <td><?php echo $student->adminssion_no; ?></td>
-                                    <td><?php echo $student->student_name; ?></td>
+                                    <td><?php echo $student->student_name; ?> S/O <?php echo $student->father_name; ?></td>
                                     <?php
                                     $grant_total = 0;
                                     foreach ($subjects as $subject) { ?>

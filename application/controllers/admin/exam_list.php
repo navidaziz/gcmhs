@@ -1575,7 +1575,7 @@ AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
 		$this->data['subjects'] = $this->db->query($query, [$class_id,])->row();
 
 		$query = 'SELECT 
-		          s.student_id, s.student_name as name, 
+		          s.student_id, s.student_name as student_name, 
 				  s.student_father_name as father_name, 
 				  s.student_class_no as class_no, 
 				  s.student_admission_no as adminssion_no 
