@@ -5,116 +5,132 @@
     <meta charset="UTF-8">
     <title>Award List</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR . "bootstrap-dist/css/bootstrap.min.css"); ?>">
+    <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.css">
+
     <!-- jQuery -->
     <script src="<?php echo site_url("assets/" . ADMIN_DIR . "js/jquery/jquery-2.0.3.min.js"); ?>"></script>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap JS -->
     <script src="<?php echo site_url("assets/" . ADMIN_DIR . "bootstrap-dist/js/bootstrap.min.js"); ?>"></script>
 
     <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.css" />
     <script src="<?php echo site_url("assets/" . ADMIN_DIR); ?>/datatable/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
+    <style>
+        body {
+            font-size: 12px;
+            font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+        }
 
+        .dataTables_filter,
+        .dataTables_info,
+        .dt-button,
+        .buttons-print {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        table td,
+        table th {
+            vertical-align: middle !important;
+        }
+    </style>
 
     <script>
-        document.title = "Award List Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) <?php echo $exam->term . " " . $exam->year ?>";
+        document.title = "Award List Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) <?php echo $exam->term . ' ' . $exam->year ?>";
     </script>
 </head>
 
 <body>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="container">
-                <section>
+    <div class="container-fluid">
+        <section class="mt-4">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="<?php echo (count($subjects) + 7); ?>" class="text-center">
+                                <h1>Award List - Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) - <?php echo $exam->term . " " . $exam->year ?></h1>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>C/No</th>
+                            <th>Adm. #</th>
+                            <th>Student Name</th>
+                            <?php foreach ($subjects as $subject): ?>
+                                <th><?php echo substr($subject->short_title, 0, 7); ?></th>
+                            <?php endforeach; ?>
+                            <th>Obt. Marks</th>
+                            <th>%</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $count = 1; ?>
+                        <?php foreach ($students as $student): ?>
+                            <tr>
+                                <td></td> <!-- Auto-numbered by DataTable -->
+                                <td><?php echo $student->class_no; ?></td>
+                                <td><?php echo $student->adminssion_no; ?></td>
+                                <td><?php echo $student->student_name; ?> S/O <?php echo $student->father_name; ?></td>
 
-                    <!-- Award List Table -->
-                    <table id="example" class="table table-bordered" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <td colspan="<?php echo (count($subjects) + 7); ?>">
-                                    <h1>
-                                        Award List Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>)
-                                        <?php echo $exam->term . " " . $exam->year; ?>
-                                    </h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>#</th>
-                                <th>C/No</th>
-                                <th>Add. #</th>
-                                <th>Student Name</th>
-                                <?php foreach ($subjects as $subject): ?>
-                                    <th><?php echo substr($subject->short_title, 0, 7); ?></th>
-                                <?php endforeach; ?>
-                                <th>Obtain Marks</th>
-                                <th>%</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $count = 1;
-                            foreach ($students as $student):
+                                <?php
                                 $obtained_marked = 0;
                                 $total_marked = 0;
-                            ?>
-                                <tr>
-                                    <td></td>
-                                    <td><?php echo $student->class_no; ?></td>
-                                    <td><?php echo $student->adminssion_no; ?></td>
-                                    <td><?php echo $student->student_name; ?> S/O <?php echo $student->father_name; ?></td>
-                                    <?php foreach ($subjects as $subject): ?>
-                                        <td>
-                                            <?php
-                                            $query = "SELECT obtain_mark, total_marks, passing_marks, percentage 
-                                                      FROM students_exams_subjects_marks 
-                                                      WHERE student_id = ? AND exam_id = ? AND subject_id = ?";
-                                            $result = $this->db->query($query, array(
-                                                $student->student_id,
-                                                $exam->exam_id,
-                                                $subject->subject_id
-                                            ));
 
-                                            if ($result->num_rows() > 0) {
-                                                $marks = $result->row();
-                                                echo ($marks->obtain_mark === 'A') ? 'A' : $marks->percentage;
-                                                $obtained_marked += $marks->percentage;
-                                                $total_marked += 100;
-                                            }
-                                            ?>
-                                        </td>
-                                    <?php endforeach; ?>
-                                    <td><?php echo $obtained_marked; ?></td>
-                                    <td><?php echo $total_marked; ?></td>
-                                    <td></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                foreach ($subjects as $subject):
+                                    $query = "SELECT obtain_mark, total_marks, passing_marks, `percentage` 
+                                              FROM `students_exams_subjects_marks` 
+                                              WHERE student_id = ? AND exam_id = ? AND subject_id = ?";
+                                    $result = $this->db->query($query, [$student->student_id, $exam->exam_id, $subject->subject_id]);
 
-                    <!-- Footer Signature -->
-                    <br><br><br>
-                    <table style="width:100%; border: none;">
-                        <tr>
-                            <td style="border: none;">
-                                <strong>GCMHS Boys Chitral <br>Exam Committee</strong>
-                            </td>
-                            <td style="text-align: right; border: none;">
-                                <strong>GCMHS Boys Chitral <br>Principal</strong>
-                            </td>
-                        </tr>
-                    </table>
+                                    echo "<td>";
+                                    if ($result->num_rows() > 0) {
+                                        $marks = $result->row();
+                                        if ($marks->obtain_mark !== 'A') {
+                                            echo $marks->percentage;
+                                            $obtained_marked += $marks->percentage;
+                                            $total_marked += 100;
+                                        } else {
+                                            echo 'A';
+                                            $obtained_marked += $marks->percentage;
+                                            $total_marked += 100;
+                                        }
+                                    }
+                                    echo "</td>";
+                                endforeach;
+                                ?>
 
-                </section>
+                                <td><?php echo $obtained_marked; ?></td>
+                                <td><?php echo $total_marked > 0 ? round(($obtained_marked / $total_marked) * 100, 2) : 0; ?>%</td>
+                                <td></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-        </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <strong>GCMHS Boys Chitral<br>Exam Committee</strong>
+                </div>
+                <div class="col-md-6 text-end">
+                    <strong>GCMHS Boys Chitral<br>Principal</strong>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- DataTables Initialization -->
+    <!-- DataTable Initialization -->
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
@@ -130,18 +146,17 @@
                 ]
             });
 
+            // Auto-numbering first column
             table.on('order.dt search.dt', function() {
                 table.column(0, {
                     search: 'applied',
                     order: 'applied'
                 }).nodes().each(function(cell, i) {
                     cell.innerHTML = i + 1;
-                    table.cell(cell).invalidate('dom');
                 });
             }).draw();
         });
     </script>
-
 </body>
 
 </html>
