@@ -96,7 +96,7 @@
                               }
                             }
                           } else {
-                            $color = 'gray';g
+                            $color = 'gray';
                           }
                         ?>
                           <td style="background-color: <?php echo $color; ?>;"><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
