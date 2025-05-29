@@ -134,7 +134,7 @@
 
                         <?php
                         $grant_total += $student->subjects[$class_subject->class_subject_id]['passing_mark'];
-                        echo $student->subjects[$class_subject->class_subject_id]['passing_mark']; ?>
+                        echo $student->subjects[$class_subject->class_subject_id]['percentage']; ?>
 
 
                       </span>
