@@ -1060,6 +1060,7 @@ class Exam_list extends Admin_Controller
 			$class->subjects = $result->result();
 		}
 
+		$this->data['classes'] = $classes;
 		$this->load->view(ADMIN_DIR . "exams/paper_collection_report", $this->data);
 	}
 
