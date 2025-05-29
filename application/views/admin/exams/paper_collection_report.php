@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Paper Collection Report</title>
+  <title>Result Submission Report</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap 4 CSS -->
@@ -50,7 +50,7 @@
     <div class="col-12">
       <div class="card border-primary mb-4">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0"><i class="fa fa-paper-plane" aria-hidden="true"></i> Paper Collection Report</h4>
+          <h4 class="mb-0"><i class="fa fa-paper-plane" aria-hidden="true"></i>Result Submission Report</h4>
         </div>
         <div class="card-body">
           <?php foreach ($classes as $class) { ?>
