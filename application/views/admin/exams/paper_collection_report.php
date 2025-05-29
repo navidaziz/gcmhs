@@ -141,56 +141,18 @@
   <section id="page">
 
     <div class="container">
-      <!--<div class="row">
-  <div class="col-sm-12">
-    <div class="page-header"> 
-     
-      <ul class="breadcrumb">
-        <li> <i class="fa fa-home"></i> <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"><?php echo $this->lang->line('Home'); ?></a> </li>
-        <li> <i class="fa fa-table"></i> <a href="<?php echo site_url(ADMIN_DIR . "exams/view/"); ?>"><?php echo $this->lang->line('Exams'); ?></a> </li>
-        <li><?php echo $title; ?></li>
-      </ul>
-     
-      <div class="row">
-        <div class="col-md-6">
-          <div class="clearfix">
-            <h3 class="content-title pull-left"><?php echo $title; ?></h3>
-          </div>
-          <div class="description"><?php echo $title; ?></div>
-        </div>
-        <div class="col-md-6">
-          <div class="pull-right"> <a target="new" class="btn btn-primary btn-sm" href="<?php echo site_url(ADMIN_DIR . "exam_list/paper_collection_report/" . $exams[0]->exam_id); ?>">Print</a> </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-      <!-- /PAGE HEADER -->
 
-
-      <div class="row">
-        <div class="col-sm-12">
-
-        </div>
-      </div>
-      <!-- /PAGE HEADER -->
-
-      <!-- PAGE MAIN CONTENT -->
       <div class="row">
         <!-- MESSENGER -->
         <div class="col-md-12">
           <div class="box border blue" id="messenger" style="margin-top:5px !important">
             <div class="box-title">
-              <h4><i class="fa fa-bell"></i> School Time Table</h4>
+              <h4><i class="fa fa-bell"></i> Paper Collection Report</h4>
 
             </div>
             <div class="box-body">
               <div class="table-responsive" style="font-size:11px !important;">
                 <div class="row">
-
-
-
-
                   <?php foreach ($classes as $class) { ?>
 
                     <div class="col-md-12">
@@ -232,7 +194,7 @@
                                   AND `class_subject_id` = '" . $subject->class_subject_id . "'
 							";
                                   $result = $this->db->query($query);
-                                  $assigned_teacher = $result->result()[0];
+                                  $assigned_teacher = $result->row();
 
                                   ?>
                                   <strong <?php if ($assigned_teacher->status == 0) { ?> style="color:red;" <?php } ?>>
