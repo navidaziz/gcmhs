@@ -64,7 +64,8 @@
                                     <td><?php echo $student->adminssion_no; ?></td>
                                     <td><?php echo $student->student_name; ?> S/O <?php echo $student->father_name; ?></td>
                                     <?php
-                                    $grant_total = 0;
+                                    $obtained_marked = 0;
+                                    $total_marked = 0;
                                     foreach ($subjects as $subject) { ?>
                                         <td>
                                             <?php
@@ -77,14 +78,15 @@
                                             if ($query->num_rows() > 0) {
                                                 $marks = $query->row();
                                                 echo $marks->percentage;
-                                                $grant_total += $marks->percentage;
+                                                $obtained_marked += $marks->percentage;
+                                                $total_marked += 100;
                                             }
                                             ?>
                                         </td>
 
                                     <?php } ?>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $obtained_marked; ?></td>
+                                    <td><?php echo $total_marked; ?></td>
                                     <td> </td>
                                 </tr>
                             <?php } ?>
