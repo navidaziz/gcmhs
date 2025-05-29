@@ -68,7 +68,7 @@
                                     foreach ($subjects as $subject) { ?>
                                         <td>
                                             <?php
-                                            $query = "SELECT obtain_make, total_marks, passing_marks, `percentage`
+                                            $query = "SELECT obtain_mark, total_marks, passing_marks, `percentage` 
                                             FROM `students_exams_subjects_marks` 
                                             WHERE student_id = ?
                                             AND exam_id = ?
