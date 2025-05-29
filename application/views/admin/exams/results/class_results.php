@@ -67,7 +67,19 @@
                                     $grant_total = 0;
                                     foreach ($subjects as $subject) { ?>
                                         <td>
-
+                                            <?php
+                                            $query = "SELECT obtain_make, total_marks, passing_marks, `percentage`
+                                            FROM `students_exams_subjects_marks` as se
+                                            WHERE student_id = ?
+                                            AND exam_id = ?
+                                            AND subject_id = ?";
+                                            $query = $this->db->query($query, array($student->id, $exam->id, $subject->id));
+                                            if ($query->num_rows() > 0) {
+                                                $marks = $query->row();
+                                                echo $marks->percentage;
+                                                $grant_total += $marks->percentage;
+                                            }
+                                            ?>
                                         </td>
 
                                     <?php } ?>
