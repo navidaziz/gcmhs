@@ -73,7 +73,7 @@
                                             WHERE student_id = ?
                                             AND exam_id = ?
                                             AND subject_id = ?";
-                                            $query = $this->db->query($query, array($student->id, $exam->id, $subject->id));
+                                            $query = $this->db->query($query, array($student->student_id, $exam->exam_id, $subject->subject_id));
                                             if ($query->num_rows() > 0) {
                                                 $marks = $query->row();
                                                 echo $marks->percentage;
