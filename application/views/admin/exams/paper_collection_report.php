@@ -164,7 +164,7 @@
                           <tr>
                             <th>Sections</th>
                             <?php foreach ($class->subjects as $subject) : ?>
-                              <td style="background-color:#FF0; color:#000; width:300px !important"><strong><?php echo substr($subject->subject_title, 0, 15); ?></strong>
+                              <td><strong><?php echo substr($subject->subject_title, 0, 15); ?></strong>
                               </td>
                             <?php endforeach; ?>
                           </tr>
