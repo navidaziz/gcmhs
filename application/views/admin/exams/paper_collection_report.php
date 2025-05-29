@@ -191,19 +191,11 @@
                                   WHERE `teachers`.`teacher_id` = `class_section_subject_teachers`.`teacher_id`
                                   AND `class_id` = '" . $class->class_id . "'
                                   AND `section_id` = '" . $section->section_id . "' 
-                                  AND `class_subject_id` = '" . $subject->class_subject_id . "'
-							";
+                                  AND `class_subject_id` = '" . $subject->class_subject_id . "'";
                                   $result = $this->db->query($query);
                                   $assigned_teacher = $result->row();
-
+                                  echo $assigned_teacher->teacher_name;
                                   ?>
-                                  <strong <?php if ($assigned_teacher->status == 0) { ?> style="color:red;" <?php } ?>>
-                                    <?php
-
-                                    echo "$assigned_teacher->teacher_name - $assigned_teacher->teacher_designation"; ?>
-
-
-
                                 </td>
                               <?php endforeach; ?>
 
