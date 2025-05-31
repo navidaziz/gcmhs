@@ -119,12 +119,12 @@
           <table class="table table-bordered table-striped mt-4">
             <thead>
               <tr>
-                <th colspan="3">Teachers Not Submitted</th>
+                <th colspan="3">Teachers Not Submitted Test / Exam Result</th>
               </tr>
               <tr>
                 <th>#</th>
                 <th>Teacher Name</th>
-                <th>Result Remaining Subjects</th>
+                <th>Remaining Subjects / Section / Class</th>
               </tr>
             </thead>
             <?php
