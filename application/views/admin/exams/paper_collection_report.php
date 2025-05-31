@@ -97,16 +97,16 @@
                             if ($result->num_rows() > 0) {
                               $total = $result->row()->total;
                               if ($total > 0) {
-                                $color = '#8BE78A';
+                                $color = '#8BE78A; text-decoration: line-through;';
                               } else {
-                                $color = '#F86F72';
+                                $color = '#F86F72;';
                               }
                             }
                           } else {
-                            $color = '#E9ECEF';
+                            $color = '#E9ECEF;';
                           }
                         ?>
-                          <td style="background-color: <?php echo $color; ?>;"><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
+                          <td style="background-color: <?php echo $color; ?>"><?php echo isset($assigned_teacher->teacher_name) ? $assigned_teacher->teacher_name : '-'; ?></td>
                         <?php } ?>
                       </tr>
                     <?php } ?>
