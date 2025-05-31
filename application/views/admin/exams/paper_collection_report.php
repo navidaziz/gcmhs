@@ -100,7 +100,7 @@
                                 $color = '#8BE78A; text-decoration: line-through;';
                               } else {
                                 $color = '#F86F72; font-weight: bold; font-size: 15px;';
-                                $not_submitted_teachers[$assigned_teacher->teacher_name] = $subject->subject_title;
+                                $not_submitted_teachers[$assigned_teacher->teacher_name][] = $subject->subject_title;
                               }
                             }
                           } else {
@@ -116,7 +116,7 @@
               </div>
             </div>
           <?php } ?>
-          <table>
+          <table class="table table-bordered table-striped mt-4">
             <thead>
               <tr>
                 <th colspan="3">Teachers Not Submitted</th>
@@ -129,11 +129,18 @@
             </thead>
             <?php
             $count = 1;
-            foreach ($not_submitted_teachers as $teacher_name => $subject) { ?>
+            foreach ($not_submitted_teachers as $teacher_name => $subjects) { ?>
               <tr>
                 <td><?php echo $count++; ?></td>
                 <td><?php echo $teacher_name; ?></td>
-                <td><?php echo $subject; ?></td>
+                <td>
+                  <ul>
+                    <?php foreach ($subjects as $subject) { ?>
+                      <li><?php echo $subject; ?></li>
+                    <?php } ?>
+                  </ul>
+                </td>
+
               </tr>
             <?php } ?>
           </table>
