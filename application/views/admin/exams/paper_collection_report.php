@@ -99,7 +99,7 @@
                               if ($total > 0) {
                                 $color = '#8BE78A; text-decoration: line-through;';
                               } else {
-                                $color = '#F86F72;';
+                                $color = '#F86F72; font-weight: bold; font-size: 15px;';
                               }
                             }
                           } else {
