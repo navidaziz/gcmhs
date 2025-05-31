@@ -100,7 +100,7 @@
                                 $color = '#8BE78A; text-decoration: line-through;';
                               } else {
                                 $color = '#F86F72; font-weight: bold; font-size: 15px;';
-                                $not_submitted_teachers[$assigned_teacher->teacher_name][] = $subject->subject_title;
+                                $not_submitted_teachers[$assigned_teacher->teacher_name][] = $subject->subject_title . " - " . $section->section_title . " - " . $subject->subject_title;
                               }
                             }
                           } else {
