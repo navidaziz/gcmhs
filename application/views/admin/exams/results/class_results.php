@@ -110,7 +110,7 @@
                                 endforeach;
                                 ?>
 
-                                <td><?php echo $obtained_marked . "/" . $total_marked; ?></td>
+                                <td><?php echo $obtained_marked . " / <small>" . $total_marked . "</small>"; ?></td>
                                 <td><?php echo $total_marked > 0 ? round(($obtained_marked / $total_marked) * 100, 2) : 0; ?>%</td>
                                 <td></td>
                             </tr>
