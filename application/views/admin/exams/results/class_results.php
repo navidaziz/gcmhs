@@ -63,15 +63,15 @@
                         </tr>
                         <tr>
                             <th>#</th>
-                            <th>C/No</th>
-                            <th>Adm. #</th>
+                            <th>Class No.</th>
+                            <th>Admission No.</th>
                             <th>Student Name</th>
                             <?php foreach ($subjects as $subject): ?>
                                 <th><?php echo substr($subject->short_title, 0, 7); ?></th>
                             <?php endforeach; ?>
                             <th>Total Marks</th>
-                            <th>Obt. Marks</th>
-                            <th>%</th>
+                            <th>Marks Obtained</th>
+                            <th>Percentage</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
