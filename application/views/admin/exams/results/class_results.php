@@ -57,7 +57,7 @@
                 <table id="example" class="table table-bordered table-striped table_small">
                     <thead>
                         <tr>
-                            <th colspan="<?php echo (count($subjects) + 7); ?>" class="text-center">
+                            <th colspan="<?php echo (count($subjects) + 8); ?>" class="text-center">
                                 <h1>Award List - Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) - <?php echo $exam->term . " " . $exam->year ?></h1>
                             </th>
                         </tr>
