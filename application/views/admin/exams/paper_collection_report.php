@@ -69,7 +69,11 @@
                   <tbody>
                     <?php foreach ($class->sections as $section) { ?>
                       <tr>
-                        <th><?php echo $section->section_title; ?></th>
+                        <th>
+                          <a target="_blank" href="<?php echo site_url(ADMIN_DIR . 'class_result/' . $exam_id . '/' . $class->class_id . '/' . $section->section_id) ?>">
+                            <?php echo $section->section_title; ?>
+                          </a>
+                        </th>
                         <?php foreach ($class->subjects as $subject) {
                           $query = "SELECT
                                         `teachers`.`teacher_name`
