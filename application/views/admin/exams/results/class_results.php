@@ -143,9 +143,11 @@
                     orderable: false,
                     targets: 0
                 }],
-                order: [
+                /*order: [
                     [1, 'asc']
-                ]
+                ]*/
+                order: []
+
             });
 
             // Auto-numbering first column
@@ -157,6 +159,11 @@
                     cell.innerHTML = i + 1;
                 });
             }).draw();
+
+            // After initialization, get total columns and set order by second-last column
+            var totalCols = table.columns().count();
+            var percentageColIndex = totalCols - 2; // second-last column
+            table.order([percentageColIndex, 'desc']).draw();
         });
     </script>
 </body>
