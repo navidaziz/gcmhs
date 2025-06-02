@@ -83,33 +83,34 @@
                                 <td><?php echo $student->class_no; ?></td>
                                 <td><?php echo $student->adminssion_no; ?></td>
                                 <td><?php echo $student->student_name; ?> S/O <?php echo $student->father_name; ?></td>
-                                <td style="text-align: center;">
-                                    <?php
-                                    $obtained_marked = 0;
-                                    $total_marked = 0;
 
-                                    foreach ($subjects as $subject):
-                                        $query = "SELECT obtain_mark, total_marks, passing_marks, `percentage` 
+                                <?php
+                                $obtained_marked = 0;
+                                $total_marked = 0;
+
+                                foreach ($subjects as $subject):
+                                    echo '<td style="text-align: center;">';
+                                    $query = "SELECT obtain_mark, total_marks, passing_marks, `percentage` 
                                               FROM `students_exams_subjects_marks` 
                                               WHERE student_id = ? AND exam_id = ? AND subject_id = ?";
-                                        $result = $this->db->query($query, [$student->student_id, $exam->exam_id, $subject->subject_id]);
+                                    $result = $this->db->query($query, [$student->student_id, $exam->exam_id, $subject->subject_id]);
 
-                                        if ($result->num_rows() > 0) {
-                                            $marks = $result->row();
-                                            if ($marks->obtain_mark !== 'A') {
-                                                echo $marks->percentage;
-                                                $obtained_marked += $marks->percentage;
-                                                $total_marked += 100;
-                                            } else {
-                                                echo 'A';
-                                                $obtained_marked += $marks->percentage;
-                                                $total_marked += 100;
-                                            }
+                                    if ($result->num_rows() > 0) {
+                                        $marks = $result->row();
+                                        if ($marks->obtain_mark !== 'A') {
+                                            echo $marks->percentage;
+                                            $obtained_marked += $marks->percentage;
+                                            $total_marked += 100;
+                                        } else {
+                                            echo 'A';
+                                            $obtained_marked += $marks->percentage;
+                                            $total_marked += 100;
                                         }
+                                    }
+                                    echo '</td>';
+                                endforeach;
+                                ?>
 
-                                    endforeach;
-                                    ?>
-                                </td>
                                 <td style="text-align: center;"><?php echo $total_marked; ?></td>
                                 <td style="text-align: center;"><?php echo $obtained_marked; ?></td>
                                 <td style="text-align: center;"><?php echo $total_marked > 0 ? round(($obtained_marked / $total_marked) * 100, 2) : 0; ?>%</td>
