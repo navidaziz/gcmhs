@@ -110,7 +110,7 @@
                                 endforeach;
                                 ?>
 
-                                <td><?php echo $obtained_marked; ?></td>
+                                <td><?php echo $obtained_marked . "/" . $total_marked; ?></td>
                                 <td><?php echo $total_marked > 0 ? round(($obtained_marked / $total_marked) * 100, 2) : 0; ?>%</td>
                                 <td></td>
                             </tr>
@@ -123,7 +123,7 @@
                 <div class="col-md-6">
                     <strong>GCMHS Boys Chitral<br>Exam Committee</strong>
                 </div>
-                <div class="col-md-6 text-end">
+                <div class="col-md-6 text-end" style="text-align: right;">
                     <strong>GCMHS Boys Chitral<br>Principal</strong>
                 </div>
             </div>
