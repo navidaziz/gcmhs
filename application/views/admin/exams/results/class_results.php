@@ -69,6 +69,7 @@
                             <?php foreach ($subjects as $subject): ?>
                                 <th><?php echo substr($subject->short_title, 0, 7); ?></th>
                             <?php endforeach; ?>
+                            <th>Total Marks</th>
                             <th>Obt. Marks</th>
                             <th>%</th>
                             <th>Remarks</th>
@@ -109,8 +110,8 @@
                                     echo "</td>";
                                 endforeach;
                                 ?>
-
-                                <td><?php echo $obtained_marked . " / <small>" . $total_marked . "</small>"; ?></td>
+                                <td><?php echo $total_marked; ?></td>
+                                <td><?php echo $obtained_marked; ?></td>
                                 <td><?php echo $total_marked > 0 ? round(($obtained_marked / $total_marked) * 100, 2) : 0; ?>%</td>
                                 <td></td>
                             </tr>
