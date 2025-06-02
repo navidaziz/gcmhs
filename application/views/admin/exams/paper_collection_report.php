@@ -70,7 +70,7 @@
                     <?php foreach ($class->sections as $section) { ?>
                       <tr>
                         <th>
-                          <a target="_blank" href="<?php echo site_url(ADMIN_DIR . 'class_result/' . $exam_id . '/' . $class->class_id . '/' . $section->section_id) ?>">
+                          <a target="_blank" href="<?php echo site_url(ADMIN_DIR . 'exam_list/class_result/' . $exam_id . '/' . $class->class_id . '/' . $section->section_id) ?>">
                             <?php echo $section->section_title; ?>
                           </a>
                         </th>
