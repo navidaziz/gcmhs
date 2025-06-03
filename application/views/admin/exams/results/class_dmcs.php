@@ -14,6 +14,24 @@
       background: #ccc;
     }
 
+
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body,
+      page {
+        margin: 0;
+        box-shadow: none;
+      }
+
+      page {
+        page-break-before: always;
+      }
+    }
+
     page {
       background: #fff;
       display: block;
