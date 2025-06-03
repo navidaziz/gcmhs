@@ -2356,7 +2356,7 @@ FROM
 		$query = "SELECT * FROM `exams` WHERE exam_id = ? ";
 		$this->data['exam'] = $this->db->query($query, [$exam_id])->row();
 
-		$query = 'SELECT c.Class_title as class, sub.subject_title, sub.short_title, sub.subject_id, cs.class_subject_id, 
+		$query = 'SELECT c.Class_title as class, sub.subject_title, sub.short_title, sub.subject_id, cs.class_subject_id 
 		          FROM `class_subjects` as cs
 				  INNER JOIN subjects as sub ON(sub.subject_id = cs.subject_id)
 				  INNER JOIN classes as c ON(c.class_id = cs.class_id)  

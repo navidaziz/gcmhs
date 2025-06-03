@@ -270,7 +270,7 @@
                   $exam_count = 0;
                   foreach ($session_exams as $session_exam) {  ?>
                     <?php
-                    echo $query = "SELECT
+                    $query = "SELECT
                   `obtain_mark`, `percentage`, `total_marks`
                   FROM
                   `students_exams_subjects_marks`
