@@ -157,7 +157,7 @@
                 <td><img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" style="width:70px; height:70px !important;" /></td>
                 <td>
                   <h4 style="font-weight: bold; text-align:center; color:black;"> Government Centennial Model High Schools Boys Chitral </h4>
-                  <h5 style=" font-weight: bold;text-align:center; color:black"> Class <?php echo $class_name; ?>, Section <?php echo $section_title; ?> </h5>
+                  <h5 style=" font-weight: bold;text-align:center; color:black"> Class <?php echo $class->Class_title; ?>, Section <?php echo $section->section_title; ?> </h5>
                 </td>
               </tr>
 
