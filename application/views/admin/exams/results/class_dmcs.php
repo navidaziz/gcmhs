@@ -365,6 +365,128 @@
             <?php } ?>
           </tbody>
         </table>
+        <h5 style="margin-left: 10px; color:black"> Observartions</h5>
+        <div style="border: 1px solid gray;  width:100%; border-radius: 9px;">
+
+          <table class="table_small" style="width: 100%;">
+            <tr>
+              <td>
+                <strong>Behavier In Class</strong>
+                <table class="table_small" style="width: 100%;">
+                  <tr>
+                    <td>Excellent </td>
+                    <td>A. ____________</td>
+                  </tr>
+                  <tr>
+                    <td>Good </td>
+                    <td>B. ____________</td>
+                  </tr>
+                  <tr>
+                    <td>Poor </td>
+                    <td>C. ____________</td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <strong>Attandance and Position</strong>
+                <table style="width: 100%;">
+                  <tr>
+                    <td>Possible Attendance: </td>
+                    <td>____________</td>
+                  </tr>
+                  <tr>
+                    <td>Student Attendance</td>
+                    <td>____________</td>
+                  </tr>
+                  <tr>
+                    <td>Position in Class:</td>
+                    <td>____________</td>
+                  </tr>
+                </table>
+              </td>
+              <td rowspan="2" style="width: 200px;">
+                <p>
+                  <strong>Grading</strong><br />
+                  <small style="font-size: 8px;">
+
+                    <?php if ($avg_percentage >= 70) { ?>
+                      <strong style="font-size: 12px;">
+                        70 % and Above<span style="margin-left: 20px;"></span> Excellent<br />
+                      </strong>
+                    <? } else { ?>
+                      70 % and Above<span style="margin-left: 20px;"></span> Excellent<br />
+                    <?php } ?>
+                    <?php if ($avg_percentage >= 60 and $avg_percentage <= 69.9) { ?>
+                      <strong style="font-size: 12px;">
+                        60-69 % <span style="margin-left: 23px;"></span> V.Good <br />
+                      </strong>
+                    <?php } else { ?>
+                      60-69 % <span style="margin-left: 23px;"></span> V.Good <br />
+                    <?php } ?>
+                    <?php if ($avg_percentage >= 50 and $avg_percentage <= 59.9) { ?>
+                      <strong style="font-size: 12px;">
+                        50-59 % <span style="margin-left: 23px;"></span> Good <br />
+                      </strong>
+                    <?php } else { ?>
+                      50-59 % <span style="margin-left: 23px;"></span> Good <br />
+                    <?php } ?>
+                    <?php if ($avg_percentage >= 40 and $avg_percentage <= 49.9) { ?>
+                      <strong style="font-size: 12px;">
+                        40-49 % <span style="margin-left: 23px;"></span> Fair <br />
+                      </strong>
+                    <?php } else { ?>
+                      40-49 % <span style="margin-left: 23px;"></span> Fair <br />
+                    <?php } ?>
+                    <?php if ($avg_percentage >= 32.9 and $avg_percentage <= 39.9) { ?>
+                      <strong style="font-size: 12px;">
+                        32.9-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
+                      </strong>
+                    <?php } else { ?>
+                      32.9-39 % <span style="margin-left: 23px;"></span> Satisfactory <br />
+                    <?php } ?>
+
+                    <?php if ($avg_percentage < 32.9) { ?>
+                      <strong style="font-size: 11px;">
+                        Below 32.9 % <span style="margin-left: 7px;"></span> Poor & required special attention
+                      </strong>
+                    <? } else { ?>
+                      Below 32.9 % <span style="margin-left: 7px;"></span> Poor & required special attention
+                    <?php } ?>
+
+                  </small>
+                </p>
+                <div style="text-align: center;">
+                  <br />
+                  <br />
+                  <img style="width: 100px;" src="<?php echo site_url("assets/signature.png") ?>" />
+                  <br />
+                  <strong>Principal </strong><br /><small>GCMHS Boys Chitral</small>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="">
+                Teacher Remarks:
+                ..................................................................................................................................
+                ..................................................................................................................................
+                ..................................................................................................................................
+                ..................................................................................................................................
+                <br />
+                <br />
+                Guardian Remarks:
+                ..................................................................................................................................
+                ..................................................................................................................................
+                ..................................................................................................................................
+                ..................................................................................................................................
+
+              </td>
+
+
+            </tr>
+          </table>
+
+        </div>
+
 
 
       </div>
