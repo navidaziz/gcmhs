@@ -120,7 +120,7 @@
       /* vertical-align: middle;
       border-top: 1px solid #ddd;
       background-color: transparent !important; */
-      padding: 1px !important;
+      padding: 2px !important;
       margin: 0px !important;
       font-size: 12px !important;
 
@@ -270,7 +270,7 @@
                   $exam_count = 0;
                   foreach ($session_exams as $session_exam) {  ?>
                     <?php
-                    $query = "SELECT
+                    echo $query = "SELECT
                   `obtain_mark`, `percentage`, `total_marks`
                   FROM
                   `students_exams_subjects_marks`
