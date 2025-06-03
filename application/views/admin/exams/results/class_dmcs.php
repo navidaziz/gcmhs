@@ -76,7 +76,7 @@
 
     .fail {
       display: inline-block;
-      min-width: 17px;
+      min-width: 19px;
       padding: 2px;
       border: 1px solid black;
       border-radius: 10px;
@@ -267,15 +267,15 @@
                 ?>
               </th>
             <?php } ?>
-            <th style="font-size: 15px !important; text-align:center"><?php
-                                                                      $avg_percentage = round(($total_percentage / $exam_count), 1);
+            <th style="text-align:center"><?php
+                                          $avg_percentage = round(($total_percentage / $exam_count), 1);
 
-                                                                      if ($avg_percentage < 32.9) {
-                                                                        echo '<span class="fail">' . round($avg_percentage) . '</span>';
-                                                                      } else {
-                                                                        echo round($avg_percentage) . "";
-                                                                      }
-                                                                      ?></th>
+                                          if ($avg_percentage < 32.9) {
+                                            echo '<span class="fail">' . round($avg_percentage) . '</span>';
+                                          } else {
+                                            echo round($avg_percentage) . "";
+                                          }
+                                          ?></th>
 
           </tr>
 
