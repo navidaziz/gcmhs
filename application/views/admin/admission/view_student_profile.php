@@ -741,7 +741,7 @@ $section_id = $students[0]->section_id;
                                 ])->row();
                             ?>
                                 <td style="text-align:center; 
-    <?php
+                                <?php
                                 if (!empty($students_attendance)) {
                                     // Set background color based on attendance status
                                     if ($students_attendance->attendance == 'A') {
@@ -754,7 +754,7 @@ $section_id = $students[0]->section_id;
                                         }
                                     }
                                 }
-    ?>">
+                                     ?>">
                                     <?php
                                     if (!empty($students_attendance)) {
                                         echo $students_attendance->attendance;
