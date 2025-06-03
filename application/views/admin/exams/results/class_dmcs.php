@@ -59,11 +59,6 @@
           </div>
           <table id="transposed" class="table table-bordered table-striped table_small">
             <thead>
-              <tr>
-                <th colspan="2" class="text-center">
-                  <h1>Award List - Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) - <?php echo $exam->term . " " . $exam->year ?></h1>
-                </th>
-              </tr>
             </thead>
             <tbody>
               <tr>
