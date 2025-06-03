@@ -172,7 +172,7 @@
         </table>
 
         <h4>Attendance History</h4>
-        <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 8px;">
+        <table class="table_small" style="width:100%; font-size: 8px;">
           <thead>
             <tr>
               <th>Month / Days</th>
@@ -238,14 +238,16 @@
                                   }
                                 }
                                 ?>">
-                    <?php
-                    if (!empty($students_attendance)) {
-                      echo $students_attendance->attendance;
-                      if (!empty($students_attendance->attendance2)) {
-                        echo " - " . htmlspecialchars($students_attendance->attendance2);
+                    <small>
+                      <?php
+                      if (!empty($students_attendance)) {
+                        echo $students_attendance->attendance;
+                        if (!empty($students_attendance->attendance2)) {
+                          echo "-" . htmlspecialchars($students_attendance->attendance2);
+                        }
                       }
-                    }
-                    ?>
+                      ?>
+                    </small>
                   </td>
                 <?php } ?>
               </tr>
