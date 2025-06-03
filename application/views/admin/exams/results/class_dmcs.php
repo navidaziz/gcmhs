@@ -17,7 +17,23 @@
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/themes/default.css" media="screen,print" id="skin-switcher" />
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/responsive.css" media="screen,print" />
   <link rel="stylesheet" type="text/css" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/custom.css" media="screen,print" />
-
+  <style>
+    .table_small>tbody>tr>td,
+    .table_small>tbody>tr>th,
+    .table_small>tfoot>tr>td,
+    .table_small>tfoot>tr>th,
+    .table_small>thead>tr>td,
+    .table_small>thead>tr>th {
+      padding: 2px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+      font-size: 9px;
+      border: 0.1px solid gray !important;
+      font-weight: bold !important;
+      color: black !important;
+    }
+  </style>
 
   <style>
     body {
@@ -201,7 +217,7 @@
               </tr>
             </table>
             <h5>Detailed Marks Certificate</h5>
-            <table class="table table-bordered">
+            <table class="table table-bordered table_small">
               <tr>
                 <th colspan="2">
                   Session:
