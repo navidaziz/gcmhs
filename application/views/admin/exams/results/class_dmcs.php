@@ -142,7 +142,7 @@
         </table>
 
         <h5 style="margin-top: 15px;">Detailed Marks Certificate</h5>
-        <table class="table table_small" style="width: 100%;">
+        <table class="table_small" style="width: 100%;">
           <tr>
             <th colspan="2">
               Session:
