@@ -360,7 +360,7 @@
 
             <div class="col-md-12">
               <h4>Attendance History</h4>
-              <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
+              <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 8px;">
                 <thead>
                   <tr>
                     <th>Month / Days</th>
