@@ -153,7 +153,7 @@
         <div class="container">
           <section>
 
-            <h3 style="font-weight: bold; text-align:center; color:black;"> Government Centennial Model High Schools Boys Chitral </h3>
+            <h4 style="font-weight: bold; text-align:center; color:black;"> Government Centennial Model High Schools Boys Chitral </h4>
             <div style=" font-weight: bold; text-align: center; color:black"><img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="<?php echo $system_global_settings[0]->system_title ?>" title="<?php echo $system_global_settings[0]->system_title ?>" style="width:70px; height:70px !important;">
             </div>
             <h4 style=" font-weight: bold;text-align:center; color:black"> Class <?php echo $class_name; ?>, Section <?php echo $section_title; ?> </h4>
