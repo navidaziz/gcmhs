@@ -2366,10 +2366,7 @@ FROM
 		$this->data['subjects'] = $this->db->query($query, [$class_id,])->result();
 
 		$query = 'SELECT 
-		          s.student_id, s.student_name as student_name, 
-				  s.student_father_name as father_name, 
-				  s.student_class_no as class_no, 
-				  s.student_admission_no as adminssion_no 
+		          s.*,
 				  FROM `students_exams_subjects_marks` as se 
 				  INNER JOIN students as s ON(s.student_id = se.student_id) 
 				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? 
