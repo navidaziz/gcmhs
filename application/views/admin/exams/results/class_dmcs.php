@@ -120,7 +120,7 @@
       /* vertical-align: middle;
       border-top: 1px solid #ddd;
       background-color: transparent !important; */
-      padding: 7px !important;
+      padding: 1px !important;
       margin: 0px !important;
       font-size: 12px !important;
 
@@ -213,6 +213,7 @@
                 <td><?php if ($student->status == 2) { ?> Struck Off <?php } ?>
                   <?php if ($student->status == 0) { ?> Deleted <?php } ?>
                   <?php if ($student->status == 3) { ?> Withdraw <?php } ?>
+                  <?php if ($student->status == 1) { ?> Admit <?php } ?>
                 </td>
               </tr>
             </table>
