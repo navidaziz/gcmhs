@@ -2366,7 +2366,7 @@ FROM
 		$this->data['subjects'] = $this->db->query($query, [$class_id,])->result();
 
 		$query = 'SELECT 
-		          s.*,
+		          s.*
 				  FROM `students_exams_subjects_marks` as se 
 				  INNER JOIN students as s ON(s.student_id = se.student_id) 
 				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? 
