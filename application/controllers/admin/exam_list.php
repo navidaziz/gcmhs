@@ -2182,158 +2182,202 @@ FROM
 
 
 
+	// public function class_dmcs($exam_id, $class_id, $section_id, $order = NULL)
+	// {
+
+
+	// 	/*$query = "SELECT * FROM `students_exams_subjects_marks`";
+	// 	$result = $this->db->query($query);
+	// 	$students = $result->result();
+	// 	//var_dump($students);
+	// 	foreach($students as $student){
+	// 		$query="SELECT `student_class_no`
+	// 				, `class_id`
+	// 			FROM
+	// 				`students`
+	// 				WHERE `students`.`student_id` = ".$student->student_id;
+	// 		$result = $this->db->query($query);
+	// 		$student_info = $result->result()[0];
+
+	// 		//update record 
+	// 		$query="UPDATE 
+	// 		       `student_section_history` SET`student_class_no`='".$student_info->student_class_no."',
+	// 			   `class_id`='".$student_info->class_id."' WHERE `student_id`= ".$student->student_id;
+	// 		$this->db->query($query);
+	// 		//var_dump($student_info);	
+	// 		}
+
+	// 	exit();*/
+	// 	$this->data["class_id"] = $class_id = (int) $class_id;
+	// 	$this->data["section_id"] = $section_id = (int) $section_id;
+	// 	$this->data["exam_id"] = $exam_id = (int) $exam_id;
+
+	// 	//get class name 
+
+	// 	$query = "SELECT  `Class_title` FROM `classes` WHERE `classes`.`class_id` ='" . $class_id . "'";
+	// 	$result = $this->db->query($query);
+	// 	$this->data['class_name'] = $result->result()[0]->Class_title;
+	// 	//$this->data['class_name'] $result->result()[0]->Class_title;	
+
+
+	// 	//get section name 
+
+	// 	$query = "SELECT `section_title` FROM `sections` WHERE  `sections`.`section_id` ='" . $section_id . "'";
+	// 	$result = $this->db->query($query);
+	// 	$this->data['section_title'] = $result->result()[0]->section_title;
+	// 	//get all students here....
+
+	// 	//check the exam id is in section history .....
+
+	// 	$query = "SELECT COUNT(*) as total FROM `student_section_history` WHERE `exam_id`='" . $exam_id . "'
+	// 	AND `student_section_history`.`class_id` = '" . $class_id . "'";
+	// 	$result = $this->db->query($query);
+	// 	$exam_count = $result->result()[0]->total;
+
+	// 	if ($order) {
+	// 	} else {
+	// 	}
+
+	// 	if ($exam_count == 0) {
+	// 		$query = "SELECT
+	// 				`student_id`
+	// 				, `student_name`
+	// 				, `student_class_no`
+	// 				, `class_id`
+	// 				, `section_id`
+	// 			FROM
+	// 				`students`
+	// 				WHERE `students`.`class_id` = $class_id
+	// 				AND `students`.`section_id` = $section_id 
+	// 				AND `students`.`status` =1
+	// 				ORDER BY `student_class_no` ASC  ";
+	// 	} else {
+	// 		$query = "SELECT 
+	// 				  `students`.`student_id`,
+	// 				  `students`.`student_name`,
+	// 				  `student_section_history`.`student_class_no` as `student_class_no` ,
+	// 				  `student_section_history`.`class_id` AS `class_id`,
+	// 				  `student_section_history`.`section_id`  AS `section_id`
+	// 				FROM
+	// 				  `students`,
+	// 				  `student_section_history` 
+	// 				WHERE `students`.`student_id` = `student_section_history`.`student_id` 
+	// 				AND `student_section_history`.`class_id` = $class_id
+	// 				AND `student_section_history`.`section_id` = $section_id
+	// 				AND `students`.`status` =1  ORDER BY `student_class_no` ASC  ";
+	// 	}
+	// 	$result = $this->db->query($query);
+	// 	$students = $result->result();
+
+
+	// 	$where = "`exams`.`status` IN (0, 1) and `exams`.`exam_id` =" . $exam_id;
+	// 	$exam = $this->exam_model->get_exam_list($where, false, false);
+	// 	$this->data["exam"] = $exam[0];
+
+	// 	$query = "SELECT 
+	// 		`subjects`.`subject_title`,
+	// 		`class_subject_teacher`.`section_id`,
+	// 		`class_subjects`.`subject_id`,
+	// 		`class_subjects`.`class_subject_id`,
+	// 		`subjects`.`subject_title`,
+	// 		`subjects`.`short_title`,
+	// 		`class_subjects`.`class_id`,
+	// 		`class_subjects`.`marks`,
+	// 		`class_subjects`.`passing_mark` 
+	// 		FROM
+	// 		`class_subjects` ,
+	// 		`class_subject_teacher`,
+	// 		`subjects`  
+	// 		WHERE `class_subjects`.`class_subject_id` = `class_subject_teacher`.`class_subject_id`
+	// 		AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
+	// 						AND `class_subjects`.`class_id` =" . $class_id . "
+	// 						AND `class_subject_teacher`.`exam_id` =" . $exam_id . "
+	// 						AND `class_subject_teacher`.`section_id` =" . $section_id;
+	// 	$result = $this->db->query($query);
+	// 	$this->data['class_subjects'] = $class_subjects = $result->result();
+
+
+
+	// 	foreach ($students as $student_index => $student) {
+	// 		foreach ($class_subjects as $class_subject) {
+	// 			$students[$student_index]->subjects[$class_subject->class_subject_id]['total_marks'] = $class_subject->marks;
+	// 			$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->marks;
+	// 			$query = "SELECT 
+	// 				`obtain_mark`
+	// 						FROM
+	// 						`students_exams_subjects_marks`
+	// 						WHERE `students_exams_subjects_marks`.`student_id` = '" . $student->student_id . "'
+	// 						AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
+	// 						AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject->class_subject_id . "'
+	// 						and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
+	// 			$result = $this->db->query($query);
+	// 			if ($result->num_rows) {
+	// 				$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->obtain_marks = $result->result()[0]->obtain_mark;
+	// 			} else {
+	// 				$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->obtain_marks = "-";
+	// 			}
+	// 		}
+	// 	}
+
+	// 	$query = "SELECT pass_fail_status, COUNT(pass_fail_status) as total 
+	// 	FROM student_results WHERE `exam_id` = $exam_id 
+	// 	AND `class_id` =" . $class_id . "
+	// 	AND `section_id` = '" . $section_id . "'
+	// 	 GROUP BY pass_fail_status ORDER BY  pass_fail_status ASC";
+	// 	$results = $this->db->query($query);
+	// 	$pass_fail_counts = $results->result();
+
+	// 	$this->data['pass_fail_counts'] = $pass_fail_counts;
+
+
+
+	// 	$this->data['students'] = $students;
+	// 	$this->data["title"] = "Subject Marks";
+	// 	$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
+	// 	$this->load->view(ADMIN_DIR . "exams/class_dmcs", $this->data);
+	// }
+
+
+
 	public function class_dmcs($exam_id, $class_id, $section_id, $order = NULL)
 	{
 
-
-		/*$query = "SELECT * FROM `students_exams_subjects_marks`";
-		$result = $this->db->query($query);
-		$students = $result->result();
-		//var_dump($students);
-		foreach($students as $student){
-			$query="SELECT `student_class_no`
-					, `class_id`
-				FROM
-					`students`
-					WHERE `students`.`student_id` = ".$student->student_id;
-			$result = $this->db->query($query);
-			$student_info = $result->result()[0];
-			
-			//update record 
-			$query="UPDATE 
-			       `student_section_history` SET`student_class_no`='".$student_info->student_class_no."',
-				   `class_id`='".$student_info->class_id."' WHERE `student_id`= ".$student->student_id;
-			$this->db->query($query);
-			//var_dump($student_info);	
-			}
-		
-		exit();*/
 		$this->data["class_id"] = $class_id = (int) $class_id;
 		$this->data["section_id"] = $section_id = (int) $section_id;
 		$this->data["exam_id"] = $exam_id = (int) $exam_id;
 
 		//get class name 
 
-		$query = "SELECT  `Class_title` FROM `classes` WHERE `classes`.`class_id` ='" . $class_id . "'";
-		$result = $this->db->query($query);
-		$this->data['class_name'] = $result->result()[0]->Class_title;
-		//$this->data['class_name'] $result->result()[0]->Class_title;	
+		$query = "SELECT * FROM `classes` WHERE `classes`.`class_id` = ? ";
+		$this->data['class'] = $this->db->query($query, [$class_id])->row();
+		$query = "SELECT * FROM `sections` WHERE `sections`.`section_id` = ? ";
+		$this->data['section'] = $this->db->query($query, [$section_id])->row();
 
+		$query = "SELECT * FROM `exams` WHERE exam_id = ? ";
+		$this->data['exam'] = $this->db->query($query, [$exam_id])->row();
 
-		//get section name 
+		$query = 'SELECT c.Class_title as class, sub.subject_title, sub.short_title, sub.subject_id 
+		          FROM `class_subjects` as cs
+				  INNER JOIN subjects as sub ON(sub.subject_id = cs.subject_id)
+				  INNER JOIN classes as c ON(c.class_id = cs.class_id)  
+				  WHERE cs.class_id = ? 
+				  AND sub.subject_id NOT IN(2,20,19,21)
+				  ORDER BY `class` ASC;';
+		$this->data['subjects'] = $this->db->query($query, [$class_id,])->result();
 
-		$query = "SELECT `section_title` FROM `sections` WHERE  `sections`.`section_id` ='" . $section_id . "'";
-		$result = $this->db->query($query);
-		$this->data['section_title'] = $result->result()[0]->section_title;
-		//get all students here....
+		$query = 'SELECT 
+		          s.student_id, s.student_name as student_name, 
+				  s.student_father_name as father_name, 
+				  s.student_class_no as class_no, 
+				  s.student_admission_no as adminssion_no 
+				  FROM `students_exams_subjects_marks` as se 
+				  INNER JOIN students as s ON(s.student_id = se.student_id) 
+				  WHERE se.exam_id= ? AND se.class_id= ? AND se.section_id= ? 
+				  GROUP BY s.student_id;';
+		$this->data['students']  = $this->db->query($query, [$exam_id, $class_id, $section_id])->result();
 
-		//check the exam id is in section history .....
-
-		$query = "SELECT COUNT(*) as total FROM `student_section_history` WHERE `exam_id`='" . $exam_id . "'
-		AND `student_section_history`.`class_id` = '" . $class_id . "'";
-		$result = $this->db->query($query);
-		$exam_count = $result->result()[0]->total;
-
-		if ($order) {
-		} else {
-		}
-
-		if ($exam_count == 0) {
-			$query = "SELECT
-					`student_id`
-					, `student_name`
-					, `student_class_no`
-					, `class_id`
-					, `section_id`
-				FROM
-					`students`
-					WHERE `students`.`class_id` = $class_id
-					AND `students`.`section_id` = $section_id 
-					AND `students`.`status` =1
-					ORDER BY `student_class_no` ASC  ";
-		} else {
-			$query = "SELECT 
-					  `students`.`student_id`,
-					  `students`.`student_name`,
-					  `student_section_history`.`student_class_no` as `student_class_no` ,
-					  `student_section_history`.`class_id` AS `class_id`,
-					  `student_section_history`.`section_id`  AS `section_id`
-					FROM
-					  `students`,
-					  `student_section_history` 
-					WHERE `students`.`student_id` = `student_section_history`.`student_id` 
-					AND `student_section_history`.`class_id` = $class_id
-					AND `student_section_history`.`section_id` = $section_id
-					AND `students`.`status` =1  ORDER BY `student_class_no` ASC  ";
-		}
-		$result = $this->db->query($query);
-		$students = $result->result();
-
-
-		$where = "`exams`.`status` IN (0, 1) and `exams`.`exam_id` =" . $exam_id;
-		$exam = $this->exam_model->get_exam_list($where, false, false);
-		$this->data["exam"] = $exam[0];
-
-		$query = "SELECT 
-  `subjects`.`subject_title`,
-  `class_subject_teacher`.`section_id`,
-  `class_subjects`.`subject_id`,
-  `class_subjects`.`class_subject_id`,
-  `subjects`.`subject_title`,
-  `subjects`.`short_title`,
-  `class_subjects`.`class_id`,
-  `class_subjects`.`marks`,
-  `class_subjects`.`passing_mark` 
-FROM
-`class_subjects` ,
-`class_subject_teacher`,
-`subjects`  
-WHERE `class_subjects`.`class_subject_id` = `class_subject_teacher`.`class_subject_id`
-AND `subjects`.`subject_id` = `class_subjects`.`subject_id`
-				AND `class_subjects`.`class_id` =" . $class_id . "
-				AND `class_subject_teacher`.`exam_id` =" . $exam_id . "
-				AND `class_subject_teacher`.`section_id` =" . $section_id;
-		$result = $this->db->query($query);
-		$this->data['class_subjects'] = $class_subjects = $result->result();
-
-
-
-		foreach ($students as $student_index => $student) {
-			foreach ($class_subjects as $class_subject) {
-				$students[$student_index]->subjects[$class_subject->class_subject_id]['total_marks'] = $class_subject->marks;
-				$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->marks;
-				$query = "SELECT 
-					`obtain_mark`
-							FROM
-							`students_exams_subjects_marks`
-							WHERE `students_exams_subjects_marks`.`student_id` = '" . $student->student_id . "'
-							AND `students_exams_subjects_marks`.`exam_id` = '" . $exam_id . "'
-							AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject->class_subject_id . "'
-							and `students_exams_subjects_marks`.`section_id` = '" . $section_id . "'";
-				$result = $this->db->query($query);
-				if ($result->num_rows) {
-					$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->obtain_marks = $result->result()[0]->obtain_mark;
-				} else {
-					$students[$student_index]->subjects[$class_subject->class_subject_id]['passing_mark'] = $class_subject->obtain_marks = "-";
-				}
-			}
-		}
-
-		$query = "SELECT pass_fail_status, COUNT(pass_fail_status) as total 
-		FROM student_results WHERE `exam_id` = $exam_id 
-		AND `class_id` =" . $class_id . "
-		AND `section_id` = '" . $section_id . "'
-		 GROUP BY pass_fail_status ORDER BY  pass_fail_status ASC";
-		$results = $this->db->query($query);
-		$pass_fail_counts = $results->result();
-
-		$this->data['pass_fail_counts'] = $pass_fail_counts;
-
-
-
-		$this->data['students'] = $students;
-		$this->data["title"] = "Subject Marks";
-		$this->data["view"] = ADMIN_DIR . "exams/view_subject_result";
-		$this->load->view(ADMIN_DIR . "exams/class_dmcs", $this->data);
+		$this->data["title"] = "Student Class Results";
+		//$this->data["view"] = ADMIN_DIR . "exams/class_results";
+		$this->load->view(ADMIN_DIR . "exams/results/class_dmcs", $this->data);
 	}
 }
