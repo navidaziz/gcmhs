@@ -243,7 +243,7 @@
 
               <?php
               $subject_count = 1;
-              foreach ($class_subjects as $class_subject) {
+              foreach ($subjects as $class_subject) {
               ?>
                 <tr>
                   <th style="width: 30px;"><?php echo $subject_count++; ?></th>
