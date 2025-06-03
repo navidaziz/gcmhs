@@ -142,50 +142,144 @@
         </table>
 
         <h5 style="margin-top: 15px;">Detailed Marks Certificate</h5>
-        <table class="table_small" style="width: 100%;">
-          <thead>
-            <tr>
-              <th colspan="2">Session: <strong><?php echo $this->db->query("SELECT session FROM session WHERE session_id = (SELECT session_id FROM exams WHERE exam_id = '$exam_id')")->row()->session; ?></strong></th>
-              <?php
-              $session_exams = $this->db->query("SELECT * FROM exams WHERE session_id = (SELECT session_id FROM exams WHERE exam_id = '$exam_id') AND exams.show = '1' ORDER BY exam_id ASC")->result();
-              foreach ($session_exams as $exam): ?>
-                <th colspan="2" style="text-align: center;"><?php echo $exam->term; ?></th>
-              <?php endforeach; ?>
-              <th rowspan="2">AVG.</th>
-            </tr>
-            <tr>
-              <th>#</th>
-              <th>Subjects</th>
-              <?php foreach ($session_exams as $exam): ?>
-                <th>Marks</th>
-                <th>%</th>
-              <?php endforeach; ?>
-            </tr>
-          </thead>
-          <tbody>
+        <table class="table table_small" style="width: 100%;">
+          <tr>
+            <th colspan="2">
+              Session:
+              <strong><?php
+                      $query = "SELECT * FROM session 
+                            WHERE session_id = (SELECT session_id FROM exams WHERE exam_id = '" . $exam_id . "')";
+                      $session = $this->db->query($query)->row();
+                      echo $session->session;
+                      ?>
+              </strong>
+            </th>
             <?php
-            $i = 1;
-            foreach ($subjects as $subject): ?>
-              <tr>
-                <td><?php echo $i++; ?></td>
-                <td><?php echo $subject->subject_title; ?></td>
+            $query = "SELECT * FROM exams 
+                WHERE exams.session_id = (SELECT session_id FROM exams WHERE exam_id = '" . $exam_id . "') 
+                AND exams.show = '1'
+                ORDER BY exam_id ASC";
+            $session_exams = $this->db->query($query)->result();
+            $exams_ids = array();
+            foreach ($session_exams as $session_exam) {
+              $exams_ids[] = $session_exam->exam_id;
+            ?>
+              <th style="text-align: center;" colspan="2">
                 <?php
-                $total_percent = 0;
-                $count = 0;
-                foreach ($session_exams as $exam):
-                  $result = $this->db->query("SELECT obtain_mark, percentage, total_marks FROM students_exams_subjects_marks WHERE student_id = '$student->student_id' AND exam_id = '$exam->exam_id' AND class_subjec_id = '$subject->class_subject_id'")->row();
-                  if ($result) {
-                    $total_percent += $result->percentage;
-                    $count++;
-                  }
+                echo $session_exam->term; ?>
+              </th>
+
+            <? } ?>
+            <th rowspan="2" style="vertical-align: middle;">AVG.</th>
+          </tr>
+          <tr>
+            <th>#</th>
+            <th style="width: 155px;">Subjects</th>
+            <?php foreach ($session_exams as $session_exam) { ?>
+              <th style="text-align: center;">Marks</th>
+              <th style="text-align: center;">Percentage</th>
+            <?php } ?>
+
+          </tr>
+
+          <?php
+          $subject_count = 1;
+          foreach ($subjects as $class_subject) {
+          ?>
+            <tr>
+              <th style="width: 30px;"><?php echo $subject_count++; ?></th>
+              <th><?php echo $class_subject->subject_title; ?> </th>
+              <?php
+              $subject_percentage = 0;
+              $exam_count = 0;
+              foreach ($session_exams as $session_exam) {  ?>
+                <?php
+                $query = "SELECT
+                  `obtain_mark`, `percentage`, `total_marks`
+                  FROM
+                  `students_exams_subjects_marks`
+                  WHERE `students_exams_subjects_marks`.`student_id` = '" . $student->student_id . "'
+                  AND `students_exams_subjects_marks`.`exam_id` = '" . $session_exam->exam_id . "'
+                  AND `students_exams_subjects_marks`.`class_subjec_id` = '" . $class_subject->class_subject_id . "'
+                  ORDER BY exam_id ASC
+                  ";
+
+                $student_result = $this->db->query($query)->row();
+                if ($student_result) {
+                  $exam_count++;
                 ?>
-                  <td style="text-align:center;"><?php echo $result ? "<strong>{$result->obtain_mark}</strong> / {$result->total_marks}" : '-'; ?></td>
-                  <td style="text-align:center;"><?php echo $result ? round($result->percentage, 2) . '%' : '-'; ?></td>
-                <?php endforeach; ?>
-                <td style="text-align:center;"><?php echo $count ? round($total_percent / $count, 2) . '%' : '-'; ?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
+                  <td style="text-align: center; width:80px">
+                    <?php echo "<strong>" . $student_result->obtain_mark . "</strong>"; ?>
+                    / <?php echo $student_result->total_marks; ?>
+                  </td>
+                  <td style="text-align: center; width:80px">
+                    <?php
+                    if ($student_result->percentage < 32.9) {
+                      echo '<span class="fail">' . round($student_result->percentage) . '</span>';
+                    } else {
+                      echo round($student_result->percentage);
+                    }
+                    $subject_percentage += $student_result->percentage;
+
+                    $session_exam->subject_total_marks += $student_result->total_marks;
+                    $session_exam->subject_obtain_marks += $student_result->obtain_mark;
+                    ?> %
+                  </td>
+                <?php } else { ?>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;"></td>
+                <?php } ?>
+              <?php } ?>
+              <th style="text-align: center;"><?php
+                                              $subject_avg = round(($subject_percentage / $exam_count));
+                                              if ($subject_avg < 32.9) {
+                                                echo '<span class="fail">' . $subject_avg . '</span>';
+                                              } else {
+                                                echo $subject_avg;
+                                              }
+
+                                              ?></th>
+            </tr>
+          <?php }  ?>
+          <tr>
+            <th style="text-align: right;" colspan="2">Total</th>
+            <?php
+            $total_percentage = 0;
+            foreach ($session_exams as $session_exam) { ?>
+              <th style="text-align: center;">
+                <?php echo $session_exam->subject_obtain_marks; ?>
+                <?php
+                if ($session_exam->subject_total_marks) {
+                  echo " / " . $session_exam->subject_total_marks;
+                }
+                ?>
+              </th>
+              <th style="text-align: center;">
+                <?php $percentage = (($session_exam->subject_obtain_marks * 100) / $session_exam->subject_total_marks);
+                if ($percentage) {
+                  $total_percentage += $percentage;
+                  if ($percentage < 32.9) {
+                    echo '<span class="fail">' . round($percentage) . '</span> %';
+                  } else {
+                    echo round($percentage) . " %";
+                  }
+                }
+                ?>
+              </th>
+            <?php } ?>
+            <th style="font-size: 15px !important; text-align:center"><?php
+                                                                      $avg_percentage = round(($total_percentage / $exam_count), 1);
+
+                                                                      if ($avg_percentage < 32.9) {
+                                                                        echo '<span class="fail">' . round($avg_percentage) . '</span>';
+                                                                      } else {
+                                                                        echo round($avg_percentage) . "";
+                                                                      }
+                                                                      ?></th>
+
+          </tr>
+
+
         </table>
 
         <h4>Attendance History</h4>
