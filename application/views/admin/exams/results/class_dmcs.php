@@ -5,10 +5,6 @@
   <meta charset="utf-8">
   <title>Detailed Marks Certificate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/cloud-admin.css" media="screen,print">
-  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/themes/default.css" id="skin-switcher" media="screen,print">
-  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/responsive.css" media="screen,print">
-  <link rel="stylesheet" href="<?php echo site_url("assets/" . ADMIN_DIR); ?>/css/custom.css" media="screen,print">
   <style>
     body {
       background: #ccc;
