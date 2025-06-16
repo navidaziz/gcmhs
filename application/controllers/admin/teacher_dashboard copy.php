@@ -50,7 +50,7 @@ class Teacher_dashboard extends Admin_Controller
         $result = $this->db->query($query);
         $teachers = $result->result();
 
-        $query = "SELECT * FROM `periods`";
+        $query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
         $result = $this->db->query($query);
         $periods = $result->result();
 

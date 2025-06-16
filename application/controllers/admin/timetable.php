@@ -44,7 +44,7 @@ class Timetable extends Admin_Controller
 		$result = $this->db->query($query);
 		$teachers = $result->result();
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 
@@ -67,7 +67,7 @@ class Timetable extends Admin_Controller
 
 
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 		$query = "SELECT  `Class_title`, `class_id`
@@ -126,7 +126,7 @@ class Timetable extends Admin_Controller
 
 
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 		$query = "SELECT  `Class_title`, `class_id`
@@ -183,7 +183,7 @@ class Timetable extends Admin_Controller
 
 
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 
@@ -352,7 +352,7 @@ class Timetable extends Admin_Controller
 		$result = $this->db->query($query);
 		$teachers = $result->result();
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 
@@ -389,7 +389,7 @@ class Timetable extends Admin_Controller
 		$result = $this->db->query($query);
 		$teachers = $result->result();
 
-		$query = "SELECT * FROM `periods`";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC";
 		$result = $this->db->query($query);
 		$periods = $result->result();
 
@@ -411,7 +411,7 @@ class Timetable extends Admin_Controller
 		$period_id  = (int) $this->input->post('period_id');
 
 
-		$query = "SELECT * FROM `periods` WHERE `period_id`='$period_id'";
+		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC WHERE `period_id`='$period_id'";
 
 		$result = $this->db->query($query);
 		$period = $result->result()[0];
