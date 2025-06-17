@@ -286,8 +286,9 @@
           <table border="1" id="today_eve_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
               <tr>
-                <th colspan="3" style="text-align:center;">Students</th>
-                <th colspan="1" style="text-align:center;">Class</th>
+                <th></th>
+                <th colspan="2" style="text-align:center;">Students</th>
+                <th colspan="2" style="text-align:center;">Class</th>
                 <th colspan="2" style="text-align:center;">Attendance</th>
               </tr>
               <tr>
