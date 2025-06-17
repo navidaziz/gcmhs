@@ -283,7 +283,43 @@
               </tr>
             </tfoot>
           </table>
+          <table border="1" id="today_eve_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
+            <thead>
+              <tr>
+                <th colspan="6" style="text-align:center;">Students</th>
+                <th colspan="1" style="text-align:center;">Class</th>
+                <th colspan="2" style="text-align:center;">Attendance</th>
+              </tr>
+              <tr>
+                <th>S/No</th>
+                <th>Name</th>
+                <th>Father Name</th>
+                <th>Class</th>
+                <th>Section</th>
+                <th colspan="2"></th>
+                <th>Morning</th>
+                <th>Evening</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              <?php
+              $count = 1;
+              $query = "SELECT * FROM `today_evening_absent_students`";
+              $today_evening_absent_students = $this->db->query($query)->result();
+              foreach ($today_evening_absent_students as $today_evening_absent_student) { ?>
+                <tr>
+                  <td><?php echo $count++; ?></td>
+                  <td><?php echo $today_evening_absent_student->student_class_no; ?></td>
+                  <td><?php echo $today_evening_absent_student->student_name; ?></td>
+                  <td><?php echo $today_evening_absent_student->father_name; ?></td>
+                  <td><?php echo $today_evening_absent_student->class; ?></td>
+                  <td><?php echo $today_evening_absent_student->sectioin; ?></td>
+                  <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
+                  <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
+                <?php } ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -902,30 +938,45 @@ ORDER BY day ASC;
 </script>
 
 <script>
+  today_attendance
   $(document).ready(function() {
-    var table = $('#today_attendance').DataTable({
-      bPaginate: false,
-      dom: 'Bfrtip',
-      searching: false, // Disable search box
-      buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
-      columnDefs: [{
-        searchable: false,
-        orderable: false,
-        targets: 0 // First column (Serial No.) not sortable/searchable
-      }],
-      order: [] // Optional: avoid initial sorting
-    });
-
-    // Auto-indexing the first column (Serial No.)
-    table.on('order.dt search.dt draw.dt', function() {
-      table.column(0, {
-          search: 'applied',
-          order: 'applied'
-        })
-        .nodes()
-        .each(function(cell, i) {
-          cell.innerHTML = i + 1;
+        var table = $('#today_eve_attendance').DataTable({
+          bPaginate: false,
+          dom: 'Bfrtip',
+          searching: false, // Disable search box
+          buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
+          columnDefs: [{
+            searchable: false,
+            orderable: false,
+            targets: 0 // First column (Serial No.) not sortable/searchable
+          }],
+          order: [] // Optional: avoid initial sorting
         });
-    }).draw();
-  });
+
+        $(document).ready(function() {
+          var table = $('#today_attendance').DataTable({
+            bPaginate: false,
+            dom: 'Bfrtip',
+            searching: false, // Disable search box
+            buttons: ['excel', 'pdf'], // Add Excel and PDF buttons
+            columnDefs: [{
+              searchable: false,
+              orderable: false,
+              targets: 0 // First column (Serial No.) not sortable/searchable
+            }],
+            order: [] // Optional: avoid initial sorting
+          });
+
+          // Auto-indexing the first column (Serial No.)
+          table.on('order.dt search.dt draw.dt', function() {
+            table.column(0, {
+                search: 'applied',
+                order: 'applied'
+              })
+              .nodes()
+              .each(function(cell, i) {
+                cell.innerHTML = i + 1;
+              });
+          }).draw();
+        });
 </script>
