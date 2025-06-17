@@ -286,7 +286,8 @@
           <table border="1" id="today_eve_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
               <tr>
-                <h4><strong>Evening Attendance Student List Date: <?php echo date('d F , Y'); ?></strong></h4>
+                <h4><strong>Evening Absent Students List - Date: <?php echo date('d F, Y'); ?></strong></h4>
+
               </tr>
               <tr>
                 <th></th>
