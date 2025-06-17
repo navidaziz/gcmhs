@@ -319,7 +319,7 @@
                   <td><?php echo $today_evening_absent_student->student_name; ?></td>
                   <td><?php echo $today_evening_absent_student->father_name; ?></td>
                   <td><?php echo $today_evening_absent_student->class; ?></td>
-                  <td><?php echo $today_evening_absent_student->sectioin; ?></td>
+                  <td><?php echo $today_evening_absent_student->section; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
                 <?php } ?>
