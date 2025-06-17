@@ -669,7 +669,8 @@ foreach ($todaySummary as $t) {
   SUM(total) AS total, 
   SUM(present) AS present,
   SUM(`leave`) AS leave_count,
-  SUM(`evening_absent`) as e_absent
+  SUM(`evening_absent`) as e_absent,
+  SUM(`evening_leave`) as e_leave
 FROM daily_class_wise_attendance
 WHERE created_date >= CURDATE() - INTERVAL 30 DAY
 GROUP BY DATE(created_date)
@@ -702,17 +703,20 @@ ORDER BY day ASC;
     $present = (int)$dayWise[$date]->present;
     $leave = (int)$dayWise[$date]->leave_count;
     $e_absent = (int)$dayWise[$date]->e_absent;
+    $e_leave = (int)$dayWise[$date]->e_leave;
     // Avoid division by zero
     if ($total > 0) {
       $absent_percent[] = round(($absent / $total) * 100, 2);
       $present_percent[] = round(($present / $total) * 100, 2);
       $leave_percent[] = round(($leave / $total) * 100, 2);
       $e_absent_percent[] = round(($e_absent / $total) * 100, 2);
+      $e_leave_percent[] = round(($e_leave / $total) * 100, 2);
     } else {
       $absent_percent[] = NULL;
       $present_percent[] = NULL;
       $leave_percent[] = NULL;
       $e_absent_percent[] = NULL;
+      $e_leave_percent[] = NULL;
     }
   }
   ?>
@@ -810,7 +814,14 @@ ORDER BY day ASC;
         type: 'spline',
         data: <?php echo json_encode($e_absent_percent); ?>,
         color: '#EE6C21'
+      },
+      {
+        name: 'Evening Leave %',
+        type: 'spline',
+        data: <?php echo json_encode($e_leave_percent); ?>,
+        color: '#A3F701'
       }
+
 
     ]
 
