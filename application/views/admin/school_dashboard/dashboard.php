@@ -285,14 +285,16 @@
           </table>
           <table border="1" id="today_eve_attendance" cellpadding="5" cellspacing="0" style="width:100%; margin-bottom:20px;">
             <thead>
+              <tr>Evening Attendance Date: <?php echo date('d F , Y'); ?> </tr>
               <tr>
                 <th></th>
-                <th colspan="2" style="text-align:center;">Students</th>
+                <th colspan="3" style="text-align:center;">Students</th>
                 <th colspan="2" style="text-align:center;">Class</th>
                 <th colspan="2" style="text-align:center;">Attendance</th>
               </tr>
               <tr>
                 <th>S/No</th>
+                <th>Class No</th>
                 <th>Name</th>
                 <th>Father Name</th>
                 <th>Class</th>
