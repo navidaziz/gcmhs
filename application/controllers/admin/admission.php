@@ -2367,16 +2367,17 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 				// Find the student by roll_no
 				$student = $this->db->get_where('students', ['student_class_no' => $roll_no, 'class_id' => $class_id, 'section_id' => $section_id])->row();
 				if ($student) {
-					$ext = pathinfo($file, PATHINFO_EXTENSION);
-					$new_file_name = $student->student_id . '.' . $ext;
-					$new_file_path = $path . $new_file_name;
+					echo "Student found for roll no: {$roll_no} - Renaming file: {$filename}<br>";
+					// $ext = pathinfo($file, PATHINFO_EXTENSION);
+					// $new_file_name = $student->student_id . '.' . $ext;
+					// $new_file_path = $path . $new_file_name;
 
-					if (rename($file, $new_file_path)) {
-						$this->db->where('student_id', $student->student_id)->update('students', ['local_image' => $new_file_name]);
-						echo "Renamed {$filename} ➜ {$new_file_name}<br>";
-					} else {
-						echo "Failed to rename {$filename}<br>";
-					}
+					// if (rename($file, $new_file_path)) {
+					// 	$this->db->where('student_id', $student->student_id)->update('students', ['local_image' => 'student_'.$new_file_name]);
+					// 	echo "Renamed {$filename} ➜ {$new_file_name}<br>";
+					// } else {
+					// 	echo "Failed to rename {$filename}<br>";
+					// }
 				} else {
 					echo "No student found for roll no: {$roll_no}<br>";
 				}
