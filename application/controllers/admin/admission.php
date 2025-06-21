@@ -2353,7 +2353,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$this->load->helper('file');
 		$class_id = 2;
-		$section_id = 2;
+		$section_id = 3;
 		$path = FCPATH . "uploads/gcmhs/" . $class_id . "/" . $section_id . "/"; // Full system path
 		$files = glob($path . "*");
 
