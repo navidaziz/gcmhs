@@ -2374,7 +2374,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 				if (rename($old_file, $new_file_path)) {
 					// Update DB with new filename
-					$this->db->where('id', $id)->update('students', ['local_image' => $new_file_name]);
+					$this->db->where('student_id', $id)->update('students', ['local_image' => $new_file_name]);
 					echo "Renamed {$old_file} to {$new_file_name}<br>";
 				} else {
 					echo "Failed to rename image for Roll No: {$roll_no}<br>";
