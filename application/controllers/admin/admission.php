@@ -2370,17 +2370,17 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 					echo "Student found for roll no: {$roll_no} - Renaming file: {$filename}<br>";
 					echo $ext = pathinfo($file, PATHINFO_EXTENSION);
 					echo "<br>";
-					echo $new_file_name = $student->student_id . '.' . $ext;
+					echo $new_file_name = 'student_' . $student->student_id . '.' . $ext;
 					echo "<br>";
-					echo $new_file_path = $path . $new_file_name;
+					echo $new_file_path = 'uploads/gcmhs/' . $new_file_name;
 					echo "<br>";
 
-					// if (rename($file, $new_file_path)) {
-					// 	$this->db->where('student_id', $student->student_id)->update('students', ['local_image' => 'student_'.$new_file_name]);
-					// 	echo "Renamed {$filename} ➜ {$new_file_name}<br>";
-					// } else {
-					// 	echo "Failed to rename {$filename}<br>";
-					// }
+					if (rename($file, $new_file_path)) {
+						$this->db->where('student_id', $student->student_id)->update('students', ['local_image' =>  $new_file_name]);
+						echo "Renamed {$filename} ➜ {$new_file_name}<br>";
+					} else {
+						echo "Failed to rename {$filename}<br>";
+					}
 				} else {
 					echo "No student found for roll no: {$roll_no}<br>";
 				}
