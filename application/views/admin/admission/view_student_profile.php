@@ -445,8 +445,8 @@ $section_id = $students[0]->section_id;
 <div class="row" style="background-color: white; padding: 5px;">
     <div class="col-md-3">
         <div class="table-responsive">
-            <div>
-                <img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="100" />
+            <div style="text-align: center; margin-bottom: 10px;">
+                <img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="120" />
             </div>
             <h3 class="title"><?php echo strtoupper($students[0]->student_name); ?>
             </h3>
