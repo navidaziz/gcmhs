@@ -2344,4 +2344,44 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 
 		return ($httpCode === 200) ? $data : false;
 	}
+
+
+	public function rename_student_images()
+	{
+		//$this->load->database(); // Load DB
+		$this->load->helper('file'); // For file operations
+
+		$class_id = 2;
+		$section_id = 1;
+		$path = FCPATH . "uploads/gcmhs/" . $class_id . "/" . $section_id . "/"; // Full system path
+		$this->db->select('class_id', $class_id);
+		$this->db->where('section_id', $section_id);
+		$students = $this->db->get('students')->result();
+
+		foreach ($students as $student) {
+			$roll_no = $student->student_class_no;
+			$id = $student->student_id;
+
+			// Use glob to find file starting with roll_no
+			$matches = glob($path . $roll_no . '*');
+
+			if (!empty($matches)) {
+				$old_file = $matches[0];
+				$ext = pathinfo($old_file, PATHINFO_EXTENSION);
+				$new_file_name = $id . '.' . $ext;
+				$new_file_path = $path . $new_file_name;
+
+
+				if (rename($old_file, $new_file_path)) {
+					// Update DB with new filename
+					$this->db->where('id', $id)->update('students', ['local_image' => $new_file_name]);
+					echo "Renamed {$old_file} to {$new_file_name}<br>";
+				} else {
+					echo "Failed to rename image for Roll No: {$roll_no}<br>";
+				}
+			} else {
+				echo "No image found for Roll No: {$roll_no}<br>";
+			}
+		}
+	}
 }
