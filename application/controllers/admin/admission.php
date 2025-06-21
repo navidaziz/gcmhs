@@ -2353,7 +2353,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$this->load->helper('file');
 		$class_id = 2;
-		$section_id = 2;
+		$section_id = 1;
 		$path = FCPATH . "uploads/gcmhs/" . $class_id . "/" . $section_id . "/"; // Full system path
 		$files = glob($path . "*");
 
@@ -2376,7 +2376,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 					echo "<br>";
 
 					if (rename($file, $new_file_path)) {
-						$this->db->where('student_id', $student->student_id)->update('students', ['local_image' =>  $new_file_name]);
+						$this->db->where('student_id', $student->student_id)->update('students', ['student_image' =>  $new_file_name]);
 						echo "Renamed {$filename} ➜ {$new_file_name}<br>";
 					} else {
 						echo "Failed to rename {$filename}<br>";
