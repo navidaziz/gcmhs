@@ -2353,7 +2353,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$this->load->helper('file');
 		$class_id = 2;
-		$section_id = 3;
+		$section_id = 2;
 		$path = FCPATH . "uploads/gcmhs/" . $class_id . "/" . $section_id . "/"; // Full system path
 		$files = glob($path . "*");
 
@@ -2370,9 +2370,9 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 					echo "Student found for roll no: {$roll_no} - Renaming file: {$filename}<br>";
 					echo $ext = pathinfo($file, PATHINFO_EXTENSION);
 					echo "<br>";
-					echo $new_file_name = 'student_' . $student->student_id . '.' . $ext;
+					echo $new_file_name =  $student->student_id . '.' . $ext;
 					echo "<br>";
-					echo $new_file_path = 'uploads/gcmhs/' . $new_file_name;
+					echo $new_file_path = 'uploads/gcmhs/student_' . $new_file_name;
 					echo "<br>";
 
 					if (rename($file, $new_file_path)) {
