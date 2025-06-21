@@ -2372,7 +2372,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 					$new_file_path = $path . $new_file_name;
 
 					if (rename($file, $new_file_path)) {
-						$this->db->where('student_id', $student->student_id)->update('students', ['image' => $new_file_name]);
+						$this->db->where('student_id', $student->student_id)->update('students', ['local_image' => $new_file_name]);
 						echo "Renamed {$filename} ➜ {$new_file_name}<br>";
 					} else {
 						echo "Failed to rename {$filename}<br>";
