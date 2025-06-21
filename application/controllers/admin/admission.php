@@ -2346,41 +2346,42 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	}
 
 
+
+
+
 	public function rename_student_images()
 	{
-		//$this->load->database(); // Load DB
-		$this->load->helper('file'); // For file operations
-
+		$this->load->helper('file');
 		$class_id = 2;
-		$section_id = 1;
+		$section_id = 2;
 		$path = FCPATH . "uploads/gcmhs/" . $class_id . "/" . $section_id . "/"; // Full system path
-		$this->db->select('class_id', $class_id);
-		$this->db->where('section_id', $section_id);
-		$students = $this->db->get('students')->result();
+		$files = glob($path . "*");
 
-		foreach ($students as $student) {
-			$roll_no = $student->student_class_no;
-			$id = $student->student_id;
+		foreach ($files as $file) {
+			$filename = basename($file); // e.g., "123 John Doe.jpg"
 
-			// Use glob to find file starting with roll_no
-			$matches = glob($path . $roll_no . '*');
+			// Extract number (roll number) from beginning of filename
+			if (preg_match('/^(\d+)/', $filename, $matches)) {
+				$roll_no = $matches[1];
 
-			if (!empty($matches)) {
-				$old_file = $matches[0];
-				$ext = pathinfo($old_file, PATHINFO_EXTENSION);
-				$new_file_name = $id . '.' . $ext;
-				$new_file_path = $path . $new_file_name;
+				// Find the student by roll_no
+				$student = $this->db->get_where('students', ['roll_no' => $roll_no, 'class_id' => $class_id, 'section_id' => $section_id])->row();
+				if ($student) {
+					$ext = pathinfo($file, PATHINFO_EXTENSION);
+					$new_file_name = $student->student_id . '.' . $ext;
+					$new_file_path = $path . $new_file_name;
 
-
-				if (rename($old_file, $new_file_path)) {
-					// Update DB with new filename
-					$this->db->where('student_id', $id)->update('students', ['local_image' => $new_file_name]);
-					echo "Renamed {$old_file} to {$new_file_name}<br>";
+					if (rename($file, $new_file_path)) {
+						$this->db->where('student_id', $student->student_id)->update('students', ['image' => $new_file_name]);
+						echo "Renamed {$filename} ➜ {$new_file_name}<br>";
+					} else {
+						echo "Failed to rename {$filename}<br>";
+					}
 				} else {
-					echo "Failed to rename image for Roll No: {$roll_no}<br>";
+					echo "No student found for roll no: {$roll_no}<br>";
 				}
 			} else {
-				echo "No image found for Roll No: {$roll_no}<br>";
+				echo "Could not extract roll number from filename: {$filename}<br>";
 			}
 		}
 	}
