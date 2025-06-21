@@ -2365,7 +2365,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 				$roll_no = $matches[1];
 
 				// Find the student by roll_no
-				$student = $this->db->get_where('students', ['roll_no' => $roll_no, 'class_id' => $class_id, 'section_id' => $section_id])->row();
+				$student = $this->db->get_where('students', ['student_class_no' => $roll_no, 'class_id' => $class_id, 'section_id' => $section_id])->row();
 				if ($student) {
 					$ext = pathinfo($file, PATHINFO_EXTENSION);
 					$new_file_name = $student->student_id . '.' . $ext;
