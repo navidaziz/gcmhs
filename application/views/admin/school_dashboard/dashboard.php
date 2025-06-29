@@ -953,6 +953,8 @@ ORDER BY day ASC;
   });
 </script>
 
+
+
 <?php
 $monthlyAvg = $this->db->query("
     SELECT 
@@ -965,23 +967,24 @@ $monthlyAvg = $this->db->query("
     GROUP BY class_title, section_title, MONTH(created_date)
 ")->result();
 
-// Prepare data
-$data = [];
+$data = array();
 foreach ($monthlyAvg as $row) {
   $key = $row->class_title . '-' . $row->section_title;
-  $month = $row->month == 5 ? 'May' : 'June';
+  $month = ($row->month == 5) ? 'May' : 'June';
+  if (!isset($data[$key])) {
+    $data[$key] = array();
+  }
   $data[$key][$month] = round($row->avg_absent, 2);
 }
 
-// Build categories and series data
-$categories = [];
-$mayData = [];
-$juneData = [];
-$improvementData = [];
+$categories = array();
+$mayData = array();
+$juneData = array();
+$improvementData = array();
 
 foreach ($data as $classSection => $months) {
-  $may = $months['May'] ?? 0;
-  $june = $months['June'] ?? 0;
+  $may = isset($months['May']) ? $months['May'] : 0;
+  $june = isset($months['June']) ? $months['June'] : 0;
 
   $categories[] = $classSection;
   $mayData[] = $may;
@@ -990,10 +993,10 @@ foreach ($data as $classSection => $months) {
   if ($may > 0) {
     $improvement = (($may - $june) / $may) * 100;
   } else {
-    $improvement = 0; // avoid division by zero
+    $improvement = 0;
   }
 
-  $improvementData[] = round($improvement, 1); // improvement in %
+  $improvementData[] = round($improvement, 1);
 }
 ?>
 
@@ -1023,18 +1026,18 @@ foreach ($data as $classSection => $months) {
     tooltip: {
       shared: true,
       formatter: function() {
-        const may = this.points[0]?.y ?? 0;
-        const june = this.points[1]?.y ?? 0;
-        let improvement = 0;
+        var may = (this.points && this.points[0]) ? this.points[0].y : 0;
+        var june = (this.points && this.points[1]) ? this.points[1].y : 0;
+        var improvement = 0;
 
         if (may > 0) {
           improvement = ((may - june) / may) * 100;
         }
 
-        return `<b>${this.x}</b><br/>
-              May: <b>${may}</b><br/>
-              June: <b>${june}</b><br/>
-              Improvement: <b>${improvement.toFixed(1)}%</b>`;
+        return '<b>' + this.x + '</b><br/>' +
+          'May: <b>' + may + '</b><br/>' +
+          'June: <b>' + june + '</b><br/>' +
+          'Improvement: <b>' + improvement.toFixed(1) + '%</b>';
       }
     },
     plotOptions: {
