@@ -955,110 +955,82 @@ ORDER BY day ASC;
 
 
 
-<?php
-$monthlyAvg = $this->db->query("
-    SELECT 
-        class_title, section_title, 
-        MONTH(created_date) as month, 
-        AVG(absent) as avg_absent
-    FROM daily_class_wise_attendance
-    WHERE YEAR(created_date) = YEAR(CURDATE()) 
-      AND MONTH(created_date) IN (5, 6)
-    GROUP BY class_title, section_title, MONTH(created_date)
-")->result();
 
-$data = array();
-foreach ($monthlyAvg as $row) {
-  $key = $row->class_title . '-' . $row->section_title;
-  $month = ($row->month == 5) ? 'May' : 'June';
-  if (!isset($data[$key])) {
-    $data[$key] = array();
-  }
-  $data[$key][$month] = round($row->avg_absent, 2);
-}
-
-$categories = array();
-$mayData = array();
-$juneData = array();
-$improvementData = array();
-
-foreach ($data as $classSection => $months) {
-  $may = isset($months['May']) ? $months['May'] : 0;
-  $june = isset($months['June']) ? $months['June'] : 0;
-
-  $categories[] = $classSection;
-  $mayData[] = $may;
-  $juneData[] = $june;
-
-  if ($may > 0) {
-    $improvement = (($may - $june) / $may) * 100;
-  } else {
-    $improvement = 0;
-  }
-
-  $improvementData[] = round($improvement, 1);
-}
-?>
-
-<div id="monthly_absent_avg_comp" style="width:100%; height:400px;"></div>
+<div id="monthly_absent_avg_comp" style="width:100%; height:500px;"></div>
 
 <script>
   Highcharts.chart('monthly_absent_avg_comp', {
     chart: {
-      type: 'column'
+      zoomType: 'xy'
     },
     title: {
-      text: 'May vs June Class-Section Wise Avg Absenteeism'
+      text: 'May vs June Class-Section Wise Avg Absenteeism (with Improvement %)'
     },
     subtitle: {
       text: '<?php echo date("Y"); ?>'
     },
-    xAxis: {
+    xAxis: [{
       categories: <?php echo json_encode($categories); ?>,
       crosshair: true
-    },
-    yAxis: {
-      min: 0,
+    }],
+    yAxis: [{
+      // Primary yAxis (Absenteeism)
       title: {
         text: 'Average Absentees'
       }
-    },
+    }, {
+      // Secondary yAxis (Improvement)
+      title: {
+        text: 'Improvement (%)'
+      },
+      labels: {
+        format: '{value}%',
+      },
+      opposite: true
+    }],
     tooltip: {
       shared: true,
       formatter: function() {
         var may = (this.points && this.points[0]) ? this.points[0].y : 0;
         var june = (this.points && this.points[1]) ? this.points[1].y : 0;
-        var improvement = 0;
-
-        if (may > 0) {
-          improvement = ((may - june) / may) * 100;
-        }
-
+        var improvement = (this.points && this.points[2]) ? this.points[2].y : 0;
+        var trend = improvement >= 0 ? 'Improved' : 'Declined';
         return '<b>' + this.x + '</b><br/>' +
           'May: <b>' + may + '</b><br/>' +
           'June: <b>' + june + '</b><br/>' +
-          'Improvement: <b>' + improvement.toFixed(1) + '%</b>';
+          trend + ': <b>' + improvement.toFixed(1) + '%</b>';
       }
     },
     plotOptions: {
       column: {
         grouping: true,
-        shadow: false,
         borderWidth: 0
       }
     },
     series: [{
-        name: 'May',
-        data: <?php echo json_encode($mayData); ?>
-      }, {
-        name: 'June',
-        data: <?php echo json_encode($juneData); ?>
-      },
-      {
-        name: 'Progress',
-        data: <?php echo json_encode($improvementData); ?>
+      name: 'May',
+      type: 'column',
+      data: <?php echo json_encode($mayData); ?>,
+      tooltip: {
+        valueSuffix: ''
       }
-    ]
+    }, {
+      name: 'June',
+      type: 'column',
+      data: <?php echo json_encode($juneData); ?>,
+      tooltip: {
+        valueSuffix: ''
+      }
+    }, {
+      name: 'Improvement (%)',
+      type: 'spline',
+      yAxis: 1,
+      data: <?php echo json_encode($improvementData); ?>,
+      tooltip: {
+        valueSuffix: '%'
+      },
+      color: '#28a745'
+    }]
   });
 </script>
 
