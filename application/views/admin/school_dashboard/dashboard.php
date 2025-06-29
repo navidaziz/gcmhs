@@ -1067,7 +1067,7 @@ foreach ($data as $classSection => $months) {
       }
     }, {
       name: 'Improvement (%)',
-      type: 'spline',
+      //type: 'spline',
       yAxis: 1,
       data: <?php echo json_encode($improvementData); ?>,
       tooltip: {
