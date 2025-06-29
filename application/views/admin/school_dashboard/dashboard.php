@@ -1047,9 +1047,22 @@ foreach ($data as $classSection => $months) {
     },
     plotOptions: {
       column: {
-        grouping: true,
-        borderWidth: 0
+        pointPadding: 0.2,
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{y} %',
+          crop: false, // Don't hide labels outside the plot area
+          overflow: 'none', // Prevent hiding when overflowing
+          allowOverlap: true,
+          rotation: -90,
+          style: {
+            fontSize: '9px' // Change to your desired font size
+          }
+
+        }
       }
+
     },
     series: [{
       name: 'May',
