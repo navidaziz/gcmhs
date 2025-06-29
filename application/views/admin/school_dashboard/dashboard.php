@@ -1051,7 +1051,7 @@ foreach ($data as $classSection => $months) {
         borderWidth: 0,
         dataLabels: {
           enabled: true,
-          format: '{y} %',
+          format: '{y}',
           crop: false, // Don't hide labels outside the plot area
           overflow: 'none', // Prevent hiding when overflowing
           allowOverlap: true,
