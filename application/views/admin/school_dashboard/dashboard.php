@@ -953,6 +953,50 @@ ORDER BY day ASC;
   });
 </script>
 
+<?php
+$monthlyAvg = $this->db->query("
+    SELECT 
+        class_title, section_title, 
+        MONTH(created_date) as month, 
+        AVG(absent) as avg_absent
+    FROM daily_class_wise_attendance
+    WHERE YEAR(created_date) = YEAR(CURDATE()) 
+      AND MONTH(created_date) IN (5, 6)
+    GROUP BY class_title, section_title, MONTH(created_date)
+")->result();
+
+$data = array();
+foreach ($monthlyAvg as $row) {
+  $key = $row->class_title . '-' . $row->section_title;
+  $month = ($row->month == 5) ? 'May' : 'June';
+  if (!isset($data[$key])) {
+    $data[$key] = array();
+  }
+  $data[$key][$month] = round($row->avg_absent, 2);
+}
+
+$categories = array();
+$mayData = array();
+$juneData = array();
+$improvementData = array();
+
+foreach ($data as $classSection => $months) {
+  $may = isset($months['May']) ? $months['May'] : 0;
+  $june = isset($months['June']) ? $months['June'] : 0;
+
+  $categories[] = $classSection;
+  $mayData[] = $may;
+  $juneData[] = $june;
+
+  if ($may > 0) {
+    $improvement = (($may - $june) / $may) * 100;
+  } else {
+    $improvement = 0;
+  }
+
+  $improvementData[] = round($improvement, 1); // can be negative
+}
+?>
 
 
 
