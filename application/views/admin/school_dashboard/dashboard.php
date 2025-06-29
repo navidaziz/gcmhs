@@ -953,6 +953,84 @@ ORDER BY day ASC;
   });
 </script>
 
+<?php
+$monthlyAvg = $this->db->query("
+    SELECT 
+        class_title, section_title, 
+        MONTH(created_date) as month, 
+        AVG(absent) as avg_absent
+    FROM daily_class_wise_attendance
+    WHERE YEAR(created_date) = YEAR(CURDATE()) 
+      AND MONTH(created_date) IN (5, 6) -- May & June
+    GROUP BY class_title, section_title, MONTH(created_date)
+")->result();
+
+// Prepare separate arrays for May and June
+$data = [];
+foreach ($monthlyAvg as $row) {
+  $key = $row->class_title . '-' . $row->section_title;
+  $month = $row->month == 5 ? 'May' : 'June';
+  $data[$key][$month] = round($row->avg_absent);
+}
+
+// Build categories and series data
+$categories = [];
+$mayData = [];
+$juneData = [];
+
+foreach ($data as $classSection => $months) {
+  $categories[] = $classSection;
+  $mayData[] = isset($months['May']) ? $months['May'] : 0;
+  $juneData[] = isset($months['June']) ? $months['June'] : 0;
+}
+?>
+
+<div id="monthly_absent_avg_comp" style="width:100%; height:400px;"></div>
+
+<script>
+  Highcharts.chart('monthly_absent_avg_comp', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'May vs June Class-Section Wise Avg Absenteeism'
+    },
+    subtitle: {
+      text: '<?php echo date("Y"); ?>'
+    },
+    xAxis: {
+      categories: <?php echo json_encode($categories); ?>,
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Average Absentees'
+      }
+    },
+    tooltip: {
+      shared: true
+    },
+    plotOptions: {
+      column: {
+        grouping: true,
+        shadow: false,
+        borderWidth: 0
+      }
+    },
+    series: [{
+      name: 'May',
+      data: <?php echo json_encode($mayData); ?>
+    }, {
+      name: 'June',
+      data: <?php echo json_encode($juneData); ?>
+    }]
+  });
+</script>
+
+
+
+
 <script>
   today_attendance
   $(document).ready(function() {
