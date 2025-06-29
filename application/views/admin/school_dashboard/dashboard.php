@@ -1048,12 +1048,17 @@ foreach ($data as $classSection => $months) {
       }
     },
     series: [{
-      name: 'May',
-      data: <?php echo json_encode($mayData); ?>
-    }, {
-      name: 'June',
-      data: <?php echo json_encode($juneData); ?>
-    }]
+        name: 'May',
+        data: <?php echo json_encode($mayData); ?>
+      }, {
+        name: 'June',
+        data: <?php echo json_encode($juneData); ?>
+      },
+      {
+        name: 'Progress',
+        data: <?php echo $improvementData; ?>
+      }
+    ]
   });
 </script>
 
