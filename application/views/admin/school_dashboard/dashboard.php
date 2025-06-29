@@ -961,27 +961,39 @@ $monthlyAvg = $this->db->query("
         AVG(absent) as avg_absent
     FROM daily_class_wise_attendance
     WHERE YEAR(created_date) = YEAR(CURDATE()) 
-      AND MONTH(created_date) IN (5, 6) -- May & June
+      AND MONTH(created_date) IN (5, 6)
     GROUP BY class_title, section_title, MONTH(created_date)
 ")->result();
 
-// Prepare separate arrays for May and June
+// Prepare data
 $data = [];
 foreach ($monthlyAvg as $row) {
   $key = $row->class_title . '-' . $row->section_title;
   $month = $row->month == 5 ? 'May' : 'June';
-  $data[$key][$month] = round($row->avg_absent);
+  $data[$key][$month] = round($row->avg_absent, 2);
 }
 
 // Build categories and series data
 $categories = [];
 $mayData = [];
 $juneData = [];
+$improvementData = [];
 
 foreach ($data as $classSection => $months) {
+  $may = $months['May'] ?? 0;
+  $june = $months['June'] ?? 0;
+
   $categories[] = $classSection;
-  $mayData[] = isset($months['May']) ? $months['May'] : 0;
-  $juneData[] = isset($months['June']) ? $months['June'] : 0;
+  $mayData[] = $may;
+  $juneData[] = $june;
+
+  if ($may > 0) {
+    $improvement = (($may - $june) / $may) * 100;
+  } else {
+    $improvement = 0; // avoid division by zero
+  }
+
+  $improvementData[] = round($improvement, 1); // improvement in %
 }
 ?>
 
@@ -1009,7 +1021,21 @@ foreach ($data as $classSection => $months) {
       }
     },
     tooltip: {
-      shared: true
+      shared: true,
+      formatter: function() {
+        const may = this.points[0]?.y ?? 0;
+        const june = this.points[1]?.y ?? 0;
+        let improvement = 0;
+
+        if (may > 0) {
+          improvement = ((may - june) / may) * 100;
+        }
+
+        return `<b>${this.x}</b><br/>
+              May: <b>${may}</b><br/>
+              June: <b>${june}</b><br/>
+              Improvement: <b>${improvement.toFixed(1)}%</b>`;
+      }
     },
     plotOptions: {
       column: {
@@ -1027,7 +1053,6 @@ foreach ($data as $classSection => $months) {
     }]
   });
 </script>
-
 
 
 
