@@ -1056,7 +1056,7 @@ foreach ($data as $classSection => $months) {
       },
       {
         name: 'Progress',
-        data: <?php echo $improvementData; ?>
+        data: <?php echo json_encode($improvementData); ?>
       }
     ]
   });
