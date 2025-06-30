@@ -1098,6 +1098,7 @@ echo '<thead>
       <th>Class - Section</th>
       <th>May Avg Absent</th>
       <th>June Avg Absent</th>
+      <th>Difference</th>
       <th>Improvement (%)</th>
     </tr>
   </thead>';
@@ -1114,6 +1115,7 @@ foreach ($categories as $index => $classSection) {
   echo '<tr>';
   echo '<td>' . htmlspecialchars($classSection) . '</td>';
   echo '<td>' . number_format($may, 2) . '</td>';
+  echo '<td>' . number_format($may - $june, 2) . '</td>';
   echo '<td>' . number_format($june, 2) . '</td>';
   echo '<td style="color:' . $color . ';">' . $improvement . '%</td>';
   echo '</tr>';
