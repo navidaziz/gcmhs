@@ -1091,7 +1091,38 @@ foreach ($data as $classSection => $months) {
     }]
   });
 </script>
+<?php
+echo '<table border="1" cellpadding="5" cellspacing="0">';
+echo '<thead>
+    <tr>
+      <th>Class - Section</th>
+      <th>May Avg Absent</th>
+      <th>June Avg Absent</th>
+      <th>Improvement (%)</th>
+    </tr>
+  </thead>';
+echo '<tbody>';
 
+foreach ($categories as $index => $classSection) {
+  $may = $mayData[$index];
+  $june = $juneData[$index];
+  $improvement = $improvementData[$index];
+
+  // Optional: Add color to improvement column (green for improvement, red for decline)
+  $color = ($improvement >= 0) ? 'green' : 'red';
+
+  echo '<tr>';
+  echo '<td>' . htmlspecialchars($classSection) . '</td>';
+  echo '<td>' . number_format($may, 2) . '</td>';
+  echo '<td>' . number_format($june, 2) . '</td>';
+  echo '<td style="color:' . $color . ';">' . $improvement . '%</td>';
+  echo '</tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+
+?>
 
 
 <script>
