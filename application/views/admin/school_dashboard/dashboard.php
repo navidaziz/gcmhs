@@ -1115,8 +1115,8 @@ foreach ($categories as $index => $classSection) {
   echo '<tr>';
   echo '<td>' . htmlspecialchars($classSection) . '</td>';
   echo '<td>' . number_format($may, 2) . '</td>';
-  echo '<td>' . number_format($may - $june, 2) . '</td>';
   echo '<td>' . number_format($june, 2) . '</td>';
+  echo '<td>' . number_format($may - $june, 2) . '</td>';
   echo '<td style="color:' . $color . ';">' . $improvement . '%</td>';
   echo '</tr>';
 }
