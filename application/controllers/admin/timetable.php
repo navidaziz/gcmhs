@@ -411,7 +411,7 @@ class Timetable extends Admin_Controller
 		$period_id  = (int) $this->input->post('period_id');
 
 
-		$query = "SELECT * FROM `periods` ORDER BY `periods`.`p_order` ASC WHERE `period_id`='$period_id'";
+		$query = "SELECT * FROM `periods`  WHERE `period_id`='$period_id' ORDER BY `periods`.`p_order` ASC";
 
 		$result = $this->db->query($query);
 		$period = $result->result()[0];

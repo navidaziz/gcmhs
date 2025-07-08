@@ -983,7 +983,6 @@ $improvementData = array();
 foreach ($data as $classSection => $months) {
   $may = isset($months['May']) ? $months['May'] : 0;
   $june = isset($months['June']) ? $months['June'] : 0;
-
   $categories[] = $classSection;
   $mayData[] = $may;
   $juneData[] = $june;
