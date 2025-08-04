@@ -161,7 +161,7 @@
         </div>
         <div class="col-lg-6">
           <div class="well" style="margin-top:20px; padding:15px;">
-            <h5>Today (<?php date("d M, Y") ?>) Attendance Summary (Percentage)</h5>
+            <h5>Today <strong>(<?php echo date("d M, Y") ?>)</strong> Attendance Summary (Percentage)</h5>
             <div class="row">
               <div class="col-xs-2 text-center border-right">
                 <div class="text-success" style="font-size:18px; font-weight:bold;"><?php echo  round(($today_attendance_summary->present / $today_attendance_summary->total) * 100, 2) ?>%</div>
