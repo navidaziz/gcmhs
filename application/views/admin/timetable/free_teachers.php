@@ -43,7 +43,7 @@
                     if ($period->period_id != 7) {  ?>
 
                       <td>
-                        <ol>
+                        <ol style="padding: 10px;">
                           <?php $query = "SELECT *, (SELECT SUM(`class_subjects`.`total_class_week`)  
                                                             FROM `class_section_subject_teachers`, `class_subjects`
                                                              WHERE `class_subjects`.`class_subject_id` = `class_section_subject_teachers`.`class_subject_id` 
