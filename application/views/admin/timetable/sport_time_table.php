@@ -63,6 +63,30 @@
 
                                   <?php echo $teacher_subject->teacher_name ?> <br />
                                   <strong><?php echo $teacher_subject->short_title ?></strong><br />
+                                  <small>
+                                    <?php
+                                    $days[] = array();
+                                    if ($teacher_subject->mon) {
+                                      $days[] = 'Mon';
+                                    } ?>
+                                    <?php if ($teacher_subject->tue) {
+                                      $days[] = 'Tue';
+                                    } ?>
+                                    <?php if ($teacher_subject->wed) {
+                                      $days[] = 'Wed';
+                                    } ?>
+                                    <?php if ($teacher_subject->thu) {
+                                      $days[] = 'Thu';
+                                    } ?>
+                                    <?php if ($teacher_subject->fri) {
+                                      $days[] = 'Fri';
+                                    } ?>
+                                    <?php if ($teacher_subject->sat) {
+                                      $days[] = 'Sat';
+                                    }
+                                    echo implode(", ", $days);
+                                    $days = array(); // Reset the days array for the next iteration
+                                    ?></small>
 
                                 <?php } ?>
 
