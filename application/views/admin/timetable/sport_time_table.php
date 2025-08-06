@@ -55,7 +55,7 @@
                                             WHERE period_id='" . $period->period_id . "'
                                             AND `class_id` = '" . $class->class_id . "' 
                                             AND `section_id` = '" . $section->section_id . "'
-                                            AND short_title IN('PT', 'Sport')";
+                                            AND short_title IN('PT / Sport', 'Sport')";
                               $teacher_subjects = $this->db->query($query)->result();
                               if ($teacher_subjects) { ?>
 
