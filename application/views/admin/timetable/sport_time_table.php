@@ -65,7 +65,7 @@
                                   <strong><?php echo $teacher_subject->short_title ?></strong><br />
                                   <small>
                                     <?php
-                                    $days[] = array();
+                                    $days = array();
                                     if ($teacher_subject->mon) {
                                       $days[] = 'Mon';
                                     } ?>
