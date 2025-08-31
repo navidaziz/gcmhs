@@ -41,78 +41,111 @@
 
 
 <?php
-$query = "SELECT 
-            sub.subject_title,
-            sub.short_title,
-            exr.obtain_mark,
-            exr.total_marks,
-            exr.percentage,
-            CASE 
-                WHEN exr.percentage >= 80 THEN 'A+'
-                WHEN exr.percentage >= 70 THEN 'A'
-                WHEN exr.percentage >= 60 THEN 'B'
-                WHEN exr.percentage >= 50 THEN 'C'
-                WHEN exr.percentage >= 40 THEN 'D'
-                ELSE 'F'
-            END AS grade
-        FROM students_exams_subjects_marks AS exr 
-        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-        INNER JOIN classes AS c ON c.class_id = exr.class_id 
-        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-        WHERE exr.student_id = ? AND exr.exam_id = ?;";
+// Example data from your query
+$student_name = "Ali Khan";
+$class = "6th";
+$section = "B";
+$exam = "Mid Term 2025";
 
-$results = $this->db->query($query, [$student_id, $exam_id])->result();
+$subjects = array(
+    array("subject" => "Math", "obtain" => 65, "total" => 100),
+    array("subject" => "English", "obtain" => 45, "total" => 100),
+    array("subject" => "Science", "obtain" => 75, "total" => 100),
+    array("subject" => "Urdu", "obtain" => 55, "total" => 100),
+    array("subject" => "Computer", "obtain" => 85, "total" => 100),
+);
 
-$totalMarks = 0;
-$totalObtained = 0;
-$remarks = [];
-$goodSubjects = [];
-$weakSubjects = [];
+// Helper function for grade
+function get_grade($percentage)
+{
+    if ($percentage >= 80) return "A+";
+    elseif ($percentage >= 70) return "A";
+    elseif ($percentage >= 60) return "B";
+    elseif ($percentage >= 50) return "C";
+    elseif ($percentage >= 40) return "D";
+    else return "F";
+}
 
-foreach ($results as $row) {
-    $totalMarks += $row->total_marks;
-    $totalObtained += $row->obtain_mark;
+// Table
+$total_obtained = 0;
+$total_marks = 0;
 
-    if ($row->grade == 'A+' || $row->grade == 'A') {
-        $goodSubjects[] = $row->subject_title;
-    } elseif ($row->grade == 'D' || $row->grade == 'F') {
-        $weakSubjects[] = $row->subject_title;
+echo "<h3>Student Report Card</h3>";
+echo "<p><strong>Name:</strong> $student_name<br>";
+echo "<strong>Class:</strong> $class<br>";
+echo "<strong>Section:</strong> $section<br>";
+echo "<strong>Exam:</strong> $exam</p>";
+
+echo "<table border='1' cellpadding='6' cellspacing='0'>
+        <tr>
+            <th>Subject</th>
+            <th>Obtained Marks</th>
+            <th>Total Marks</th>
+            <th>Percentage</th>
+            <th>Grade</th>
+        </tr>";
+
+foreach ($subjects as $s) {
+    $percentage = round(($s["obtain"] / $s["total"]) * 100, 2);
+    $grade = get_grade($percentage);
+
+    echo "<tr>
+            <td>{$s['subject']}</td>
+            <td>{$s['obtain']}</td>
+            <td>{$s['total']}</td>
+            <td>{$percentage}%</td>
+            <td>{$grade}</td>
+          </tr>";
+
+    $total_obtained += $s["obtain"];
+    $total_marks += $s["total"];
+}
+
+$overall_percentage = round(($total_obtained / $total_marks) * 100, 2);
+$overall_grade = get_grade($overall_percentage);
+
+echo "<tr style='font-weight:bold; background:#f2f2f2'>
+        <td>Total</td>
+        <td>$total_obtained</td>
+        <td>$total_marks</td>
+        <td>$overall_percentage%</td>
+        <td>$overall_grade</td>
+      </tr>";
+echo "</table>";
+
+// Performance Analysis
+$strong = array();
+$weak = array();
+
+foreach ($subjects as $s) {
+    $percentage = ($s["obtain"] / $s["total"]) * 100;
+    if ($percentage >= 70) {
+        $strong[] = $s["subject"];
+    } elseif ($percentage < 50) {
+        $weak[] = $s["subject"];
     }
 }
 
-$overallPercentage = ($totalMarks > 0) ? round(($totalObtained / $totalMarks) * 100, 2) : 0;
+echo "<h4>Performance Analysis</h4>";
+echo "<p>$student_name showed excellent performance in <strong>" . implode(", ", $strong) . "</strong>.</p>";
 
-if ($overallPercentage >= 80) {
-    $overallGrade = "Excellent";
-    $remarks[] = "The student has shown outstanding performance overall.";
-} elseif ($overallPercentage >= 70) {
-    $overallGrade = "Very Good";
-    $remarks[] = "The student has performed very well with minor areas to improve.";
-} elseif ($overallPercentage >= 60) {
-    $overallGrade = "Good";
-    $remarks[] = "The student has shown good performance but needs to focus more on weak areas.";
-} elseif ($overallPercentage >= 50) {
-    $overallGrade = "Fair";
-    $remarks[] = "The student has passed but should work harder to improve.";
+if (!empty($weak)) {
+    echo "<p>However, the student needs improvement in <strong>" . implode(", ", $weak) . "</strong>.</p>";
 } else {
-    $overallGrade = "Needs Improvement";
-    $remarks[] = "The student needs significant improvement.";
+    echo "<p>No weak subjects identified. Overall performance is consistent.</p>";
 }
 
-// Subject-wise analysis
-if (!empty($goodSubjects)) {
-    $remarks[] = "Strong subjects include: " . implode(", ", $goodSubjects) . ".";
+echo "<p><strong>Final Remarks:</strong> Based on the overall grade <strong>$overall_grade</strong> ($overall_percentage%), the student ";
+if ($overall_grade == "A+" || $overall_grade == "A") {
+    echo "is performing excellently. Keep up the great work!";
+} elseif ($overall_grade == "B") {
+    echo "is doing well but can push for higher achievement.";
+} elseif ($overall_grade == "C") {
+    echo "has shown average performance and needs more focus.";
+} elseif ($overall_grade == "D") {
+    echo "is struggling and should dedicate extra time to studies.";
+} else {
+    echo "needs serious improvement and consistent effort.";
 }
-if (!empty($weakSubjects)) {
-    $remarks[] = "Needs improvement in: " . implode(", ", $weakSubjects) . ".";
-}
-
-$finalRemarks = implode(" ", $remarks);
-
-// Display Report
-echo "<h3>Student Performance Report</h3>";
-echo "<p><strong>Overall Percentage:</strong> {$overallPercentage}%</p>";
-echo "<p><strong>Overall Grade:</strong> {$overallGrade}</p>";
-echo "<p><strong>Remarks:</strong> {$finalRemarks}</p>";
+echo "</p>";
 ?>
