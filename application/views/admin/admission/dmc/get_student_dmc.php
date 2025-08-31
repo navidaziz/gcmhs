@@ -41,7 +41,6 @@
 
 
 <?php
-
 $query = "SELECT 
             sub.subject_title,
             sub.short_title,
@@ -49,6 +48,7 @@ $query = "SELECT
             exr.total_marks,
             exr.percentage,
             CASE 
+                WHEN exr.obtain_mark = 'A' THEN 'Absent'
                 WHEN exr.percentage >= 80 THEN 'A+'
                 WHEN exr.percentage >= 70 THEN 'A'
                 WHEN exr.percentage >= 60 THEN 'B'
@@ -69,6 +69,7 @@ $total_obtained = 0;
 $total_marks = 0;
 $weak_subjects = [];
 $strong_subjects = [];
+$absent_subjects = [];
 
 ?>
 
@@ -87,22 +88,35 @@ $strong_subjects = [];
         <?php foreach ($result as $row): ?>
             <tr>
                 <td><?php echo $row->subject_title; ?></td>
-                <td><?php echo $row->obtain_mark; ?></td>
+                <td>
+                    <?php
+                    if ($row->obtain_mark === 'A') {
+                        echo "<span style='color:red;font-weight:bold;'>Absent</span>";
+                        $absent_subjects[] = $row->subject_title;
+                    } else {
+                        echo $row->obtain_mark;
+                    }
+                    ?>
+                </td>
                 <td><?php echo $row->total_marks; ?></td>
-                <td><?php echo $row->percentage . '%'; ?></td>
+                <td>
+                    <?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?>
+                </td>
                 <td><?php echo $row->grade; ?></td>
             </tr>
 
             <?php
-            // accumulate totals
-            $total_obtained += $row->obtain_mark;
-            $total_marks += $row->total_marks;
+            // accumulate totals only if not absent
+            if ($row->obtain_mark !== 'A') {
+                $total_obtained += $row->obtain_mark;
+                $total_marks += $row->total_marks;
 
-            // classify subjects
-            if ($row->percentage < 50) {
-                $weak_subjects[] = $row->subject_title;
-            } elseif ($row->percentage >= 70) {
-                $strong_subjects[] = $row->subject_title;
+                // classify subjects
+                if ($row->percentage < 50) {
+                    $weak_subjects[] = $row->subject_title;
+                } elseif ($row->percentage >= 70) {
+                    $strong_subjects[] = $row->subject_title;
+                }
             }
             ?>
         <?php endforeach; ?>
@@ -130,24 +144,26 @@ elseif ($overall_percentage >= 60) $overall_grade = 'B';
 elseif ($overall_percentage >= 50) $overall_grade = 'C';
 elseif ($overall_percentage >= 40) $overall_grade = 'D';
 else $overall_grade = 'F';
+
+// Build English remarks
+$remarks = "The student achieved an overall percentage of <b>{$overall_percentage}%</b>, securing an overall grade of <b>{$overall_grade}</b>. ";
+
+if (!empty($strong_subjects)) {
+    $remarks .= "Strong performance was observed in <b>" . implode(", ", $strong_subjects) . "</b>, showing good understanding and consistency in these areas. ";
+}
+
+if (!empty($weak_subjects)) {
+    $remarks .= "However, there is a need for improvement in <b>" . implode(", ", $weak_subjects) . "</b>, where the performance was below expectations. Extra effort and practice are recommended. ";
+}
+
+if (!empty($absent_subjects)) {
+    $remarks .= "The student was absent in <b>" . implode(", ", $absent_subjects) . "</b>, which negatively impacted the overall performance. Attendance in all exams is strongly advised. ";
+}
+
+if (empty($weak_subjects) && empty($absent_subjects)) {
+    $remarks .= "Overall, the student has performed well in all subjects without any major weaknesses.";
+}
 ?>
 
 <h3>Performance Analysis</h3>
-<p>
-    The student has secured an overall percentage of <b><?php echo $overall_percentage; ?>%</b>
-    with an overall grade of <b><?php echo $overall_grade; ?></b>.
-</p>
-
-<?php if (!empty($strong_subjects)): ?>
-    <p><b>Strong Subjects:</b> <?php echo implode(', ', $strong_subjects); ?>.
-        The student has shown excellent performance in these subjects.</p>
-<?php endif; ?>
-
-<?php if (!empty($weak_subjects)): ?>
-    <p><b>Subjects Needing Improvement:</b> <?php echo implode(', ', $weak_subjects); ?>.
-        The student should focus more on these subjects to improve their overall performance.</p>
-<?php endif; ?>
-
-<?php if (empty($weak_subjects)): ?>
-    <p>The student has performed well in all subjects and has no major weak areas.</p>
-<?php endif; ?>
+<p><?php echo $remarks; ?></p>
