@@ -634,11 +634,45 @@ $section_id = $students[0]->section_id;
         </div>
 
         <div class="col-md-8">
-            <h3 class="title">Academic Summary</h3>
+            <h3 class="title">Academic History</h3>
+            <?php
+            $query = "SELECT *, e.year,e.term, e.exam_data  FROM `student_results` as sr, exams as e 
+                  WHERE sr.exam_id = e.exam_id AND `student_id` = '" . $students[0]->student_id . "'";
+            $student_acadmics = $this->db->query($query)->result();
+            ?>
 
+            <table class="tab le table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Exams </td>
+                        <td>Class</td>
+                        <td>Section</td>
+                        <td>Marks</td>
+                        <td>Percentage</td>
+                        <td>Pass/Fail</td>
+                        <td>Grade</td>
+                        <td>Division</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($student_acadmics as $student_acadmic) : ?>
+                        <tr>
+                            <td><?php echo $student_acadmic->year; ?>- <?php echo $student_acadmic->term; ?></td>
+                            <td><?php echo $student_acadmic->Class_title; ?></td>
+                            <td><?php echo $student_acadmic->section_title; ?></td>
+                            <td><?php echo $student_acadmic->obtain_marks; ?> / <?php echo $student_acadmic->total_marks; ?></td>
+                            <td><?php echo $student_acadmic->percentage; ?></td>
+                            <td><?php echo $student_acadmic->pass_fail_status; ?></td>
+                            <td><?php echo $student_acadmic->Grade; ?></td>
+                            <td><?php echo $student_acadmic->Division; ?></td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
             <?php
-            $query = "SELECT exr.student_id, ex.year, ex.exam_data, ex.term, c.class_title AS class, 
+            $query = "SELECT exr.student_id, ex.year, ex.exam_data, c.class_title AS class, 
             sec.section_title AS section, 
             SUM(exr.obtain_mark) as obtain_mark, 
             SUM(exr.total_marks) as total_marks, 
@@ -658,7 +692,6 @@ $section_id = $students[0]->section_id;
                         <tr>
                             <th>Year</th>
                             <th>Exam</th>
-                            <th>Date</th>
                             <th>Class</th>
                             <th>Section</th>
                             <th>Obtained Marks</th>
@@ -670,13 +703,12 @@ $section_id = $students[0]->section_id;
                         <?php foreach ($student_exam_records as $record) { ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($record->year); ?></td>
-                                <td><?php echo htmlspecialchars($record->term); ?></td>
                                 <td><?php echo date("M Y", strtotime($record->exam_data)); ?></td>
                                 <td><?php echo htmlspecialchars($record->class); ?></td>
                                 <td><?php echo htmlspecialchars($record->section); ?></td>
-                                <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
-                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></td>
-                                <th style="text-align: center;"><?php echo (($record->obtain_mark * 100) / $record->total_marks) . "%"; ?></td>
+                                <td><?php echo htmlspecialchars($record->obtain_mark); ?></td>
+                                <td><?php echo htmlspecialchars($record->total_marks); ?></td>
+                                <td><?php echo (($record->obtain_mark * 100) / $record->total_marks) . "%"; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
