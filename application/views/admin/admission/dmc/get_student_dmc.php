@@ -41,104 +41,78 @@
 
 
 <?php
-// Query with grade calculation
-$query = "
-    SELECT 
-        sub.subject_title,
-        sub.short_title,
-        exr.obtain_mark,
-        exr.total_marks, 
-        exr.percentage,
-        CASE
-            WHEN exr.percentage >= 80 THEN 'A+'
-            WHEN exr.percentage >= 70 THEN 'A'
-            WHEN exr.percentage >= 60 THEN 'B'
-            WHEN exr.percentage >= 50 THEN 'C'
-            WHEN exr.percentage >= 40 THEN 'D'
-            ELSE 'F'
-        END AS grade
-    FROM students_exams_subjects_marks AS exr 
-    INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-    INNER JOIN classes AS c ON c.class_id = exr.class_id 
-    INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-    INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-    WHERE exr.student_id = ?
-      AND exr.exam_id = ? ;
-";
+$query = "SELECT 
+            sub.subject_title,
+            sub.short_title,
+            exr.obtain_mark,
+            exr.total_marks,
+            exr.percentage,
+            CASE 
+                WHEN exr.percentage >= 80 THEN 'A+'
+                WHEN exr.percentage >= 70 THEN 'A'
+                WHEN exr.percentage >= 60 THEN 'B'
+                WHEN exr.percentage >= 50 THEN 'C'
+                WHEN exr.percentage >= 40 THEN 'D'
+                ELSE 'F'
+            END AS grade
+        FROM students_exams_subjects_marks AS exr 
+        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+        INNER JOIN classes AS c ON c.class_id = exr.class_id 
+        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+        WHERE exr.student_id = ? AND exr.exam_id = ?;";
 
-$student_subjects_results = $this->db->query($query, array($student_id, $exam_id))->result();
+$results = $this->db->query($query, [$student_id, $exam_id])->result();
 
-// Initialize totals
-$total_obtain   = 0;
-$total_marks    = 0;
-$total_percent  = 0;
-$count_subjects = 0;
+$totalMarks = 0;
+$totalObtained = 0;
+$remarks = [];
+$goodSubjects = [];
+$weakSubjects = [];
+
+foreach ($results as $row) {
+    $totalMarks += $row->total_marks;
+    $totalObtained += $row->obtain_mark;
+
+    if ($row->grade == 'A+' || $row->grade == 'A') {
+        $goodSubjects[] = $row->subject_title;
+    } elseif ($row->grade == 'D' || $row->grade == 'F') {
+        $weakSubjects[] = $row->subject_title;
+    }
+}
+
+$overallPercentage = ($totalMarks > 0) ? round(($totalObtained / $totalMarks) * 100, 2) : 0;
+
+if ($overallPercentage >= 80) {
+    $overallGrade = "Excellent";
+    $remarks[] = "The student has shown outstanding performance overall.";
+} elseif ($overallPercentage >= 70) {
+    $overallGrade = "Very Good";
+    $remarks[] = "The student has performed very well with minor areas to improve.";
+} elseif ($overallPercentage >= 60) {
+    $overallGrade = "Good";
+    $remarks[] = "The student has shown good performance but needs to focus more on weak areas.";
+} elseif ($overallPercentage >= 50) {
+    $overallGrade = "Fair";
+    $remarks[] = "The student has passed but should work harder to improve.";
+} else {
+    $overallGrade = "Needs Improvement";
+    $remarks[] = "The student needs significant improvement.";
+}
+
+// Subject-wise analysis
+if (!empty($goodSubjects)) {
+    $remarks[] = "Strong subjects include: " . implode(", ", $goodSubjects) . ".";
+}
+if (!empty($weakSubjects)) {
+    $remarks[] = "Needs improvement in: " . implode(", ", $weakSubjects) . ".";
+}
+
+$finalRemarks = implode(" ", $remarks);
+
+// Display Report
+echo "<h3>Student Performance Report</h3>";
+echo "<p><strong>Overall Percentage:</strong> {$overallPercentage}%</p>";
+echo "<p><strong>Overall Grade:</strong> {$overallGrade}</p>";
+echo "<p><strong>Remarks:</strong> {$finalRemarks}</p>";
 ?>
-
-<table border="1" cellpadding="6" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>Subject</th>
-            <th>Short Title</th>
-            <th>Obtained Marks</th>
-            <th>Total Marks</th>
-            <th>Percentage %</th>
-            <th>Grade</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($student_subjects_results as $row): ?>
-            <tr>
-                <td><?php echo $row->subject_title; ?></td>
-                <td><?php echo $row->short_title; ?></td>
-                <td><?php echo $row->obtain_mark; ?></td>
-                <td><?php echo $row->total_marks; ?></td>
-                <td><?php echo $row->percentage; ?>%</td>
-                <td><?php echo $row->grade; ?></td>
-            </tr>
-            <?php
-            $total_obtain   += $row->obtain_mark;
-            $total_marks    += $row->total_marks;
-            $total_percent  += $row->percentage;
-            $count_subjects++;
-            ?>
-        <?php endforeach; ?>
-
-        <?php
-        // Calculate overall percentage
-        $overall_percentage = $count_subjects > 0 ? round($total_percent / $count_subjects, 2) : 0;
-
-        // Determine final grade
-        if ($overall_percentage >= 80) {
-            $final_grade = "A+";
-            $remarks = "Excellent performance!";
-        } elseif ($overall_percentage >= 70) {
-            $final_grade = "A";
-            $remarks = "Very good, keep it up!";
-        } elseif ($overall_percentage >= 60) {
-            $final_grade = "B";
-            $remarks = "Good, but can improve further.";
-        } elseif ($overall_percentage >= 50) {
-            $final_grade = "C";
-            $remarks = "Satisfactory, needs improvement.";
-        } elseif ($overall_percentage >= 40) {
-            $final_grade = "D";
-            $remarks = "Below average, work harder.";
-        } else {
-            $final_grade = "F";
-            $remarks = "Poor performance, needs serious attention.";
-        }
-        ?>
-
-        <!-- Final row -->
-        <tr style="font-weight:bold;">
-            <td colspan="2" align="right">Total:</td>
-            <td><?php echo $total_obtain; ?></td>
-            <td><?php echo $total_marks; ?></td>
-            <td><?php echo $overall_percentage; ?>%</td>
-            <td><?php echo $final_grade; ?></td>
-        </tr>
-    </tbody>
-</table>
-
-<p><strong>Remarks:</strong> <?php echo $remarks; ?></p>
