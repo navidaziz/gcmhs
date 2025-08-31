@@ -55,16 +55,16 @@ $subjects = array(
     array("subject" => "Computer", "obtain" => 85, "total" => 100),
 );
 
-// Helper function for grade
-function get_grade($percentage)
-{
-    if ($percentage >= 80) return "A+";
-    elseif ($percentage >= 70) return "A";
-    elseif ($percentage >= 60) return "B";
-    elseif ($percentage >= 50) return "C";
-    elseif ($percentage >= 40) return "D";
-    else return "F";
-}
+// // Helper function for grade
+// function get_grade($percentage)
+// {
+//     if ($percentage >= 80) return "A+";
+//     elseif ($percentage >= 70) return "A";
+//     elseif ($percentage >= 60) return "B";
+//     elseif ($percentage >= 50) return "C";
+//     elseif ($percentage >= 40) return "D";
+//     else return "F";
+// }
 
 // Table
 $total_obtained = 0;
