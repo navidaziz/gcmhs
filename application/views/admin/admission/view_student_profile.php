@@ -671,6 +671,48 @@ $section_id = $students[0]->section_id;
                 </tbody>
             </table>
 
+            <?php
+            $query = "SELECT exr.student_id, ex.year, ex.exam_data, c.class_title AS class, 
+            sec.section_title AS section, exr.obtain_mark, exr.total_marks, exr.passing_marks, exr.percentage 
+            FROM students_exams_subjects_marks AS exr 
+            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+            INNER JOIN classes AS c ON c.class_id = exr.class_id 
+            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+            WHERE `student_id` = '" . $students[0]->student_id . "'";
+            $student_exam_records = $this->db->query($query)->result();
+            ?>
+            <?php if (!empty($student_exam_records)) { ?>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Exam</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Obtained Marks</th>
+                            <th>Total Marks</th>
+                            <th>Passing Marks</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($student_exam_records as $record) { ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($record->year); ?></td>
+                                <td><?php echo htmlspecialchars($record->exam_data); ?></td>
+                                <td><?php echo htmlspecialchars($record->class); ?></td>
+                                <td><?php echo htmlspecialchars($record->section); ?></td>
+                                <td><?php echo htmlspecialchars($record->obtain_mark); ?></td>
+                                <td><?php echo htmlspecialchars($record->total_marks); ?></td>
+                                <td><?php echo htmlspecialchars($record->passing_marks); ?></td>
+                                <td><?php echo htmlspecialchars($record->percentage); ?>%</td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>No exam records found for this student.</p>
+            <?php } ?>
 
         </div>
         <style>

@@ -719,7 +719,7 @@ class Admission extends Admin_Controller
 		*/
 
 
-
+ 
 		$this->data["title"] = "Student Detail";
 		$this->data["view"] = ADMIN_DIR . "admission/view_student_profile";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
