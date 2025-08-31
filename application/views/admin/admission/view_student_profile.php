@@ -388,8 +388,7 @@ $section_id = $students[0]->section_id;
             <!-- /BREADCRUMBS -->
             <div class="col-md-4">
                 <div class="clearfix">
-                    <h6 class="content-title pull-left"> <?php echo $students[0]->student_name . ""; ?> S/O <?php echo strtoupper($students[0]->student_father_name); ?></li>
-                    </h6>
+                    <h6 class="content-title pull-left"> <?php echo strtoupper($students[0]->student_name) . ""; ?> </h6>
                 </div>
                 <!-- <div class="description" id="message"></div> -->
             </div>
