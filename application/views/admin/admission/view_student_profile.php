@@ -584,82 +584,83 @@ $section_id = $students[0]->section_id;
         </div>
     </div>
     <div class="col-md-9" style="border: 1px solid yellow;">
-        <div class="col-md-4">
-            <h3 class="title">History</h3>
-            <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
+        <div class="row" style="border: 1px solid red;">
+            <div class="col-md-4">
+                <h3 class="title">History</h3>
+                <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
                         WHERE 
                         sh.class_id = c.class_id
                         AND sh.section_id = s.section_id
                         AND sh.session_id = se.session_id
                         AND sh.student_id = '" . $students[0]->student_id . "'";
-            $student_history_list = $this->db->query($query)->result();
-            foreach ($student_history_list as $student_history) { ?>
-                <div style="margin-bottom: 5px;">
-                    <?php if ($student_history->history_type == 'Promoted') { ?>
-                        <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
-                        <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
-                        <small style="margin-left: 5px; margin-right: 5px;"> Promoted From Class <?php echo $student_history->class_title; ?> To Class
-                            <?php $query = "SELECT * FROM classes WHERE class_id > $student_history->class_id LIMIT 1";
-                            echo $this->db->query($query)->result()[0]->Class_title; ?>.
-                        </small>
-                    <?php } else { ?>
-                        <?php if ($student_history->history_type == 'Struck Off') { ?>
+                $student_history_list = $this->db->query($query)->result();
+                foreach ($student_history_list as $student_history) { ?>
+                    <div style="margin-bottom: 5px;">
+                        <?php if ($student_history->history_type == 'Promoted') { ?>
                             <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
                             <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
-                            <small style="margin-left: 5px; margin-right: 5px;">
-                                Struck Off Due to <?php echo $student_history->remarks; ?>
+                            <small style="margin-left: 5px; margin-right: 5px;"> Promoted From Class <?php echo $student_history->class_title; ?> To Class
+                                <?php $query = "SELECT * FROM classes WHERE class_id > $student_history->class_id LIMIT 1";
+                                echo $this->db->query($query)->result()[0]->Class_title; ?>.
                             </small>
                         <?php } else { ?>
-                            <?php if ($student_history->history_type == 'Withdraw') { ?>
+                            <?php if ($student_history->history_type == 'Struck Off') { ?>
                                 <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
                                 <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
                                 <small style="margin-left: 5px; margin-right: 5px;">
-                                    <?php $query = "SELECT *, user_title FROM student_leaving_certificates as slc, users  as u
+                                    Struck Off Due to <?php echo $student_history->remarks; ?>
+                                </small>
+                            <?php } else { ?>
+                                <?php if ($student_history->history_type == 'Withdraw') { ?>
+                                    <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                                    <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                    <small style="margin-left: 5px; margin-right: 5px;">
+                                        <?php $query = "SELECT *, user_title FROM student_leaving_certificates as slc, users  as u
                                                     WHERE slc.created_by = u.user_id
                                                     AND slc.student_id = '" . $students[0]->student_id . "'
                                                     AND date(slc.created_date) = '" . date("Y-m-d", strtotime($student_history->create_date)) . "'";
-                                    $slc = $this->db->query($query)->result()[0];
+                                        $slc = $this->db->query($query)->result()[0];
 
-                                    ?>
-                                    Got School leaving Certificate.<br />
-                                    School Leaving Date: <?php echo date("d M, Y", strtotime($slc->school_leaving_date)); ?> <br />
-                                    SLC issue Date: <?php echo date("d M, Y", strtotime($slc->slc_issue_date)); ?> <br />
-                                    File Ref. No: <?php echo $slc->slc_file_no; ?> Certificate Ref. No: <?php echo $slc->slc_certificate_no; ?><br />
-                                    School leaving Reason: <i><?php echo $slc->leaving_reason; ?></i><br />
-                                    User: <?php echo $slc->user_title; ?>
-                                </small>
-                            <?php } else { ?>
-                                <span class="pull-left"><?php echo $student_history->history_type; ?></span>
-                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
-                                <small><?php echo $student_history->remarks; ?></small>
+                                        ?>
+                                        Got School leaving Certificate.<br />
+                                        School Leaving Date: <?php echo date("d M, Y", strtotime($slc->school_leaving_date)); ?> <br />
+                                        SLC issue Date: <?php echo date("d M, Y", strtotime($slc->slc_issue_date)); ?> <br />
+                                        File Ref. No: <?php echo $slc->slc_file_no; ?> Certificate Ref. No: <?php echo $slc->slc_certificate_no; ?><br />
+                                        School leaving Reason: <i><?php echo $slc->leaving_reason; ?></i><br />
+                                        User: <?php echo $slc->user_title; ?>
+                                    </small>
+                                <?php } else { ?>
+                                    <span class="pull-left"><?php echo $student_history->history_type; ?></span>
+                                    <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                    <small><?php echo $student_history->remarks; ?></small>
+                                <?php } ?>
                             <?php } ?>
                         <?php } ?>
-                    <?php } ?>
-                </div>
-            <?php  } ?>
+                    </div>
+                <?php  } ?>
 
-        </div>
+            </div>
 
-        <div class="col-md-8">
-            <h3 class="title">Academic Summary</h3>
-            <style>
-                .table_medium>tbody>tr>td,
-                .table_medium>tbody>tr>th,
-                .table_medium>tfoot>tr>td,
-                .table_medium>tfoot>tr>th,
-                .table_medium>thead>tr>td,
-                .table_medium>thead>tr>th {
-                    padding: 2px;
-                    line-height: 1.42857143;
-                    vertical-align: top;
-                    border-top: 1px solid #ddd;
-                    font-size: 12px;
-                    border: 0.1px solid gray !important;
-                }
-            </style>
+            <div class="col-md-8">
+                <h3 class="title">Academic Summary</h3>
+                <style>
+                    .table_medium>tbody>tr>td,
+                    .table_medium>tbody>tr>th,
+                    .table_medium>tfoot>tr>td,
+                    .table_medium>tfoot>tr>th,
+                    .table_medium>thead>tr>td,
+                    .table_medium>thead>tr>th {
+                        padding: 2px;
+                        line-height: 1.42857143;
+                        vertical-align: top;
+                        border-top: 1px solid #ddd;
+                        font-size: 12px;
+                        border: 0.1px solid gray !important;
+                    }
+                </style>
 
-            <?php
-            $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class, 
+                <?php
+                $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class, 
             sec.section_title AS section, 
             SUM(exr.obtain_mark) as obtain_mark, 
             SUM(exr.total_marks) as total_marks, 
@@ -671,67 +672,152 @@ $section_id = $students[0]->section_id;
             INNER JOIN sections AS sec ON sec.section_id = exr.section_id
             WHERE `student_id` = '" . $students[0]->student_id . "'
             GROUP BY exr.exam_id ";
-            $student_exam_records = $this->db->query($query)->result();
-            ?>
-            <?php if (!empty($student_exam_records)) { ?>
-                <table class="table table-bordered table-striped table_medium">
+                $student_exam_records = $this->db->query($query)->result();
+                ?>
+                <?php if (!empty($student_exam_records)) { ?>
+                    <table class="table table-bordered table-striped table_medium">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Exam</th>
+                                <th>Date</th>
+                                <th>Class</th>
+                                <th>Section</th>
+                                <th>Obtained Marks</th>
+                                <th>Total Marks</th>
+                                <th>Per.</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($student_exam_records as $record) { ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($record->year); ?></td>
+                                    <td><?php echo htmlspecialchars($record->term); ?></td>
+                                    <td><?php echo date("M-y", strtotime($record->exam_data)); ?></td>
+                                    <td><?php echo htmlspecialchars($record->class); ?></td>
+                                    <td><?php echo htmlspecialchars($record->section); ?></td>
+                                    <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
+                                    <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
+                                    <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
+                                    <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <script>
+                        function get_student_dmc(student_id, exam_id) {
+                            $.ajax({
+                                    method: "POST",
+                                    url: "<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>",
+                                    data: {
+                                        student_id: student_id,
+                                        exam_id: exam_id,
+                                    },
+                                })
+                                .done(function(respose) {
+                                    $('#modal').modal('show');
+                                    $('#modal_title').html('Initiate Scheme');
+                                    $('#modal_body').html(respose);
+                                });
+                        }
+                    </script>
+                <?php } else { ?>
+                    <p>No exam records found for this student.</p>
+                <?php } ?>
+                <hr /> we are here
+            </div>
+
+
+            <div class="col-md-12" style="border: 1px solid gree;">
+                <h4>Attendance History</h4>
+                <table class="table table-bordered table-striped table_small">
                     <thead>
                         <tr>
-                            <th>Year</th>
-                            <th>Exam</th>
-                            <th>Date</th>
-                            <th>Class</th>
-                            <th>Section</th>
-                            <th>Obtained Marks</th>
-                            <th>Total Marks</th>
-                            <th>Per.</th>
-                            <th></th>
+                            <th>Month / Days</th>
+                            <?php for ($day = 1; $day <= 31; $day++) { ?>
+                                <th style="width: 5 0px; text-align:center; vertical-align:middle"><?php echo $day; ?></th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($student_exam_records as $record) { ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($record->year); ?></td>
-                                <td><?php echo htmlspecialchars($record->term); ?></td>
-                                <td><?php echo date("M-y", strtotime($record->exam_data)); ?></td>
-                                <td><?php echo htmlspecialchars($record->class); ?></td>
-                                <td><?php echo htmlspecialchars($record->section); ?></td>
-                                <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
-                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
-                                <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
-                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+                        <?php
+                        $monthNames = [
+                            '01' => 'January',
+                            '02' => 'February',
+                            '03' => 'March',
+                            '04' => 'April',
+                            '05' => 'May',
+                            '06' => 'June',
+                            '07' => 'July',
+                            '08' => 'August',
+                            '09' => 'September',
+                            '10' => 'October',
+                            '11' => 'November',
+                            '12' => 'December'
+                        ];
 
+                        $currentYear = date('Y'); // This will be 2025
+
+                        foreach ($monthNames as $monthNum => $monthName) {
+                            $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
+                        ?>
+                            <tr>
+                                <th><?php echo $monthName; ?></th>
+                                <?php
+                                for ($day = 1; $day <= 31; $day++) {
+                                    if ($day > $daysInMonth) {
+                                        echo '<td></td>';
+                                        continue;
+                                    }
+
+                                    $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                              AND YEAR(`date`) = ? 
+                              AND MONTH(`date`) = ? 
+                              AND DAY(`date`) = ?";
+                                    $students_attendance = $this->db->query($query, [
+                                        $student->student_id,
+                                        $currentYear,
+                                        $monthNum,
+                                        $day
+                                    ])->row();
+                                ?>
+                                    <td style="text-align:center; 
+                                <?php
+                                    if (!empty($students_attendance)) {
+                                        // Set background color based on attendance status
+                                        if ($students_attendance->attendance == 'A') {
+                                            echo 'background-color: #D8534E;';  // Red for absent
+                                        } elseif ($students_attendance->attendance == 'P') {
+                                            if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                                echo 'background-color: #96AE5F;';  // Green for present
+                                            } elseif ($students_attendance->attendance2 == 'A') {
+                                                echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                            }
+                                        }
+                                    }
+                                ?>">
+                                        <?php
+                                        if (!empty($students_attendance)) {
+                                            echo $students_attendance->attendance;
+                                            if (!empty($students_attendance->attendance2)) {
+                                                echo " - " . htmlspecialchars($students_attendance->attendance2);
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-                <script>
-                    function get_student_dmc(student_id, exam_id) {
-                        $.ajax({
-                                method: "POST",
-                                url: "<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>",
-                                data: {
-                                    student_id: student_id,
-                                    exam_id: exam_id,
-                                },
-                            })
-                            .done(function(respose) {
-                                $('#modal').modal('show');
-                                $('#modal_title').html('Initiate Scheme');
-                                $('#modal_body').html(respose);
-                            });
+
+                <style>
+                    .disabled-day {
+                        background-color: #f5f5f5;
                     }
-                </script>
-            <?php } else { ?>
-                <p>No exam records found for this student.</p>
-            <?php } ?>
-            <hr /> we are here
-        </div>
-
-        <div class="row" style="border: 1px solid red;">
-            <div class="col-md-12" style="border: 1px solid gree;">
-                <h4>Attendance History</h4>
-
+                </style>
             </div>
         </div>
     </div>
