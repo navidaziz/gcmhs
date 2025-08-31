@@ -653,7 +653,7 @@ $section_id = $students[0]->section_id;
             $student_exam_records = $this->db->query($query)->result();
             ?>
             <?php if (!empty($student_exam_records)) { ?>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped table_small">
                     <thead>
                         <tr>
                             <th>Year</th>
