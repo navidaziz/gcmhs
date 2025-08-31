@@ -71,7 +71,7 @@ $total_passing  = 0;
             <th>Short Title</th>
             <th>Obtained Marks</th>
             <th>Total Marks</th>
-            <th>Passing Marks</th>
+            <!-- <th>Passing Marks</th> -->
             <th>Percentage</th>
         </tr>
     </thead>
