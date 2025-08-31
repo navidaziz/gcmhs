@@ -727,98 +727,98 @@ $section_id = $students[0]->section_id;
             <?php } ?>
 
         </div>
-
-
-        <div class="col-md-12">
-            <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_small">
-                <thead>
-                    <tr>
-                        <th>Month / Days</th>
-                        <?php for ($day = 1; $day <= 31; $day++) { ?>
-                            <th style="width: 5 0px; text-align:center; vertical-align:middle"><?php echo $day; ?></th>
-                        <?php } ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $monthNames = [
-                        '01' => 'January',
-                        '02' => 'February',
-                        '03' => 'March',
-                        '04' => 'April',
-                        '05' => 'May',
-                        '06' => 'June',
-                        '07' => 'July',
-                        '08' => 'August',
-                        '09' => 'September',
-                        '10' => 'October',
-                        '11' => 'November',
-                        '12' => 'December'
-                    ];
-
-                    $currentYear = date('Y'); // This will be 2025
-
-                    foreach ($monthNames as $monthNum => $monthName) {
-                        $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
-                    ?>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Attendance History</h4>
+                <table class="table table-bordered table-striped table_small">
+                    <thead>
                         <tr>
-                            <th><?php echo $monthName; ?></th>
-                            <?php
-                            for ($day = 1; $day <= 31; $day++) {
-                                if ($day > $daysInMonth) {
-                                    echo '<td></td>';
-                                    continue;
-                                }
+                            <th>Month / Days</th>
+                            <?php for ($day = 1; $day <= 31; $day++) { ?>
+                                <th style="width: 5 0px; text-align:center; vertical-align:middle"><?php echo $day; ?></th>
+                            <?php } ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $monthNames = [
+                            '01' => 'January',
+                            '02' => 'February',
+                            '03' => 'March',
+                            '04' => 'April',
+                            '05' => 'May',
+                            '06' => 'June',
+                            '07' => 'July',
+                            '08' => 'August',
+                            '09' => 'September',
+                            '10' => 'October',
+                            '11' => 'November',
+                            '12' => 'December'
+                        ];
 
-                                $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                        $currentYear = date('Y'); // This will be 2025
+
+                        foreach ($monthNames as $monthNum => $monthName) {
+                            $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
+                        ?>
+                            <tr>
+                                <th><?php echo $monthName; ?></th>
+                                <?php
+                                for ($day = 1; $day <= 31; $day++) {
+                                    if ($day > $daysInMonth) {
+                                        echo '<td></td>';
+                                        continue;
+                                    }
+
+                                    $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
                               AND YEAR(`date`) = ? 
                               AND MONTH(`date`) = ? 
                               AND DAY(`date`) = ?";
-                                $students_attendance = $this->db->query($query, [
-                                    $student->student_id,
-                                    $currentYear,
-                                    $monthNum,
-                                    $day
-                                ])->row();
-                            ?>
-                                <td style="text-align:center; 
+                                    $students_attendance = $this->db->query($query, [
+                                        $student->student_id,
+                                        $currentYear,
+                                        $monthNum,
+                                        $day
+                                    ])->row();
+                                ?>
+                                    <td style="text-align:center; 
                                 <?php
-                                if (!empty($students_attendance)) {
-                                    // Set background color based on attendance status
-                                    if ($students_attendance->attendance == 'A') {
-                                        echo 'background-color: #D8534E;';  // Red for absent
-                                    } elseif ($students_attendance->attendance == 'P') {
-                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
-                                            echo 'background-color: #96AE5F;';  // Green for present
-                                        } elseif ($students_attendance->attendance2 == 'A') {
-                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
-                                        }
-                                    }
-                                }
-                                ?>">
-                                    <?php
                                     if (!empty($students_attendance)) {
-                                        echo $students_attendance->attendance;
-                                        if (!empty($students_attendance->attendance2)) {
-                                            echo " - " . htmlspecialchars($students_attendance->attendance2);
+                                        // Set background color based on attendance status
+                                        if ($students_attendance->attendance == 'A') {
+                                            echo 'background-color: #D8534E;';  // Red for absent
+                                        } elseif ($students_attendance->attendance == 'P') {
+                                            if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                                echo 'background-color: #96AE5F;';  // Green for present
+                                            } elseif ($students_attendance->attendance2 == 'A') {
+                                                echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                            }
                                         }
                                     }
-                                    ?>
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                                ?>">
+                                        <?php
+                                        if (!empty($students_attendance)) {
+                                            echo $students_attendance->attendance;
+                                            if (!empty($students_attendance->attendance2)) {
+                                                echo " - " . htmlspecialchars($students_attendance->attendance2);
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
 
-            <style>
-                .disabled-day {
-                    background-color: #f5f5f5;
-                }
-            </style>
+                <style>
+                    .disabled-day {
+                        background-color: #f5f5f5;
+                    }
+                </style>
+            </div>
         </div>
-
     </div>
 
 
