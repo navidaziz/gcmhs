@@ -673,12 +673,17 @@ $section_id = $students[0]->section_id;
 
             <?php
             $query = "SELECT exr.student_id, ex.year, ex.exam_data, c.class_title AS class, 
-            sec.section_title AS section, exr.obtain_mark, exr.total_marks, exr.passing_marks, exr.percentage 
+            sec.section_title AS section, 
+            SUM(exr.obtain_mark) as obtain_mark, 
+            SUM(exr.total_marks) as total_marks, 
+            exr.passing_marks, 
+            exr.percentage 
             FROM students_exams_subjects_marks AS exr 
             INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
             INNER JOIN classes AS c ON c.class_id = exr.class_id 
             INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-            WHERE `student_id` = '" . $students[0]->student_id . "'";
+            WHERE `student_id` = '" . $students[0]->student_id . "'
+            GROUP BY exr.exam_id ";
             $student_exam_records = $this->db->query($query)->result();
             ?>
             <?php if (!empty($student_exam_records)) { ?>
