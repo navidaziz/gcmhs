@@ -569,7 +569,61 @@ $section_id = $students[0]->section_id;
         </div>
     </div>
     <div class="col-md-9">
+        <div class="col-md-4">
+            <h3 class="title">History</h3>
+            <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
+                        WHERE 
+                        sh.class_id = c.class_id
+                        AND sh.section_id = s.section_id
+                        AND sh.session_id = se.session_id
+                        AND sh.student_id = '" . $students[0]->student_id . "'";
+            $student_history_list = $this->db->query($query)->result();
+            foreach ($student_history_list as $student_history) { ?>
+                <div style="margin-bottom: 5px;">
+                    <?php if ($student_history->history_type == 'Promoted') { ?>
+                        <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                        <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                        <small style="margin-left: 5px; margin-right: 5px;"> Promoted From Class <?php echo $student_history->class_title; ?> To Class
+                            <?php $query = "SELECT * FROM classes WHERE class_id > $student_history->class_id LIMIT 1";
+                            echo $this->db->query($query)->result()[0]->Class_title; ?>.
+                        </small>
+                    <?php } else { ?>
+                        <?php if ($student_history->history_type == 'Struck Off') { ?>
+                            <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                            <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                            <small style="margin-left: 5px; margin-right: 5px;">
+                                Struck Off Due to <?php echo $student_history->remarks; ?>
+                            </small>
+                        <?php } else { ?>
+                            <?php if ($student_history->history_type == 'Withdraw') { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small style="margin-left: 5px; margin-right: 5px;">
+                                    <?php $query = "SELECT *, user_title FROM student_leaving_certificates as slc, users  as u
+                                                    WHERE slc.created_by = u.user_id
+                                                    AND slc.student_id = '" . $students[0]->student_id . "'
+                                                    AND date(slc.created_date) = '" . date("Y-m-d", strtotime($student_history->create_date)) . "'";
+                                    $slc = $this->db->query($query)->result()[0];
 
+                                    ?>
+                                    Got School leaving Certificate.<br />
+                                    School Leaving Date: <?php echo date("d M, Y", strtotime($slc->school_leaving_date)); ?> <br />
+                                    SLC issue Date: <?php echo date("d M, Y", strtotime($slc->slc_issue_date)); ?> <br />
+                                    File Ref. No: <?php echo $slc->slc_file_no; ?> Certificate Ref. No: <?php echo $slc->slc_certificate_no; ?><br />
+                                    School leaving Reason: <i><?php echo $slc->leaving_reason; ?></i><br />
+                                    User: <?php echo $slc->user_title; ?>
+                                </small>
+                            <?php } else { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?></span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small><?php echo $student_history->remarks; ?></small>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            <?php  } ?>
+
+        </div>
 
         <div class="col-md-8">
             <h3 class="title">Academic Summary</h3>
@@ -630,7 +684,7 @@ $section_id = $students[0]->section_id;
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
                                 <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
-                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+                                <th><a class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</a></th>
 
                             </tr>
                         <?php } ?>
