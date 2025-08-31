@@ -88,7 +88,7 @@ $total_passing  = 0;
                     <td><?php echo $row->short_title; ?></td>
                     <td><?php echo $row->obtain_mark; ?></td>
                     <td><?php echo $row->total_marks; ?></td>
-                    <td><?php echo $row->passing_marks; ?></td>
+                    <!-- <td><?php echo $row->passing_marks; ?></td> -->
                     <td><?php echo number_format($row->percentage, 2); ?>%</td>
                 </tr>
             <?php } ?>
@@ -106,7 +106,7 @@ $total_passing  = 0;
                 <th colspan="2" class="text-right">Total</th>
                 <th><?php echo $total_obtained; ?></th>
                 <th><?php echo $total_marks; ?></th>
-                <th><?php echo $total_passing; ?></th>
+                <!-- <th><?php echo $total_passing; ?></th> -->
                 <th><?php echo number_format($overall_percentage, 2); ?>%</th>
             </tr>
         </tfoot>
