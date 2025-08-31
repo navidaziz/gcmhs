@@ -412,7 +412,7 @@ $section_id = $students[0]->section_id;
 
                     <?php  } ?>
                     <?php if ($student->status != 0) { ?>
-                        <a class="btn btn-primary btn-sm" target="new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
+                        <a class="btn btn-primary btn-sm" target="_new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
                         <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
 
                         <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
