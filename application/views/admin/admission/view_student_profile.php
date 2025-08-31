@@ -696,7 +696,6 @@ $section_id = $students[0]->section_id;
                             <th>Section</th>
                             <th>Obtained Marks</th>
                             <th>Total Marks</th>
-                            <th>Passing Marks</th>
                             <th>Percentage</th>
                         </tr>
                     </thead>
@@ -704,13 +703,12 @@ $section_id = $students[0]->section_id;
                         <?php foreach ($student_exam_records as $record) { ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($record->year); ?></td>
-                                <td><?php echo htmlspecialchars($record->exam_data); ?></td>
+                                <td><?php echo date("M Y", strtotime($record->exam_data)); ?></td>
                                 <td><?php echo htmlspecialchars($record->class); ?></td>
                                 <td><?php echo htmlspecialchars($record->section); ?></td>
                                 <td><?php echo htmlspecialchars($record->obtain_mark); ?></td>
                                 <td><?php echo htmlspecialchars($record->total_marks); ?></td>
-                                <td><?php echo htmlspecialchars($record->passing_marks); ?></td>
-                                <td><?php echo htmlspecialchars($record->percentage); ?>%</td>
+                                <td><?php echo (($record->obtain_mark * 100) / $record->total_marks) . "%"; ?>%</td>
                             </tr>
                         <?php } ?>
                     </tbody>
