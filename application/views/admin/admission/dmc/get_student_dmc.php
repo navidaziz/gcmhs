@@ -148,6 +148,7 @@ elseif ($overall_percentage >= 70) $overall_grade = 'A';
 elseif ($overall_percentage >= 60) $overall_grade = 'B';
 elseif ($overall_percentage >= 50) $overall_grade = 'C';
 elseif ($overall_percentage >= 40) $overall_grade = 'D';
+elseif ($overall_percentage > 33) $overall_grade = 'D';
 else $overall_grade = 'F';
 
 // Build English remarks
