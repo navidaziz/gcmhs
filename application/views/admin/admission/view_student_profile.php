@@ -373,7 +373,7 @@ $section_id = $students[0]->section_id;
 </script>
 
 
-<div class="row">
+<div class="row" style="margin: 0px;">
     <div class="col-sm-12">
         <div class="page-header">
             <!-- STYLER -->
