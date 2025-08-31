@@ -41,74 +41,104 @@
 
 
 <?php
-$query = "SELECT 
-            sub.subject_title,
-            sub.short_title,
-            exr.obtain_mark,
-            exr.total_marks, 
-            exr.passing_marks, 
-            exr.percentage 
-          FROM students_exams_subjects_marks AS exr 
-          INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-          INNER JOIN classes AS c ON c.class_id = exr.class_id 
-          INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-          INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-          WHERE exr.student_id = ?
-          AND exr.exam_id = ?";
+// Query with grade calculation
+$query = "
+    SELECT 
+        sub.subject_title,
+        sub.short_title,
+        exr.obtain_mark,
+        exr.total_marks, 
+        exr.percentage,
+        CASE
+            WHEN exr.percentage >= 80 THEN 'A+'
+            WHEN exr.percentage >= 70 THEN 'A'
+            WHEN exr.percentage >= 60 THEN 'B'
+            WHEN exr.percentage >= 50 THEN 'C'
+            WHEN exr.percentage >= 40 THEN 'D'
+            ELSE 'F'
+        END AS grade
+    FROM students_exams_subjects_marks AS exr 
+    INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+    INNER JOIN classes AS c ON c.class_id = exr.class_id 
+    INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+    INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+    WHERE exr.student_id = ?
+      AND exr.exam_id = ? ;
+";
 
 $student_subjects_results = $this->db->query($query, array($student_id, $exam_id))->result();
 
 // Initialize totals
-$total_obtained = 0;
+$total_obtain   = 0;
 $total_marks    = 0;
-$total_passing  = 0;
+$total_percent  = 0;
+$count_subjects = 0;
 ?>
 
-<table class="table table-bordered table-striped">
+<table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
         <tr>
             <th>Subject</th>
             <th>Short Title</th>
             <th>Obtained Marks</th>
             <th>Total Marks</th>
-            <!-- <th>Passing Marks</th> -->
-            <th>Percentage</th>
+            <th>Percentage %</th>
+            <th>Grade</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($student_subjects_results)) { ?>
-            <?php foreach ($student_subjects_results as $row) {
-                // Add to totals
-                $total_obtained += $row->obtain_mark;
-                $total_marks    += $row->total_marks;
-                $total_passing  += $row->passing_marks;
+        <?php foreach ($student_subjects_results as $row): ?>
+            <tr>
+                <td><?php echo $row->subject_title; ?></td>
+                <td><?php echo $row->short_title; ?></td>
+                <td><?php echo $row->obtain_mark; ?></td>
+                <td><?php echo $row->total_marks; ?></td>
+                <td><?php echo $row->percentage; ?>%</td>
+                <td><?php echo $row->grade; ?></td>
+            </tr>
+            <?php
+            $total_obtain   += $row->obtain_mark;
+            $total_marks    += $row->total_marks;
+            $total_percent  += $row->percentage;
+            $count_subjects++;
             ?>
-                <tr>
-                    <td><?php echo $row->subject_title; ?></td>
-                    <td><?php echo $row->short_title; ?></td>
-                    <td><?php echo $row->obtain_mark; ?></td>
-                    <td><?php echo $row->total_marks; ?></td>
-                    <!-- <td><?php echo $row->passing_marks; ?></td> -->
-                    <td><?php echo number_format($row->percentage, 2); ?>%</td>
-                </tr>
-            <?php } ?>
-        <?php } else { ?>
-            <tr>
-                <td colspan="6" class="text-center">No records found.</td>
-            </tr>
-        <?php } ?>
+        <?php endforeach; ?>
+
+        <?php
+        // Calculate overall percentage
+        $overall_percentage = $count_subjects > 0 ? round($total_percent / $count_subjects, 2) : 0;
+
+        // Determine final grade
+        if ($overall_percentage >= 80) {
+            $final_grade = "A+";
+            $remarks = "Excellent performance!";
+        } elseif ($overall_percentage >= 70) {
+            $final_grade = "A";
+            $remarks = "Very good, keep it up!";
+        } elseif ($overall_percentage >= 60) {
+            $final_grade = "B";
+            $remarks = "Good, but can improve further.";
+        } elseif ($overall_percentage >= 50) {
+            $final_grade = "C";
+            $remarks = "Satisfactory, needs improvement.";
+        } elseif ($overall_percentage >= 40) {
+            $final_grade = "D";
+            $remarks = "Below average, work harder.";
+        } else {
+            $final_grade = "F";
+            $remarks = "Poor performance, needs serious attention.";
+        }
+        ?>
+
+        <!-- Final row -->
+        <tr style="font-weight:bold;">
+            <td colspan="2" align="right">Total:</td>
+            <td><?php echo $total_obtain; ?></td>
+            <td><?php echo $total_marks; ?></td>
+            <td><?php echo $overall_percentage; ?>%</td>
+            <td><?php echo $final_grade; ?></td>
+        </tr>
     </tbody>
-    <?php if (!empty($student_subjects_results)) {
-        $overall_percentage = $total_marks > 0 ? ($total_obtained / $total_marks) * 100 : 0;
-    ?>
-        <tfoot>
-            <tr>
-                <th colspan="2" class="text-right">Total</th>
-                <th><?php echo $total_obtained; ?></th>
-                <th><?php echo $total_marks; ?></th>
-                <!-- <th><?php echo $total_passing; ?></th> -->
-                <th><?php echo number_format($overall_percentage, 2); ?>%</th>
-            </tr>
-        </tfoot>
-    <?php } ?>
 </table>
+
+<p><strong>Remarks:</strong> <?php echo $remarks; ?></p>
