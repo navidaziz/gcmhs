@@ -448,11 +448,10 @@ $section_id = $students[0]->section_id;
             <div style="text-align: center; margin-bottom: 10px;">
                 <img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="120" />
             </div>
-            <h3 class="title"><?php echo strtoupper($students[0]->student_name); ?>
-            </h3>
-            <h4 class="title">S/O <?php echo strtoupper($students[0]->student_father_name); ?>
+            <strong>
+                <?php echo strtoupper($students[0]->student_name); ?> S/O <?php echo strtoupper($students[0]->student_father_name); ?>
 
-            </h4>
+            </strong>
 
             <span style="font-size:20px !important;">
 
@@ -493,7 +492,7 @@ $section_id = $students[0]->section_id;
                     }
                 </script>
 
-                <table class="table">
+                <table class="table table-bordered table-striped">
                     <tr>
                         <td style="text-align: center;"><?php echo $this->lang->line('student_class_no'); ?></td>
                         <td style="text-align: center;"><?php echo $this->lang->line('Class_title'); ?></td>
@@ -504,7 +503,7 @@ $section_id = $students[0]->section_id;
                         <td style="text-align: center;"><?php echo $student->Class_title; ?></td>
                         <td style="text-align: center;"><?php echo $student->section_title; ?></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td colspan="3">
                             Change Student Section <?php
                                                     $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
@@ -512,10 +511,10 @@ $section_id = $students[0]->section_id;
                                                     echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
                                                     ?>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
 
-                <table class="table " style="width: 100%;">
+                <table class="table table table-bordered table-striped" style="width: 100%;">
                     <thead>
                     </thead>
                     <tbody>
