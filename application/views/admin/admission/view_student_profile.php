@@ -453,161 +453,228 @@ $section_id = $students[0]->section_id;
 <div class="row">
     <div class="col-md-3">
         <div class="table-responsive">
-
-            <!-- Profile Image -->
-            <div style="text-align:center; margin-bottom:10px;">
-                <img src="<?php echo site_url('uploads/gcmhs/' . htmlspecialchars($student->student_image, ENT_QUOTES, 'UTF-8')); ?>" width="120" />
+            <div style="text-align: center; margin-bottom: 10px;">
+                <img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="120" />
             </div>
-
-            <!-- Student Name -->
             <strong>
-                <?php echo strtoupper($student->student_name); ?>
-                S/O <?php echo strtoupper($student->student_father_name); ?>
+                <?php echo strtoupper($students[0]->student_name); ?> S/O <?php echo strtoupper($students[0]->student_father_name); ?>
+
             </strong>
 
-            <!-- Admission No and Status -->
-            <div style="font-size:20px; overflow:hidden; margin:10px 0;">
+            <span style="font-size:20px !important;">
+
                 <h5 class="pull-left">
-                    <?php echo $this->lang->line('student_admission_no'); ?>:
-                    <?php echo htmlspecialchars($student->student_admission_no, ENT_QUOTES, 'UTF-8'); ?>
+                    <?php echo $this->lang->line('student_admission_no'); ?>: <?php echo $student->student_admission_no; ?>
                 </h5>
+
                 <h5 class="pull-right">
-                    Status:
-                    <?php
-                    if ($student->status == 1) {
-                        echo 'Admitted';
-                    } elseif ($student->status == 2) {
-                        echo 'Struck Off';
-                    } elseif ($student->status == 3) {
-                        echo 'SLC';
-                    } elseif ($student->status == 0) {
-                        echo 'Deleted';
-                    }
-                    ?>
+                    Status: <?php if ($students[0]->status == 1) { ?> Admitted <?php  } ?>
+                    <?php if ($students[0]->status == 2) { ?> Struck Off <?php  } ?>
+                    <?php if ($students[0]->status == 3) { ?> SLC <?php  } ?>
+                    <?php if ($students[0]->status == 0) { ?> Deleted <?php  } ?>
                 </h5>
-            </div>
+            </span>
+            <?php foreach ($students as $student) : ?>
+                <script>
+                    function update_student_record(student_id, field) {
 
-            <!-- Loop through students -->
-            <?php foreach ($students as $s): ?>
+                        var value = $('#' + field + '_' + student_id).val();
 
-                <!-- Class/Section Info -->
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+                            data: {
+                                student_id: student_id,
+                                value: value,
+                                field: field
+                            }
+                        }).done(function(msg) {
+                            if (field == 'student_class_no') {
+                                $('#studentclassno_' + student_id).html(msg);
+                            }
+                            $("#message").html(msg);
+                            $("#message").fadeIn('slow');
+                            $("#message").delay(5000).fadeOut('slow');
+                        });
+
+                    }
+                </script>
+
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <th class="text-center"><?php echo $this->lang->line('student_class_no'); ?></th>
-                        <th class="text-center"><?php echo $this->lang->line('Class_title'); ?></th>
-                        <th class="text-center"><?php echo $this->lang->line('section_title'); ?></th>
+                        <td style="text-align: center;"><?php echo $this->lang->line('student_class_no'); ?></td>
+                        <td style="text-align: center;"><?php echo $this->lang->line('Class_title'); ?></td>
+                        <td style="text-align: center;"><?php echo $this->lang->line('section_title'); ?></td>
                     </tr>
                     <tr>
-                        <td class="text-center"><?php echo htmlspecialchars($s->student_class_no, ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td class="text-center"><?php echo htmlspecialchars($s->Class_title, ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td class="text-center"><?php echo htmlspecialchars($s->section_title, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td style="text-align: center;"><?php echo $student->student_class_no; ?></td>
+                        <td style="text-align: center;"><?php echo $student->Class_title; ?></td>
+                        <td style="text-align: center;"><?php echo $student->section_title; ?></td>
                     </tr>
+                    <!-- <tr>
+                        <td colspan="3">
+                            Change Student Section <?php
+                                                    $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+                                                    echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                                                    ?>
+                        </td>
+                    </tr> -->
                 </table>
 
-                <!-- Details Table -->
-                <table class="table table-bordered table-striped" style="width:100%;">
+                <table class="table table table-bordered table-striped" style="width: 100%;">
+                    <thead>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>Form B:</td>
-                            <td><?php echo strtoupper($s->form_b); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Date Of Birth</td>
-                            <td><?php echo date('d-m-Y', strtotime($s->student_data_of_birth)); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Date Of Admission</td>
-                            <td><?php echo date('d-m-Y', strtotime($s->admission_date)); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Father Mobile No.</td>
-                            <td><?php echo htmlspecialchars($s->father_mobile_number, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Father CNIC</td>
-                            <td><?php echo htmlspecialchars($s->father_nic, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Father Occupation</td>
-                            <td><?php echo htmlspecialchars($s->guardian_occupation, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Previous School</td>
-                            <td><?php echo htmlspecialchars($s->private_public_school . ' - ' . $s->school_name, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Nationality</td>
-                            <td><?php echo htmlspecialchars($s->nationality, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Religion</td>
-                            <td><?php echo htmlspecialchars($s->religion, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td>Orphan</td>
-                            <td><?php echo htmlspecialchars($s->orphan, ENT_QUOTES, 'UTF-8'); ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <?php echo $this->lang->line('student_address'); ?>:
-                                <?php echo htmlspecialchars($s->student_address, ENT_QUOTES, 'UTF-8'); ?>
+                            <td><?php echo strtoupper($students[0]->form_b); ?>
+
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">Created date: <?php echo date('d M Y', strtotime($s->created_date)); ?></td>
+                            <td>Date Of Birth</td>
+                            <td><?php echo date('d-m-Y', strtotime($student->student_data_of_birth)); ?>
+
+                            </td>
                         </tr>
+                        <tr>
+                            <td>Date Of Admission</td>
+                            <td><?php echo date('d-m-Y', strtotime($student->admission_date)); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Father Mobile No.</td>
+                            <td><?php echo $student->father_mobile_number; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Father CNIC</td>
+                            <td><?php echo $student->father_nic; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Father Occupation</td>
+                            <td><?php echo $student->guardian_occupation; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Previous School</td>
+                            <td><?php echo $student->private_public_school; ?>-<?php echo $student->school_name; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nationality</td>
+                            <td><?php echo $student->nationality; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Religion</td>
+                            <td><?php echo $student->religion; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Orphan</td>
+                            <td><?php echo $student->orphan; ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><?php echo $this->lang->line('student_address'); ?>: <?php echo $student->student_address; ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Created date:
+                                <?php echo date('d M Y', strtotime($student->created_date)); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
 
-            <?php endforeach; ?>
         </div>
     </div>
-
-    <!-- RIGHT SIDE -->
     <div class="col-md-9">
-
-        <!-- History -->
         <div class="col-md-4">
             <h3 class="title">History</h3>
-            <?php
-            $query = "SELECT *, s.section_title, c.class_title, se.session
-                FROM student_history AS sh
-                JOIN sections AS s ON sh.section_id = s.section_id
-                JOIN classes AS c ON sh.class_id = c.class_id
-                JOIN sessions AS se ON sh.session_id = se.session_id
-                WHERE sh.student_id = ?";
-            $student_history_list = $this->db->query($query, array($student->student_id))->result();
+            <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
+                        WHERE 
+                        sh.class_id = c.class_id
+                        AND sh.section_id = s.section_id
+                        AND sh.session_id = se.session_id
+                        AND sh.student_id = '" . $students[0]->student_id . "'";
+            $student_history_list = $this->db->query($query)->result();
+            foreach ($student_history_list as $student_history) { ?>
+                <div style="margin-bottom: 5px;">
+                    <?php if ($student_history->history_type == 'Promoted') { ?>
+                        <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                        <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                        <small style="margin-left: 5px; margin-right: 5px;"> Promoted From Class <?php echo $student_history->class_title; ?> To Class
+                            <?php $query = "SELECT * FROM classes WHERE class_id > $student_history->class_id LIMIT 1";
+                            echo $this->db->query($query)->result()[0]->Class_title; ?>.
+                        </small>
+                    <?php } else { ?>
+                        <?php if ($student_history->history_type == 'Struck Off') { ?>
+                            <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                            <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                            <small style="margin-left: 5px; margin-right: 5px;">
+                                Struck Off Due to <?php echo $student_history->remarks; ?>
+                            </small>
+                        <?php } else { ?>
+                            <?php if ($student_history->history_type == 'Withdraw') { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small style="margin-left: 5px; margin-right: 5px;">
+                                    <?php $query = "SELECT *, user_title FROM student_leaving_certificates as slc, users  as u
+                                                    WHERE slc.created_by = u.user_id
+                                                    AND slc.student_id = '" . $students[0]->student_id . "'
+                                                    AND date(slc.created_date) = '" . date("Y-m-d", strtotime($student_history->create_date)) . "'";
+                                    $slc = $this->db->query($query)->result()[0];
 
-            foreach ($student_history_list as $student_history): ?>
-                <div style="margin-bottom:5px;">
-                    <span class="pull-left"><?php echo htmlspecialchars($student_history->history_type); ?></span>
-                    <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span><br />
-                    <small>
-                        <?php echo htmlspecialchars($student_history->remarks); ?>
-                    </small>
+                                    ?>
+                                    Got School leaving Certificate.<br />
+                                    School Leaving Date: <?php echo date("d M, Y", strtotime($slc->school_leaving_date)); ?> <br />
+                                    SLC issue Date: <?php echo date("d M, Y", strtotime($slc->slc_issue_date)); ?> <br />
+                                    File Ref. No: <?php echo $slc->slc_file_no; ?> Certificate Ref. No: <?php echo $slc->slc_certificate_no; ?><br />
+                                    School leaving Reason: <i><?php echo $slc->leaving_reason; ?></i><br />
+                                    User: <?php echo $slc->user_title; ?>
+                                </small>
+                            <?php } else { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?></span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small><?php echo $student_history->remarks; ?></small>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
-            <?php endforeach; ?>
+            <?php  } ?>
+
         </div>
 
-        <!-- Academic Summary -->
         <div class="col-md-8">
             <h3 class="title">Academic Summary</h3>
-            <?php
-            $query = "SELECT ex.year, ex.exam_id, ex.exam_data, ex.term,
-                       c.class_title AS class, sec.section_title AS section,
-                       SUM(exr.obtain_mark) AS obtain_mark,
-                       SUM(exr.total_marks) AS total_marks
-                FROM students_exams_subjects_marks exr
-                JOIN exams ex ON ex.exam_id = exr.exam_id
-                JOIN classes c ON c.class_id = exr.class_id
-                JOIN sections sec ON sec.section_id = exr.section_id
-                WHERE exr.student_id = ?
-                GROUP BY exr.exam_id";
-            $student_exam_records = $this->db->query($query, array($student->student_id))->result();
-            ?>
+            <style>
+                .table_medium>tbody>tr>td,
+                .table_medium>tbody>tr>th,
+                .table_medium>tfoot>tr>td,
+                .table_medium>tfoot>tr>th,
+                .table_medium>thead>tr>td,
+                .table_medium>thead>tr>th {
+                    padding: 2px;
+                    line-height: 1.42857143;
+                    vertical-align: top;
+                    border-top: 1px solid #ddd;
+                    font-size: 12px;
+                    border: 0.1px solid gray !important;
+                }
+            </style>
 
-            <?php if (!empty($student_exam_records)): ?>
-                <table class="table table-bordered table-striped">
+            <?php
+            $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class, 
+            sec.section_title AS section, 
+            SUM(exr.obtain_mark) as obtain_mark, 
+            SUM(exr.total_marks) as total_marks, 
+            exr.passing_marks, 
+            exr.percentage 
+            FROM students_exams_subjects_marks AS exr 
+            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+            INNER JOIN classes AS c ON c.class_id = exr.class_id 
+            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+            WHERE `student_id` = '" . $students[0]->student_id . "'
+            GROUP BY exr.exam_id ";
+            $student_exam_records = $this->db->query($query)->result();
+            ?>
+            <?php if (!empty($student_exam_records)) { ?>
+                <table class="table table-bordered table-striped table_medium">
                     <thead>
                         <tr>
                             <th>Year</th>
@@ -615,55 +682,67 @@ $section_id = $students[0]->section_id;
                             <th>Date</th>
                             <th>Class</th>
                             <th>Section</th>
-                            <th>Obt. Marks</th>
+                            <th>Obtained Marks</th>
                             <th>Total Marks</th>
                             <th>Per.</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($student_exam_records as $record): ?>
+                        <?php foreach ($student_exam_records as $record) { ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($record->year); ?></td>
                                 <td><?php echo htmlspecialchars($record->term); ?></td>
                                 <td><?php echo date("M-y", strtotime($record->exam_data)); ?></td>
                                 <td><?php echo htmlspecialchars($record->class); ?></td>
                                 <td><?php echo htmlspecialchars($record->section); ?></td>
-                                <td class="text-center"><?php echo (int)$record->obtain_mark; ?></td>
-                                <td class="text-center"><?php echo (int)$record->total_marks; ?></td>
-                                <td class="text-center">
-                                    <?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . '%'; ?>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-sm"
-                                        onclick="get_student_dmc(<?php echo (int)$student->student_id; ?>, <?php echo (int)$record->exam_id; ?>)">
-                                        DMC
-                                    </button>
-                                </td>
+                                <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
+                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
+                                <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
+                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+
                             </tr>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </tbody>
                 </table>
-            <?php else: ?>
+                <script>
+                    function get_student_dmc(student_id, exam_id) {
+                        $.ajax({
+                                method: "POST",
+                                url: "<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>",
+                                data: {
+                                    student_id: student_id,
+                                    exam_id: exam_id,
+                                },
+                            })
+                            .done(function(respose) {
+                                $('#modal').modal('show');
+                                $('#modal_title').html('Initiate Scheme');
+                                $('#modal_body').html(respose);
+                            });
+                    }
+                </script>
+            <?php } else { ?>
                 <p>No exam records found for this student.</p>
-            <?php endif; ?>
+            <?php } ?>
+
         </div>
 
-        <!-- Attendance -->
+
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped table_small">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
-                        <?php for ($d = 1; $d <= 31; $d++): ?>
-                            <th class="text-center"><?php echo $d; ?></th>
-                        <?php endfor; ?>
+                        <?php for ($day = 1; $day <= 31; $day++) { ?>
+                            <th style="width: 5 0px; text-align:center; vertical-align:middle"><?php echo $day; ?></th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $monthNames = array(
+                    $monthNames = [
                         '01' => 'January',
                         '02' => 'February',
                         '03' => 'March',
@@ -676,57 +755,72 @@ $section_id = $students[0]->section_id;
                         '10' => 'October',
                         '11' => 'November',
                         '12' => 'December'
-                    );
-                    $currentYear = date('Y');
+                    ];
 
-                    foreach ($monthNames as $monthNum => $monthName):
+                    $currentYear = date('Y'); // This will be 2025
+
+                    foreach ($monthNames as $monthNum => $monthName) {
                         $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
                     ?>
                         <tr>
                             <th><?php echo $monthName; ?></th>
-                            <?php for ($day = 1; $day <= 31; $day++): ?>
-                                <?php
+                            <?php
+                            for ($day = 1; $day <= 31; $day++) {
                                 if ($day > $daysInMonth) {
                                     echo '<td></td>';
                                     continue;
                                 }
-                                $q = "SELECT * FROM students_attendance
-                      WHERE student_id=? AND YEAR(date)=? AND MONTH(date)=? AND DAY(date)=?";
-                                $att = $this->db->query($q, array($student->student_id, $currentYear, $monthNum, $day))->row();
-                                $style = '';
-                                if ($att) {
-                                    if ($att->attendance == 'A') $style = 'background-color:#D8534E;';
-                                    elseif ($att->attendance == 'P' && (empty($att->attendance2) || $att->attendance2 == 'P')) $style = 'background-color:#96AE5F;';
-                                    elseif ($att->attendance == 'P' && $att->attendance2 == 'A') $style = 'background-color:#F0AD4E;';
+
+                                $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                              AND YEAR(`date`) = ? 
+                              AND MONTH(`date`) = ? 
+                              AND DAY(`date`) = ?";
+                                $students_attendance = $this->db->query($query, [
+                                    $student->student_id,
+                                    $currentYear,
+                                    $monthNum,
+                                    $day
+                                ])->row();
+                            ?>
+                                <td style="text-align:center; 
+                                <?php
+                                if (!empty($students_attendance)) {
+                                    // Set background color based on attendance status
+                                    if ($students_attendance->attendance == 'A') {
+                                        echo 'background-color: #D8534E;';  // Red for absent
+                                    } elseif ($students_attendance->attendance == 'P') {
+                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                            echo 'background-color: #96AE5F;';  // Green for present
+                                        } elseif ($students_attendance->attendance2 == 'A') {
+                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                        }
+                                    }
                                 }
-                                ?>
-                                <td style="text-align:center; <?php echo $style; ?>">
+                                ?>">
                                     <?php
-                                    if ($att) {
-                                        echo htmlspecialchars($att->attendance);
-                                        if (!empty($att->attendance2)) echo ' - ' . htmlspecialchars($att->attendance2);
+                                    if (!empty($students_attendance)) {
+                                        echo $students_attendance->attendance;
+                                        if (!empty($students_attendance->attendance2)) {
+                                            echo " - " . htmlspecialchars($students_attendance->attendance2);
+                                        }
                                     }
                                     ?>
                                 </td>
-                            <?php endfor; ?>
+                            <?php } ?>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </tbody>
             </table>
-        </div>
-    </div>
-</div>
 
-<script>
-    function get_student_dmc(student_id, exam_id) {
-        $.post("<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>", {
-                student_id: student_id,
-                exam_id: exam_id
-            },
-            function(resp) {
-                $('#modal').modal('show');
-                $('#modal_title').html('Initiate Scheme');
-                $('#modal_body').html(resp);
-            });
-    }
-</script>
+            <style>
+                .disabled-day {
+                    background-color: #f5f5f5;
+                }
+            </style>
+        </div>
+
+    </div>
+
+
+
+</div>
