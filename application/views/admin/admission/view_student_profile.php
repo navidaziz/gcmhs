@@ -710,13 +710,12 @@ $section_id = $students[0]->section_id;
             .table_small>tfoot>tr>th,
             .table_small>thead>tr>td,
             .table_small>thead>tr>th {
-                padding: 2px;
+                padding: 1px;
                 line-height: 1.42857143;
                 vertical-align: top;
                 border-top: 1px solid #ddd;
                 font-size: 9px;
                 border: 0.1px solid gray !important;
-                font-weight: bold !important;
                 color: black !important;
             }
         </style>
