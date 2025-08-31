@@ -77,6 +77,7 @@ $absent_subjects = [];
 <table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
         <tr>
+            <th>#</th>
             <th>Subject</th>
             <th>Marks Obtained</th>
             <th>Total Marks</th>
@@ -85,8 +86,11 @@ $absent_subjects = [];
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($result as $row): ?>
+        <?php
+        $count = 1;
+        foreach ($result as $row): ?>
             <tr>
+                <th><?php echo $count++; ?></th>
                 <td><?php echo $row->subject_title; ?></td>
                 <td>
                     <?php
@@ -123,6 +127,7 @@ $absent_subjects = [];
     </tbody>
     <tfoot>
         <tr>
+            <th></th>
             <th>Total</th>
             <th><?php echo $total_obtained; ?></th>
             <th><?php echo $total_marks; ?></th>
