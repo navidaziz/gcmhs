@@ -717,7 +717,7 @@ $section_id = $students[0]->section_id;
                             })
                             .done(function(respose) {
                                 $('#modal').modal('show');
-                                $('#modal_title').html('Initiate Scheme');
+                                $('#modal_title').html('<?php echo strtoupper($students[0]->student_name) . ""; ?> DMC');
                                 $('#modal_body').html(respose);
                             });
                     }
