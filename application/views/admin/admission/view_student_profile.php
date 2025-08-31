@@ -664,6 +664,7 @@ $section_id = $students[0]->section_id;
                             <th>Obtained Marks</th>
                             <th>Total Marks</th>
                             <th>Per.</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -675,8 +676,10 @@ $section_id = $students[0]->section_id;
                                 <td><?php echo htmlspecialchars($record->class); ?></td>
                                 <td><?php echo htmlspecialchars($record->section); ?></td>
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
-                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></td>
-                                <th style="text-align: center;"><?php echo (($record->obtain_mark * 100) / $record->total_marks) . "%"; ?></td>
+                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
+                                <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
+                                <th>Detail</th>
+
                             </tr>
                         <?php } ?>
                     </tbody>
