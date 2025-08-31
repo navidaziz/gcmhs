@@ -646,7 +646,7 @@ $section_id = $students[0]->section_id;
                     line-height: 1.42857143;
                     vertical-align: top;
                     border-top: 1px solid #ddd;
-                    font-size: 12px;
+                    font-size: 14px;
                     border: 0.1px solid gray !important;
                 }
             </style>
