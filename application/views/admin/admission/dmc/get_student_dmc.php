@@ -107,17 +107,17 @@ $absent_subjects = [];
 
             <?php
             // accumulate totals only if not absent
-            if ($row->obtain_mark !== 'A') {
-                $total_obtained += $row->obtain_mark;
-                $total_marks += $row->total_marks;
+            //if ($row->obtain_mark !== 'A') {
+            $total_obtained += $row->obtain_mark;
+            $total_marks += $row->total_marks;
 
-                // classify subjects
-                if ($row->percentage < 50) {
-                    $weak_subjects[] = $row->subject_title;
-                } elseif ($row->percentage >= 70) {
-                    $strong_subjects[] = $row->subject_title;
-                }
+            // classify subjects
+            if ($row->percentage < 50) {
+                $weak_subjects[] = $row->subject_title;
+            } elseif ($row->percentage >= 70) {
+                $strong_subjects[] = $row->subject_title;
             }
+            //}
             ?>
         <?php endforeach; ?>
     </tbody>
