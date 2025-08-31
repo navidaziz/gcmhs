@@ -83,7 +83,7 @@ $absent_subjects = [];
             <th>Marks Obtained</th>
             <th>Total Marks</th>
             <th>Percentage</th>
-            <th>Grade</th>
+            <th style="text-align: center;">Grade</th>
         </tr>
     </thead>
     <tbody>
@@ -107,7 +107,7 @@ $absent_subjects = [];
                 <td>
                     <?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?>
                 </td>
-                <td><?php echo $row->grade; ?></td>
+                <th style="text-align: center;"><?php echo $row->grade; ?></th>
             </tr>
 
             <?php
@@ -132,25 +132,29 @@ $absent_subjects = [];
             <th>Total</th>
             <th><?php echo $total_obtained; ?></th>
             <th><?php echo $total_marks; ?></th>
-            <th colspan="2">
+            <th>
                 <?php
                 $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
                 echo $overall_percentage . '%';
                 ?>
+            </th>
+            <th style="text-align: center;">
+                <?php  // Overall grade
+                if ($overall_percentage >= 80) $overall_grade = 'A+';
+                elseif ($overall_percentage >= 70) $overall_grade = 'A';
+                elseif ($overall_percentage >= 60) $overall_grade = 'B';
+                elseif ($overall_percentage >= 50) $overall_grade = 'C';
+                elseif ($overall_percentage >= 40) $overall_grade = 'D';
+                elseif ($overall_percentage > 33) $overall_grade = 'E';
+                else $overall_grade = 'F'; ?>
+                echo $overall_grade;
             </th>
         </tr>
     </tfoot>
 </table>
 
 <?php
-// Overall grade
-if ($overall_percentage >= 80) $overall_grade = 'A+';
-elseif ($overall_percentage >= 70) $overall_grade = 'A';
-elseif ($overall_percentage >= 60) $overall_grade = 'B';
-elseif ($overall_percentage >= 50) $overall_grade = 'C';
-elseif ($overall_percentage >= 40) $overall_grade = 'D';
-elseif ($overall_percentage > 33) $overall_grade = 'E';
-else $overall_grade = 'F';
+
 
 // Build English remarks
 $remarks = "The student achieved an overall percentage of <b>{$overall_percentage}%</b>, securing an overall grade of <b>{$overall_grade}</b>. ";
