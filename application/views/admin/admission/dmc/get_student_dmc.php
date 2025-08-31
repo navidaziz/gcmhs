@@ -54,6 +54,7 @@ $query = "SELECT
                 WHEN exr.percentage >= 60 THEN 'B'
                 WHEN exr.percentage >= 50 THEN 'C'
                 WHEN exr.percentage >= 40 THEN 'D'
+                WHEN exr.percentage > 33 THEN 'E'
                 ELSE 'F'
             END AS grade
         FROM students_exams_subjects_marks AS exr 
