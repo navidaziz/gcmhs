@@ -583,7 +583,7 @@ $section_id = $students[0]->section_id;
 
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" style="border: 1px solid yellow;">
         <div class="col-md-4">
             <h3 class="title">History</h3>
             <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
@@ -820,7 +820,4 @@ $section_id = $students[0]->section_id;
             </div>
         </div>
     </div>
-
-
-
 </div>
