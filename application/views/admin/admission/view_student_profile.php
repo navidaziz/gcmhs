@@ -373,7 +373,7 @@ $section_id = $students[0]->section_id;
 </script>
 
 
-<div class="row" style="margin: 0px;">
+<div class="row">
     <div class="col-sm-12">
         <div class="page-header">
             <!-- STYLER -->
@@ -435,7 +435,7 @@ $section_id = $students[0]->section_id;
 
 
 
-<div class="row" style="background-color: white; padding: 5px;">
+<div class="row" style="margin: 0px;">
     <div class="col-md-3">
         <div class="table-responsive">
             <div style="text-align: center; margin-bottom: 10px;">
