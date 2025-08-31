@@ -388,10 +388,10 @@ $section_id = $students[0]->section_id;
             <!-- /BREADCRUMBS -->
             <div class="col-md-4">
                 <div class="clearfix">
-                    <h3 class="content-title pull-left"> <?php echo $students[0]->student_name . ""; ?> Profile</li>
+                    <h3 class="content-title pull-left"> <?php echo $students[0]->student_name . ""; ?></li>
                     </h3>
                 </div>
-                <div class="description" id="message"></div>
+                <div class="description" id="message">S/O <?php echo strtoupper($students[0]->student_father_name); ?></div>
             </div>
             <div class="col-md-8">
                 <h5 class="pull-right">
@@ -433,12 +433,6 @@ $section_id = $students[0]->section_id;
 </div>
 
 
-<div class="row">
-    <!-- MESSENGER -->
-    <div class="col-md-12" style="background-color: white; padding: 5px;">
-
-    </div>
-</div>
 
 
 
