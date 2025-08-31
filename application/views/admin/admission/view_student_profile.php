@@ -432,10 +432,25 @@ $section_id = $students[0]->section_id;
 </div>
 
 
+<style>
+    .table_small>tbody>tr>td,
+    .table_small>tbody>tr>th,
+    .table_small>tfoot>tr>td,
+    .table_small>tfoot>tr>th,
+    .table_small>thead>tr>td,
+    .table_small>thead>tr>th {
+        padding: 1px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        font-size: 9px;
+        border: 0.1px solid gray !important;
+        color: black !important;
+    }
+</style>
 
 
-
-<div class="row" style="margin: 0px;">
+<div class="row">
     <div class="col-md-3">
         <div class="table-responsive">
             <div style="text-align: center; margin-bottom: 10px;">
@@ -712,26 +727,11 @@ $section_id = $students[0]->section_id;
             <?php } ?>
 
         </div>
-        <style>
-            .table_small>tbody>tr>td,
-            .table_small>tbody>tr>th,
-            .table_small>tfoot>tr>td,
-            .table_small>tfoot>tr>th,
-            .table_small>thead>tr>td,
-            .table_small>thead>tr>th {
-                padding: 1px;
-                line-height: 1.42857143;
-                vertical-align: top;
-                border-top: 1px solid #ddd;
-                font-size: 9px;
-                border: 0.1px solid gray !important;
-                color: black !important;
-            }
-        </style>
+
 
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
+            <table class="table table-bordered table-striped table_small">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
