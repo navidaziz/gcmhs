@@ -644,7 +644,7 @@ $section_id = $students[0]->section_id;
             </style>
 
             <?php
-            $query = "SELECT exr.student_id, ex.year, ex.exam_data, ex.term, c.class_title AS class, 
+            $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class, 
             sec.section_title AS section, 
             SUM(exr.obtain_mark) as obtain_mark, 
             SUM(exr.total_marks) as total_marks, 
@@ -684,12 +684,29 @@ $section_id = $students[0]->section_id;
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
                                 <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
-                                <th>Detail</th>
+                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
 
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
+                <script>
+                    function get_student_dmc(student_id, exam_id) {
+                        $.ajax({
+                                method: "POST",
+                                url: "<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>",
+                                data: {
+                                    scheme_id: scheme_id,
+                                    complete: complete,
+                                },
+                            })
+                            .done(function(respose) {
+                                $('#modal').modal('show');
+                                $('#modal_title').html('Initiate Scheme');
+                                $('#modal_body').html(respose);
+                            });
+                    }
+                </script>
             <?php } else { ?>
                 <p>No exam records found for this student.</p>
             <?php } ?>
