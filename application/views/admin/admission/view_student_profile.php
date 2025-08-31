@@ -663,7 +663,7 @@ $section_id = $students[0]->section_id;
                             <th>Section</th>
                             <th>Obtained Marks</th>
                             <th>Total Marks</th>
-                            <th>Percentage</th>
+                            <th>Per.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -671,7 +671,7 @@ $section_id = $students[0]->section_id;
                             <tr>
                                 <td><?php echo htmlspecialchars($record->year); ?></td>
                                 <td><?php echo htmlspecialchars($record->term); ?></td>
-                                <td><?php echo date("M Y", strtotime($record->exam_data)); ?></td>
+                                <td><?php echo date("M-y", strtotime($record->exam_data)); ?></td>
                                 <td><?php echo htmlspecialchars($record->class); ?></td>
                                 <td><?php echo htmlspecialchars($record->section); ?></td>
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
