@@ -2395,7 +2395,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	{
 		$student_id = (int) $this->input->post('student_id');
 		$query = 'SELECT * FROM students WHERE student_id = ?';
-		$this->data['student']  = $this->db->query($query, [$student_id])->result();
+		$this->data['student']  = $this->db->query($query, [$student_id])->row();
 		$this->load->view(ADMIN_DIR . "admission/dmc/get_student_dmc", $this->data);
 	}
 }
