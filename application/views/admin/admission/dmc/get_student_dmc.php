@@ -146,8 +146,9 @@ $absent_subjects = [];
                 elseif ($overall_percentage >= 50) $overall_grade = 'C';
                 elseif ($overall_percentage >= 40) $overall_grade = 'D';
                 elseif ($overall_percentage > 33) $overall_grade = 'E';
-                else $overall_grade = 'F'; ?>
+                else $overall_grade = 'F';
                 echo $overall_grade;
+                ?>
             </th>
         </tr>
     </tfoot>
