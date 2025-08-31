@@ -740,7 +740,7 @@ $section_id = $students[0]->section_id;
     </div>
 
 
-    <div class="col-md-12" style="border: 1px solid gree;">
+    <div class="col-md-12" style="border: 1px solid gree; clear:both">
         <h4>Attendance History</h4>
         <table class="table table-bordered table-striped table_small">
             <thead>
