@@ -648,8 +648,6 @@ $section_id = $students[0]->section_id;
                     border-top: 1px solid #ddd;
                     font-size: 12px;
                     border: 0.1px solid gray !important;
-                    font-weight: bold !important;
-                    color: black !important;
                 }
             </style>
 
