@@ -39,8 +39,8 @@
 </table>
 
 
+
 <?php
-// Query with placeholders
 $query = "SELECT 
             sub.subject_title,
             sub.short_title,
@@ -56,11 +56,14 @@ $query = "SELECT
           WHERE exr.student_id = ?
           AND exr.exam_id = ?";
 
-// Execute query (pass params as array)
 $student_subjects_results = $this->db->query($query, array($student_id, $exam_id))->result();
+
+// Initialize totals
+$total_obtained = 0;
+$total_marks    = 0;
+$total_passing  = 0;
 ?>
 
-<!-- Display in HTML table -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -74,20 +77,38 @@ $student_subjects_results = $this->db->query($query, array($student_id, $exam_id
     </thead>
     <tbody>
         <?php if (!empty($student_subjects_results)) { ?>
-            <?php foreach ($student_subjects_results as $row) { ?>
+            <?php foreach ($student_subjects_results as $row) {
+                // Add to totals
+                $total_obtained += $row->obtain_mark;
+                $total_marks    += $row->total_marks;
+                $total_passing  += $row->passing_marks;
+            ?>
                 <tr>
                     <td><?php echo $row->subject_title; ?></td>
                     <td><?php echo $row->short_title; ?></td>
                     <td><?php echo $row->obtain_mark; ?></td>
                     <td><?php echo $row->total_marks; ?></td>
                     <td><?php echo $row->passing_marks; ?></td>
-                    <td><?php echo $row->percentage; ?>%</td>
+                    <td><?php echo number_format($row->percentage, 2); ?>%</td>
                 </tr>
             <?php } ?>
         <?php } else { ?>
             <tr>
-                <td colspan="6" class="text-center">No records found</td>
+                <td colspan="6" class="text-center">No records found.</td>
             </tr>
         <?php } ?>
     </tbody>
+    <?php if (!empty($student_subjects_results)) {
+        $overall_percentage = $total_marks > 0 ? ($total_obtained / $total_marks) * 100 : 0;
+    ?>
+        <tfoot>
+            <tr>
+                <th colspan="2" class="text-right">Total</th>
+                <th><?php echo $total_obtained; ?></th>
+                <th><?php echo $total_marks; ?></th>
+                <th><?php echo $total_passing; ?></th>
+                <th><?php echo number_format($overall_percentage, 2); ?>%</th>
+            </tr>
+        </tfoot>
+    <?php } ?>
 </table>
