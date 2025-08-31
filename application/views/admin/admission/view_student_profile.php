@@ -706,9 +706,26 @@ $section_id = $students[0]->section_id;
                 color: black !important;
             }
         </style>
+        <style>
+            .table_medium>tbody>tr>td,
+            .table_medium>tbody>tr>th,
+            .table_medium>tfoot>tr>td,
+            .table_medium>tfoot>tr>th,
+            .table_medium>thead>tr>td,
+            .table_medium>thead>tr>th {
+                padding: 2px;
+                line-height: 1.42857143;
+                vertical-align: top;
+                border-top: 1px solid #ddd;
+                font-size: 12px;
+                border: 0.1px solid gray !important;
+                font-weight: bold !important;
+                color: black !important;
+            }
+        </style>
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
+            <table class="table table-bordered table-striped table_medium" style="width:100%; font-size: 12px;">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
