@@ -725,11 +725,11 @@ $section_id = $students[0]->section_id;
             <?php } else { ?>
                 <p>No exam records found for this student.</p>
             <?php } ?>
-
+            <hr /> we are here
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-12">
+
+        <div class="row" style="border: 1px solid red;">
+            <div class="col-md-12" style="border: 1px solid gree;">
                 <h4>Attendance History</h4>
                 <table class="table table-bordered table-striped table_small">
                     <thead>
