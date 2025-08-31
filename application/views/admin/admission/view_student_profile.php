@@ -727,7 +727,7 @@ $section_id = $students[0]->section_id;
                     <tr>
                         <th>Month / Days</th>
                         <?php for ($day = 1; $day <= 31; $day++) { ?>
-                            <th><?php echo $day; ?></th>
+                            <th style="width: 20px;"><?php echo $day; ?></th>
                         <?php } ?>
                     </tr>
                 </thead>
