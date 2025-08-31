@@ -1,474 +1,628 @@
 <?php
 
-/**
- * Refactored Student Profile View
- * - Readability: single $student var, fewer repetitions
- * - Security: htmlspecialchars() for echoed values, CSRF tokens in forms
- * - HTML: valid structure, labels, no nested forms inside <p>
- * - JS: all scripts consolidated at bottom; fixed DMC AJAX
- * - Notes: kept existing DB calls that were already present to avoid breaking functionality.
- *          Ideally move DB queries to controller/model and pass ready-made arrays to the view.
- */
+$class_id = $students[0]->class_id;
+$section_id = $students[0]->section_id;
 
-// Guard: expect $students to be a non-empty array of row objects
-after_extract:
-$student = isset($students[0]) ? $students[0] : null;
-if (!$student) {
-    echo '<div class="alert alert-danger">Student record not found.</div>';
-    return;
-}
-
-$class_id   = (int) $student->class_id;
-$section_id = (int) $student->section_id;
-
-// Helper shortcut
-function e($str)
-{
-    return htmlspecialchars((string)$str, ENT_QUOTES, 'UTF-8');
-}
 ?>
 
-<!-- Update Profile Modal -->
+
 <div id="update_profile" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title pull-left">Student Profile Update</h5>
+                <h5 class="modal-title pull-left" id="">Student Profile Update</h5>
                 <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <br />
             </div>
             <div class="modal-body">
-                <form action="<?= site_url(ADMIN_DIR . 'admission/update_profile/' . (int)$student->student_id) ?>" method="post" class="form-horizontal">
-                    <input type="hidden" name="<?= e($this->security->get_csrf_token_name()) ?>" value="<?= e($this->security->get_csrf_hash()) ?>">
+
+
+                <form action="<?php echo site_url(ADMIN_DIR . "admission/update_profile/" . $students[0]->student_id) ?>" method="post" style="text-align: center;">
                     <table class="table">
                         <tr>
-                            <th><label for="student_class_no">Class No:</label></th>
-                            <td><input id="student_class_no" type="text" name="student_class_no" value="<?= e($student->student_class_no) ?>" class="form-control"></td>
+                            <th>Class No: </th>
+                            <td><input type="text" name="student_class_no" value="<?php echo $students[0]->student_class_no; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="student_admission_no">Admission No:</label></th>
-                            <td><input id="student_admission_no" type="text" name="student_admission_no" value="<?= e($student->student_admission_no) ?>" class="form-control"></td>
+                            <th>Admission No: </th>
+                            <td><input type="text" name="student_admission_no" value="<?php echo $students[0]->student_admission_no; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="student_name">Student Name:</label></th>
-                            <td><input id="student_name" type="text" name="student_name" value="<?= e($student->student_name) ?>" class="form-control"></td>
+                            <th>Student Name: </th>
+                            <td><input type="text" name="student_name" value="<?php echo $students[0]->student_name; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="student_father_name">Father Name:</label></th>
-                            <td><input id="student_father_name" type="text" name="student_father_name" value="<?= e($student->student_father_name) ?>" class="form-control"></td>
+                            <th>Father Name: </th>
+                            <td><input type="text" name="student_father_name" value="<?php echo $students[0]->student_father_name; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Date Of Birth: </th>
+                            <td><input type="date" name="student_data_of_birth" value="<?php echo $students[0]->student_data_of_birth; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Form B No:</th>
+                            <td><input type="text" name="form_b" value="<?php echo $students[0]->form_b; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="student_data_of_birth">Date Of Birth:</label></th>
-                            <td>
-                                <!-- NOTE: field name kept as student_data_of_birth to match existing schema -->
-                                <input id="student_data_of_birth" type="date" name="student_data_of_birth" value="<?= e($student->student_data_of_birth) ?>" class="form-control">
-                            </td>
+                            <th>Admission Date:</th>
+                            <td><input type="date" name="admission_date" value="<?php echo $students[0]->admission_date; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="form_b">Form B No:</label></th>
-                            <td><input id="form_b" type="text" name="form_b" value="<?= e($student->form_b) ?>" class="form-control"></td>
+                            <th>Address:</th>
+                            <td><input type="text" name="student_address" value="<?php echo $students[0]->student_address; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="admission_date">Admission Date:</label></th>
-                            <td><input id="admission_date" type="date" name="admission_date" value="<?= e($student->admission_date) ?>" class="form-control"></td>
+                            <th>Father CNIC No:</th>
+                            <td><input type="text" name="father_nic" value="<?php echo $students[0]->father_nic; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="student_address">Address:</label></th>
-                            <td><input id="student_address" type="text" name="student_address" value="<?= e($student->student_address) ?>" class="form-control"></td>
+                            <th>CNIC Issue Date:</th>
+                            <td><input type="date" name="nic_issue_date" value="<?php echo $students[0]->nic_issue_date; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="father_nic">Father CNIC No:</label></th>
-                            <td><input id="father_nic" type="text" name="father_nic" value="<?= e($student->father_nic) ?>" class="form-control" placeholder="xxxxx-xxxxxxx-x"></td>
+                            <th>Contact No:</th>
+                            <td><input type="text" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
+                        </tr>
+
+                        <tr>
+                            <th>Father Occupation:</th>
+                            <td><input type="text" name="guardian_occupation" value="<?php echo $students[0]->guardian_occupation; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="nic_issue_date">CNIC Issue Date:</label></th>
-                            <td><input id="nic_issue_date" type="date" name="nic_issue_date" value="<?= e($student->nic_issue_date) ?>" class="form-control"></td>
+                            <th>Religion:</th>
+                            <td><input type="text" name="religion" value="<?php echo $students[0]->religion; ?>" /></td>
                         </tr>
                         <tr>
-                            <th><label for="father_mobile_number">Contact No:</label></th>
-                            <td><input id="father_mobile_number" type="text" name="father_mobile_number" value="<?= e($student->father_mobile_number) ?>" class="form-control" placeholder="03xx-xxxxxxx"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="guardian_occupation">Father Occupation:</label></th>
-                            <td><input id="guardian_occupation" type="text" name="guardian_occupation" value="<?= e($student->guardian_occupation) ?>" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="religion">Religion:</label></th>
-                            <td><input id="religion" type="text" name="religion" value="<?= e($student->religion) ?>" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="nationality">Nationality:</label></th>
-                            <td><input id="nationality" type="text" name="nationality" value="<?= e($student->nationality) ?>" class="form-control"></td>
+                            <th>Nationality:</th>
+                            <td><input type="text" name="nationality" value="<?php echo $students[0]->nationality; ?>" /></td>
                         </tr>
                         <tr>
                             <th>Private / Public School:</th>
+
                             <td>
-                                <label class="radio-inline">
-                                    <input type="radio" name="private_public_school" value="G" <?= ($student->private_public_school === 'G') ? 'checked' : '' ?>> Government
-                                </label>
-                                <label class="radio-inline" style="margin-left:20px;">
-                                    <input type="radio" name="private_public_school" value="P" <?= ($student->private_public_school === 'P') ? 'checked' : '' ?>> Private
-                                </label>
+                                <input type="radio" name="private_public_school" value="G" <?php if ($students[0]->private_public_school == 'G') { ?>checked<?php } ?> />
+                                Government
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="private_public_school" value="P" <?php if ($students[0]->private_public_school == 'P') { ?>checked<?php } ?> />
+                                Private
                             </td>
+
                         </tr>
                         <tr>
-                            <th><label for="school_name">School Name:</label></th>
-                            <td><input id="school_name" type="text" name="school_name" value="<?= e($student->school_name) ?>" class="form-control"></td>
+                            <th>School Name:</th>
+                            <td><input type="text" name="school_name" value="<?php echo $students[0]->school_name; ?>" /></td>
                         </tr>
                         <tr>
-                            <th>Orphan:</th>
+                            <th>Orphan: </th>
                             <td>
-                                <label class="radio-inline"><input type="radio" name="orphan" value="Yes" <?= ($student->orphan === 'Yes') ? 'checked' : '' ?>> Yes</label>
-                                <label class="radio-inline" style="margin-left:20px;"><input type="radio" name="orphan" value="No" <?= ($student->orphan === 'No') ? 'checked' : '' ?>> No</label>
+
+                                <input type="radio" name="orphan" value="Yes" <?php if ($students[0]->orphan == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="orphan" value="No" <?php if ($students[0]->orphan == 'No') { ?>checked<?php } ?> />
+                                No
                             </td>
                         </tr>
+
+
                         <tr>
-                            <th>Vaccinated:</th>
+                            <th>Vaccinated: </th>
                             <td>
-                                <label class="radio-inline"><input type="radio" name="vaccinated" value="Yes" <?= ($student->vaccinated === 'Yes') ? 'checked' : '' ?>> Yes</label>
-                                <label class="radio-inline" style="margin-left:20px;"><input type="radio" name="vaccinated" value="No" <?= ($student->vaccinated === 'No') ? 'checked' : '' ?>> No</label>
+                                <input type="radio" name="vaccinated" value="Yes" <?php if ($students[0]->vaccinated == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="vaccinated" value="No" <?php if ($students[0]->vaccinated == 'No') { ?>checked<?php } ?> />
+                                No
                             </td>
                         </tr>
+
                         <tr>
-                            <th>Is Disable:</th>
+                            <th>Is Disable: </th>
                             <td>
-                                <label class="radio-inline"><input type="radio" name="is_disable" value="Yes" <?= ($student->is_disable === 'Yes') ? 'checked' : '' ?>> Yes</label>
-                                <label class="radio-inline" style="margin-left:20px;"><input type="radio" name="is_disable" value="No" <?= ($student->is_disable === 'No') ? 'checked' : '' ?>> No</label>
+                                <input type="radio" name="is_disable" value="Yes" <?php if ($students[0]->is_disable == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="is_disable" value="No" <?php if ($students[0]->is_disable == 'No') { ?>checked<?php } ?> />
+                                No
                             </td>
                         </tr>
+
                         <tr>
-                            <th>Ehsaas Program:</th>
+                            <th>Ehsaas Program: </th>
                             <td>
-                                <label class="radio-inline"><input type="radio" name="ehsaas" value="Yes" <?= ($student->ehsaas === 'Yes') ? 'checked' : '' ?>> Yes</label>
-                                <label class="radio-inline" style="margin-left:20px;"><input type="radio" name="ehsaas" value="No" <?= ($student->ehsaas === 'No') ? 'checked' : '' ?>> No</label>
+                                <input type="radio" name="ehsaas" value="Yes" <?php if ($students[0]->ehsaas == 'Yes') { ?>checked<?php } ?> />
+                                Yes
+                                <span style="margin-left: 20px;"></span>
+
+                                <input type="radio" name="ehsaas" value="No" <?php if ($students[0]->ehsaas == 'No') { ?>checked<?php } ?> />
+                                No
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2" class="text-right">
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Update Profile</button>
-                            </td>
-                        </tr>
+
+
+
+
+                        <td colspan="2">
+                            <input type="submit" class="btn btn-success btn-sm" value="Update Profile" />
+                            </tr>
                     </table>
+
+
+
+
                 </form>
+
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Re-admit Modal -->
+<script>
+    function update_profile() {
+        $('#update_profile').modal('show');
+    }
+</script>
+
+
+
 <div id="re_admit" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title pull-left" id="readmit_model_title">Student Re Admit Form</h5>
+                <h5 class="modal-title pull-left" id="readmit_model_title">Title</h5>
                 <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <br />
             </div>
             <div class="modal-body">
-                <div id="re_admit_body" class="text-center">Please Wait .....</div>
-                <form action="<?= site_url(ADMIN_DIR . 'admission/re_admit_again') ?>" method="post" class="text-center" style="margin-top:10px;">
-                    <input type="hidden" name="<?= e($this->security->get_csrf_token_name()) ?>" value="<?= e($this->security->get_csrf_hash()) ?>">
-                    <input type="hidden" name="student_id" id="studentID" value="">
-                    <input type="hidden" name="class_id" value="<?= (int)$class_id ?>">
-                    <input type="hidden" name="section_id" value="<?= (int)$section_id ?>">
-                    <input type="hidden" name="redirect_page" value="view_student_profile">
+                <h4 id="re_admit_body">Please Wait .....</h4>
+                <p style="text-align: center;">
 
-                    <div class="form-group">
-                        <label for="admission_no">Admission No:</label>
-                        <input type="text" name="admission_no" id="admission_no" value="" class="form-control" style="display:inline-block; width:auto;">
-                    </div>
-                    <div class="form-group">
-                        <label for="re_admit_again_reason">Re-Admission Detail:</label>
-                        <input required type="text" class="form-control" name="re_admit_again_reason" id="re_admit_again_reason">
-                    </div>
-                    <button type="submit" class="btn btn-success btn-sm">Admit Again</button>
+
+                <form action="<?php echo site_url(ADMIN_DIR . "admission/re_admit_again") ?>" method="post" style="text-align: center;">
+                    <input type="hidden" name="student_id" id="studentID" value="" />
+                    <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+                    <input type="hidden" name="redirect_page" value="view_student_profile" />
+                    Admission No: <input type="text" name="admission_no" id="admission_no" value="" />
+                    <br />
+                    Re-Admission Detail:
+                    <input required type="text" class="form-control" style="margin: 10px;" name="re_admit_again_reason" />
+                    <input type="submit" class="btn btn-success btn-sm" value="Admit Again" />
                 </form>
+                </p>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Withdraw Modal -->
+<script>
+    function re_admit(student_id, name, father_name, add_no) {
+        $('#readmit_model_title').html("Student Re Admit Form");
+        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+        $('#admission_no').val(add_no);
+
+        $('#studentID').val(student_id);
+        $('#re_admit_body').html(body);
+        $('#re_admit').modal('show');
+    }
+</script>
+
 <div id="withdrawal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title pull-left" id="withdrawal_model_title">Student Withdraw Form</h5>
+                <h5 class="modal-title pull-left" id="withdrawal_model_title">Title</h5>
                 <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <br />
             </div>
             <div class="modal-body">
-                <div id="withdrawal_admit_body">Please Wait .....</div>
-                <form action="<?= site_url(ADMIN_DIR . 'admission/withdraw_student') ?>" method="post">
-                    <input type="hidden" name="<?= e($this->security->get_csrf_token_name()) ?>" value="<?= e($this->security->get_csrf_hash()) ?>">
-                    <input type="hidden" name="student_id" id="stID" value="">
-                    <input type="hidden" name="class_id" value="<?= (int)$class_id ?>">
-                    <input type="hidden" name="section_id" value="<?= (int)$section_id ?>">
-                    <input type="hidden" name="redirect_page" value="view_student_profile">
+                <h4 id="withdrawal_admit_body">Please Wait .....</h4>
+                <p style="text-align: center;">
+                <form action="<?php echo site_url(ADMIN_DIR . "admission/withdraw_student") ?>" method="post" style="text-align: center;">
+                    <input type="hidden" name="student_id" id="stID" value="" />
+                    <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+                    <input type="hidden" name="redirect_page" value="view_student_profile" />
+                    <table class="" style="width: 100%;">
 
-                    <table class="table" style="width: 100%;">
                         <tr>
-                            <td><label for="adNo">Admission No:</label></td>
-                            <td><input type="text" required name="admission_no" id="adNo" value="" class="form-control"></td>
+                            <td>Admission No:</td>
+                            <td><input type="text" required name="admission_no" id="adNo" value="" /></td>
                         </tr>
                         <tr>
-                            <td><label for="add_date">Admission Date:</label></td>
-                            <td><input type="date" required name="admission_date" id="add_date" value="" class="form-control"></td>
+                            <td>Admission Date:</td>
+                            <td><input type="date" required name="admission_date" id="add_date" value="" /></td>
                         </tr>
                         <tr>
-                            <td><label for="school_leaving_date">School Leaving Date:</label></td>
-                            <td><input type="date" required name="school_leaving_date" id="school_leaving_date" value="" class="form-control"></td>
+                            <td>Schoool Leaving Date:</td>
+                            <td> <input type="date" required name="school_leaving_date" id="school_leaving_date" value="" />
+                            </td>
                         </tr>
                         <tr>
-                            <td><label for="slc_issue_date">SLC Issue Date:</label></td>
-                            <td><input type="date" required name="slc_issue_date" id="slc_issue_date" value="" class="form-control"></td>
+                            <td>SLC Issue Date:</td>
+                            <td><input type="date" required name="slc_issue_date" id="slc_issue_date" value="" /></td>
                         </tr>
                         <tr>
-                            <td><label for="slc_file_no">SLC File No:</label></td>
-                            <td><input type="text" required name="slc_file_no" id="slc_file_no" value="" class="form-control"></td>
+                            <td>SLC File No:</td>
+                            <td><input type="text" required name="slc_file_no" id="slc_file_no" value="" /></td>
                         </tr>
                         <tr>
-                            <td><label for="slc_certificate_no">SLC Certificate No:</label></td>
-                            <td><input type="text" required name="slc_certificate_no" id="slc_certificate_no" value="" class="form-control"></td>
+                            <td>SLC Certificate No:</td>
+                            <td><input type="text" required name="slc_certificate_no" id="slc_certificate_no" value="" /></td>
                         </tr>
                         <tr>
-                            <td><label for="withdraw_reason">Withdrawal Reason:</label></td>
-                            <td><textarea id="withdraw_reason" class="form-control" name="withdraw_reason" rows="3"></textarea></td>
+                            <td>Withdrawal Reason:</td>
+                            <td>
+                                <textarea style="width: 100%;" name="withdraw_reason"></textarea>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-right"><button type="submit" class="btn btn-danger btn-sm">Withdraw</button></td>
+                            <td colspan="2"><input type="submit" class="btn btn-danger btn-sm" value="Withdraw" /></td>
                         </tr>
                     </table>
                 </form>
+                </p>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- General Modal (AJAX content) -->
 <div id="general_model" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" id="general_model_body"></div>
+        <div class="modal-content" id="general_model_body">
+
+
+        </div>
     </div>
 </div>
+<script>
+    function withdraw(student_id, name, father_name, add_no, admission_date) {
+        $('#withdrawal_model_title').html("Student Withdraw Form");
+        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + '<br /> Admission Date: ' + admission_date + '<br /> ';
+        $('#adNo').val(add_no);
+        $('#add_date').val(admission_date);
 
-<!-- Struck Off Modal -->
+
+        $('#stID').val(student_id);
+        $('#withdrawal_admit_body').html(body);
+        $('#withdrawal').modal('show');
+    }
+
+    function change_class_form(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/change_class_form"); ?>",
+            data: {
+                student_id: student_id
+            }
+        }).done(function(data) {
+
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
+    }
+
+    function change_section_form(student_id) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url(ADMIN_DIR . "admission/change_section_form"); ?>",
+            data: {
+                student_id: student_id
+            }
+        }).done(function(data) {
+
+            $('#general_model_body').html(data);
+        });
+
+        $('#general_model').modal('show');
+    }
+</script>
+
+
 <div id="struck_off" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title pull-left" id="sof_model_title">Student Struck Off Form</h5>
+                <h5 class="modal-title pull-left" id="sof_model_title">Title</h5>
                 <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <br />
             </div>
             <div class="modal-body">
-                <div id="struck_off_body">Please Wait .....</div>
-                <form action="<?= site_url(ADMIN_DIR . 'teacher_dashboard/struck_off_student') ?>" method="post" class="text-center" style="margin-top:10px;">
-                    <input type="hidden" name="<?= e($this->security->get_csrf_token_name()) ?>" value="<?= e($this->security->get_csrf_hash()) ?>">
-                    <input type="hidden" name="student_id" id="student_ID" value="">
-                    <input type="hidden" name="class_id" value="<?= (int)$class_id ?>">
-                    <input type="hidden" name="section_id" value="<?= (int)$section_id ?>">
-                    <input type="hidden" name="redirect_page" value="view_student_profile">
-                    <input required type="text" class="form-control" name="struck_off_reason" placeholder="Reason" style="margin:10px 0;">
-                    <button type="submit" class="btn btn-danger btn-sm">Struck Off</button>
+                <h4 id="struck_off_body">Please Wait .....</h4>
+                <p style="text-align: center;">Stuck Off Reason:
+                <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/struck_off_student") ?>" method="post" style="text-align: center;">
+                    <input type="hidden" name="student_id" id="student_ID" value="" />
+                    <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+                    <input type="hidden" name="redirect_page" value="view_student_profile" />
+                    <input required type="text" class="form-control" style="margin: 10px;" name="struck_off_reason" />
+                    <input type="submit" class="btn btn-danger btn-sm" value="Struck Off" />
                 </form>
+                </p>
             </div>
+
         </div>
     </div>
 </div>
+<script>
+    function struck_off_model(student_id, name, father_name, add_no) {
+        $('#sof_model_title').html("Student Stuck Off Form");
+        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+        $('#student_ID').val(student_id);
+        $('#struck_off_body').html(body);
+        $('#struck_off').modal('show')
+    }
+</script>
 
-<!-- Page Header -->
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
+            <!-- STYLER -->
+
+            <!-- /STYLER -->
+            <!-- BREADCRUMBS -->
             <ul class="breadcrumb">
-                <li><i class="fa fa-home"></i> Home</li>
-                <li><a href="<?= site_url(ADMIN_DIR . 'admission/') ?>">Admission</a></li>
-                <li><?= e($student->student_name) ?> Profile</li>
+                <li> <i class="fa fa-home"></i> Home </li>
+                <li> <a href="<?php echo site_url(ADMIN_DIR . "admission/"); ?>"> Admission</a> </li>
+                <li> <?php echo $students[0]->student_name . ""; ?> Profile</li>
             </ul>
+            <!-- /BREADCRUMBS -->
             <div class="col-md-4">
                 <div class="clearfix">
-                    <h6 class="content-title pull-left"><?= strtoupper(e($student->student_name)) ?></h6>
+                    <h6 class="content-title pull-left"> <?php echo strtoupper($students[0]->student_name) . ""; ?> </h6>
                 </div>
+                <!-- <div class="description" id="message"></div> -->
             </div>
             <div class="col-md-8">
                 <h5 class="pull-right">
-                    <?php if ((int)$student->status === 1): ?>
-                        <button onclick="struck_off_model('<?= (int)$student->student_id ?>','<?= e($student->student_name) ?>','<?= e($student->student_father_name) ?>','<?= e($student->student_admission_no) ?>')" class="btn btn-warning btn-sm">Struck Off</button>
-                        <button onclick="withdraw('<?= (int)$student->student_id ?>','<?= e($student->student_name) ?>','<?= e($student->student_father_name) ?>','<?= e($student->student_admission_no) ?>','<?= e($student->admission_date) ?>')" class="btn btn-danger btn-sm">Withdraw</button>
-                    <?php endif; ?>
+                    <?php
+                    $student = $students[0];
+                    if ($student->status == 1) { ?>
+                        <button onclick="struck_off_model('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-warning btn-sm" aria-hidden="true">Struck Off</Button>
+                        <button onclick="withdraw('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>', '<?php echo $student->admission_date; ?>')" class="btn btn-danger btn-sm" aria-hidden="true">Withdraw</button>
 
-                    <?php if ((int)$student->status === 2): ?>
-                        <button onclick="re_admit('<?= (int)$student->student_id ?>','<?= e($student->student_name) ?>','<?= e($student->student_father_name) ?>','<?= e($student->student_admission_no) ?>')" class="btn btn-success btn-sm">Re-admit</button>
-                        <button onclick="withdraw('<?= (int)$student->student_id ?>','<?= e($student->student_name) ?>','<?= e($student->student_father_name) ?>','<?= e($student->student_admission_no) ?>','<?= e($student->admission_date) ?>')" class="btn btn-danger btn-sm">Withdraw</button>
-                    <?php endif; ?>
+                    <?php  } ?>
+                    <?php if ($student->status == 2) { ?>
+                        <button onclick="re_admit('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-success btn-sm" aria-hidden="true"> Re-admit</button>
 
-                    <?php if ((int)$student->status === 3): ?>
-                        <button onclick="re_admit('<?= (int)$student->student_id ?>','<?= e($student->student_name) ?>','<?= e($student->student_father_name) ?>','<?= e($student->student_admission_no) ?>')" class="btn btn-success btn-sm">Re-admit</button>
-                    <?php endif; ?>
+                        <button onclick="withdraw('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>', '<?php echo $student->admission_date; ?>')" class="btn btn-danger btn-sm" aria-hidden="true">Withdraw</button>
 
-                    <?php if ((int)$student->status !== 0): ?>
-                        <a class="btn btn-primary btn-sm" target="_new" href="<?= site_url(ADMIN_DIR . 'admission/birth_certificate/' . (int)$student->student_id) ?>"><i class="fa fa-print"></i> Birth Certificate</a>
-                        <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit Profile</button>
-                        <button onclick="change_class_form('<?= (int)$student->student_id ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Change Class</button>
-                        <button onclick="change_section_form('<?= (int)$student->student_id ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Change Section</button>
-                        <a href="<?= site_url(ADMIN_DIR . 'admission/delete_student_profile/' . (int)$student->student_id) ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete Student</a>
-                    <?php endif; ?>
+                    <?php  } ?>
+                    <?php if ($student->status == 3) { ?>
+                        <button onclick="re_admit('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="btn btn-success btn-sm" aria-hidden="true"> Re-admit</button>
 
-                    <?php if ((int)$student->status === 0): ?>
-                        <a href="<?= site_url(ADMIN_DIR . 'admission/restore_student_profile/' . (int)$student->student_id) ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo"></i> Restore Student Profile</a>
-                    <?php endif; ?>
+                    <?php  } ?>
+                    <?php if ($student->status != 0) { ?>
+                        <a class="btn btn-primary btn-sm" target="_new" href="<?php echo site_url(ADMIN_DIR . "admission/birth_certificate/" . $student->student_id); ?>"><i class="fa fa-print" aria-hidden="true"></i> Birth Certificate</a>
+                        <button onclick="update_profile()" class="btn btn-success btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile</button>
+
+                        <button onclick="change_class_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Class</button>
+                        <button onclick="change_section_form('<?php echo $student->student_id; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> Change Section</button>
+
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/delete_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to remove student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Delete Student</a>
+                    <?php  } ?>
+                    <?php if ($student->status == 0) { ?>
+                        <a href="<?php echo site_url(ADMIN_DIR . "admission/restore_student_profile/$student->student_id"); ?>" onclick="return confirm('Are you sure? You want to restore student profile.')" class="btn btn-danger btn-sm"><i class="fa fa-undo" aria-hidden="true"></i> Restore Student Profile</a>
+                    <?php  } ?>
+
                 </h5>
             </div>
+
         </div>
     </div>
 </div>
 
-<div class="row" style="margin:0;">
+
+
+
+
+<div class="row" style="margin: 0px;">
     <div class="col-md-3">
         <div class="table-responsive">
-            <div class="text-center" style="margin-bottom:10px;">
-                <img src="<?= site_url('uploads/gcmhs/' . e($student->student_image)) ?>" width="120" alt="Student Photo" />
+            <div style="text-align: center; margin-bottom: 10px;">
+                <img src="<?php echo site_url('uploads/gcmhs/' . $student->student_image); ?>" width="120" />
             </div>
-            <strong><?= strtoupper(e($student->student_name)) ?> S/O <?= strtoupper(e($student->student_father_name)) ?></strong>
+            <strong>
+                <?php echo strtoupper($students[0]->student_name); ?> S/O <?php echo strtoupper($students[0]->student_father_name); ?>
+
+            </strong>
+
             <span style="font-size:20px !important;">
-                <h5 class="pull-left"><?= e($this->lang->line('student_admission_no')) ?>: <?= e($student->student_admission_no) ?></h5>
+
+                <h5 class="pull-left">
+                    <?php echo $this->lang->line('student_admission_no'); ?>: <?php echo $student->student_admission_no; ?>
+                </h5>
+
                 <h5 class="pull-right">
-                    Status:
-                    <?php if ((int)$student->status === 1): ?>Admitted<?php endif; ?>
-                    <?php if ((int)$student->status === 2): ?>Struck Off<?php endif; ?>
-                    <?php if ((int)$student->status === 3): ?>SLC<?php endif; ?>
-                    <?php if ((int)$student->status === 0): ?>Deleted<?php endif; ?>
+                    Status: <?php if ($students[0]->status == 1) { ?> Admitted <?php  } ?>
+                    <?php if ($students[0]->status == 2) { ?> Struck Off <?php  } ?>
+                    <?php if ($students[0]->status == 3) { ?> SLC <?php  } ?>
+                    <?php if ($students[0]->status == 0) { ?> Deleted <?php  } ?>
                 </h5>
             </span>
+            <?php foreach ($students as $student) : ?>
+                <script>
+                    function update_student_record(student_id, field) {
 
-            <?php foreach ($students as $stud): ?>
+                        var value = $('#' + field + '_' + student_id).val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo site_url(ADMIN_DIR . "admission/update_student_record") ?>/",
+                            data: {
+                                student_id: student_id,
+                                value: value,
+                                field: field
+                            }
+                        }).done(function(msg) {
+                            if (field == 'student_class_no') {
+                                $('#studentclassno_' + student_id).html(msg);
+                            }
+                            $("#message").html(msg);
+                            $("#message").fadeIn('slow');
+                            $("#message").delay(5000).fadeOut('slow');
+                        });
+
+                    }
+                </script>
+
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <td class="text-center"><?= e($this->lang->line('student_class_no')) ?></td>
-                        <td class="text-center"><?= e($this->lang->line('Class_title')) ?></td>
-                        <td class="text-center"><?= e($this->lang->line('section_title')) ?></td>
+                        <td style="text-align: center;"><?php echo $this->lang->line('student_class_no'); ?></td>
+                        <td style="text-align: center;"><?php echo $this->lang->line('Class_title'); ?></td>
+                        <td style="text-align: center;"><?php echo $this->lang->line('section_title'); ?></td>
                     </tr>
                     <tr>
-                        <td class="text-center"><?= e($stud->student_class_no) ?></td>
-                        <td class="text-center"><?= e($stud->Class_title) ?></td>
-                        <td class="text-center"><?= e($stud->section_title) ?></td>
+                        <td style="text-align: center;"><?php echo $student->student_class_no; ?></td>
+                        <td style="text-align: center;"><?php echo $student->Class_title; ?></td>
+                        <td style="text-align: center;"><?php echo $student->section_title; ?></td>
                     </tr>
+                    <!-- <tr>
+                        <td colspan="3">
+                            Change Student Section <?php
+                                                    $list_sections = $this->student_model->getList("sections", "section_id", "section_title", $where = "");
+
+                                                    echo form_dropdown("student_section_id", array("0" => "Change Section") + $list_sections, $student->section_id, "class=\"pull-right for m-control\" style=\"width:60px !important\" required id=\"section_id_" . $student->student_id . "\"  onchange=\"update_student_record('" . $student->student_id . "', 'section_id')\" ");
+                                                    ?>
+                        </td>
+                    </tr> -->
                 </table>
 
-                <table class="table table-bordered table-striped" style="width:100%;">
+                <table class="table table table-bordered table-striped" style="width: 100%;">
+                    <thead>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>Form B:</td>
-                            <td><?= strtoupper(e($student->form_b)) ?></td>
+                            <td><?php echo strtoupper($students[0]->form_b); ?>
+
+                            </td>
                         </tr>
                         <tr>
                             <td>Date Of Birth</td>
-                            <td><?= e(date('d-m-Y', strtotime($stud->student_data_of_birth))) ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($student->student_data_of_birth)); ?>
+
+                            </td>
                         </tr>
                         <tr>
                             <td>Date Of Admission</td>
-                            <td><?= e(date('d-m-Y', strtotime($stud->admission_date))) ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($student->admission_date)); ?></td>
                         </tr>
                         <tr>
                             <td>Father Mobile No.</td>
-                            <td><?= e($stud->father_mobile_number) ?></td>
+                            <td><?php echo $student->father_mobile_number; ?></td>
                         </tr>
                         <tr>
                             <td>Father CNIC</td>
-                            <td><?= e($stud->father_nic) ?></td>
+                            <td><?php echo $student->father_nic; ?></td>
                         </tr>
                         <tr>
                             <td>Father Occupation</td>
-                            <td><?= e($stud->guardian_occupation) ?></td>
+                            <td><?php echo $student->guardian_occupation; ?></td>
                         </tr>
                         <tr>
                             <td>Previous School</td>
-                            <td><?= e($stud->private_public_school) ?> - <?= e($stud->school_name) ?></td>
+                            <td><?php echo $student->private_public_school; ?>-<?php echo $student->school_name; ?></td>
                         </tr>
                         <tr>
                             <td>Nationality</td>
-                            <td><?= e($stud->nationality) ?></td>
+                            <td><?php echo $student->nationality; ?></td>
                         </tr>
                         <tr>
                             <td>Religion</td>
-                            <td><?= e($stud->religion) ?></td>
+                            <td><?php echo $student->religion; ?></td>
                         </tr>
                         <tr>
                             <td>Orphan</td>
-                            <td><?= e($stud->orphan) ?></td>
+                            <td><?php echo $student->orphan; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><?= e($this->lang->line('student_address')) ?>: <?= e($stud->student_address) ?></td>
+                            <td colspan="2"><?php echo $this->lang->line('student_address'); ?>: <?php echo $student->student_address; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Created date: <?= e(date('d M Y', strtotime($stud->created_date))) ?></td>
+                            <td colspan="2">Created date:
+                                <?php echo date('d M Y', strtotime($student->created_date)); ?></td>
                         </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php endforeach; ?>
 
         </div>
     </div>
-
     <div class="col-md-9">
         <div class="col-md-4">
             <h3 class="title">History</h3>
-            <?php
-            // NOTE: This still queries in-view to preserve behavior; ideally pass $student_history_list from controller
-            $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh
-                JOIN sections as s ON sh.section_id = s.section_id
-                JOIN classes  as c ON sh.class_id   = c.class_id
-                JOIN sessions as se ON sh.session_id= se.session_id
-                WHERE sh.student_id = ?";
-            $student_history_list = $this->db->query($query, [$student->student_id])->result();
-            foreach ($student_history_list as $student_history): ?>
-                <div style="margin-bottom:5px;">
-                    <span class="pull-left"><?= e($student_history->history_type) ?></span>
-                    <span class="pull-right"><?= e(date('d M, Y', strtotime($student_history->create_date))) ?></span>
-                    <br />
-                    <?php if ($student_history->history_type === 'Promoted'): ?>
-                        <small style="margin-left:5px; margin-right:5px;">
-                            Promoted From Class <?= e($student_history->class_title) ?> To Class
-                            <?php
-                            $next_class = $this->db->query("SELECT Class_title FROM classes WHERE class_id > ? ORDER BY class_id ASC LIMIT 1", [$student_history->class_id])->row();
-                            echo e($next_class ? $next_class->Class_title : 'N/A');
-                            ?>.
+            <?php $query = "SELECT *, s.section_title, c.class_title, se.session FROM `student_history` as sh, sections as s, classes as c, `sessions` as se 
+                        WHERE 
+                        sh.class_id = c.class_id
+                        AND sh.section_id = s.section_id
+                        AND sh.session_id = se.session_id
+                        AND sh.student_id = '" . $students[0]->student_id . "'";
+            $student_history_list = $this->db->query($query)->result();
+            foreach ($student_history_list as $student_history) { ?>
+                <div style="margin-bottom: 5px;">
+                    <?php if ($student_history->history_type == 'Promoted') { ?>
+                        <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                        <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                        <small style="margin-left: 5px; margin-right: 5px;"> Promoted From Class <?php echo $student_history->class_title; ?> To Class
+                            <?php $query = "SELECT * FROM classes WHERE class_id > $student_history->class_id LIMIT 1";
+                            echo $this->db->query($query)->result()[0]->Class_title; ?>.
                         </small>
-                    <?php elseif ($student_history->history_type === 'Struck Off'): ?>
-                        <small style="margin-left:5px; margin-right:5px;">Struck Off Due to <?= e($student_history->remarks) ?></small>
-                    <?php elseif ($student_history->history_type === 'Withdraw'): ?>
-                        <?php
-                        $slc = $this->db->query(
-                            "SELECT slc.*, u.user_title FROM student_leaving_certificates slc
-                 JOIN users u ON slc.created_by = u.user_id
-                 WHERE slc.student_id = ? AND DATE(slc.created_date) = ?",
-                            [$student->student_id, date('Y-m-d', strtotime($student_history->create_date))]
-                        )->row();
-                        ?>
-                        <?php if ($slc): ?>
-                            <small style="margin-left:5px; margin-right:5px;">
-                                Got School leaving Certificate.<br />
-                                School Leaving Date: <?= e(date('d M, Y', strtotime($slc->school_leaving_date))) ?> <br />
-                                SLC issue Date: <?= e(date('d M, Y', strtotime($slc->slc_issue_date))) ?> <br />
-                                File Ref. No: <?= e($slc->slc_file_no) ?> &nbsp; Certificate Ref. No: <?= e($slc->slc_certificate_no) ?><br />
-                                School leaving Reason: <i><?= e($slc->leaving_reason) ?></i><br />
-                                User: <?= e($slc->user_title) ?>
+                    <?php } else { ?>
+                        <?php if ($student_history->history_type == 'Struck Off') { ?>
+                            <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                            <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                            <small style="margin-left: 5px; margin-right: 5px;">
+                                Struck Off Due to <?php echo $student_history->remarks; ?>
                             </small>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <small><?= e($student_history->remarks) ?></small>
-                    <?php endif; ?>
+                        <?php } else { ?>
+                            <?php if ($student_history->history_type == 'Withdraw') { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?> </span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small style="margin-left: 5px; margin-right: 5px;">
+                                    <?php $query = "SELECT *, user_title FROM student_leaving_certificates as slc, users  as u
+                                                    WHERE slc.created_by = u.user_id
+                                                    AND slc.student_id = '" . $students[0]->student_id . "'
+                                                    AND date(slc.created_date) = '" . date("Y-m-d", strtotime($student_history->create_date)) . "'";
+                                    $slc = $this->db->query($query)->result()[0];
+
+                                    ?>
+                                    Got School leaving Certificate.<br />
+                                    School Leaving Date: <?php echo date("d M, Y", strtotime($slc->school_leaving_date)); ?> <br />
+                                    SLC issue Date: <?php echo date("d M, Y", strtotime($slc->slc_issue_date)); ?> <br />
+                                    File Ref. No: <?php echo $slc->slc_file_no; ?> Certificate Ref. No: <?php echo $slc->slc_certificate_no; ?><br />
+                                    School leaving Reason: <i><?php echo $slc->leaving_reason; ?></i><br />
+                                    User: <?php echo $slc->user_title; ?>
+                                </small>
+                            <?php } else { ?>
+                                <span class="pull-left"><?php echo $student_history->history_type; ?></span>
+                                <span class="pull-right"><?php echo date("d M, Y", strtotime($student_history->create_date)); ?></span> <br />
+                                <small><?php echo $student_history->remarks; ?></small>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
-            <?php endforeach; ?>
+            <?php  } ?>
+
         </div>
 
         <div class="col-md-8">
@@ -488,22 +642,23 @@ function e($str)
                     border: 0.1px solid gray !important;
                 }
             </style>
+
             <?php
-            $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class,
-                       sec.section_title AS section,
-                       SUM(exr.obtain_mark) as obtain_mark,
-                       SUM(exr.total_marks) as total_marks,
-                       exr.passing_marks,
-                       exr.percentage
-                FROM students_exams_subjects_marks AS exr
-                INNER JOIN exams   AS ex  ON ex.exam_id = exr.exam_id
-                INNER JOIN classes AS c   ON c.class_id = exr.class_id
-                INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-                WHERE exr.student_id = ?
-                GROUP BY exr.exam_id";
-            $student_exam_records = $this->db->query($query, [$student->student_id])->result();
+            $query = "SELECT exr.student_id, ex.year, ex.exam_id, ex.exam_data, ex.term, c.class_title AS class, 
+            sec.section_title AS section, 
+            SUM(exr.obtain_mark) as obtain_mark, 
+            SUM(exr.total_marks) as total_marks, 
+            exr.passing_marks, 
+            exr.percentage 
+            FROM students_exams_subjects_marks AS exr 
+            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+            INNER JOIN classes AS c ON c.class_id = exr.class_id 
+            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+            WHERE `student_id` = '" . $students[0]->student_id . "'
+            GROUP BY exr.exam_id ";
+            $student_exam_records = $this->db->query($query)->result();
             ?>
-            <?php if (!empty($student_exam_records)): ?>
+            <?php if (!empty($student_exam_records)) { ?>
                 <table class="table table-bordered table-striped table_medium">
                     <thead>
                         <tr>
@@ -519,26 +674,44 @@ function e($str)
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($student_exam_records as $record): ?>
+                        <?php foreach ($student_exam_records as $record) { ?>
                             <tr>
-                                <td><?= e($record->year) ?></td>
-                                <td><?= e($record->term) ?></td>
-                                <td><?= e(date('M-y', strtotime($record->exam_data))) ?></td>
-                                <td><?= e($record->class) ?></td>
-                                <td><?= e($record->section) ?></td>
-                                <th class="text-center"><?= e($record->obtain_mark) ?></th>
-                                <th class="text-center"><?= e($record->total_marks) ?></th>
-                                <th class="text-center"><?= e(round(($record->total_marks > 0 ? ($record->obtain_mark * 100 / $record->total_marks) : 0), 2)) ?>%</th>
-                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?= (int)$student->student_id ?>', '<?= (int)$record->exam_id ?>')">DMC</button></th>
+                                <td><?php echo htmlspecialchars($record->year); ?></td>
+                                <td><?php echo htmlspecialchars($record->term); ?></td>
+                                <td><?php echo date("M-y", strtotime($record->exam_data)); ?></td>
+                                <td><?php echo htmlspecialchars($record->class); ?></td>
+                                <td><?php echo htmlspecialchars($record->section); ?></td>
+                                <th style="text-align: center;"><?php echo htmlspecialchars($record->obtain_mark); ?></th>
+                                <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
+                                <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
+                                <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+
                             </tr>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </tbody>
                 </table>
-            <?php else: ?>
+                <script>
+                    function get_student_dmc(student_id, exam_id) {
+                        $.ajax({
+                                method: "POST",
+                                url: "<?php echo site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>",
+                                data: {
+                                    student_id: student_id,
+                                    exam_id: exam_id,
+                                },
+                            })
+                            .done(function(respose) {
+                                $('#modal').modal('show');
+                                $('#modal_title').html('Initiate Scheme');
+                                $('#modal_body').html(respose);
+                            });
+                    }
+                </script>
+            <?php } else { ?>
                 <p>No exam records found for this student.</p>
-            <?php endif; ?>
-        </div>
+            <?php } ?>
 
+        </div>
         <style>
             .table_small>tbody>tr>td,
             .table_small>tbody>tr>th,
@@ -554,21 +727,17 @@ function e($str)
                 border: 0.1px solid gray !important;
                 color: black !important;
             }
-
-            .disabled-day {
-                background-color: #f5f5f5;
-            }
         </style>
 
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_small" style="width:100%; font-size:12px;">
+            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
-                        <?php for ($day = 1; $day <= 31; $day++): ?>
-                            <th style="width:50px; text-align:center; vertical-align:middle;"><?= $day ?></th>
-                        <?php endfor; ?>
+                        <?php for ($day = 1; $day <= 31; $day++) { ?>
+                            <th style="width: 50px; text-align:center; vertical-align:middle"><?php echo $day; ?></th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -587,128 +756,70 @@ function e($str)
                         '11' => 'November',
                         '12' => 'December'
                     ];
-                    $currentYear = date('Y');
 
-                    foreach ($monthNames as $monthNum => $monthName):
-                        $daysInMonth = date('t', mktime(0, 0, 0, (int)$monthNum, 1, (int)$currentYear));
+                    $currentYear = date('Y'); // This will be 2025
+
+                    foreach ($monthNames as $monthNum => $monthName) {
+                        $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
                     ?>
                         <tr>
-                            <th><?= $monthName ?></th>
-                            <?php for ($day = 1; $day <= 31; $day++): ?>
-                                <?php if ($day > $daysInMonth): ?>
-                                    <td class="disabled-day"></td>
-                                <?php else: ?>
-                                    <?php
-                                    $att_q = "SELECT attendance, attendance2 FROM `students_attendance`
-                            WHERE `student_id` = ? AND YEAR(`date`) = ? AND MONTH(`date`) = ? AND DAY(`date`) = ?";
-                                    $students_attendance = $this->db->query($att_q, [
-                                        $student->student_id,
-                                        $currentYear,
-                                        $monthNum,
-                                        $day
-                                    ])->row();
+                            <th><?php echo $monthName; ?></th>
+                            <?php
+                            for ($day = 1; $day <= 31; $day++) {
+                                if ($day > $daysInMonth) {
+                                    echo '<td></td>';
+                                    continue;
+                                }
 
-                                    $style = '';
+                                $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                              AND YEAR(`date`) = ? 
+                              AND MONTH(`date`) = ? 
+                              AND DAY(`date`) = ?";
+                                $students_attendance = $this->db->query($query, [
+                                    $student->student_id,
+                                    $currentYear,
+                                    $monthNum,
+                                    $day
+                                ])->row();
+                            ?>
+                                <td style="text-align:center; 
+                                <?php
+                                if (!empty($students_attendance)) {
+                                    // Set background color based on attendance status
+                                    if ($students_attendance->attendance == 'A') {
+                                        echo 'background-color: #D8534E;';  // Red for absent
+                                    } elseif ($students_attendance->attendance == 'P') {
+                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                            echo 'background-color: #96AE5F;';  // Green for present
+                                        } elseif ($students_attendance->attendance2 == 'A') {
+                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                        }
+                                    }
+                                }
+                                ?>">
+                                    <?php
                                     if (!empty($students_attendance)) {
-                                        if ($students_attendance->attendance === 'A') {
-                                            $style = 'background-color:#D8534E;'; // Absent - red
-                                        } elseif ($students_attendance->attendance === 'P') {
-                                            if (empty($students_attendance->attendance2) || $students_attendance->attendance2 === 'P') {
-                                                $style = 'background-color:#96AE5F;'; // Present - green
-                                            } elseif ($students_attendance->attendance2 === 'A') {
-                                                $style = 'background-color:#F0AD4E;'; // Half - orange
-                                            }
+                                        echo $students_attendance->attendance;
+                                        if (!empty($students_attendance->attendance2)) {
+                                            echo " - " . htmlspecialchars($students_attendance->attendance2);
                                         }
                                     }
                                     ?>
-                                    <td style="text-align:center; <?= $style ?>">
-                                        <?php if (!empty($students_attendance)):
-                                            echo e($students_attendance->attendance);
-                                            if (!empty($students_attendance->attendance2)) {
-                                                echo ' - ' . e($students_attendance->attendance2);
-                                            }
-                                        endif; ?>
-                                    </td>
-                                <?php endif; ?>
-                            <?php endfor; ?>
+                                </td>
+                            <?php } ?>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </tbody>
             </table>
+
+            <style>
+                .disabled-day {
+                    background-color: #f5f5f5;
+                }
+            </style>
         </div>
+
     </div>
+
+
 </div>
-
-<!-- Consolidated Scripts -->
-<script>
-    function update_profile() {
-        jQuery('#update_profile').modal('show');
-    }
-
-    function re_admit(student_id, name, father_name, add_no) {
-        jQuery('#readmit_model_title').text('Student Re Admit Form');
-        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
-        jQuery('#admission_no').val(add_no);
-        jQuery('#studentID').val(student_id);
-        jQuery('#re_admit_body').html(body);
-        jQuery('#re_admit').modal('show');
-    }
-
-    function withdraw(student_id, name, father_name, add_no, admission_date) {
-        jQuery('#withdrawal_model_title').text('Student Withdraw Form');
-        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + '<br /> Admission Date: ' + admission_date + '<br /> ';
-        jQuery('#adNo').val(add_no);
-        jQuery('#add_date').val(admission_date);
-        jQuery('#stID').val(student_id);
-        jQuery('#withdrawal_admit_body').html(body);
-        jQuery('#withdrawal').modal('show');
-    }
-
-    function change_class_form(student_id) {
-        jQuery.ajax({
-            type: 'POST',
-            url: '<?= site_url(ADMIN_DIR . 'admission/change_class_form'); ?>',
-            data: {
-                student_id: student_id
-            }
-        }).done(function(data) {
-            jQuery('#general_model_body').html(data);
-            jQuery('#general_model').modal('show');
-        });
-    }
-
-    function change_section_form(student_id) {
-        jQuery.ajax({
-            type: 'POST',
-            url: '<?= site_url(ADMIN_DIR . 'admission/change_section_form'); ?>',
-            data: {
-                student_id: student_id
-            }
-        }).done(function(data) {
-            jQuery('#general_model_body').html(data);
-            jQuery('#general_model').modal('show');
-        });
-    }
-
-    function struck_off_model(student_id, name, father_name, add_no) {
-        jQuery('#sof_model_title').text('Student Struck Off Form');
-        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
-        jQuery('#student_ID').val(student_id);
-        jQuery('#struck_off_body').html(body);
-        jQuery('#struck_off').modal('show');
-    }
-
-    function get_student_dmc(student_id, exam_id) {
-        jQuery.ajax({
-            method: 'POST',
-            url: '<?= site_url(ADMIN_DIR . 'admission/get_student_dmc'); ?>',
-            data: {
-                student_id: student_id,
-                exam_id: exam_id
-            }
-        }).done(function(response) {
-            jQuery('#general_model_body').html(response);
-            jQuery('#general_model').modal('show');
-        });
-    }
-</script>
