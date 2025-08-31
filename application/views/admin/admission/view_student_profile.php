@@ -635,7 +635,23 @@ $section_id = $students[0]->section_id;
 
         <div class="col-md-8">
             <h3 class="title">Academic Summary</h3>
-
+            <style>
+                .table_medium>tbody>tr>td,
+                .table_medium>tbody>tr>th,
+                .table_medium>tfoot>tr>td,
+                .table_medium>tfoot>tr>th,
+                .table_medium>thead>tr>td,
+                .table_medium>thead>tr>th {
+                    padding: 2px;
+                    line-height: 1.42857143;
+                    vertical-align: top;
+                    border-top: 1px solid #ddd;
+                    font-size: 12px;
+                    border: 0.1px solid gray !important;
+                    font-weight: bold !important;
+                    color: black !important;
+                }
+            </style>
 
             <?php
             $query = "SELECT exr.student_id, ex.year, ex.exam_data, ex.term, c.class_title AS class, 
@@ -653,7 +669,7 @@ $section_id = $students[0]->section_id;
             $student_exam_records = $this->db->query($query)->result();
             ?>
             <?php if (!empty($student_exam_records)) { ?>
-                <table class="table table-bordered table-striped table_small">
+                <table class="table table-bordered table-striped table_medium">
                     <thead>
                         <tr>
                             <th>Year</th>
@@ -706,26 +722,10 @@ $section_id = $students[0]->section_id;
                 color: black !important;
             }
         </style>
-        <style>
-            .table_medium>tbody>tr>td,
-            .table_medium>tbody>tr>th,
-            .table_medium>tfoot>tr>td,
-            .table_medium>tfoot>tr>th,
-            .table_medium>thead>tr>td,
-            .table_medium>thead>tr>th {
-                padding: 2px;
-                line-height: 1.42857143;
-                vertical-align: top;
-                border-top: 1px solid #ddd;
-                font-size: 12px;
-                border: 0.1px solid gray !important;
-                font-weight: bold !important;
-                color: black !important;
-            }
-        </style>
+
         <div class="col-md-12">
             <h4>Attendance History</h4>
-            <table class="table table-bordered table-striped table_medium" style="width:100%; font-size: 12px;">
+            <table class="table table-bordered table-striped table_small" style="width:100%; font-size: 12px;">
                 <thead>
                     <tr>
                         <th>Month / Days</th>
