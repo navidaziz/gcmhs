@@ -37,3 +37,57 @@
         </td>
     </tr>
 </table>
+
+
+<?php
+// Query with placeholders
+$query = "SELECT 
+            sub.subject_title,
+            sub.short_title,
+            exr.obtain_mark,
+            exr.total_marks, 
+            exr.passing_marks, 
+            exr.percentage 
+          FROM students_exams_subjects_marks AS exr 
+          INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+          INNER JOIN classes AS c ON c.class_id = exr.class_id 
+          INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+          INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+          WHERE exr.student_id = ?
+          AND exr.exam_id = ?";
+
+// Execute query (pass params as array)
+$student_subjects_results = $this->db->query($query, array($student_id, $exam_id))->result();
+?>
+
+<!-- Display in HTML table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Short Title</th>
+            <th>Obtained Marks</th>
+            <th>Total Marks</th>
+            <th>Passing Marks</th>
+            <th>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($student_subjects_results)) { ?>
+            <?php foreach ($student_subjects_results as $row) { ?>
+                <tr>
+                    <td><?php echo $row->subject_title; ?></td>
+                    <td><?php echo $row->short_title; ?></td>
+                    <td><?php echo $row->obtain_mark; ?></td>
+                    <td><?php echo $row->total_marks; ?></td>
+                    <td><?php echo $row->passing_marks; ?></td>
+                    <td><?php echo $row->percentage; ?>%</td>
+                </tr>
+            <?php } ?>
+        <?php } else { ?>
+            <tr>
+                <td colspan="6" class="text-center">No records found</td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
