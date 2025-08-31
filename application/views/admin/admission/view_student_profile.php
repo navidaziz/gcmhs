@@ -589,7 +589,7 @@ $section_id = $students[0]->section_id;
             <div class="col-md-8" style="border: 1px solid blue; height:100px;"></div>
             <br />
             <br />
-            <div class="col-md-4" style="border: 1px solid black; height:100px;"></div>
+            <div class="col-md-12" style="border: 1px solid black; height:400px;"></div>
         </div>
     </div>
 </div>
