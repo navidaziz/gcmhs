@@ -129,7 +129,7 @@
                                                 } ?></th>
 
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' and class_id= '" . $class_id . "' AND status=1 AND class_id IN (2,3,4,5,6)";
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' AND nationality IS NOT NULL and class_id= '" . $class_id . "' AND status=1 AND class_id IN (2,3,4,5,6)";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
@@ -174,7 +174,7 @@
                                               } ?></th>
 
                 <th style="text-align:center"><?php
-                                              $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' AND nationality NOT NULL AND status=1 AND class_id IN (2,3,4,5,6)";
+                                              $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' AND nationality IS NOT NULL AND status=1 AND class_id IN (2,3,4,5,6)";
                                               if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                 echo $this->db->query($query)->result()[0]->total_student;
                                               } ?></th>
