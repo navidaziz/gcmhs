@@ -107,42 +107,46 @@
                   <?php foreach ($ages as $age) { ?>
 
                     <td><?php
-                        $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE age='" . $age . "' and class_id= '" . $class_id . "'";
+                        $query = "SELECT COUNT(age) as total_student 
+                        FROM students_age_wise 
+                        WHERE age='" . $age . "' 
+                        AND class_id= '" . $class_id . "'
+                        AND status=1";
                         if ($this->db->query($query)->result()[0]->total_student > 0) {
                           echo $this->db->query($query)->result()[0]->total_student;
                         } ?></td>
 
                   <?php } ?>
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  class_id= '" . $class_id . "'";
+                                                $query = "SELECT COUNT(age) as total_student FROM students_age_wise WHERE  class_id= '" . $class_id . "' AND status=1";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE religion != 'Islam' and class_id= '" . $class_id . "'";
-                                                if ($this->db->query($query)->result()[0]->total_student > 0) {
-                                                  echo $this->db->query($query)->result()[0]->total_student;
-                                                } ?></th>
-
-                  <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' and class_id= '" . $class_id . "'";
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE religion != 'Islam' and class_id= '" . $class_id . "' AND status=1";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
 
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE orphan = 'Yes' and class_id= '" . $class_id . "'";
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE nationality != 'Pakistani' and class_id= '" . $class_id . "' AND status=1";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
 
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE is_disable = 'Yes' and class_id= '" . $class_id . "'";
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE orphan = 'Yes' and class_id= '" . $class_id . "' AND status=1";
+                                                if ($this->db->query($query)->result()[0]->total_student > 0) {
+                                                  echo $this->db->query($query)->result()[0]->total_student;
+                                                } ?></th>
+
+                  <th style="text-align:center"><?php
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE is_disable = 'Yes' and class_id= '" . $class_id . "' AND status=1";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
                   <th style="text-align:center"><?php
-                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE ehsaas = 'Yes' and class_id= '" . $class_id . "'";
+                                                $query = "SELECT COUNT(student_id) as total_student FROM students_age_wise WHERE ehsaas = 'Yes' and class_id= '" . $class_id . "' AND status=1";
                                                 if ($this->db->query($query)->result()[0]->total_student > 0) {
                                                   echo $this->db->query($query)->result()[0]->total_student;
                                                 } ?></th>
