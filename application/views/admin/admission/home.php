@@ -65,7 +65,7 @@
                     </th>
                     <th>Total</th>
                     <th title="struck Off"> Struck Off - <?php $query = "SELECT COUNT(*) as total FROM students as s
-                              WHERE s.status IN(2)";
+                              WHERE s.status IN(2) and s.class_id IN (2,3,4,5,6)";
                                                           echo $this->db->query($query)->result()[0]->total;
                                                           ?>
                     </th>
@@ -75,7 +75,7 @@
                       <i class="fa fa-users" aria-hidden="true"></i>
 
                     </th>
-                    <th>Promote</th>
+                    <!-- <th>Promote</th> -->
                     <th style="text-align: center;">
                       <i class="fa fa-bar-chart-o"></i>
                     </th>
@@ -147,10 +147,10 @@
                           Award List</a>
                       </td> -->
 
-                      <td>
+                      <!-- <td>
                         <a target="new" href="<?php echo site_url(ADMIN_DIR . "admission/results") . "/$class->class_id/$section->section_id"; ?>">
                           <i class="fa fa-bar-chart-o"></i> Progress Report</a>
-                      </td>
+                      </td> -->
                     </tr>
                   <?php } ?>
 
