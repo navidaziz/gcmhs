@@ -1186,7 +1186,6 @@ echo '</table>';
         });
 </script>
 
-
 <?php
 // Step 1: Run Query
 $monthlyAvg = $this->db->query("
@@ -1216,9 +1215,21 @@ foreach ($monthlyAvg as $row) {
   $data[$key]['months'][$row->month] = round($row->avg_absent, 2);
 }
 
-// Step 3: Generate Table
-echo "<table border='1' cellpadding='5'>";
-echo "<tr>
+// Step 3: Function to format improvement
+function formatImprovement($value)
+{
+  if ($value > 0) {
+    return "<span style='color:green;font-weight:bold;'>&#9650; " . $value . "</span>"; // ▲
+  } elseif ($value < 0) {
+    return "<span style='color:red;font-weight:bold;'>&#9660; " . $value . "</span>"; // ▼
+  } else {
+    return "<span style='color:gray;'>–</span>";
+  }
+}
+
+// Step 4: Generate Table
+echo "<table border='1' cellpadding='5' cellspacing='0'>";
+echo "<tr style='background:#f2f2f2;'>
         <th>Class</th>
         <th>Section</th>
         <th>May</th>
@@ -1241,9 +1252,9 @@ foreach ($data as $row) {
             <td>" . $row['section'] . "</td>
             <td>" . $may . "</td>
             <td>" . $june . "</td>
-            <td>" . $improveJune . "</td>
+            <td>" . formatImprovement($improveJune) . "</td>
             <td>" . $august . "</td>
-            <td>" . $improveAug . "</td>
+            <td>" . formatImprovement($improveAug) . "</td>
           </tr>";
 }
 
