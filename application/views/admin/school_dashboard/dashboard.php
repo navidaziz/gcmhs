@@ -977,7 +977,7 @@ $monthlyAvg = $this->db->query("
         AVG(absent) as avg_absent
     FROM daily_class_wise_attendance
     WHERE YEAR(created_date) = YEAR(CURDATE()) 
-      AND MONTH(created_date) IN (5, 6)
+      AND MONTH(created_date) IN (5, 6, 8)
     GROUP BY class_title, section_title, MONTH(created_date)
 ")->result();
 
@@ -1185,3 +1185,63 @@ echo '</table>';
           }).draw();
         });
 </script>
+
+<?php
+$monthlyAvg = $this->db->query("
+    SELECT 
+        class_title, section_title, 
+        MONTH(created_date) as month, 
+        AVG(absent) as avg_absent
+    FROM daily_class_wise_attendance
+    WHERE YEAR(created_date) = YEAR(CURDATE()) 
+      AND MONTH(created_date) IN (5, 6, 8)
+    GROUP BY class_title, section_title, MONTH(created_date)
+")->result();
+$data = [];
+foreach ($monthlyAvg as $row) {
+  $key = $row->class_title . '-' . $row->section_title;
+
+  if (!isset($data[$key])) {
+    $data[$key] = [
+      'class' => $row->class_title,
+      'section' => $row->section_title,
+      'months' => []
+    ];
+  }
+
+  $data[$key]['months'][$row->month] = round($row->avg_absent, 2);
+}
+
+echo "<table border='1' cellpadding='5'>";
+echo "<tr>
+        <th>Class</th>
+        <th>Section</th>
+        <th>May</th>
+        <th>June</th>
+        <th>Improvement (Jun-May)</th>
+        <th>August</th>
+        <th>Improvement (Aug-Jun)</th>
+      </tr>";
+
+foreach ($data as $row) {
+  $may    = $row['months'][5] ?? 0;
+  $june   = $row['months'][6] ?? 0;
+  $august = $row['months'][8] ?? 0;
+
+  $improveJune  = $june - $may;
+  $improveAug   = $august - $june;
+
+  echo "<tr>
+            <td>{$row['class']}</td>
+            <td>{$row['section']}</td>
+            <td>{$may}</td>
+            <td>{$june}</td>
+            <td>{$improveJune}</td>
+            <td>{$august}</td>
+            <td>{$improveAug}</td>
+          </tr>";
+}
+
+echo "</table>";
+
+?>
