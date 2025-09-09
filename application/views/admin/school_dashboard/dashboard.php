@@ -295,6 +295,8 @@
                 <th></th>
                 <th colspan="2" style="text-align:center;">Class</th>
                 <th colspan="2" style="text-align:center;">Attendance</th>
+                <th></th>
+                <th></th>
               </tr>
               <tr>
                 <th>S/No</th>
@@ -306,8 +308,8 @@
                 <th>Section</th>
                 <th>Morning</th>
                 <th>Evening</th>
-                <th>Frequency</th>
-                <th>Precent Percentage</th>
+                <th>Skipping Frequency</th>
+                <th>Attendance Rate</th>
               </tr>
             </thead>
 
