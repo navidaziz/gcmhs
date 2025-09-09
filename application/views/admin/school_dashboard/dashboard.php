@@ -1186,7 +1186,9 @@ echo '</table>';
         });
 </script>
 
+
 <?php
+// Step 1: Run Query
 $monthlyAvg = $this->db->query("
     SELECT 
         class_title, section_title, 
@@ -1197,51 +1199,53 @@ $monthlyAvg = $this->db->query("
       AND MONTH(created_date) IN (5, 6, 8)
     GROUP BY class_title, section_title, MONTH(created_date)
 ")->result();
-$data = [];
+
+// Step 2: Restructure Results
+$data = array();
 foreach ($monthlyAvg as $row) {
   $key = $row->class_title . '-' . $row->section_title;
 
   if (!isset($data[$key])) {
-    $data[$key] = [
-      'class' => $row->class_title,
+    $data[$key] = array(
+      'class'   => $row->class_title,
       'section' => $row->section_title,
-      'months' => []
-    ];
+      'months'  => array()
+    );
   }
 
   $data[$key]['months'][$row->month] = round($row->avg_absent, 2);
 }
 
+// Step 3: Generate Table
 echo "<table border='1' cellpadding='5'>";
 echo "<tr>
         <th>Class</th>
         <th>Section</th>
         <th>May</th>
         <th>June</th>
-        <th>Improvement (Jun-May)</th>
+        <th>Improvement (Jun - May)</th>
         <th>August</th>
-        <th>Improvement (Aug-Jun)</th>
+        <th>Improvement (Aug - Jun)</th>
       </tr>";
 
 foreach ($data as $row) {
-  $may    = $row['months'][5] ?? 0;
-  $june   = $row['months'][6] ?? 0;
-  $august = $row['months'][8] ?? 0;
+  $may    = isset($row['months'][5]) ? $row['months'][5] : 0;
+  $june   = isset($row['months'][6]) ? $row['months'][6] : 0;
+  $august = isset($row['months'][8]) ? $row['months'][8] : 0;
 
-  $improveJune  = $june - $may;
-  $improveAug   = $august - $june;
+  $improveJune = $june - $may;
+  $improveAug  = $august - $june;
 
   echo "<tr>
-            <td>{$row['class']}</td>
-            <td>{$row['section']}</td>
-            <td>{$may}</td>
-            <td>{$june}</td>
-            <td>{$improveJune}</td>
-            <td>{$august}</td>
-            <td>{$improveAug}</td>
+            <td>" . $row['class'] . "</td>
+            <td>" . $row['section'] . "</td>
+            <td>" . $may . "</td>
+            <td>" . $june . "</td>
+            <td>" . $improveJune . "</td>
+            <td>" . $august . "</td>
+            <td>" . $improveAug . "</td>
           </tr>";
 }
 
 echo "</table>";
-
 ?>
