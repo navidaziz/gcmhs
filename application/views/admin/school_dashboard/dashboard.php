@@ -292,6 +292,7 @@
               <tr>
                 <th></th>
                 <th colspan="3" style="text-align:center;">Students</th>
+                <th></th>
                 <th colspan="2" style="text-align:center;">Class</th>
                 <th colspan="2" style="text-align:center;">Attendance</th>
               </tr>
@@ -327,7 +328,7 @@
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
                   <td style="text-align: center;"><?php
                                                   $query = "SELECT e_a FROM `students_attendance_list` WHERE student_id= ? ;";
-                                                  $ea = $this->db->query($query, [$today_evening_absent_student->student_id]);
+                                                  $ea = $this->db->query($query, [$today_evening_absent_student->student_id])->row();
                                                   echo $ea->e_a;
                                                   ?></td>
                 <?php } ?>
