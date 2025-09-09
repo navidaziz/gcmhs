@@ -48,7 +48,7 @@
 
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <div class="dashbox panel panel-default">
             <div class="panel-body">
               <div class="panel-left red">
@@ -159,7 +159,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-7">
           <div class="well" style="margin-top:20px; padding:15px;">
             <h5>Today <strong>(<?php echo date("d M, Y") ?>)</strong> Attendance Summary (Percentage)</h5>
             <div class="row">
