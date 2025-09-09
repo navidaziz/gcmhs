@@ -1015,6 +1015,131 @@ foreach ($data as $classSection => $months) {
 
 
 
+<div id="monthly_absent_avg_comp" style="width:100%; height:500px;"></div>
+
+<script>
+  Highcharts.chart('monthly_absent_avg_comp', {
+    chart: {
+      zoomType: 'xy'
+    },
+    title: {
+      text: 'May vs June Class-Section Wise Avg Absenteeism (with Improvement %)'
+    },
+    subtitle: {
+      text: '<?php echo date("Y"); ?>'
+    },
+    xAxis: [{
+      categories: <?php echo json_encode($categories); ?>,
+      crosshair: true
+    }],
+    yAxis: [{
+      // Primary yAxis (Absenteeism)
+      title: {
+        text: 'Average Absentees'
+      }
+    }, {
+      // Secondary yAxis (Improvement)
+      title: {
+        text: 'Improvement (%)'
+      },
+      labels: {
+        format: '{value}%',
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true,
+      formatter: function() {
+        var may = (this.points && this.points[0]) ? this.points[0].y : 0;
+        var june = (this.points && this.points[1]) ? this.points[1].y : 0;
+        var improvement = (this.points && this.points[2]) ? this.points[2].y : 0;
+        var trend = improvement >= 0 ? 'Improved' : 'Declined';
+        return '<b>' + this.x + '</b><br/>' +
+          'May: <b>' + may + '</b><br/>' +
+          'June: <b>' + june + '</b><br/>' +
+          trend + ': <b>' + improvement.toFixed(1) + '%</b>';
+      }
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{y}',
+          crop: false, // Don't hide labels outside the plot area
+          overflow: 'none', // Prevent hiding when overflowing
+          allowOverlap: true,
+          rotation: -90,
+          style: {
+            fontSize: '9px' // Change to your desired font size
+          }
+
+        }
+      }
+
+    },
+    series: [{
+      name: 'May',
+      type: 'column',
+      data: <?php echo json_encode($mayData); ?>,
+      tooltip: {
+        valueSuffix: ''
+      }
+    }, {
+      name: 'June',
+      type: 'column',
+      data: <?php echo json_encode($juneData); ?>,
+      tooltip: {
+        valueSuffix: ''
+      }
+    }, {
+      name: 'Improvement (%)',
+      //type: 'spline',
+      // yAxis: 1,
+      type: 'column',
+      data: <?php echo json_encode($improvementData); ?>,
+      tooltip: {
+        valueSuffix: '%'
+      },
+      color: '#28a745'
+    }]
+  });
+</script>
+<?php
+echo '<table border="1" cellpadding="5" cellspacing="0">';
+echo '<thead>
+    <tr>
+      <th>Class - Section</th>
+      <th>May Avg Absent</th>
+      <th>June Avg Absent</th>
+      <th>Difference</th>
+      <th>Improvement (%)</th>
+    </tr>
+  </thead>';
+echo '<tbody>';
+
+foreach ($categories as $index => $classSection) {
+  $may = $mayData[$index];
+  $june = $juneData[$index];
+  $improvement = $improvementData[$index];
+
+  // Optional: Add color to improvement column (green for improvement, red for decline)
+  $color = ($improvement >= 0) ? 'green' : 'red';
+
+  echo '<tr>';
+  echo '<td>' . htmlspecialchars($classSection) . '</td>';
+  echo '<td>' . number_format($may, 2) . '</td>';
+  echo '<td>' . number_format($june, 2) . '</td>';
+  echo '<td>' . number_format($may - $june, 2) . '</td>';
+  echo '<td style="color:' . $color . ';">' . $improvement . '%</td>';
+  echo '</tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+
+?>
 
 
 <script>
