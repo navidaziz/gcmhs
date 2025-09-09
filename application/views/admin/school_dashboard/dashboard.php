@@ -1218,9 +1218,9 @@ foreach ($monthlyAvg as $row) {
 // Step 3: Function to format improvement
 function formatImprovement($value)
 {
-  if ($value > 0) {
+  if ($value < 0) {
     return "<span style='color:green;font-weight:bold;'>&#9650; " . $value . "</span>"; // ▲
-  } elseif ($value < 0) {
+  } elseif ($value > 0) {
     return "<span style='color:red;font-weight:bold;'>&#9660; " . $value . "</span>"; // ▼
   } else {
     return "<span style='color:gray;'>–</span>";
