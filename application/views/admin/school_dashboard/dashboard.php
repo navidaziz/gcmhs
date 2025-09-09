@@ -1060,9 +1060,9 @@ foreach ($data as $classSection => $months) {
           }).draw();
         });
 </script>
-echo "<h2 style='text-align:center; margin-bottom:15px;'>
+<h2 style='text-align:center; margin-bottom:15px;'>
   Class & Section Wise Monthly Average Absentees with Improvement
-</h2>";
+</h2>
 <?php
 // Step 1: Run Query
 $monthlyAvg = $this->db->query("
