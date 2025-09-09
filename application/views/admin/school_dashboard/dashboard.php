@@ -300,10 +300,12 @@
                 <th>Class No</th>
                 <th>Name</th>
                 <th>Father Name</th>
+                <th>Contact No.</th>
                 <th>Class</th>
                 <th>Section</th>
                 <th>Morning</th>
                 <th>Evening</th>
+                <th>Frequency</th>
               </tr>
             </thead>
 
@@ -318,10 +320,16 @@
                   <td><?php echo $today_evening_absent_student->student_class_no; ?></td>
                   <td><?php echo $today_evening_absent_student->student_name; ?></td>
                   <td><?php echo $today_evening_absent_student->father_name; ?></td>
+                  <td><?php echo $today_evening_absent_student->guardian_contact_no; ?></td>
                   <td><?php echo $today_evening_absent_student->class; ?></td>
                   <td><?php echo $today_evening_absent_student->section; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
+                  <td style="text-align: center;"><?php
+                                                  $query = "SELECT e_a FROM `students_attendance_list` WHERE student_id= ? ;";
+                                                  $ea = $this->db->query($query, [$today_evening_absent_student->student_id]);
+                                                  echo $ea->e_a;
+                                                  ?></td>
                 <?php } ?>
             </tbody>
           </table>
