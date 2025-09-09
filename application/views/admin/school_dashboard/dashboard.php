@@ -328,7 +328,7 @@
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
                   <td style="text-align: center;"><?php
-                                                  $query = "SELECT e_a, m_p, m_a, m_l, (m_p+m_a+m_l) as total, 
+                                                  $query = "SELECT e_a, m_p, m_a, m_l, (m_p + m_a + m_l) AS total
                                                   FROM `students_attendance_list` WHERE student_id= ? ;";
                                                   $ea = $this->db->query($query, [$today_evening_absent_student->student_id])->row();
                                                   echo $ea->e_a;
