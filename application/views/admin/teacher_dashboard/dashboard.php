@@ -68,7 +68,7 @@
 
                     </table>
                 <?php echo '</div></a>
-                <div class="alert alert-info" style="margin:2px">
+                <div class="btn btn-success btn-sm">
                 
             <strong>Student List</strong>
             <a class="btn btn-success" href="' . site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") . '">Class Students List</a>
