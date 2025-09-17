@@ -65,13 +65,18 @@
                                 <td colspan="7">Morning Attendance Pending..</td>
                             </tr>
                         <?php } ?>
-                        <tr>
-                            <th colspan="5" style="text-align: center;">
-                                <a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") ?>">Class Students List</a>
-                            </th>
-                        </tr>
+
                     </table>
-                <?php echo '</div></a>';
+                <?php echo '</div></a>
+                <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center; ">
+
+            <div style="padding-top: 15px; text-align: center;">
+            <strong>Student List</strong>
+            <a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") ?>">Class Students List</a>
+                           
+                        </div>
+                        </div>
+                ';
                 }
                 ?>
 
