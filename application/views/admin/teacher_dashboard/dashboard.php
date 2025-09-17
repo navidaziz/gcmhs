@@ -47,6 +47,7 @@
                             </th>
                             <th style="text-align: center;"><br />Absent</th>
                             <th style="text-align: center;"><br />On Leave</th>
+                            <th></th>
                             <th style="text-align: center;">Evening <br />
                                 Absent</th>
                         </tr>
@@ -56,6 +57,7 @@
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->present; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->absent; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->leave; ?></th>
+                                <th style="text-align: center;"><?php echo $today_attendance_summary[0]->struck_off; ?></th>
                                 <th style="text-align: center;"><?php echo $today_attendance_summary[0]->evening_absent; ?></th>
                             </tr>
                         <?php } else { ?>
