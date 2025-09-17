@@ -47,7 +47,7 @@
                             </th>
                             <th style="text-align: center;"><br />Absent</th>
                             <th style="text-align: center;"><br />On Leave</th>
-                            <th></th>
+                            <th>Struck Off</th>
                             <th style="text-align: center;">Evening <br />
                                 Absent</th>
                         </tr>
@@ -62,7 +62,7 @@
                             </tr>
                         <?php } else { ?>
                             <tr>
-                                <td colspan="6">Morning Attendance Pending..</td>
+                                <td colspan="7">Morning Attendance Pending..</td>
                             </tr>
                         <?php } ?>
                         <tr>
