@@ -63,6 +63,11 @@
                                 <td colspan="6">Morning Attendance Pending..</td>
                             </tr>
                         <?php } ?>
+                        <tr>
+                            <th colspan="5" style="text-align: center;">
+                                <a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") ?>">Class Students List</a>
+                            </th>
+                        </tr>
                     </table>
                 <?php echo '</div></a>';
                 }
@@ -111,11 +116,7 @@
                                     <td colspan="6">Morning Attendance Pending..</td>
                                 </tr>
                             <?php } ?>
-                            <tr>
-                                <th colspan="5" style="text-align: center;">
-                                    <a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") ?>">Class Students List</a>
-                                </th>
-                            </tr>
+
                         </table>
                 <?php echo '</div></a>';
                     }
