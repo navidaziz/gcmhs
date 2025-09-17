@@ -68,13 +68,11 @@
 
                     </table>
                 <?php echo '</div></a>
-                <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center; ">
-
-            <div style="padding-top: 15px; text-align: center;">
+                <div class="alert alert-info" style="margin:2px">
+                
             <strong>Student List</strong>
             <a class="btn btn-success" href="' . site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") . '">Class Students List</a>
                            
-                        </div>
                         </div>
                 ';
                 }
