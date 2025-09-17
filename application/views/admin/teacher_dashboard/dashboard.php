@@ -72,7 +72,7 @@
 
             <div style="padding-top: 15px; text-align: center;">
             <strong>Student List</strong>
-            <a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") ?>">Class Students List</a>
+            <a class="btn btn-success" href="' . site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") . '">Class Students List</a>
                            
                         </div>
                         </div>
