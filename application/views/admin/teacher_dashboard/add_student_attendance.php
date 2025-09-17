@@ -196,7 +196,7 @@
                                     <!-- <td><?php echo $student->student_father_name; ?></td> -->
                                     <?php if ($today_attendance == 0) { ?>
 
-                                        <?php $query = "SELECT `attendance`, `student_attendance_id` 
+                                        <?php $query = "SELECT `attendance`, `student_attendance_id`, `attendance2` 
                                             FROM students_attendance
                                             WHERE student_id = '" . $student->student_id . "'
                                             AND section_id = '" . $section_id . "'
@@ -231,6 +231,7 @@
                                                 } ?>
                                                 <strong style="  color: <?php echo $color ?>; <?php echo $other_arrtibute; ?>">
                                                     <?php echo $query_result[0]->attendance; ?>
+                                                    - <?php echo $query_result[0]->attendance2; ?>
                                                 </strong>
 
                                             </td>
