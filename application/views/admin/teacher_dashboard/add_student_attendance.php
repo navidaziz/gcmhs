@@ -293,6 +293,9 @@
                                                     } ?>
                                                     <strong style="  color: <?php echo $color ?>; <?php echo $other_arrtibute; ?>">
                                                         <?php echo $query_result[0]->attendance; ?>
+                                                        <?php if ($query_result[0]->attendance == 'P' and $query_result[0]->attendance2 == 'A') { ?>
+                                                            - <?php echo $query_result[0]->attendance2; ?>
+                                                        <?php } ?>
                                                     </strong>
                                                     <?php if ($query_result[0]->attendance2 == 'A') { ?>
                                                         - <span style="color: red ;"><strong>A</strong></span>
