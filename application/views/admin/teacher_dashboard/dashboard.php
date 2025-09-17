@@ -68,15 +68,15 @@
 
                     </table>
                 <?php echo '</div></a>
-                <div class="btn btn-success btn-sm">
-                
-            <strong>Student List</strong>
-            <a class="btn btn-success" href="' . site_url(ADMIN_DIR . "teacher_dashboard/class_student_list") . '">Class Students List</a>
-                           
-                        </div>
                 ';
                 }
                 ?>
+
+
+                <!-- <div class="btn btn-success btn-sm">
+                    <strong>Student List</strong>
+                    <a class="btn btn-success" href="' . site_url(ADMIN_DIR . " teacher_dashboard/class_student_list") . '">Class Students List</a>
+                 </div> -->
 
                 <?php $query = "SELECT `class_id`, `section_id`, Class_title, section_title, color 
                                         FROM `classes_time_tables`  
