@@ -81,7 +81,7 @@
                 <?php $query = "SELECT `class_id`, `section_id`, Class_title, section_title, color 
                                         FROM `classes_time_tables`  
                                         WHERE `classes_time_tables`.`period_id`='10' 
-                                        and teacher_id='" . $this->session->userdata('teacher_id') . "' LIMIT 1";
+                                        and teacher_id='" . $this->session->userdata('teacher_id') . "'";
                 $class_teacher = $this->db->query($query)->result();
                 if ($class_teacher) {
                     foreach ($class_teacher as $classteacher) {
