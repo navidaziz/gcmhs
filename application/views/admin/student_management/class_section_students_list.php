@@ -131,7 +131,7 @@ foreach ($data as $row) {
                             <!-- <td><?php echo $student->student_admission_no; ?></td> -->
                             <td><strong><?php echo $student->student_name . " </strong> s/o <strong>" . $student->student_father_name; ?></strong></td>
                             <td>
-                                <button class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i> Update</button>
+                                <button onclick="get_student_information(<?php echo $student->student_id; ?>)" class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i> Update</button>
                             </td>
                         </tr>
 
@@ -146,7 +146,22 @@ foreach ($data as $row) {
         </div>
     </div>
 </div>
-
+<script>
+    function get_student_information(student_id) {
+        $.ajax({
+                method: "POST",
+                url: "<?php echo site_url(ADMIN_DIR . 'student_management/get_student_information'); ?>",
+                data: {
+                    student_id: student_id
+                },
+            })
+            .done(function(respose) {
+                $('#modal').modal('show');
+                $('#modal_title').html('Student Information');
+                $('#modal_body').html(respose);
+            });
+    }
+</script>
 <script>
     $(document).ready(function() {
         document.title = "<?php echo $title; ?>";
