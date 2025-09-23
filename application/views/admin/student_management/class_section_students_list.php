@@ -146,3 +146,22 @@ foreach ($data as $row) {
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        document.title = "<?php echo $title; ?>";
+        var table = $('#example').DataTable({
+            "bPaginate": false,
+            dom: 'Bfrtip',
+            "columnDefs": [{
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }],
+            "order": [
+                [1, 'asc']
+            ]
+        });
+
+    });
+</script>
