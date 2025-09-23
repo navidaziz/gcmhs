@@ -109,7 +109,7 @@ foreach ($data as $row) {
                     <tr>
                         <th>#</th>
                         <!-- <th>Student ID</th> -->
-                        <th>Class No.</th>
+                        <th>C.No:</th>
                         <!-- <th>Addmission No</th> -->
                         <th>Student Info</th>
                         <th>Action</th>
