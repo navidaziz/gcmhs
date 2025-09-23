@@ -109,9 +109,9 @@ foreach ($data as $row) {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Student ID</th>
+                                <!-- <th>Student ID</th> -->
                                 <th>Class No.</th>
-                                <th>Addmission No</th>
+                                <!-- <th>Addmission No</th> -->
                                 <th>Student Info</th>
                                 <th>Action</th>
                             </tr>
@@ -127,9 +127,9 @@ foreach ($data as $row) {
                             foreach ($students as $student): ?>
                                 <tr>
                                     <td><?php echo $count++; ?></td>
-                                    <td><?php echo $student->student_id; ?></td>
+                                    <!-- <td><?php echo $student->student_id; ?></td> -->
                                     <td><?php echo $student->student_class_no; ?></td>
-                                    <td><?php echo $student->student_admission_no; ?></td>
+                                    <!-- <td><?php echo $student->student_admission_no; ?></td> -->
                                     <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
                                     <td>
                                         <button class="btn btn-success">Review Info</button>
