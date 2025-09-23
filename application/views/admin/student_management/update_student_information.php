@@ -100,12 +100,14 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 $nationalities = array('Pakistani', 'Afghani', 'Other');
 
 $family_situations = array(
-    'Both Parents Alive' => 'Both Parents Alive',
+    'Both'     => 'Both Parents Alive',
     'Divorced' => 'Divorced',
-    'Widow' => 'Widow',
-    'Single Father' => 'Single Father',
-    'Orphan' => 'Orphan'
+    'Widow'    => 'Widow',
+    'Father'   => 'Single Father',
+    'Orphan'   => 'Orphan',
+    'Guardian' => 'Guardian'
 );
+
 $religions = array(
     'Islam' => 'Muslim',
     'Non Muslim' => 'Non Muslim'
@@ -145,179 +147,180 @@ $yes_no = array(
         font-weight: normal;
     }
 </style>
+<div class="student-info-popup">
+    <div class="form-section">
+        <table class="table table-bordered">
+            <tr>
+                <th>Nationality:</th>
+                <td>
+                    <?php foreach ($nationalities as $nation) { ?>
+                        <label>
+                            <input
+                                type="radio"
+                                name="nationality"
+                                value="<?php echo $nation; ?>"
+                                <?php if ($student->nationality == $nation) echo 'checked'; ?> />
+                            <?php echo $nation; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-<div class="form-section">
-    <table class="table table-bordered">
-        <tr>
-            <th>Nationality:</th>
-            <td>
-                <?php foreach ($nationalities as $nation) { ?>
-                    <label>
-                        <input
-                            type="radio"
-                            name="nationality"
-                            value="<?php echo $nation; ?>"
-                            <?php if ($student->nationality == $nation) echo 'checked'; ?> />
-                        <?php echo $nation; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>Religion:</th>
+                <td>
+                    <?php foreach ($religions as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="religion"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->religion == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Religion:</th>
-            <td>
-                <?php foreach ($religions as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="religion"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->religion == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>Private / Public School:</th>
+                <td>
+                    <?php foreach ($school_types as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="private_public_school"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->private_public_school == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Private / Public School:</th>
-            <td>
-                <?php foreach ($school_types as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="private_public_school"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->private_public_school == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>School Name:</th>
+                <td>
+                    <input required type="text" class="form-control"
+                        name="school_name"
+                        value="<?php echo htmlspecialchars($student->school_name); ?>" />
+                </td>
+            </tr>
 
-        <tr>
-            <th>School Name:</th>
-            <td>
-                <input required type="text" class="form-control"
-                    name="school_name"
-                    value="<?php echo htmlspecialchars($student->school_name); ?>" />
-            </td>
-        </tr>
+            <tr>
+                <th>Hafiz-e-Quran:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="hafiz"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->hafiz == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Hafiz-e-Quran:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="hafiz"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->hafiz == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>Orphan:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="orphan"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->orphan == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Orphan:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="orphan"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->orphan == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>Is Disable:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="is_disable"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->is_disable == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Is Disable:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="is_disable"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->is_disable == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
+            <tr>
+                <th>Is Works After School:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="works_after_school"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->works_after_school == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th>Is Works After School:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="works_after_school"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->works_after_school == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
-
-        <tr>
-            <th>Criminal History:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="criminal_history"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->criminal_history == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
-
-
-
-
-        <tr>
-            <th>Family Situations:</th>
-            <td>
-                <?php foreach ($family_situations as $family_situation) { ?>
-                    <label>
-                        <input
-                            type="radio"
-                            name="family_situation"
-                            value="<?php echo $family_situation; ?>"
-                            <?php if ($student->family_situation == $family_situation) echo 'checked'; ?> />
-                        <?php echo $family_situation; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
-
-        <tr>
-            <th>Ehsaas Program:</th>
-            <td>
-                <?php foreach ($yes_no as $value => $label) { ?>
-                    <label>
-                        <input required type="radio" name="ehsaas"
-                            value="<?php echo $value; ?>"
-                            <?php if ($student->ehsaas == $value) echo 'checked'; ?> />
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Father Occupation:</th>
-            <td><input required type="text" style="width:100%" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" /></td>
-        </tr>
-        <tr>
-            <th>Father / Guardian Contact No:</th>
-            <td><input required type="text" style="width:100%" id="father_mobile_number" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
-        </tr>
-
-        <tr>
-            <th>Mother Contact No:</th>
-            <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
-        </tr>
+            <tr>
+                <th>Criminal History:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="criminal_history"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->criminal_history == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
 
 
 
-    </table>
+
+            <tr>
+                <th>Family Situations:</th>
+                <td>
+                    <?php foreach ($family_situations as $family_situation) { ?>
+                        <label>
+                            <input
+                                type="radio"
+                                name="family_situation"
+                                value="<?php echo $family_situation; ?>"
+                                <?php if ($student->family_situation == $family_situation) echo 'checked'; ?> />
+                            <?php echo $family_situation; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Ehsaas Program:</th>
+                <td>
+                    <?php foreach ($yes_no as $value => $label) { ?>
+                        <label>
+                            <input required type="radio" name="ehsaas"
+                                value="<?php echo $value; ?>"
+                                <?php if ($student->ehsaas == $value) echo 'checked'; ?> />
+                            <?php echo $label; ?>
+                        </label>
+                    <?php } ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Father Occupation:</th>
+                <td><input required type="text" style="width:100%" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" /></td>
+            </tr>
+            <tr>
+                <th>Father / Guardian Contact No:</th>
+                <td><input required type="text" style="width:100%" id="father_mobile_number" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
+            </tr>
+
+            <tr>
+                <th>Mother Contact No:</th>
+                <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
+            </tr>
+
+
+
+        </table>
+    </div>
 </div>
