@@ -103,49 +103,101 @@ foreach ($data as $row) {
         <div class="box border blue" id="messenger" style="padding: 5px;">
             <h4><?php echo $title; ?></h4>
             <hr />
-            <table id="example" class="table table-bordered table-striped table_small ">
 
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <!-- <th>Student ID</th> -->
-                        <th>C.No:</th>
-                        <!-- <th>Addmission No</th> -->
-                        <th style="width: 50%;">Student Info</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <!-- Search bar -->
+            <input type="text" id="searchBox" class="form-control" placeholder="🔍 Search student..." style="margin-bottom:10px;">
 
-                    <?php
-                    $count = 1;
-                    $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
-                            AND class_id = ? and section_id = ? ORDER BY student_class_no ASC ", array($class_id, $section_id));
-                    $students = $query->result();
+            <!-- Sort select -->
+            <select id="sortSelect" class="form-control" style="margin-bottom:10px;">
+                <option value="asc">Sort by C.No ↑</option>
+                <option value="desc">Sort by C.No ↓</option>
+                <option value="name">Sort by Name</option>
+            </select>
 
-                    foreach ($students as $student): ?>
-                        <tr>
-                            <td><?php echo $count++; ?></td>
-                            <!-- <td><?php echo $student->student_id; ?></td> -->
-                            <td><?php echo $student->student_class_no; ?></td>
-                            <!-- <td><?php echo $student->student_admission_no; ?></td> -->
-                            <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
-                            <td>
-                                <button class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                            </td>
-                        </tr>
+            <!-- Student List -->
+            <div id="studentList" class="list-group">
+                <?php
+                $count = 1;
+                $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
+                        AND class_id = ? and section_id = ? ORDER BY student_class_no ASC ", array($class_id, $section_id));
+                $students = $query->result();
 
-                    <?php endforeach; ?>
-
-
-
-                </tbody>
-
-            </table>
-
+                foreach ($students as $student): ?>
+                    <div class="list-group-item student-item"
+                        data-no="<?php echo $student->student_class_no; ?>"
+                        data-name="<?php echo strtolower($student->student_name); ?>">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>C.No: <?php echo $student->student_class_no; ?></strong><br>
+                                <?php echo $student->student_name . " <br><small>s/o " . $student->student_father_name . "</small>"; ?>
+                            </div>
+                            <button class="btn btn-success btn-sm">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- JS for Search & Sort -->
+<script>
+    const searchBox = document.getElementById('searchBox');
+    const sortSelect = document.getElementById('sortSelect');
+    const studentList = document.getElementById('studentList');
+
+    // Search filter
+    searchBox.addEventListener('keyup', function() {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.student-item').forEach(item => {
+            const name = item.getAttribute('data-name');
+            const no = item.getAttribute('data-no');
+            if (name.includes(query) || no.includes(query)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    });
+
+    // Sort function
+    sortSelect.addEventListener('change', function() {
+        let items = Array.from(document.querySelectorAll('.student-item'));
+        let sorted;
+
+        if (this.value === 'asc') {
+            sorted = items.sort((a, b) => a.dataset.no - b.dataset.no);
+        } else if (this.value === 'desc') {
+            sorted = items.sort((a, b) => b.dataset.no - a.dataset.no);
+        } else if (this.value === 'name') {
+            sorted = items.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+        }
+
+        studentList.innerHTML = "";
+        sorted.forEach(el => studentList.appendChild(el));
+    });
+</script>
+
+<style>
+    /* Mobile-friendly card style */
+    .student-item {
+        border-radius: 10px;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .student-item strong {
+        font-size: 16px;
+        color: #007bff;
+    }
+
+    .student-item small {
+        color: #666;
+    }
+</style>
+
 
 <script>
     $(document).ready(function() {
