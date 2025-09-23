@@ -94,3 +94,25 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
         </div>
     </div>
 </div>
+
+
+<?php
+$nationalities = array('Pakistani', 'Afghani', 'Other');
+?>
+
+<div class="form-group">
+    <label><strong>Nationality:</strong></label><br>
+    <?php foreach ($nationalities as $nation) { ?>
+        <label style="margin-right:15px;">
+            <input
+                class="nationality"
+                type="radio"
+                name="nationality"
+                value="<?php echo $nation; ?>"
+                <?php if ($student->nationality == $nation) {
+                    echo 'checked';
+                } ?> />
+            <?php echo $nation; ?>
+        </label>
+    <?php } ?>
+</div>
