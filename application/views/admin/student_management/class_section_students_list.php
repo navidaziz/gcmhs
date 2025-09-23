@@ -111,7 +111,7 @@ foreach ($data as $row) {
                         <!-- <th>Student ID</th> -->
                         <th>C.No:</th>
                         <!-- <th>Addmission No</th> -->
-                        <th>Student Info</th>
+                        <th style="width: 50%;">Student Info</th>
                         <th></th>
                     </tr>
                 </thead>
