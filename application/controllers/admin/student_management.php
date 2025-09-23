@@ -18,7 +18,7 @@ class Student_management extends Admin_Controller
 	public function index()
 	{
 		$this->data['title'] = "Teachers Evaluation";
-		$this->data["view"] = ADMIN_DIR . "student_management/index";
+		$this->data["view"] = ADMIN_DIR . "student_management/home";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);
 	}
 }
