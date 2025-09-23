@@ -109,11 +109,6 @@ foreach ($data as $row) {
                       <th>Sections</th>
                       <th>Total</th>
                       <th>S-Off</th>
-                      <th style="background-color: #7cb5ec;">P</th>
-                      <th style="background-color: #90ed7d;">L</th>
-                      <th style="background-color: #f15c80;">A</th>
-                      <th style="background-color: #f15c80;">Eve-A</th>
-                      <th colspan="2">Atten.</th>
                     </tr>
                   </thead>
                   <tbody>
