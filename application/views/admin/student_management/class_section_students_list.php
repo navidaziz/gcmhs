@@ -130,7 +130,7 @@ foreach ($data as $row) {
                                     <td><?php echo $student->student_id; ?></td>
                                     <td><?php echo $student->class_id; ?></td>
                                     <td><?php echo $student->admission_no; ?></td>
-                                    <td><?php echo $student->first_name . " " . $student->last_name; ?></td>
+                                    <td><?php echo $student->student_name . " " . $student->student_father_name; ?></td>
                                     <td>
                                         <button class="btn btn-success">Review Info</button>
                                     </td>
