@@ -31,22 +31,12 @@ class Student_management extends Admin_Controller
 
 		$this->data['class_id']   = $class_id;
 		$this->data['section_id'] = $section_id;
+		$query = $this->db->query("SELECT * FROM classes WHERE class_id = ? ", array($class_id));
+		$class = $query->row();
+		$query = $this->db->query("SELECT * FROM sections WHERE section_id = ? ", array($section_id));
+		$section = $query->row();
+		$this->data['title'] = $class->Class_title . " - " . $section->section_title . " Students List";
 
-		$query = $this->db->query("
-        SELECT s.*, c.Class_title, sec.section_title 
-        FROM students s
-        JOIN classes c ON s.class_id = c.class_id
-        JOIN sections sec ON s.section_id = sec.section_id
-        WHERE s.class_id = ? AND s.section_id = ?
-    	", array($class_id, $section_id));
-
-		$class_section = $query->row();
-
-		if ($class_section) {
-			$this->data['title'] = $class_section->Class_title . " - " . $class_section->section_title . " Students List";
-		} else {
-			$this->data['title'] = "Students List";
-		}
 
 		$this->data["view"] = ADMIN_DIR . "student_management/class_section_students_list";
 		$this->load->view(ADMIN_DIR . "layout", $this->data);

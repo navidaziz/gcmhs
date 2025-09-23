@@ -119,8 +119,12 @@ foreach ($data as $row) {
 
                     <?php
                     $count = 1;
-                    $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
-                            AND class_id = ? and section_id = ? ORDER BY student_class_no ASC ", array($class_id, $section_id));
+                    // $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
+                    //         AND class_id = ? and section_id = ? 
+                    //         ORDER BY student_class_no ASC ", array($class_id, $section_id));
+                    echo $query = "SELECT * FROM students WHERE status IN (1,2)
+                             AND class_id = $class_id and section_id = $section_id";
+                    $query = $this->db->query($query);
                     $students = $query->result();
 
                     foreach ($students as $student): ?>
