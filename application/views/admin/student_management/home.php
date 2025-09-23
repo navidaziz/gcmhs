@@ -98,39 +98,25 @@ foreach ($data as $row) {
 
       <div class="box-body">
         <div class="table-responsive">
-          <div class="row">
-            <div class="col-md-12">
 
-              <?php foreach ($classes as $class): ?>
-                <h4><strong>Class:<?php echo $class->Class_title; ?></strong></h4>
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Sections</th>
-                      <th>Total</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php if (!empty($class->sections)): ?>
-                      <?php foreach ($class->sections as $index => $section): ?>
-                        <tr>
+          <?php foreach ($classes as $class): ?>
+            <h4 class="text-primary"><strong>Class: <?php echo $class->Class_title; ?></strong></h4>
 
-                          <th style="background-color: <?php echo $section->color; ?>;">
-                            <?php echo $section->section_title; ?>
-                          </th>
-                          <td><a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "student_management/view_student_list/" . $class->class_id . "/" . $section->section_id) ?>">View Students</a></td>
-
-                        </tr>
-                      <?php endforeach; ?>
-
-                    <?php endif; ?>
-                  </tbody>
-                </table>
+            <?php if (!empty($class->sections)): ?>
+              <?php foreach ($class->sections as $section): ?>
+                <div class="panel panel-default">
+                  <div class="panel-body" style="background-color: <?php echo $section->color; ?>;">
+                    <strong><?php echo $section->section_title; ?></strong>
+                    <a class="btn btn-success btn-xs pull-right"
+                      href="<?php echo site_url(ADMIN_DIR . "student_management/view_student_list/" . $class->class_id . "/" . $section->section_id) ?>">
+                      View Students
+                    </a>
+                  </div>
+                </div>
               <?php endforeach; ?>
+            <?php endif; ?>
+          <?php endforeach; ?>
 
-            </div>
-          </div>
         </div>
       </div>
     </div>
