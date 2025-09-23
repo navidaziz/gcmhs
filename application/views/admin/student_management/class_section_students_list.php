@@ -131,7 +131,7 @@ foreach ($data as $row) {
                             <!-- <td><?php echo $student->student_admission_no; ?></td> -->
                             <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
                             <td>
-                                <button class="btn btn-success">Review Info</button>
+                                <button class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
                             </td>
                         </tr>
 
