@@ -164,7 +164,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="religion"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->religion == $value) echo 'checked'; ?> />
+                            <?php if ($student->religion == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
@@ -178,7 +178,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="private_public_school"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->private_public_school == $value) echo 'checked'; ?> />
+                            <?php if ($student->private_public_school == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
@@ -190,7 +190,7 @@ $yes_no = array(
             <td>
                 <input required type="text" class="form-control"
                     name="school_name"
-                    value="<?php echo htmlspecialchars($students[0]->school_name); ?>" />
+                    value="<?php echo htmlspecialchars($student->school_name); ?>" />
             </td>
         </tr>
 
@@ -201,7 +201,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="hafiz"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->hafiz == $value) echo 'checked'; ?> />
+                            <?php if ($student->hafiz == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
@@ -215,7 +215,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="orphan"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->orphan == $value) echo 'checked'; ?> />
+                            <?php if ($student->orphan == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
@@ -229,7 +229,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="is_disable"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->is_disable == $value) echo 'checked'; ?> />
+                            <?php if ($student->is_disable == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
@@ -243,7 +243,7 @@ $yes_no = array(
                     <label>
                         <input required type="radio" name="ehsaas"
                             value="<?php echo $value; ?>"
-                            <?php if ($students[0]->ehsaas == $value) echo 'checked'; ?> />
+                            <?php if ($student->ehsaas == $value) echo 'checked'; ?> />
                         <?php echo $label; ?>
                     </label>
                 <?php } ?>
