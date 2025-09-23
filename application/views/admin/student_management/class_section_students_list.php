@@ -100,7 +100,7 @@ foreach ($data as $row) {
 <!-- PAGE MAIN CONTENT -->
 <div class="row">
     <div class="col-md-12">
-        <div class="box border blue" id="messenger">
+        <div class="box border blue" id="messenger" style="margin: 5px;">
             <h4><?php echo $title; ?></h4>
             <hr />
             <table id="example" class="table table-bordered table-striped table_small ">
