@@ -157,7 +157,7 @@ foreach ($data as $row) {
             })
             .done(function(respose) {
                 $('#modal').modal('show');
-                $('#modal_title').html('Student Information');
+                $('#modal_title').html('Update Student Information');
                 $('#modal_body').html(respose);
             });
     }
