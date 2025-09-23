@@ -103,7 +103,7 @@ foreach ($data as $row) {
         <div class="box border blue" id="messenger">
 
             <div class="box-body">
-                <div class="table-responsive">
+                <div class="table-res ponsive">
                     <table id="example" class="table table-bordered table-striped table_small ">
 
                         <thead>
