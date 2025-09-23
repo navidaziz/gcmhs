@@ -103,42 +103,42 @@ foreach ($data as $row) {
         <div class="box border blue" id="messenger">
 
             <div class="box-body">
-                <div class="table-res ponsive">
-                    <table id="example" class="table table-bordered table-striped table_small ">
 
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <!-- <th>Student ID</th> -->
-                                <th>Class No.</th>
-                                <!-- <th>Addmission No</th> -->
-                                <th>Student Info</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table id="example" class="table table-bordered table-striped table_small ">
 
-                            <?php
-                            $count = 1;
-                            $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <!-- <th>Student ID</th> -->
+                            <th>Class No.</th>
+                            <!-- <th>Addmission No</th> -->
+                            <th>Student Info</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+                        $count = 1;
+                        $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
                             AND class_id = ? and section_id = ? ORDER BY student_class_no ASC ", array($class_id, $section_id));
-                            $students = $query->result();
+                        $students = $query->result();
 
-                            foreach ($students as $student): ?>
-                                <tr>
-                                    <td><?php echo $count++; ?></td>
-                                    <!-- <td><?php echo $student->student_id; ?></td> -->
-                                    <td><?php echo $student->student_class_no; ?></td>
-                                    <!-- <td><?php echo $student->student_admission_no; ?></td> -->
-                                    <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
-                                    <td>
-                                        <button class="btn btn-success">Review Info</button>
-                                    </td>
-                                </tr>
+                        foreach ($students as $student): ?>
+                            <tr>
+                                <td><?php echo $count++; ?></td>
+                                <!-- <td><?php echo $student->student_id; ?></td> -->
+                                <td><?php echo $student->student_class_no; ?></td>
+                                <!-- <td><?php echo $student->student_admission_no; ?></td> -->
+                                <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
+                                <td>
+                                    <button class="btn btn-success">Review Info</button>
+                                </td>
+                            </tr>
 
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
 
-                </div>
+
             </div>
         </div>
     </div>
