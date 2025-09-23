@@ -121,7 +121,7 @@ foreach ($data as $row) {
                             <?php
                             $count = 1;
                             $query = $this->db->query("SELECT * FROM students WHERE status IN (1,2)
-                            AND class_id = ? and section_id = ?", array($class_id, $section_id));
+                            AND class_id = ? and section_id = ? ORDER BY student_class_no ASC ", array($class_id, $section_id));
                             $students = $query->result();
 
                             foreach ($students as $student): ?>
