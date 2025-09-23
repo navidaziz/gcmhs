@@ -108,7 +108,7 @@ foreach ($data as $row) {
                     <tr>
                       <th>Sections</th>
                       <th>Total</th>
-                      <th>S-Off</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -119,17 +119,7 @@ foreach ($data as $row) {
                           <th style="background-color: <?php echo $section->color; ?>;">
                             <?php echo $section->section_title; ?>
                           </th>
-
-                          <th style="text-align: center;">
-                            <?php echo $section->active_students; ?>
-                          </th>
-
-                          <td style="text-align: center;">
-                            <?php echo $section->struck_off_students; ?>
-                          </td>
-
-                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Mor.</a></td>
-                          <td><a href="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/add_student_evining_attendance/" . $class->class_id . "/" . $section->section_id) ?>">Even.</a></td>
+                          <td><a class="btn btn-success" href="<?php echo site_url(ADMIN_DIR . "student_management/view_student_list/" . $class->class_id . "/" . $section->section_id) ?>">View Students</a></td>
 
                         </tr>
                       <?php endforeach; ?>
