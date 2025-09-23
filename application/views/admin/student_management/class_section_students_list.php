@@ -127,9 +127,9 @@ foreach ($data as $row) {
                         <tr>
                             <td><?php echo $count++; ?></td>
                             <!-- <td><?php echo $student->student_id; ?></td> -->
-                            <td><strong><?php echo $student->student_class_no; ?></strong></td>
+                            <td><?php echo $student->student_class_no; ?></td>
                             <!-- <td><?php echo $student->student_admission_no; ?></td> -->
-                            <td><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></td>
+                            <td><strong><?php echo $student->student_name . " s/o " . $student->student_father_name; ?></strong></td>
                             <td>
                                 <button class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i> Update</button>
                             </td>
