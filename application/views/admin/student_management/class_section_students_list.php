@@ -112,7 +112,7 @@ foreach ($data as $row) {
                         <th>C.No:</th>
                         <!-- <th>Addmission No</th> -->
                         <th>Student Info</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
