@@ -97,6 +97,7 @@
               <th>C No.</th>
               <th>Add No.</th>
               <th>Name</th>
+              <th>MCQs Results</th>
               <th>Marks</th>
             </tr>
           </thead>
@@ -117,6 +118,19 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
+                <th>
+                  <?php
+                  $query = "SELECT * FROM `students_exams_subjects_marks` 
+                  WHERE exam_id = 20 
+                  student_id= $student->student_id";
+                  $mcqs_result = $this->db->query($query)->row();
+                  if ($mcqs_result) {
+                    echo $mcqs_result->mcqs_marks;
+                  } else {
+                    echo "N/A";
+                  }
+                  ?>
+                </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
             <?php
