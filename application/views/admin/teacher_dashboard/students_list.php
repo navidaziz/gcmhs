@@ -133,7 +133,6 @@
                     $mcqResult = 'A';
                   }
                   ?>
-                  +
                   <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" />+
                   <input style="width: 50px;" min="0" max="70" type="number" name="semester_result" id="semester_result_<?php echo $student->student_id; ?>" onkeyup="add_mcqs_semester_result('<?php echo $student->student_id; ?>')" />
                 </th>
@@ -175,8 +174,7 @@
 
     var mcq_marks = parseInt($('#mcq_marks_' + student_id).val());
     var semester_result = parseInt($('#semester_result_' + student_id).val());
-    alert(mcq_marks);
-    alert(semester_result);
+
     if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
       var total = mcq_marks + semester_result;
       $('#student_marks_' + student_id).val(total);
