@@ -126,14 +126,16 @@
                   AND student_id = ?";
                   $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
                   if ($mcqs_result) {
-                    echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
+                    $mcqResult = $mcqs_result->obtain_mark;
+                    //echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
                   } else {
-                    echo "N/A";
+                    //echo "N/A";
+                    $mcqResult = 'A';
                   }
                   ?>
                   +
-                  <input type="number" name="mcq_marks" id="mcq_marks" value="<?php echo $mcqs_result->obtain_mark; ?>" />+
-                  <input type="number" name="semester_result" name="semester_result" onkeyup="add_mcqs_semester_result()" />
+                  <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" />+
+                  <input style="width: 50px;" min="0" max="70" type="number" name="semester_result" id="semester_result_<?php echo $student->student_id; ?>" onkeyup="add_mcqs_semester_result('<?php echo $student->student_id; ?>')" />
                 </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
@@ -169,14 +171,14 @@
   <!-- /MESSENGER -->
 </div>
 <script>
-  function add_mcqs_semester_result() {
-    var mcq_marks = parseInt($('#mcq_marks').val());
-    var semester_result = parseInt($('#semester_result').val());
+  function add_mcqs_semester_result(student_id) {
+    var mcq_marks = parseInt($('#mcq_marks_ ' + student_id).val());
+    var semester_result = parseInt($('#semester_result_' + student_id).val());
     if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
       var total = mcq_marks + semester_result;
-      $('#total_marks').val(total);
+      $('#total_marks_' + student_id).val(total);
     } else {
-      $('#total_marks').val("");
+      $('#total_marks_' + student_id).val("");
     }
   }
   // $(document).ready(function() {
