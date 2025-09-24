@@ -130,12 +130,12 @@
                     //echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
                   } else {
                     //echo "N/A";
-                    $mcqResult = 'N/A';
+                    $mcqResult = 'A';
                   }
 
                   ?>
                   <?php echo $mcqResult; ?>
-                  <?php if ($mcqResult >= 0) { ?>
+                  <?php if ($mcqResult !== 'A') { ?>
 
                     <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" /> +
 
