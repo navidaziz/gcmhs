@@ -141,7 +141,9 @@ for ($i = 7; $i >= 0; $i--) {
   </thead>
   <tbody>
     <?php
-    $query = "SELECT * FROM `students_attendance_list` WHERE `students_attendance_list`.`status` IN(1,2)";
+    $query = "SELECT * FROM `students_attendance_list` 
+    WHERE `students_attendance_list`.`status` IN(1,2) 
+    ORDER BY class_no ASC";
     $students_attendance = $this->db->query($query)->result();
     $count = 1;
     foreach ($students_attendance as $sa):
