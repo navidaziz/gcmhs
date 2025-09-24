@@ -130,13 +130,19 @@
                     //echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
                   } else {
                     //echo "N/A";
-                    $mcqResult = 'A';
+                    $mcqResult = 'M';
                   }
 
                   ?>
-                  <?php echo $mcqResult; ?>
+                  <?php if ($mcqResult != 'A' or $mcqResult != 'M') { ?>
 
-                  <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" />+
+                    <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" /> +
+
+                  <?php } else { ?>
+                    <?php echo $mcqResult; ?>
+                    <input style="width: 50px;" min="0" max="30" type="hidden" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="0" /> +
+
+                  <?php } ?>
                   <input style="width: 50px;" min="0" max="70" type="number" name="semester_result" id="semester_result_<?php echo $student->student_id; ?>" onkeyup="add_mcqs_semester_result('<?php echo $student->student_id; ?>')" />
                 </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
