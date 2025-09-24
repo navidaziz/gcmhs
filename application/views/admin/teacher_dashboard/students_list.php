@@ -122,10 +122,11 @@
                   <?php
                   $query = "SELECT * FROM `students_exams_subjects_marks` 
                   WHERE exam_id = 20 
-                  student_id= $student->student_id";
-                  $mcqs_result = $this->db->query($query)->row();
+                  AND class_subject_id = ?
+                  AND student_id = ?";
+                  $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
                   if ($mcqs_result) {
-                    echo $mcqs_result->mcqs_marks;
+                    echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
                   } else {
                     echo "N/A";
                   }
