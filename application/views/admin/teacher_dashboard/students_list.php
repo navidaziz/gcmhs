@@ -87,7 +87,7 @@
         <input type="hidden" name="class_subject_id" value="<?php echo $class_subject_id; ?>" />
         <h6 style="color:red; border: 1px dashed red; border-radius: 5px; padding: 3px;">Note: For Absent students just write 00.</h6>
 
-        Subject Test / Exam Total Marks <input inputmode="numeric" type="number" id="total_marks" name="total_marks" style="width: 70px;" />
+        Subject Test / Exam Total Marks <input readonly inputmode="numeric" type="number" id="total_marks" value="100" name="total_marks" style="width: 70px;" />
         <table id="example" class="table1" cellspacing="0" width="100%" style="font-size:11px; text-align: left !important; ">
 
           <thead>
