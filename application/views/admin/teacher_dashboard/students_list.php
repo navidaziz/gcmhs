@@ -122,7 +122,7 @@
                   <?php
                   $query = "SELECT * FROM `students_exams_subjects_marks` 
                   WHERE exam_id = 20 
-                  AND class_subject_id = ?
+                  AND class_subjec_id = ?
                   AND student_id = ?";
                   $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
                   if ($mcqs_result) {
