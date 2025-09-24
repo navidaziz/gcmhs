@@ -95,7 +95,7 @@
 
               <th>#</th>
               <th>C No.</th>
-              <!-- <th>Add No.</th> -->
+              <th>Add No.</th>
               <th>Name</th>
               <th>MCQs Results</th>
               <th>Marks</th>
@@ -110,7 +110,7 @@
 
                 <td><?php echo $count; ?></td>
                 <td><?php echo $student->student_class_no; ?></td>
-                <!-- <td><?php echo $student->student_admission_no; ?></td> -->
+                <td><?php echo $student->student_admission_no; ?></td>
                 <td> <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  
                                         <?php echo $student->father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
                                         " tabindex="<?php echo $count; ?>" role="button" data-toggle="popover" data-trigger="focus" class="pop-top" data-title="Top" data-toggle="popover" data-original-title="" title="<?php echo $student->student_name; ?>">
@@ -131,9 +131,6 @@
                     echo "N/A";
                   }
                   ?>
-                  +
-                  <input type="number" name="mcq_marks" value="<?php echo $mcqs_result->total_marks; ?>" />+
-                  <input type="number" name="semester_result" />
                 </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
