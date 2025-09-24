@@ -8,14 +8,51 @@ function convertNumberToWord($num = false)
   $num = (int) $num;
   $words = array();
   $list1 = array(
-    '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
-    'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
+    '',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'eleven',
+    'twelve',
+    'thirteen',
+    'fourteen',
+    'fifteen',
+    'sixteen',
+    'seventeen',
+    'eighteen',
+    'nineteen'
   );
   $list2 = array('', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred');
   $list3 = array(
-    '', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion',
-    'octillion', 'nonillion', 'decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion',
-    'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 'novemdecillion', 'vigintillion'
+    '',
+    'thousand',
+    'million',
+    'billion',
+    'trillion',
+    'quadrillion',
+    'quintillion',
+    'sextillion',
+    'septillion',
+    'octillion',
+    'nonillion',
+    'decillion',
+    'undecillion',
+    'duodecillion',
+    'tredecillion',
+    'quattuordecillion',
+    'quindecillion',
+    'sexdecillion',
+    'septendecillion',
+    'octodecillion',
+    'novemdecillion',
+    'vigintillion'
   );
   $num_length = strlen($num);
   $levels = (int) (($num_length + 2) / 3);
@@ -162,7 +199,7 @@ function numToOrdinalWord($num)
           </td>
           <td style="text-align: center;">
             <h3>GOVERNMENT CENTENNIAL MODEL HIGH SCHOOL <br /> (BOYS) CHITRAL LOWER</h3>
-            <h5 style="border: 1px solid gray; width: 100%; margin: 0px auto; padding: 4px;">gcmhsbc@gmail.com - 0943 412501 - gcmhsb.chitral.com.pk</h5>
+            <h5 style="border: 1px solid gray; width: 100%; margin: 0px auto; padding: 4px;">gcmhsbc@gmail.com - 0943 413205 - gcmhsb.chitral.com.pk</h5>
           </td>
 
         </tr>
