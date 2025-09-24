@@ -173,7 +173,7 @@
 <script>
   function add_mcqs_semester_result(student_id) {
 
-    var mcq_marks = parseInt($('#mcq_marks_ ' + student_id).val());
+    var mcq_marks = parseInt($('#mcq_marks_' + student_id).val());
     var semester_result = parseInt($('#semester_result_' + student_id).val());
     alert(mcq_marks);
     alert(semester_result);
