@@ -109,7 +109,7 @@
             foreach ($students as $student) : ?>
               <tr>
 
-                <td><?php echo $count++; ?></td>
+                <td><?php echo $count; ?></td>
                 <td><?php echo $student->student_class_no; ?></td>
                 <!-- <td><?php echo $student->student_admission_no; ?></td> -->
                 <td> <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  

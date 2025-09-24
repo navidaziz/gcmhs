@@ -145,7 +145,7 @@ class Teacher_dashboard extends Admin_Controller
 				  `subjects`.`subject_title`,
 				  `class_subjects`.`class_id` 
 				FROM
-				  `subjects`,
+				  `subjects`, 
 				  `class_subjects` 
 				WHERE `subjects`.`subject_id` = `class_subjects`.`subject_id`
 				AND `class_subjects`.`class_id` =" . $class_id . "
