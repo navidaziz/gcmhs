@@ -132,8 +132,8 @@
                   }
                   ?>
                   +
-                  <input type="number" name="mcq_marks" value="<?php echo $mcqs_result->total_marks; ?>" />+
-                  <input type="number" name="semester_result" />
+                  <input type="number" name="mcq_marks" id="mcq_marks" value="<?php echo $mcqs_result->obtain_mark; ?>" />+
+                  <input type="number" name="semester_result" name="semester_result" onkeyup="add_mcqs_semester_result()" />
                 </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
@@ -168,3 +168,32 @@
   </div>
   <!-- /MESSENGER -->
 </div>
+<script>
+  function add_mcqs_semester_result() {
+    var mcq_marks = parseInt($('#mcq_marks').val());
+    var semester_result = parseInt($('#semester_result').val());
+    if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
+      var total = mcq_marks + semester_result;
+      $('#total_marks').val(total);
+    } else {
+      $('#total_marks').val("");
+    }
+  }
+  // $(document).ready(function() {
+  //   $(".result_entry").on('keyup', function() {
+  //     var value = $(this).val();
+  //     if (isNaN(value)) {
+  //       if (value.toUpperCase() != 'A') {
+  //         $(this).val("");
+  //       } else {
+  //         $(this).val("A");
+  //       }
+  //     }
+  //     if (value == '00') {
+  //       $(this).prop("type", "text");
+  //       $(this).val("A");
+
+  //     }
+  //   });
+  // });
+</script>
