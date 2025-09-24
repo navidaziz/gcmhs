@@ -137,7 +137,7 @@
                   <?php echo $mcqResult; ?>
                   <?php if ($mcqResult !== 'A') { ?>
 
-                    <input style="width: 50px;" min="0" max="30" type="number" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" /> +
+                    <input style="width: 50px;" min="0" max="30" type="hidden" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" /> +
 
                   <?php } else { ?>
 
