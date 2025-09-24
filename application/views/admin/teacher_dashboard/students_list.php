@@ -172,9 +172,11 @@
 </div>
 <script>
   function add_mcqs_semester_result(student_id) {
-    alert();
+
     var mcq_marks = parseInt($('#mcq_marks_ ' + student_id).val());
     var semester_result = parseInt($('#semester_result_' + student_id).val());
+    alert(mcq_marks);
+    alert(semester_result);
     if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
       var total = mcq_marks + semester_result;
       $('#total_marks_' + student_id).val(total);
