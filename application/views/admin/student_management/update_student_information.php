@@ -314,12 +314,12 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
                 <tr>
                     <th>Father / Guardian Contact No:</th>
-                    <td><input required type="text" style="width:100%" id="father_mobile_number" name="father_mobile_number" value="<?php echo $students[0]->father_mobile_number; ?>" /></td>
+                    <td><input required type="text" style="width:100%" id="guardian_contact_no" name="guardian_contact_no" value="<?php echo $student->guardian_contact_no; ?>" /></td>
                 </tr>
 
                 <tr>
                     <th>Mother Contact No:</th>
-                    <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $students[0]->mother_mobile_no; ?>" /></td>
+                    <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
                 </tr>
 
 
