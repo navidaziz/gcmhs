@@ -179,9 +179,9 @@
     alert(semester_result);
     if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
       var total = mcq_marks + semester_result;
-      $('#total_marks_' + student_id).val(total);
+      $('#student_marks_' + student_id).val(total);
     } else {
-      $('#total_marks_' + student_id).val("");
+      $('#student_marks_' + student_id).val("");
     }
   }
   // $(document).ready(function() {
