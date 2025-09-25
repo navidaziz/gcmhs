@@ -263,7 +263,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 
 
                 <tr>
-                    <th>Family Situations<br /> <?php foreach ($family_situations as $family_situation) { ?>
+                    <th>Family Situations <small style="margin-left: 5px; color:red">Please select the appropriate family situation.</small><br /> <?php foreach ($family_situations as $family_situation) { ?>
                             <label>
                                 <input
                                     type="radio"
