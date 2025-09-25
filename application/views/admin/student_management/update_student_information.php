@@ -277,7 +277,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Ehsaas Program<br /> <?php foreach ($yes_no as $value => $label) { ?>
+                    <th>Ehsaas Program <small>(benazir income support program)</small><br /> <?php foreach ($yes_no as $value => $label) { ?>
                             <label>
                                 <input required type="radio" name="ehsaas"
                                     value="<?php echo $value; ?>"
@@ -295,7 +295,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Mother Contact No<br /> <input type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
+                    <th>Mother Contact No<small>If the mother’s contact number is not available, use the father’s (guardian’s) contact number instead.</small> <br /> <input type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
                 </tr>
 
 
