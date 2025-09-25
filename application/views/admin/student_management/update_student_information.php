@@ -303,6 +303,9 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 
 
                 </table>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">Update Information</button>
+                </div>
                 <div id="result_reponse"></div>
             </form>
         </div>
