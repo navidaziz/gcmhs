@@ -324,7 +324,14 @@
                   <td><?php echo $today_evening_absent_student->student_class_no; ?></td>
                   <td><?php echo $today_evening_absent_student->student_name; ?></td>
                   <td><?php echo $today_evening_absent_student->father_name; ?></td>
-                  <td><?php echo $today_evening_absent_student->guardian_contact_no; ?></td>
+                  <td>
+                    <?php echo $today_evening_absent_student->father_mobile_number; ?>
+                    <?php
+                    if ($today_evening_absent_student->guardian_contact_no != $today_evening_absent_student->father_mobile_number) {
+                      echo "<br />" . $today_evening_absent_student->guardian_contact_no;
+                    } ?>
+
+                  </td>
                   <td><?php echo $today_evening_absent_student->class; ?></td>
                   <td><?php echo $today_evening_absent_student->section; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
@@ -335,9 +342,7 @@
                                                   $ea = $this->db->query($query, [$today_evening_absent_student->student_id])->row();
                                                   echo $ea->e_a;
                                                   ?></td>
-                  <th><?php
-                      echo round(($ea->m_p * 100) / $ea->total, 2) . " %";
-                      ?></th>
+                  <th><?php echo round(($ea->m_p * 100) / $ea->total, 2) . " %";  ?></th>
                 <?php } ?>
             </tbody>
           </table>
