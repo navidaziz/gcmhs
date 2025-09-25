@@ -151,7 +151,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
     </div>
 
     <div class="col-md-8">
-        <div class="form-section">
+        <div class="form-section" style="padding: 10px;">
             <table class="table table-bordered">
                 <tr>
                     <th>Nationality<br />
