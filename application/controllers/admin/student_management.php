@@ -57,4 +57,12 @@ class Student_management extends Admin_Controller
 			$this->load->view(ADMIN_DIR . "student_management/update_student_information", $this->data);
 		}
 	}
+
+	public function update_student_attribure_record()
+	{
+		$student_id = $this->input->post("student_id");
+		foreach ($_POST as $key => $value) {
+			echo $key . " : " . $value . "<br>";
+		}
+	}
 }
