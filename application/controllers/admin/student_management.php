@@ -78,7 +78,7 @@ class Student_management extends Admin_Controller
 		$this->form_validation->set_rules('family_situation', 'Family Situation', 'required');
 		$this->form_validation->set_rules('ehsaas', 'Ehsaas', 'required|in_list[Yes,No]');
 		$this->form_validation->set_rules('guardian_occupation', 'Guardian Occupation', 'required|alpha_numeric_spaces');
-		$this->form_validation->set_rules('guardian_contact_no', 'Guardian Contact No', 'required|regex_match[/^[0-9]{11}$/]');
+		$this->form_validation->set_rules('guardian_contact_no', 'Contact No', 'required|regex_match[/^[0-9]{11}$/]');
 		$this->form_validation->set_rules('mother_mobile_no', 'Mother Mobile No', 'regex_match[/^[0-9]{11}$/]');
 
 		if ($this->form_validation->run() == FALSE) {
