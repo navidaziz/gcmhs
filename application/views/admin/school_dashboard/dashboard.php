@@ -325,7 +325,7 @@
                   <td><?php echo $today_evening_absent_student->student_name; ?></td>
                   <td><?php echo $today_evening_absent_student->father_name; ?></td>
                   <td>
-                    <?php echo $today_evening_absent_student->father_mobile_number; ?>
+                    <?php echo $today_evening_absent_student->father_mobile_number . "-"; ?>
                     <?php
                     if ($today_evening_absent_student->guardian_contact_no != $today_evening_absent_student->father_mobile_number) {
                       echo "<br />" . $today_evening_absent_student->guardian_contact_no;
