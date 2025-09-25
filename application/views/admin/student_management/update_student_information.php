@@ -193,7 +193,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>School Name<br /> <input required type="text" class="form-control"
+                    <th>School Name <small style="margin-left: 5px; color:red">Name of Previous School (before admission)</small><br /> <input required type="text" class="form-control"
                             name="school_name"
                             value="<?php echo htmlspecialchars($student->school_name); ?>" />
                         </td>
