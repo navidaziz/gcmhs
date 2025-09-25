@@ -60,9 +60,61 @@ class Student_management extends Admin_Controller
 
 	public function update_student_attribure_record()
 	{
-		$student_id = $this->input->post("student_id");
-		foreach ($_POST as $key => $value) {
-			echo $key . " : " . $value . "<br>";
+		// $student_id = $this->input->post("student_id");
+		// foreach ($_POST as $key => $value) {
+		// 	echo $key . " : " . $value . "<br>";
+		// }
+
+		// Validation rules
+		$this->form_validation->set_rules('nationality', 'Nationality', 'required|alpha');
+		$this->form_validation->set_rules('religion', 'Religion', 'required|alpha');
+		$this->form_validation->set_rules('private_public_school', 'School Type', 'required|in_list[G,P]');
+		$this->form_validation->set_rules('school_name', 'School Name', 'required|trim');
+		$this->form_validation->set_rules('hafiz', 'Hafiz', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('orphan', 'Orphan', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('is_disable', 'Disability', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('works_after_school', 'Works After School', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('criminal_history', 'Criminal History', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('family_situation', 'Family Situation', 'required');
+		$this->form_validation->set_rules('ehsaas', 'Ehsaas', 'required|in_list[Yes,No]');
+		$this->form_validation->set_rules('guardian_occupation', 'Guardian Occupation', 'required|alpha_numeric_spaces');
+		$this->form_validation->set_rules('guardian_contact_no', 'Guardian Contact No', 'required|regex_match[/^[0-9]{11}$/]');
+		$this->form_validation->set_rules('mother_mobile_no', 'Mother Mobile No', 'regex_match[/^[0-9]{11}$/]');
+
+		if ($this->form_validation->run() == FALSE) {
+			// Validation failed
+			$response = array(
+				'status' => 'error',
+				'errors' => $this->form_validation->error_array()
+			);
+		} else {
+			// Clean inputs
+			$data = array(
+				'nationality' => $this->input->post('nationality'),
+				'religion' => $this->input->post('religion'),
+				'private_public_school' => $this->input->post('private_public_school'),
+				'school_name' => $this->input->post('school_name'),
+				'hafiz' => $this->input->post('hafiz'),
+				'orphan' => $this->input->post('orphan'),
+				'is_disable' => $this->input->post('is_disable'),
+				'works_after_school' => $this->input->post('works_after_school'),
+				'criminal_history' => $this->input->post('criminal_history'),
+				'family_situation' => $this->input->post('family_situation'),
+				'ehsaas' => $this->input->post('ehsaas'),
+				'guardian_occupation' => $this->input->post('guardian_occupation'),
+				'guardian_contact_no' => preg_replace('/\D/', '', $this->input->post('guardian_contact_no')), // remove non-digits
+				'mother_mobile_no' => preg_replace('/\D/', '', $this->input->post('mother_mobile_no'))
+			);
+
+			//$this->Student_model->update_student($student_id, $data);
+
+			$response = array(
+				'status' => 'success',
+				'message' => 'Student updated successfully.'
+			);
 		}
+
+		echo json_encode($response);
+	}
 	}
 }

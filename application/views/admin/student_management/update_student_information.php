@@ -298,7 +298,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 
                     <tr>
                         <th>Mother Contact No <small style="margin-left: 5px; color:red">If the mother’s contact number is not available, use the father’s (guardian’s) contact number instead.</small> <br />
-                            <input required type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
+                            <input type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
                     </tr>
 
 
