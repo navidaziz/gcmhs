@@ -116,5 +116,4 @@ class Student_management extends Admin_Controller
 
 		echo json_encode($response);
 	}
-	}
 }
