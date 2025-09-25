@@ -319,7 +319,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 
         // Serialize form data
         var formData = $(this).serialize();
-
+        alert();
         // Send AJAX request
         $.ajax({
             type: 'POST',
@@ -327,6 +327,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
             data: formData,
             success: function(response) {
                 // Display response
+                alert(response);
                 if (response == 'success') {
                     location.reload();
                 } else {
