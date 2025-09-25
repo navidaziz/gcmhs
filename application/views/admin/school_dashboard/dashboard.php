@@ -337,7 +337,7 @@
                   <td><?php echo $today_evening_absent_student->section; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
-                  <th>
+                  <th style="text-align: center; color:red;">
                     <?php
                     $query = "SELECT COUNT(*) as total FROM `students_attendance`
                     WHERE student_id = ? AND attendance2='A' AND date >= CURDATE() - INTERVAL 7 DAY;";
