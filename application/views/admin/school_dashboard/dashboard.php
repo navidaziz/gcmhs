@@ -340,7 +340,7 @@
                   <th>
                     <?php
                     $query = "SELECT COUNT(*) as total FROM `students_attendance`
-                    WHERE student_id = ? AND attendance2='A' and date = last 7 days;";
+                    WHERE student_id = ? AND attendance2='A' AND date >= CURDATE() - INTERVAL 7 DAY;";
                     echo $this->db->query()->row()->total;
                     ?>
                   </th>
