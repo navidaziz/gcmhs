@@ -161,7 +161,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($nationalities as $nation) { ?>
                             <label class="radio-inline">
                                 <input type="radio" name="nationality" value="<?php echo $nation; ?>"
-                                    <?php if ($student->nationality == $nation) echo 'checked'; ?> />
+                                    <?php if ($student->nationality == $nation) echo 'checked'; ?>>
                                 <?php echo $nation; ?>
                             </label>
                         <?php } ?>
@@ -175,7 +175,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($religions as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="religion" value="<?php echo $value; ?>"
-                                    <?php if ($student->religion == $value) echo 'checked'; ?> />
+                                    <?php if ($student->religion == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -189,7 +189,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($school_types as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="private_public_school" value="<?php echo $value; ?>"
-                                    <?php if ($student->private_public_school == $value) echo 'checked'; ?> />
+                                    <?php if ($student->private_public_school == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -202,7 +202,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                     <div class="col-sm-9">
                         <input required type="text" class="form-control"
                             name="school_name"
-                            value="<?php echo htmlspecialchars($student->school_name); ?>" />
+                            value="<?php echo htmlspecialchars($student->school_name); ?>">
                     </div>
                 </div>
 
@@ -213,7 +213,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="hafiz" value="<?php echo $value; ?>"
-                                    <?php if ($student->hafiz == $value) echo 'checked'; ?> />
+                                    <?php if ($student->hafiz == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -227,7 +227,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="orphan" value="<?php echo $value; ?>"
-                                    <?php if ($student->orphan == $value) echo 'checked'; ?> />
+                                    <?php if ($student->orphan == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -241,7 +241,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="is_disable" value="<?php echo $value; ?>"
-                                    <?php if ($student->is_disable == $value) echo 'checked'; ?> />
+                                    <?php if ($student->is_disable == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -255,7 +255,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="works_after_school" value="<?php echo $value; ?>"
-                                    <?php if ($student->works_after_school == $value) echo 'checked'; ?> />
+                                    <?php if ($student->works_after_school == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -269,21 +269,21 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="criminal_history" value="<?php echo $value; ?>"
-                                    <?php if ($student->criminal_history == $value) echo 'checked'; ?> />
+                                    <?php if ($student->criminal_history == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
                     </div>
                 </div>
 
-                <!-- Family Situation -->
+                <!-- Family Situations -->
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Family Situations:</label>
                     <div class="col-sm-9">
                         <?php foreach ($family_situations as $family_situation) { ?>
                             <label class="radio-inline">
                                 <input type="radio" name="family_situation" value="<?php echo $family_situation; ?>"
-                                    <?php if ($student->family_situation == $family_situation) echo 'checked'; ?> />
+                                    <?php if ($student->family_situation == $family_situation) echo 'checked'; ?>>
                                 <?php echo $family_situation; ?>
                             </label>
                         <?php } ?>
@@ -297,7 +297,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <?php foreach ($yes_no as $value => $label) { ?>
                             <label class="radio-inline">
                                 <input required type="radio" name="ehsaas" value="<?php echo $value; ?>"
-                                    <?php if ($student->ehsaas == $value) echo 'checked'; ?> />
+                                    <?php if ($student->ehsaas == $value) echo 'checked'; ?>>
                                 <?php echo $label; ?>
                             </label>
                         <?php } ?>
@@ -310,18 +310,18 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                     <div class="col-sm-9">
                         <input required type="text" class="form-control"
                             name="guardian_occupation"
-                            value="<?php echo $student->guardian_occupation; ?>" />
+                            value="<?php echo $student->guardian_occupation; ?>">
                     </div>
                 </div>
 
-                <!-- Father / Guardian Contact -->
+                <!-- Guardian Contact -->
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Father / Guardian Contact No:</label>
                     <div class="col-sm-9">
                         <input required type="text" class="form-control"
                             id="guardian_contact_no"
                             name="guardian_contact_no"
-                            value="<?php echo $student->guardian_contact_no; ?>" />
+                            value="<?php echo $student->guardian_contact_no; ?>">
                     </div>
                 </div>
 
@@ -332,7 +332,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                         <input type="text" class="form-control"
                             id="mother_mobile_no"
                             name="mother_mobile_no"
-                            value="<?php echo $student->mother_mobile_no; ?>" />
+                            value="<?php echo $student->mother_mobile_no; ?>">
                     </div>
                 </div>
 
