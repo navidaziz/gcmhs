@@ -224,7 +224,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Is Disable<br /> <?php foreach ($yes_no as $value => $label) { ?>
+                    <th>Is Disable <small style="margin-left: 5px; color:red">(e.g., visual, hearing, speech, physical, learning, mental health, etc.)</small><br /> <?php foreach ($yes_no as $value => $label) { ?>
                             <label>
                                 <input required type="radio" name="is_disable"
                                     value="<?php echo $value; ?>"
@@ -248,7 +248,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Criminal History<br /> <?php foreach ($yes_no as $value => $label) { ?>
+                    <th>Criminal History <small style="margin-left: 5px; color:red">(Any criminal record/FIR, if applicable)</small> <br /> <?php foreach ($yes_no as $value => $label) { ?>
                             <label>
                                 <input required type="radio" name="criminal_history"
                                     value="<?php echo $value; ?>"
