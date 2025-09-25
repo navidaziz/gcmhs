@@ -341,7 +341,7 @@
                     <?php
                     $query = "SELECT COUNT(*) as total FROM `students_attendance`
                     WHERE student_id = ? AND attendance2='A' AND date >= CURDATE() - INTERVAL 7 DAY;";
-                    echo $this->db->query($query)->row()->total;
+                    echo $this->db->query($query, [$today_evening_absent_student->student_id])->row()->total;
                     ?>
                   </th>
                   <td style="text-align: center;"><?php
