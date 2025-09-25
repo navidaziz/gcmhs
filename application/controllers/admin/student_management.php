@@ -80,6 +80,8 @@ class Student_management extends Admin_Controller
 		$this->form_validation->set_rules('guardian_occupation', 'Guardian Occupation', 'required|alpha_numeric_spaces');
 		$this->form_validation->set_rules('guardian_contact_no', 'Contact No', 'required|regex_match[/^[0-9]{11}$/]');
 		$this->form_validation->set_rules('mother_mobile_no', 'Mother Mobile No', 'regex_match[/^[0-9]{11}$/]');
+		$this->form_validation->set_rules('father_mobile_number', 'Father Mobile No', 'regex_match[/^[0-9]{11}$/]');
+
 
 		if ($this->form_validation->run() == FALSE) {
 			// Validation failed
@@ -110,12 +112,11 @@ class Student_management extends Admin_Controller
 
 			//$this->Student_model->update_student($student_id, $data);
 
-			$response = array(
-				'status' => 'success',
-				'message' => 'Student updated successfully.'
-			);
+			// $response = array(
+			// 	'status' => 'success',
+			// 	'message' => 'Student updated successfully.'
+			// );
+			echo "success";
 		}
-
-		echo json_encode($response);
 	}
 }
