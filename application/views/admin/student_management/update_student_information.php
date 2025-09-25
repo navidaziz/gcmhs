@@ -224,7 +224,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Is Disable <small style="margin-left: 5px; color:red">(e.g., visual, hearing, speech, physical, learning, mental health, etc.)</small><br /> <?php foreach ($yes_no as $value => $label) { ?>
+                    <th>Is Disable <small style="margin-left: 5px; color:red">(e.g., visual, hearing, speech, physical, mental health, etc.)</small><br /> <?php foreach ($yes_no as $value => $label) { ?>
                             <label>
                                 <input required type="radio" name="is_disable"
                                     value="<?php echo $value; ?>"
