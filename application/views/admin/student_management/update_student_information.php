@@ -267,7 +267,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                     <tr>
                         <th>Family Situations <small style="margin-left: 5px; color:red">Please select the appropriate family situation.</small><br /> <?php foreach ($family_situations as $family_situation) { ?>
                                 <label>
-                                    <input
+                                    <input required
                                         type="radio"
                                         name="family_situation"
                                         value="<?php echo $family_situation; ?>"
@@ -297,7 +297,8 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                     </tr>
 
                     <tr>
-                        <th>Mother Contact No <small style="margin-left: 5px; color:red">If the mother’s contact number is not available, use the father’s (guardian’s) contact number instead.</small> <br /> <input type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
+                        <th>Mother Contact No <small style="margin-left: 5px; color:red">If the mother’s contact number is not available, use the father’s (guardian’s) contact number instead.</small> <br />
+                            <input required type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
                     </tr>
 
 
@@ -306,7 +307,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 <div style="text-align: center;">
                     <button type="submit" class="btn btn-primary">Update Information</button>
                 </div>
-                <div id="result_reponse"></div>
+                <div id="result_response"></div>
             </form>
         </div>
     </div>
@@ -319,7 +320,6 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
 
         // Serialize form data
         var formData = $(this).serialize();
-        alert();
         // Send AJAX request
         $.ajax({
             type: 'POST',
@@ -327,7 +327,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
             data: formData,
             success: function(response) {
                 // Display response
-                alert(response);
+
                 if (response == 'success') {
                     location.reload();
                 } else {
