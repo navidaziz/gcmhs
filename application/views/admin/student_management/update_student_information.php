@@ -313,7 +313,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                     <td><input required type="text" style="width:100%" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" /></td>
                 </tr>
                 <tr>
-                    <th>Father / Guardian Contact No:</th>
+                    <th>Contact No:</th>
                     <td><input required type="text" style="width:100%" id="guardian_contact_no" name="guardian_contact_no" value="<?php echo $student->guardian_contact_no; ?>" /></td>
                 </tr>
 
