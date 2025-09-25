@@ -181,7 +181,7 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
 
                 <tr>
-                    <th>Private / Public School<br /> <?php foreach ($school_types as $value => $label) { ?>
+                    <th>Private / Public <small style="margin-left: 5px; color:red"> School School (before admission) </small><br /> <?php foreach ($school_types as $value => $label) { ?>
                             <label>
                                 <input required type="radio" name="private_public_school"
                                     value="<?php echo $value; ?>"
