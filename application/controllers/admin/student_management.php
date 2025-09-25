@@ -85,7 +85,8 @@ class Student_management extends Admin_Controller
 			// Validation failed
 			$response = array(
 				'status' => 'error',
-				'errors' => $this->form_validation->error_array()
+				//'errors' => $this->form_validation->error_array()
+				'errors' => validation_errors()
 			);
 		} else {
 			// Clean inputs
