@@ -310,16 +310,16 @@ $clean_mobile = preg_replace('/[^0-9]/', '', $student->father_mobile_number);
                 </tr>
                 <tr>
                     <th>Father Occupation:</th>
-                    <td><input required type="text" style="width:100%" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" /></td>
+                    <td><input required type="text" class="form-control" name="guardian_occupation" value="<?php echo $student->guardian_occupation; ?>" /></td>
                 </tr>
                 <tr>
                     <th>Contact No:</th>
-                    <td><input required type="text" style="width:100%" id="guardian_contact_no" name="guardian_contact_no" value="<?php echo $student->guardian_contact_no; ?>" /></td>
+                    <td><input required type="text" class="form-control" id="guardian_contact_no" name="guardian_contact_no" value="<?php echo $student->guardian_contact_no; ?>" /></td>
                 </tr>
 
                 <tr>
                     <th>Mother Contact No:</th>
-                    <td><input type="text" style="width:100%" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
+                    <td><input type="text" class="form-control" id="mother_mobile_no" name="mother_mobile_no" value="<?php echo $student->mother_mobile_no; ?>" /></td>
                 </tr>
 
 
