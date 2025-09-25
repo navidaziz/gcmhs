@@ -308,6 +308,7 @@
                 <th>Section</th>
                 <th>Morning</th>
                 <th>Evening</th>
+                <th>Skipping Last 7 Days</th>
                 <th>Skipping Frequency</th>
                 <th>Attendance Rate</th>
               </tr>
@@ -325,7 +326,7 @@
                   <td><?php echo $today_evening_absent_student->student_name; ?></td>
                   <td><?php echo $today_evening_absent_student->father_name; ?></td>
                   <td>
-                    <?php echo $today_evening_absent_student->father_mobile_number . "-"; ?>
+                    <?php echo $today_evening_absent_student->father_mobile_number; ?>
                     <?php
                     if ($today_evening_absent_student->guardian_contact_no != $today_evening_absent_student->father_mobile_number) {
                       echo "<br />" . $today_evening_absent_student->guardian_contact_no;
@@ -336,6 +337,13 @@
                   <td><?php echo $today_evening_absent_student->section; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->morning_attendance; ?></td>
                   <td style="text-align: center;"><?php echo $today_evening_absent_student->evening_attendance; ?></td>
+                  <th>
+                    <?php
+                    $query = "SELECT COUNT(*) as total FROM `students_attendance`
+                    WHERE student_id = ? AND attendance2='A' and date = last 7 days;";
+                    echo $this->db->query()->row()->total;
+                    ?>
+                  </th>
                   <td style="text-align: center;"><?php
                                                   $query = "SELECT e_a, m_p, m_a, m_l, (m_p + m_a + m_l) AS total
                                                   FROM `students_attendance_list` WHERE student_id= ? ;";
