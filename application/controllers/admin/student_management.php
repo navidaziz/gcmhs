@@ -110,7 +110,7 @@ class Student_management extends Admin_Controller
 				'mother_mobile_no' => preg_replace('/\D/', '', $this->input->post('mother_mobile_no'))
 			);
 
-			//$this->Student_model->update_student($student_id, $data);
+			$this->Student_model->update_student($student_id, $data);
 
 			// $response = array(
 			// 	'status' => 'success',
