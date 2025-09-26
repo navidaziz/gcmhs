@@ -107,7 +107,8 @@ class Student_management extends Admin_Controller
 				'ehsaas' => $this->input->post('ehsaas'),
 				'guardian_occupation' => $this->input->post('guardian_occupation'),
 				'guardian_contact_no' => preg_replace('/\D/', '', $this->input->post('guardian_contact_no')), // remove non-digits
-				'mother_mobile_no' => preg_replace('/\D/', '', $this->input->post('mother_mobile_no'))
+				'mother_mobile_no' => preg_replace('/\D/', '', $this->input->post('mother_mobile_no')),
+				'verified' => 1
 			);
 
 			$student_id = $this->input->post("student_id");

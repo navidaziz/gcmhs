@@ -111,6 +111,7 @@ foreach ($data as $row) {
                         <!-- <th>Student ID</th> -->
                         <th>C.No:</th>
                         <!-- <th>Addmission No</th> -->
+                        <th>Verified</th>
                         <th style="width: 50%;">Student Info</th>
                         <th></th>
                     </tr>
@@ -134,6 +135,13 @@ foreach ($data as $row) {
                             <td><?php echo $student->student_class_no; ?></td>
                             <!-- <td><?php echo $student->student_admission_no; ?></td> -->
                             <td><strong><?php echo $student->student_name . " </strong> s/o <strong>" . $student->student_father_name; ?></strong></td>
+                            <td><?php
+                                if ($student->verified == 1) {
+                                    echo "<span style='color:green; font-weight:bold;'>Yes</span>";
+                                } else {
+                                    echo "<span style='color:red; font-weight:bold;'>No</span>";
+                                }
+                                ?></td>
                             <td>
                                 <button onclick="get_student_information(<?php echo $student->student_id; ?>)" class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i> Update</button>
                             </td>
