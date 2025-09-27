@@ -215,7 +215,7 @@
                             $count = 1;
                             foreach ($students as $student) { ?>
                                 <tr <?php if ($student->status != 1) { ?>style="text-decoration: line-through !important; <?php } ?>">
-                                    <td> <a onclick="change_class_no('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="fa fa fa-times-circle" aria-hidden="true">
+                                    <td> <a onclick="change_class_no('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="fa fa fa-edit" aria-hidden="true">
                                             <?php echo $student->student_class_no; ?>
                                         </a>
                                     </td>
