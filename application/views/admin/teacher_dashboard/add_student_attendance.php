@@ -135,24 +135,24 @@
                     <table id="example" class="table1" cellspacing="0" width="100%" style="font-size:11px; text-align: left !important; ">
                         <thead>
                             <tr>
-                                <th>Class No.</th>
-                                <th>Add No.</th>
-                                <th style="text-align: center;">S-Off</th>
+                                <th style="font-size:9px">Class No.</th>
+                                <th style="font-size:9px">Add No.</th>
+                                <th style="text-align: center;font-size:9px">S-Off</th>
                                 <th>Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
-                                    <th style="text-align: center;">Y.day</th>
-                                    <th style="text-align: center;">P</th>
+                                    <th style="text-align: center; font-size:9px">Y.day</th>
+                                    <th style="text-align: center; font-size:9px">P</th>
                                     <!-- <th style="text-align: center;">CL</th> -->
-                                    <th style="text-align: center;">L</th>
-                                    <th style="text-align: center;">A</th>
+                                    <th style="text-align: center; font-size:9px">L</th>
+                                    <th style="text-align: center; font-size:9px">A</th>
                                     <?php } else {
                                     for ($i = 5; $i >= 0; $i--) {
                                     ?>
                                         <?php if ($i == 0) { ?>
-                                            <th style="text-align: center;">T.day</th>
+                                            <th style="text-align: center; font-size:9px">T.day</th>
                                         <?php } else { ?>
-                                            <th style="text-align: center;"><?php echo date('d', strtotime("-$i days")); ?></th>
+                                            <th style="text-align: center; font-size:9px"><?php echo date('d', strtotime("-$i days")); ?></th>
                                         <?php } ?>
 
                                     <?php } ?>
