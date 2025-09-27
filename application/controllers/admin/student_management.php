@@ -125,6 +125,9 @@ class Student_management extends Admin_Controller
 
 	public function get_change_class_no_form()
 	{
+
+		echo "we are here";
+		exit();
 		$student_id = $this->input->post("student_id");
 
 		// Get student data
