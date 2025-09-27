@@ -29,7 +29,7 @@
     function change_class_no(student_id) {
         $.ajax({
                 method: "POST",
-                url: "<?php echo site_url(ADMIN_DIR . 'student_management/get_change_class_no_form'); ?>",
+                url: "<?php echo site_url(ADMIN_DIR . 'teacher_dashboard/get_change_class_no_form'); ?>",
                 data: {
                     student_id: student_id
                 },

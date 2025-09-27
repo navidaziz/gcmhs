@@ -122,23 +122,4 @@ class Student_management extends Admin_Controller
 			echo "success";
 		}
 	}
-
-	public function get_change_class_no_form()
-	{
-
-		echo "we are here";
-		exit();
-		$student_id = $this->input->post("student_id");
-
-		// Get student data
-		$query = "SELECT * FROM students WHERE student_id = ?";
-		$student = $this->db->query($query, [$student_id])->row();
-
-		if (!$student) {
-			return json_encode(['error' => 'Student not found']);
-		} else {
-			$this->data['student'] = $student;
-			$this->load->view(ADMIN_DIR . "student_management/get_change_class_no_form", $this->data);
-		}
-	}
 }
