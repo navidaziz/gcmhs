@@ -46,7 +46,7 @@
             </div>
             <div class="modal-body">
                 <h4 id="change_class_no_body">Please Wait .....</h4>
-                <p style="text-align: center;">Stuck Off Reason:
+                <p style="text-align: center;">Change Student Class No:
                 <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/change_class_no") ?>" method="post" style="text-align: center;">
                     <input type="hidden" name="student_id" id="studentId" value="" />
                     <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
