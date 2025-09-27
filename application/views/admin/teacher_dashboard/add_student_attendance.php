@@ -91,7 +91,6 @@
 <div class="row" style="margin-left: -25px; margin-right: -23px;">
     <!-- MESSENGER -->
     <div class="col-md-12">
-        we are here
         <div class="box-body" style="background-color: white !important; margin-top: 10px; text-align: center; padding: 3px;">
             <style>
                 .table1 tr,
