@@ -26,7 +26,7 @@
 </div>
 <script>
     function change_class_no(student_id, name, father_name, add_no) {
-        $('#sof_model_title').html("Update Student Class No.");
+        $('#change_class_no_title').html("Update Student Class No.");
         var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
         $('#studentId').val(student_id);
         $('#change_class_no_body').html(body);
@@ -38,7 +38,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title pull-left" id="change_class_no">Title</h5>
+                <h5 class="modal-title pull-left" id="change_class_no_title">Title</h5>
                 <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +61,7 @@
     </div>
 </div>
 <script>
-    function change_class_no(student_id, name, father_name, add_no) {
+    function struck_off_model(student_id, name, father_name, add_no) {
         $('#sof_model_title').html("Student Stuck Off Form");
         var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
         $('#studentID').val(student_id);
