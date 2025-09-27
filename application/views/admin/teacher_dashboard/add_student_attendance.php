@@ -138,7 +138,7 @@
                                 <th style="font-size:9px">Class No.</th>
                                 <th style="font-size:9px">Add No.</th>
                                 <th style="text-align: center;font-size:9px">S-Off</th>
-                                <th>Student Name</th>
+                                <th style="text-align: center;font-size:9px">Student Name</th>
                                 <!-- <th>Father Name</th> -->
                                 <?php if ($today_attendance == 0) { ?>
                                     <th style="text-align: center; font-size:9px">Y.day</th>
