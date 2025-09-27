@@ -99,7 +99,7 @@
                     <table id="example" class="table1" cellspacing="0" width="100%" style="font-size:11px; text-align: left !important; ">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Class No.</th>
                                 <th>Add No.</th>
                                 <th style="text-align: center;">S-Off</th>
                                 <th>Student Name</th>
