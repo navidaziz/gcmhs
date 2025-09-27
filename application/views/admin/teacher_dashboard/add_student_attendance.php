@@ -25,7 +25,43 @@
     </div>
 </div>
 <script>
-    function struck_off_model(student_id, name, father_name, add_no) {
+    function change_class_no(student_id, name, father_name, add_no) {
+        $('#sof_model_title').html("Update Student Class No.");
+        var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
+        $('#studentId').val(student_id);
+        $('#change_class_no_body').html(body);
+        $('#change_class_no').modal('show')
+    }
+</script>
+
+<div id="change_class_no" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title pull-left" id="change_class_no">Title</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <br />
+            </div>
+            <div class="modal-body">
+                <h4 id="change_class_no_body">Please Wait .....</h4>
+                <p style="text-align: center;">Stuck Off Reason:
+                <form action="<?php echo site_url(ADMIN_DIR . "teacher_dashboard/change_class_no") ?>" method="post" style="text-align: center;">
+                    <input type="hidden" name="student_id" id="studentId" value="" />
+                    <input type="hidden" name="class_id" value="<?php echo $class_id ?>" />
+                    <input type="hidden" name="section_id" value="<?php echo $section_id ?>" />
+                    <input required type="text" class="form-control" style="margin: 10px;" name="class_no" />
+                    <input type="submit" class="btn btn-danger btn-sm" value="Change Class No." />
+                </form>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function change_class_no(student_id, name, father_name, add_no) {
         $('#sof_model_title').html("Student Stuck Off Form");
         var body = ' Admission No: ' + add_no + ' <br /> Student Name: ' + name + '<br /> Father Name: ' + father_name + ' ';
         $('#studentID').val(student_id);
@@ -179,7 +215,10 @@
                             $count = 1;
                             foreach ($students as $student) { ?>
                                 <tr <?php if ($student->status != 1) { ?>style="text-decoration: line-through !important; <?php } ?>">
-                                    <td><?php echo $student->student_class_no; ?></td>
+                                    <td> <a onclick="change_class_no('<?php echo $student->student_id; ?>', '<?php echo $student->student_name; ?>', '<?php echo $student->student_father_name; ?>', '<?php echo $student->student_admission_no; ?>')" class="fa fa fa-times-circle" aria-hidden="true">
+                                            <?php echo $student->student_class_no; ?>
+                                        </a>
+                                    </td>
                                     <td><?php echo $student->student_admission_no; ?></td>
                                     <td style="text-align: center;">
                                         <?php if ($student->status == 1) { ?>
