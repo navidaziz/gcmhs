@@ -3,23 +3,24 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Top Ten Students List</title>
+  <title>Examination Results Summary</title>
   <style>
     body {
       font-size: 12px;
       font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-      margin: 30px;
+      margin: 25mm;
       color: #000;
     }
 
     h1,
-    h2 {
+    h2,
+    h3 {
       text-align: center;
       margin: 5px 0;
     }
 
     h1 {
-      font-size: 22px;
+      font-size: 20px;
       text-transform: uppercase;
     }
 
@@ -28,10 +29,17 @@
       font-weight: normal;
     }
 
+    h3 {
+      margin-top: 20px;
+      font-size: 14px;
+      text-align: left;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
     }
 
     thead th {
@@ -60,7 +68,7 @@
       text-align: right;
     }
 
-    /* Print-friendly setup */
+    /* Print setup */
     @page {
       size: A4;
       margin: 20mm;
@@ -71,23 +79,17 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-
-      table {
-        page-break-inside: auto;
-      }
-
-      tr {
-        page-break-inside: avoid;
-        page-break-after: auto;
-      }
     }
   </style>
 </head>
 
 <body>
-  <h1>GCMHS Boys Chitral</h1>
-  <h2><?php echo $exam->year . " " . $exam->term; ?> <br> Top Ten Students List</h2>
+  <!-- School + Exam Title -->
+  <h1>Government Centennial Model High School Boys Chitral</h1>
+  <h2><?php echo $exam->year . " - " . $exam->term; ?></h2>
 
+  <!-- Overall Top Ten -->
+  <h3>Overall Top Ten Students</h3>
   <table>
     <thead>
       <tr>
@@ -106,59 +108,39 @@
     <tbody>
       <?php
       $count = 1;
-      foreach ($top_ten_students as $top_ten_student) { ?>
+      foreach ($top_ten_students as $s) { ?>
         <tr>
           <td class="center"><?php echo $count++; ?></td>
-          <td class="center"><?php echo $top_ten_student->student_class_no; ?></td>
-          <td class="center"><?php echo $top_ten_student->student_admission_no; ?></td>
-          <td><?php echo $top_ten_student->student_name; ?></td>
-          <td><?php echo $top_ten_student->student_father_name; ?></td>
-          <td>
-            <?php
-            $numbers = explode(',', $top_ten_student->contact_numbers);
-            echo implode('<br />', array_map('trim', $numbers));
-            ?>
+          <td class="center"><?php echo $s->student_class_no; ?></td>
+          <td class="center"><?php echo $s->student_admission_no; ?></td>
+          <td><?php echo $s->student_name; ?></td>
+          <td><?php echo $s->student_father_name; ?></td>
+          <td><?php echo implode('<br/>', array_map('trim', explode(',', $s->contact_numbers))); ?></td>
+          <td style="background-color:<?php echo $s->color; ?>; text-align:center;">
+            <?php echo $s->Class_title . " (" . $s->section_title . ")"; ?>
           </td>
-          <td style="background-color:<?php echo $top_ten_student->color; ?>; text-align:center;">
-            <?php echo $top_ten_student->Class_title; ?>
-            (<?php echo $top_ten_student->section_title; ?>)
-          </td>
-          <td class="right"><?php echo $top_ten_student->obtain_marks; ?></td>
-          <td class="right"><?php echo $top_ten_student->total_marks; ?></td>
-          <td class="center"><?php echo $top_ten_student->percentage; ?>%</td>
+          <td class="right"><?php echo $s->obtain_marks; ?></td>
+          <td class="right"><?php echo $s->total_marks; ?></td>
+          <td class="center"><?php echo $s->percentage; ?>%</td>
         </tr>
       <?php } ?>
     </tbody>
   </table>
 
+  <!-- Per Class / Section -->
   <?php
-  //get top ten students 
-  $query = "SELECT `student_results`.`Class_title`,  `student_results`.`class_id`
-  FROM student_results WHERE exam_id=$exam_id 
-  GROUP BY `class_id`
-  ORDER BY `class_id` ASC";
-  $classes = $this->db->query($query)->result();
+  $query = "SELECT `Class_title`, `class_id` FROM student_results WHERE exam_id=? GROUP BY class_id ORDER BY class_id ASC";
+  $classes = $this->db->query($query, [$exam_id])->result();
 
   foreach ($classes as $class) {
-    $query = "SELECT `student_results`.`section_title`,  `student_results`.`section_id`  
-    FROM student_results WHERE exam_id= ?
-    AND class_id = ? 
-    GROUP BY `section_id`
-    ORDER BY `section_id` ASC";
+    $query = "SELECT `section_title`, `section_id` FROM student_results WHERE exam_id=? AND class_id=? GROUP BY section_id ORDER BY section_id ASC";
     $sections = $this->db->query($query, [$exam_id, $class->class_id])->result();
+
     foreach ($sections as $section) {
+      $query = "SELECT * FROM student_results WHERE exam_id=? AND class_id=? AND section_id=? ORDER BY percentage DESC LIMIT 3";
+      $top_three = $this->db->query($query, [$exam_id, $class->class_id, $section->section_id])->result();
   ?>
-      <h1>Class <?php echo $class->Class_title; ?></h1>
-      <h2><?php echo $exam->year . " " . $exam->term; ?> <br> Top 3 Students List</h2>
-      <?php
-      //get top ten students 
-      $query = "SELECT * FROM student_results 
-      WHERE exam_id= ? 
-      AND class_id = ?
-      AND section_id = ?
-      ORDER BY percentage DESC LIMIT 3";
-      $top_three_students = $this->db->query($query, [$exam_id, $class->class_id, $section->section_id])->result();
-      ?>
+      <h3>Class <?php echo $class->Class_title; ?> - Section <?php echo $section->section_title; ?> (Top 3)</h3>
       <table>
         <thead>
           <tr>
@@ -168,7 +150,6 @@
             <th>Student Name</th>
             <th>Father Name</th>
             <th>Contact No.</th>
-            <th>Class</th>
             <th>Obtained Marks</th>
             <th>Total Marks</th>
             <th>%</th>
@@ -177,32 +158,23 @@
         <tbody>
           <?php
           $count = 1;
-          foreach ($top_three_students as $top_three_student) { ?>
+          foreach ($top_three as $s) { ?>
             <tr>
               <td class="center"><?php echo $count++; ?></td>
-              <td class="center"><?php echo $top_three_student->student_class_no; ?></td>
-              <td class="center"><?php echo $top_three_student->student_admission_no; ?></td>
-              <td><?php echo $top_three_student->student_name; ?></td>
-              <td><?php echo $top_three_student->student_father_name; ?></td>
-              <td>
-                <?php
-                $numbers = explode(',', $top_three_student->contact_numbers);
-                echo implode('<br />', array_map('trim', $numbers));
-                ?>
-              </td>
-              <td style="background-color:<?php echo $top_three_student->color; ?>; text-align:center;">
-                <?php echo $top_three_student->Class_title; ?>
-                (<?php echo $top_three_student->section_title; ?>)
-              </td>
-              <td class="right"><?php echo $top_three_student->obtain_marks; ?></td>
-              <td class="right"><?php echo $top_three_student->total_marks; ?></td>
-              <td class="center"><?php echo $top_three_student->percentage; ?>%</td>
+              <td class="center"><?php echo $s->student_class_no; ?></td>
+              <td class="center"><?php echo $s->student_admission_no; ?></td>
+              <td><?php echo $s->student_name; ?></td>
+              <td><?php echo $s->student_father_name; ?></td>
+              <td><?php echo implode('<br/>', array_map('trim', explode(',', $s->contact_numbers))); ?></td>
+              <td class="right"><?php echo $s->obtain_marks; ?></td>
+              <td class="right"><?php echo $s->total_marks; ?></td>
+              <td class="center"><?php echo $s->percentage; ?>%</td>
             </tr>
           <?php } ?>
         </tbody>
       </table>
-    <?php } ?>
-  <?php } ?>
+  <?php }
+  } ?>
 </body>
 
 </html>
