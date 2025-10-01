@@ -99,7 +99,7 @@ class Exam_list extends Admin_Controller
 
 	function top_ten($exam_id)
 	{
-		$exam_id = (int) $exam_id;
+		$this->data['exam_id'] = $exam_id = (int) $exam_id;
 		$where = "`exams`.`status` IN (0, 1) and `exams`.`exam_id` =" . $exam_id;
 		$exam = $this->exam_model->get_exam_list($where, false, false);
 		$this->data["exam"] = $exam[0];
