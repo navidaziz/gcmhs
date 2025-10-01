@@ -6,7 +6,7 @@
   <title>Top Students Report</title>
   <style>
     body {
-      font-size: 12px;
+      font-size: 15px;
       font-family: "Segoe UI", Arial, sans-serif;
       color: #000;
     }
