@@ -142,7 +142,7 @@
   foreach ($classes as $class) {
     $query = "SELECT `student_results`.`section_title`,  `student_results`.`section_id`  
     FROM student_results WHERE exam_id= ?
-    AND class = ? 
+    AND class_id = ? 
     GROUP BY `section_id`
     ORDER BY `section_id` ASC";
     $sections = $this->db->query($query, [$exam_id, $class->class_id])->result();
