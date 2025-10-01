@@ -157,8 +157,7 @@
       AND class_id = ?
       AND section_id = ?
       ORDER BY percentage DESC LIMIT 3";
-      $result = $this->db->query($query, [$exam_id, $class->class_id, $section->section_id])->result();
-      $top_ten_students = $result->result();
+      $top_three_students = $this->db->query($query, [$exam_id, $class->class_id, $section->section_id])->result();
       ?>
       <table>
         <thead>
