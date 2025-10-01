@@ -53,16 +53,6 @@
                 foreach ($top_ten_students as $top_ten_student) { ?>
                   <tr>
                     <td><?php echo $count++; ?></td>
-                    <td>
-                      <?php
-                      $query = "SELECT `student_admission_no` 
-                FROM `students` WHERE `student_id`='" . $top_ten_student->student_id . "'";
-                      $query_result = $this->db->query($query);
-                      $student_admission_no = $query_result->result()[0]->student_admission_no;
-                      echo $student_admission_no;
-                      ?>
-
-                    </td>
 
                     <td><?php echo $top_ten_student->student_class_no; ?></td>
                     <td><?php echo $top_ten_student->student_admission_no; ?></td>
