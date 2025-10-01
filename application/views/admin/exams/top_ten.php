@@ -47,11 +47,6 @@
     .page-break {
       page-break-after: always;
     }
-
-    @page {
-      size: A4;
-      margin: 15mm;
-    }
   </style>
 </head>
 
