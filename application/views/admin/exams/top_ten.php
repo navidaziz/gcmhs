@@ -3,59 +3,37 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Examination Results Report</title>
+  <title>Top Students Report</title>
   <style>
     body {
       font-size: 12px;
       font-family: "Segoe UI", Arial, sans-serif;
-      margin: 20mm;
       color: #000;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-      text-transform: uppercase;
-    }
-
-    header h2 {
-      font-size: 14px;
-      margin: 5px 0;
-      font-weight: normal;
-    }
-
+    h1,
+    h2,
     h3 {
-      margin: 10px 0 5px 0;
-      font-size: 14px;
+      text-align: center;
+      margin: 5px 0;
     }
 
     table {
-      width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      width: 100%;
+      margin-bottom: 20px;
     }
 
-    thead th {
-      background: #f2f2f2;
-      text-align: center;
-      font-weight: bold;
-      font-size: 11px;
-    }
-
-    table,
     th,
     td {
-      border: 1px solid #000;
-      padding: 6px 8px;
+      border: 1px solid black;
+      padding: 6px;
+      font-size: 11px;
     }
 
-    td {
-      font-size: 11px;
+    th {
+      background: #f0f0f0;
+      font-weight: bold;
     }
 
     td.center {
@@ -66,49 +44,29 @@
       text-align: right;
     }
 
-    /* Page breaks */
     .page-break {
-      page-break-before: always;
+      page-break-after: always;
     }
 
-    /* Print setup */
     @page {
       size: A4;
-      margin: 20mm;
-    }
-
-    @media print {
-      body {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 11px;
-    }
-
-    footer .sign {
-      width: 33%;
-      display: inline-block;
-      text-align: center;
+      margin: 15mm;
     }
   </style>
 </head>
 
 <body>
-  <!-- First Page: Overall Top 10 -->
-  <header>
-    <h1>Government Centennial Model High School Boys Chitral</h1>
-    <h2><?php echo $exam->year . " - " . $exam->term; ?></h2>
-    <h3>Overall Top Ten Students</h3>
-  </header>
+
+  <!-- Page 1: Overall Top 10 -->
+  <h1>GCMHS Boys Chitral</h1>
+  <h2><?php echo $exam->year . " " . $exam->term; ?></h2>
+  <h2>Overall Top 10 Students</h2>
 
   <table>
     <thead>
       <tr>
-        <th>Rank</th>
+        <th>#</th>
+        <th>Class No</th>
         <th>Admission No.</th>
         <th>Student Name</th>
         <th>Father Name</th>
@@ -124,14 +82,18 @@
       $rank = 1;
       foreach ($top_ten_students as $s) { ?>
         <tr>
-          <td class="center"><b><?php echo $rank++; ?></b></td>
+          <td class="center"><?php echo $rank++; ?></td>
+          <td class="center"><?php echo $s->student_class_no; ?></td>
           <td class="center"><?php echo $s->student_admission_no; ?></td>
           <td><?php echo $s->student_name; ?></td>
           <td><?php echo $s->student_father_name; ?></td>
-          <td><?php echo implode('<br/>', array_map('trim', explode(',', $s->contact_numbers))); ?></td>
-          <td class="center" style="background-color:<?php echo $s->color; ?>">
-            <?php echo $s->Class_title . " (" . $s->section_title . ")"; ?>
+          <td>
+            <?php
+            $numbers = explode(',', $s->contact_numbers);
+            echo implode('<br>', array_map('trim', $numbers));
+            ?>
           </td>
+          <td class="center"><?php echo $s->Class_title . " (" . $s->section_title . ")"; ?></td>
           <td class="right"><?php echo $s->obtain_marks; ?></td>
           <td class="right"><?php echo $s->total_marks; ?></td>
           <td class="center"><?php echo $s->percentage; ?>%</td>
@@ -140,33 +102,52 @@
     </tbody>
   </table>
 
-  <footer>
-    <div class="sign">Prepared by: ____________</div>
-    <div class="sign">Verified by: ____________</div>
-    <div class="sign">Date: ____________</div>
-  </footer>
+  <div class="page-break"></div>
 
-  <!-- Next Pages: Each Class -->
+  <!-- Pages for Each Class -->
   <?php
-  $classes = $this->db->query("SELECT `Class_title`, `class_id` FROM student_results WHERE exam_id=? GROUP BY class_id ORDER BY class_id ASC", [$exam_id])->result();
+  // get distinct classes
+  $query = "SELECT class_id, Class_title 
+            FROM student_results 
+            WHERE exam_id=? 
+            GROUP BY class_id 
+            ORDER BY class_id ASC";
+  $classes = $this->db->query($query, [$exam_id])->result();
 
   foreach ($classes as $class) {
-    $sections = $this->db->query("SELECT `section_title`, `section_id` FROM student_results WHERE exam_id=? AND class_id=? GROUP BY section_id ORDER BY section_id ASC", [$exam_id, $class->class_id])->result();
+  ?>
+    <h1>GCMHS Boys Chitral</h1>
+    <h2><?php echo $exam->year . " " . $exam->term; ?></h2>
+    <h2>Top Students - Class <?php echo $class->Class_title; ?></h2>
+
+    <?php
+    // get sections of class
+    $sections = $this->db->query(
+      "SELECT section_id, section_title 
+                                  FROM student_results 
+                                  WHERE exam_id=? AND class_id=? 
+                                  GROUP BY section_id 
+                                  ORDER BY section_id ASC",
+      [$exam_id, $class->class_id]
+    )->result();
 
     foreach ($sections as $section) {
-      $top_students = $this->db->query("SELECT * FROM student_results WHERE exam_id=? AND class_id=? AND section_id=? ORDER BY percentage DESC LIMIT 10", [$exam_id, $class->class_id, $section->section_id])->result();
-  ?>
-      <div class="page-break"></div>
-      <header>
-        <h1>Government Centennial Model High School Boys Chitral</h1>
-        <h2><?php echo $exam->year . " - " . $exam->term; ?></h2>
-        <h3>Class <?php echo $class->Class_title; ?> - Section <?php echo $section->section_title; ?><br>Top 10 Students</h3>
-      </header>
+      // get top 3 students per section
+      $top_three = $this->db->query(
+        "SELECT * FROM student_results 
+                                     WHERE exam_id=? AND class_id=? AND section_id=? 
+                                     ORDER BY percentage DESC 
+                                     LIMIT 3",
+        [$exam_id, $class->class_id, $section->section_id]
+      )->result();
+    ?>
 
+      <h3>Section <?php echo $section->section_title; ?> - Top 3 Students</h3>
       <table>
         <thead>
           <tr>
-            <th>Rank</th>
+            <th>#</th>
+            <th>Class No</th>
             <th>Admission No.</th>
             <th>Student Name</th>
             <th>Father Name</th>
@@ -178,13 +159,19 @@
         </thead>
         <tbody>
           <?php $rank = 1;
-          foreach ($top_students as $s) { ?>
+          foreach ($top_three as $s) { ?>
             <tr>
-              <td class="center"><b><?php echo $rank++; ?></b></td>
+              <td class="center"><?php echo $rank++; ?></td>
+              <td class="center"><?php echo $s->student_class_no; ?></td>
               <td class="center"><?php echo $s->student_admission_no; ?></td>
               <td><?php echo $s->student_name; ?></td>
               <td><?php echo $s->student_father_name; ?></td>
-              <td><?php echo implode('<br/>', array_map('trim', explode(',', $s->contact_numbers))); ?></td>
+              <td>
+                <?php
+                $numbers = explode(',', $s->contact_numbers);
+                echo implode('<br>', array_map('trim', $numbers));
+                ?>
+              </td>
               <td class="right"><?php echo $s->obtain_marks; ?></td>
               <td class="right"><?php echo $s->total_marks; ?></td>
               <td class="center"><?php echo $s->percentage; ?>%</td>
@@ -193,13 +180,13 @@
         </tbody>
       </table>
 
-      <footer>
-        <div class="sign">Prepared by: ____________</div>
-        <div class="sign">Verified by: ____________</div>
-        <div class="sign">Date: ____________</div>
-      </footer>
-  <?php }
-  } ?>
+    <?php } // end sections 
+    ?>
+
+    <div class="page-break"></div>
+  <?php } // end classes 
+  ?>
+
 </body>
 
 </html>
