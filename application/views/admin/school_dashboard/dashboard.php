@@ -1085,7 +1085,7 @@ $monthlyAvg = $this->db->query("
         AVG(absent) as avg_absent
     FROM daily_class_wise_attendance
     WHERE YEAR(created_date) = YEAR(CURDATE()) 
-      AND MONTH(created_date) IN (5, 6, 8, 9)
+      AND MONTH(created_date) IN (5, 6, 8, 9, 10)
     GROUP BY class_title, section_title, MONTH(created_date)
 ")->result();
 
@@ -1127,6 +1127,10 @@ echo "<tr style='background:#f2f2f2;'>
         <th>Improvement (Jun - May)</th>
         <th>August</th>
         <th>Improvement (Aug - Jun)</th>
+        <th>Septerber</th>
+        <th>Improvement (Sep - Aug)</th>
+        <th>October</th>
+        <th>Improvement (Oct - Sep)</th>
       </tr>";
 
 foreach ($data as $row) {
@@ -1134,10 +1138,12 @@ foreach ($data as $row) {
   $june   = isset($row['months'][6]) ? $row['months'][6] : 0;
   $august = isset($row['months'][8]) ? $row['months'][8] : 0;
   $september = isset($row['months'][9]) ? $row['months'][9] : 0;
+  $october = isset($row['months'][10]) ? $row['months'][10] : 0;
 
   $improveJune = $june - $may;
   $improveAug  = $august - $june;
   $improveSep  = $september - $august;
+  $improveOct  = $october - $september;
   echo "<tr>
             <td>" . $row['class'] . "</td>
             <td>" . $row['section'] . "</td>
