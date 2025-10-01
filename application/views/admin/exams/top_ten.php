@@ -141,10 +141,11 @@
 
   foreach ($classes as $class) {
     $query = "SELECT `student_results`.`section_title`,  `student_results`.`section_id`  
-    FROM student_results WHERE exam_id=$exam_id 
+    FROM student_results WHERE exam_id= ?
+    AND class = ? 
     GROUP BY `section_id`
     ORDER BY `section_id` ASC";
-    $sections = $this->db->query($query)->result();
+    $sections = $this->db->query($query[$exam_id, $class->class_id])->result();
     foreach ($sections as $section) {
   ?>
       <h1>Class <?php echo $class->Class_title; ?></h1>
@@ -154,7 +155,7 @@
       $query = "SELECT * FROM student_results 
       WHERE exam_id= ? 
       AND class_id = ?
-      AND section = ?
+      AND section_id = ?
       ORDER BY percentage DESC LIMIT 3";
       $result = $this->db->query($query, [$exam_id, $class->class_id, $section->section_id])->result();
       $top_ten_students = $result->result();
