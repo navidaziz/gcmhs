@@ -145,7 +145,7 @@
     AND class = ? 
     GROUP BY `section_id`
     ORDER BY `section_id` ASC";
-    $sections = $this->db->query($query[$exam_id, $class->class_id])->result();
+    $sections = $this->db->query($query, [$exam_id, $class->class_id])->result();
     foreach ($sections as $section) {
   ?>
       <h1>Class <?php echo $class->Class_title; ?></h1>
