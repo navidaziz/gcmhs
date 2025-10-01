@@ -10,7 +10,7 @@
   <!-- /PAGE HEADER -->
 
   <!-- PAGE MAIN CONTENT -->
-  <div class="row" style='font-size:15px !important; font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;'>
+  <div class="row" style='font-size:12px !important; font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;'>
     <!-- MESSENGER -->
     <div class="col-md-12">
       <div class="container">
@@ -69,7 +69,9 @@
 
                     <td><?php echo $top_ten_student->student_name; ?></td>
                     <td><?php echo $top_ten_student->student_father_name; ?></td>
-                    <td><?php echo $top_ten_student->contact_numbers; ?></td>
+                    <td><?php $numbers = explode(',', $top_ten_student->contact_numbers); // convert to array
+                        echo implode('<br />', array_map('trim', $numbers)); // join with <br> 
+                        ?></td>
                     <td style="background-color:<?php echo $top_ten_student->color; ?>">
                       <?php echo $top_ten_student->Class_title; ?> (<?php echo $top_ten_student->section_title; ?>)</td>
 
