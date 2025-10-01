@@ -91,7 +91,7 @@
           <td class="center"><?php echo $s->Class_title . " (" . $s->section_title . ")"; ?></td>
           <td class="right"><?php echo $s->obtain_marks; ?></td>
           <td class="right"><?php echo $s->total_marks; ?></td>
-          <td class="center"><?php echo $s->percentage; ?>%</td>
+          <th class="center"><?php echo $s->percentage; ?>%</th>
         </tr>
       <?php } ?>
     </tbody>
@@ -169,7 +169,7 @@
               </td>
               <td class="right"><?php echo $s->obtain_marks; ?></td>
               <td class="right"><?php echo $s->total_marks; ?></td>
-              <td class="center"><?php echo $s->percentage; ?>%</td>
+              <th class="center"><?php echo $s->percentage; ?>%</th>
             </tr>
           <?php } ?>
         </tbody>
