@@ -1154,6 +1154,8 @@ foreach ($data as $row) {
             <td>" . formatImprovement($improveAug) . "</td>
              <td>" . $september . "</td>
             <td>" . formatImprovement($improveSep) . "</td>
+             <td>" . $october . "</td>
+            <td>" . formatImprovement($improveOct) . "</td>
           </tr>";
 }
 
