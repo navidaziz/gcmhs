@@ -90,11 +90,11 @@ ex.term,
         INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
         WHERE exr.student_id = ? AND exr.exam_id = ? GROUP BY exr.exam_id";
 
-$exam = $this->db->query($query, [$student_id, $exam_id])->row();
+$exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
 
 
 ?>
-<h3><?php $exam->year ?> | <?php $exam->term ?> </h3>
+<h3><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h3>
 <h4>Class: <?php echo $exam->Class_title ?> Section: <?php echo $exam->section_title ?></h4>
 <table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
