@@ -1,22 +1,95 @@
-<table class="table" style="width: 100%; margin-top: 10px;">
+<style>
+    body {
+        font-family: "Arial", sans-serif;
+        font-size: 12px;
+        color: #000;
+    }
+
+    h2,
+    h3,
+    h4 {
+        margin: 5px 0;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    table th,
+    table td {
+        border: 1px solid #333;
+        padding: 6px;
+        text-align: center;
+    }
+
+    table th {
+        background: #f5f5f5;
+        font-weight: bold;
+    }
+
+    .student-info th {
+        width: 15%;
+        text-align: left;
+        background: #f0f0f0;
+    }
+
+    .student-info td {
+        text-align: left;
+    }
+
+    .remarks {
+        border: 1px solid #333;
+        padding: 10px;
+        margin-top: 15px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        font-size: 9px;
+        padding: 2px;
+    }
+
+    .attendance-table th {
+        background: #eee;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+</style>
+
+<!-- Student Info -->
+<h2>Detailed Marks Certificate</h2>
+
+<table class="student-info">
     <tr>
         <th>Class No</th>
+        <td><?php echo $student->student_class_no; ?></td>
         <th>Admission No</th>
-        <th>Student Name</th>
-        <th>Father Name</th>
-        <th>Date of Birth</th>
-        <th>Age</th>
-        <th>Form-B</th>
-        <th>Status</th>
+        <td><?php echo $student->student_admission_no; ?></td>
     </tr>
     <tr>
-        <td><?php echo $student->student_class_no; ?></td>
-        <td><?php echo $student->student_admission_no; ?></td>
+        <th>Student Name</th>
         <td><?php echo $student->student_name; ?></td>
+        <th>Father Name</th>
         <td><?php echo $student->student_father_name; ?></td>
+    </tr>
+    <tr>
+        <th>Date of Birth</th>
         <td><?php echo date("d M, Y", strtotime($student->student_data_of_birth)); ?></td>
-        <td><?php echo (new DateTime())->diff(new DateTime($student->student_data_of_birth))->y; ?></td>
+        <th>Age</th>
+        <td><?php echo (new DateTime())->diff(new DateTime($student->student_data_of_birth))->y; ?> years</td>
+    </tr>
+    <tr>
+        <th>Form-B</th>
         <td><?php echo $student->form_b; ?></td>
+        <th>Status</th>
         <td>
             <?php
             switch ($student->status) {
@@ -38,171 +111,61 @@
     </tr>
 </table>
 
-
-
-<?php
-$query = "SELECT 
-            sub.subject_title,
-            sub.short_title,
-            exr.obtain_mark,
-            exr.total_marks,
-            exr.percentage,
-            CASE 
-                WHEN exr.obtain_mark = 'A' THEN 'Absent'
-                WHEN exr.percentage >= 80 THEN 'A+'
-                WHEN exr.percentage >= 70 THEN 'A'
-                WHEN exr.percentage >= 60 THEN 'B'
-                WHEN exr.percentage >= 50 THEN 'C'
-                WHEN exr.percentage >= 40 THEN 'D'
-                WHEN exr.percentage > 33 THEN 'E'
-                ELSE 'F'
-            END AS grade
-        FROM students_exams_subjects_marks AS exr 
-        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-        INNER JOIN classes AS c ON c.class_id = exr.class_id 
-        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-        WHERE exr.student_id = ? AND exr.exam_id = ?;";
-
-$result = $this->db->query($query, [$student_id, $exam_id])->result();
-
-$total_obtained = 0;
-$total_marks = 0;
-$weak_subjects = [];
-$strong_subjects = [];
-$absent_subjects = [];
-
-?>
-
-<h2>Detailed Marks Certificate</h2>
-
-<?php
-
-$query = "SELECT 
-ex.year,
-ex.term,
-            c.Class_title,
-            sec.section_title
-        FROM students_exams_subjects_marks AS exr 
-        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-        INNER JOIN classes AS c ON c.class_id = exr.class_id 
-        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-        WHERE exr.student_id = ? AND exr.exam_id = ? GROUP BY exr.exam_id";
-
-$exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
-
-
-?>
+<!-- Exam Info -->
 <h3><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h3>
-<h4>Class: <?php echo $exam_info->Class_title ?> Section: <?php echo $exam_info->section_title ?></h4>
-<table border="1" cellpadding="6" cellspacing="0" width="100%">
+<h4>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h4>
+
+<!-- Marks Table -->
+<table>
     <thead>
         <tr>
             <th>#</th>
-            <th>Subject</th>
+            <th class="text-left">Subject</th>
             <th>Marks Obtained</th>
             <th>Total Marks</th>
             <th>Percentage</th>
-            <th style="text-align: center;">Grade</th>
+            <th>Grade</th>
         </tr>
     </thead>
     <tbody>
-        <?php
-        $count = 1;
+        <?php $count = 1;
         foreach ($result as $row): ?>
             <tr>
-                <th><?php echo $count++; ?></th>
-                <td><?php echo $row->subject_title; ?></td>
+                <td><?php echo $count++; ?></td>
+                <td class="text-left"><?php echo $row->subject_title; ?></td>
                 <td>
-                    <?php
-                    if ($row->obtain_mark === 'A') {
-                        echo "<span style='color:red;font-weight:bold;'>Absent</span>";
-                        $absent_subjects[] = $row->subject_title;
-                    } else {
-                        echo $row->obtain_mark;
-                    }
-                    ?>
+                    <?php if ($row->obtain_mark === 'A'): ?>
+                        <span style="color:red; font-weight:bold;">Absent</span>
+                    <?php else: ?>
+                        <?php echo $row->obtain_mark; ?>
+                    <?php endif; ?>
                 </td>
                 <td><?php echo $row->total_marks; ?></td>
-                <td>
-                    <?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?>
-                </td>
-                <th style="text-align: center;"><?php echo $row->grade; ?></th>
+                <td><?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?></td>
+                <td><?php echo $row->grade; ?></td>
             </tr>
-
-            <?php
-            // accumulate totals only if not absent
-            //if ($row->obtain_mark !== 'A') {
-            $total_obtained += $row->obtain_mark;
-            $total_marks += $row->total_marks;
-
-            // classify subjects
-            if ($row->percentage < 50) {
-                $weak_subjects[] = $row->subject_title;
-            } elseif ($row->percentage >= 70) {
-                $strong_subjects[] = $row->subject_title;
-            }
-            //}
-            ?>
         <?php endforeach; ?>
     </tbody>
     <tfoot>
         <tr>
-            <th></th>
-            <th>Total</th>
+            <th colspan="2" style="text-align:right;">Total</th>
             <th><?php echo $total_obtained; ?></th>
             <th><?php echo $total_marks; ?></th>
-            <th>
-                <?php
-                $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
-                echo $overall_percentage . '%';
-                ?>
-            </th>
-            <th style="text-align: center;">
-                <?php  // Overall grade
-                if ($overall_percentage >= 80) $overall_grade = 'A+';
-                elseif ($overall_percentage >= 70) $overall_grade = 'A';
-                elseif ($overall_percentage >= 60) $overall_grade = 'B';
-                elseif ($overall_percentage >= 50) $overall_grade = 'C';
-                elseif ($overall_percentage >= 40) $overall_grade = 'D';
-                elseif ($overall_percentage > 33) $overall_grade = 'E';
-                else $overall_grade = 'F';
-                echo $overall_grade;
-                ?>
-            </th>
+            <th><?php echo $overall_percentage . '%'; ?></th>
+            <th><?php echo $overall_grade; ?></th>
         </tr>
     </tfoot>
 </table>
 
-<?php
+<!-- Remarks -->
+<div class="remarks">
+    <strong>Performance Analysis:</strong><br>
+    <?php echo $remarks; ?>
+</div>
 
-
-// Build English remarks
-$remarks = "The student achieved an overall percentage of <b>{$overall_percentage}%</b>, securing an overall grade of <b>{$overall_grade}</b>. ";
-
-if (!empty($strong_subjects)) {
-    $remarks .= "Strong performance was observed in <b>" . implode(", ", $strong_subjects) . "</b>, showing good understanding and consistency in these areas. ";
-}
-
-if (!empty($weak_subjects)) {
-    $remarks .= "However, there is a need for improvement in <b>" . implode(", ", $weak_subjects) . "</b>, where the performance was below expectations. Extra effort and practice are recommended. ";
-}
-
-if (!empty($absent_subjects)) {
-    $remarks .= "The student was absent in <b>" . implode(", ", $absent_subjects) . "</b>, which negatively impacted the overall performance. Attendance in all exams is strongly advised. ";
-}
-
-if (empty($weak_subjects) && empty($absent_subjects)) {
-    $remarks .= "Overall, the student has performed well in all subjects without any major weaknesses.";
-}
-?>
-
-<h3>Performance Analysis</h3>
-<p><?php echo $remarks; ?></p>
-
+<!-- Attendance -->
 <h4>Attendance History</h4>
-<table class="table_small" style="width:100%; font-size: 8px;">
+<table class="attendance-table">
     <thead>
         <tr>
             <th>Month / Days</th>
@@ -212,75 +175,36 @@ if (empty($weak_subjects) && empty($absent_subjects)) {
         </tr>
     </thead>
     <tbody>
-        <?php
-        $monthNames = [
-            '01' => 'January',
-            '02' => 'February',
-            '03' => 'March',
-            '04' => 'April',
-            '05' => 'May',
-            '06' => 'June',
-            '07' => 'July',
-            '08' => 'August',
-            '09' => 'September',
-            '10' => 'October',
-            '11' => 'November',
-            '12' => 'December'
-        ];
-
-        $currentYear = date('Y'); // This will be 2025
-
-        foreach ($monthNames as $monthNum => $monthName) {
-            $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
-        ?>
+        <?php foreach ($monthNames as $monthNum => $monthName): ?>
             <tr>
                 <th><?php echo $monthName; ?></th>
                 <?php
-                for ($day = 1; $day <= 31; $day++) {
+                $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
+                for ($day = 1; $day <= 31; $day++):
                     if ($day > $daysInMonth) {
-                        echo '<td></td>';
+                        echo "<td></td>";
                         continue;
                     }
-
-                    $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
-                              AND YEAR(`date`) = ? 
-                              AND MONTH(`date`) = ? 
-                              AND DAY(`date`) = ?";
-                    $students_attendance = $this->db->query($query, [
-                        $student->student_id,
-                        $currentYear,
-                        $monthNum,
-                        $day
-                    ])->row();
+                    $query = "SELECT * FROM students_attendance WHERE student_id=? 
+                              AND YEAR(date)=? AND MONTH(date)=? AND DAY(date)=?";
+                    $students_attendance = $this->db->query($query, [$student->student_id, $currentYear, $monthNum, $day])->row();
+                    $bg = "";
+                    if (!empty($students_attendance)) {
+                        if ($students_attendance->attendance == 'A') $bg = "background:#D8534E; color:#fff;";
+                        elseif ($students_attendance->attendance == 'P' && (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P')) $bg = "background:#96AE5F; color:#fff;";
+                        elseif ($students_attendance->attendance2 == 'A') $bg = "background:#F0AD4E; color:#000;";
+                    }
                 ?>
-                    <td style="text-align:center; 
-                                <?php
-                                if (!empty($students_attendance)) {
-                                    // Set background color based on attendance status
-                                    if ($students_attendance->attendance == 'A') {
-                                        echo 'background-color: #D8534E;';  // Red for absent
-                                    } elseif ($students_attendance->attendance == 'P') {
-                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
-                                            echo 'background-color: #96AE5F;';  // Green for present
-                                        } elseif ($students_attendance->attendance2 == 'A') {
-                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
-                                        }
-                                    }
-                                }
-                                ?>">
+                    <td style="text-align:center; <?php echo $bg; ?>">
                         <small>
-                            <?php
-                            if (!empty($students_attendance)) {
+                            <?php if (!empty($students_attendance)) {
                                 echo $students_attendance->attendance;
-                                if (!empty($students_attendance->attendance2)) {
-                                    echo "-" . htmlspecialchars($students_attendance->attendance2);
-                                }
-                            }
-                            ?>
+                                if (!empty($students_attendance->attendance2)) echo "-" . htmlspecialchars($students_attendance->attendance2);
+                            } ?>
                         </small>
                     </td>
-                <?php } ?>
+                <?php endfor; ?>
             </tr>
-        <?php } ?>
+        <?php endforeach; ?>
     </tbody>
 </table>
