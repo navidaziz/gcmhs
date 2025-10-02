@@ -74,7 +74,7 @@ $absent_subjects = [];
 
 ?>
 
-<h2>Student Performance Report</h2>
+<h2>Detailed Marks Certificate</h2>
 
 <?php
 
@@ -200,3 +200,87 @@ if (empty($weak_subjects) && empty($absent_subjects)) {
 
 <h3>Performance Analysis</h3>
 <p><?php echo $remarks; ?></p>
+
+<h4>Attendance History</h4>
+<table class="table_small" style="width:100%; font-size: 8px;">
+    <thead>
+        <tr>
+            <th>Month / Days</th>
+            <?php for ($day = 1; $day <= 31; $day++) { ?>
+                <th><?php echo $day; ?></th>
+            <?php } ?>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $monthNames = [
+            '01' => 'January',
+            '02' => 'February',
+            '03' => 'March',
+            '04' => 'April',
+            '05' => 'May',
+            '06' => 'June',
+            '07' => 'July',
+            '08' => 'August',
+            '09' => 'September',
+            '10' => 'October',
+            '11' => 'November',
+            '12' => 'December'
+        ];
+
+        $currentYear = date('Y'); // This will be 2025
+
+        foreach ($monthNames as $monthNum => $monthName) {
+            $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
+        ?>
+            <tr>
+                <th><?php echo $monthName; ?></th>
+                <?php
+                for ($day = 1; $day <= 31; $day++) {
+                    if ($day > $daysInMonth) {
+                        echo '<td></td>';
+                        continue;
+                    }
+
+                    $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                              AND YEAR(`date`) = ? 
+                              AND MONTH(`date`) = ? 
+                              AND DAY(`date`) = ?";
+                    $students_attendance = $this->db->query($query, [
+                        $student->student_id,
+                        $currentYear,
+                        $monthNum,
+                        $day
+                    ])->row();
+                ?>
+                    <td style="text-align:center; 
+                                <?php
+                                if (!empty($students_attendance)) {
+                                    // Set background color based on attendance status
+                                    if ($students_attendance->attendance == 'A') {
+                                        echo 'background-color: #D8534E;';  // Red for absent
+                                    } elseif ($students_attendance->attendance == 'P') {
+                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                            echo 'background-color: #96AE5F;';  // Green for present
+                                        } elseif ($students_attendance->attendance2 == 'A') {
+                                            echo 'background-color: #F0AD4E;';  // Orange for partial absence
+                                        }
+                                    }
+                                }
+                                ?>">
+                        <small>
+                            <?php
+                            if (!empty($students_attendance)) {
+                                echo $students_attendance->attendance;
+                                if (!empty($students_attendance->attendance2)) {
+                                    echo "-" . htmlspecialchars($students_attendance->attendance2);
+                                }
+                            }
+                            ?>
+                        </small>
+                    </td>
+                <?php } ?>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
