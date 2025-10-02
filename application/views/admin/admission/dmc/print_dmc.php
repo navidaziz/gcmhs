@@ -83,7 +83,8 @@
         .attendance-table td {
             font-size: 8px;
             text-align: center;
-            padding: 2px;
+            padding: 0px;
+            margin: 0px
         }
 
         .signature {
@@ -112,7 +113,28 @@
                 </td>
                 <td style="text-align:center;">
                     <h3>Government Centennial Model High School Boys Chitral</h3>
-                    <h4>Class <?php echo $class->Class_title; ?>, Section <?php echo $section->section_title; ?></h4>
+                    <h4><strong>Detailed Marks Certificate</strong></h4>
+
+                    <?php
+                    // === QUERY: Exam Info ===
+                    $query = "SELECT 
+                        ex.year,
+                        ex.term,
+                        c.Class_title,
+                        sec.section_title
+                    FROM students_exams_subjects_marks AS exr 
+                    INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                    INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                    INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                    INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+                    WHERE exr.student_id = ? AND exr.exam_id = ? 
+                    GROUP BY exr.exam_id";
+
+                    $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
+                    ?>
+
+                    <h4><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h4>
+                    <h4>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h4>
                 </td>
             </tr>
         </table>
@@ -192,28 +214,7 @@
         $absent_subjects = [];
         ?>
 
-        <h2>Detailed Marks Certificate</h2>
 
-        <?php
-        // === QUERY: Exam Info ===
-        $query = "SELECT 
-        ex.year,
-        ex.term,
-        c.Class_title,
-        sec.section_title
-    FROM students_exams_subjects_marks AS exr 
-    INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-    INNER JOIN classes AS c ON c.class_id = exr.class_id 
-    INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-    INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-    WHERE exr.student_id = ? AND exr.exam_id = ? 
-    GROUP BY exr.exam_id";
-
-        $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
-        ?>
-
-        <h4><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h4>
-        <h4>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h4>
 
         <!-- MARKS TABLE -->
         <table class="table table-bordered marks-table" style="margin-top:10px;">
