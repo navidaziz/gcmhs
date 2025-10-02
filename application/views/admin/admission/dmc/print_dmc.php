@@ -75,6 +75,24 @@ $absent_subjects = [];
 ?>
 
 <h2>Student Performance Report</h2>
+<h3><?php $exam->year ?> | <?php $exam->term ?> </h3>
+<?php
+
+$query = "SELECT 
+            c.Class_title,
+            sec.section_title
+        FROM students_exams_subjects_marks AS exr 
+        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+        INNER JOIN classes AS c ON c.class_id = exr.class_id 
+        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+        WHERE exr.student_id = ? AND exr.exam_id = ? GROUP BY exr.exam_id";
+
+$class_section = $this->db->query($query, [$student_id, $exam_id])->row();
+
+
+?>
+<h4>Class: <?php echo $class_section->class_section ?> Section: <?php echo $class_section->section_title ?></h4>
 <table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
         <tr>
