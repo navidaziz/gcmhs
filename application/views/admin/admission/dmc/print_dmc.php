@@ -380,7 +380,7 @@
                                 }
                             }
                         }
-                        echo '"><small>';
+                        echo '"><small style="font-size:8px !important">';
                         if (!empty($students_attendance)) {
                             echo $students_attendance->attendance;
                             if (!empty($students_attendance->attendance2)) {
