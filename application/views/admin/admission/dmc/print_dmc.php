@@ -101,11 +101,28 @@
             padding-top: 5px;
         }
 
+        .table_small {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
         .table_small th,
         .table_small td {
             font-size: 9px;
-            padding: 0px;
+            padding: 2px 4px;
+            /* small padding but readable */
             border: 0.1px solid gray;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .table_small th {
+            background: #f2f2f2;
+            /* light gray for header */
+        }
+
+        .table_small tfoot th {
+            background: #e9e9e9;
             font-weight: bold;
         }
     </style>
