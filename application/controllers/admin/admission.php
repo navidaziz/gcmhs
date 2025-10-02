@@ -1499,7 +1499,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 	public function print_dmc($exam_id, $student_id)
 	{
 
-		$exam_id = (int) $exam_id;
+		$this->data['exam_id'] = $exam_id = (int) $exam_id;
 		$student_id = (int) $student_id;
 		$query = "SELECT * FROM exams WHERE exam_id ='" . $exam_id . "'";
 		$this->data['exam'] = $exam = $this->db->query($query)->row();
