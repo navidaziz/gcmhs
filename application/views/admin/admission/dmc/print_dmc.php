@@ -134,7 +134,7 @@
         <table class="header-table" style="width:100%;">
             <tr>
                 <td style="width:80px;">
-                    <img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="Logo" style="width:90px; ">
+                    <img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="Logo" style="width:100px; ">
                 </td>
                 <td style="text-align:center;">
                     <h3>Government Centennial Model High School Boys Chitral</h3>
