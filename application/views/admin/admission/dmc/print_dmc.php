@@ -134,7 +134,7 @@
 
             .table_small th,
             .table_small td {
-                background-color: #f2f2f2 !important;
+                background-color: auto;
                 -webkit-print-color-adjust: exact !important;
             }
         }
