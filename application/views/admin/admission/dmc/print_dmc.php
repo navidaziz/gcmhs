@@ -100,6 +100,14 @@
             border-top: 1px solid #000;
             padding-top: 5px;
         }
+
+        .table_small th,
+        .table_small td {
+            font-size: 9px;
+            padding: 2px;
+            border: 0.1px solid gray;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -317,7 +325,7 @@
 
         <!-- ATTENDANCE -->
         <h4>Attendance History</h4>
-        <table class="ta ble table-bo rdered atte ndance-table">
+        <table class="table table-bordered table_small">
             <thead>
                 <tr>
                     <th>Month / Days</th>
