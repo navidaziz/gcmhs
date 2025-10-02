@@ -4,12 +4,81 @@
 <head>
     <meta charset="utf-8">
     <title>Detailed Marks Certificate</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 
     <style>
         body {
             background: #ccc;
             font-family: "Times New Roman", serif;
         }
+
+        /* Base table */
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+            background-color: transparent;
+        }
+
+        .table>thead>tr>th,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>tbody>tr>td,
+        .table>tfoot>tr>td {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+
+        .table>thead>tr>th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Bordered */
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+
+        .table-bordered>thead>tr>th,
+        .table-bordered>tbody>tr>th,
+        .table-bordered>tfoot>tr>th,
+        .table-bordered>thead>tr>td,
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tfoot>tr>td {
+            border: 1px solid #ddd;
+        }
+
+        /* Striped rows */
+        .table-striped>tbody>tr:nth-child(odd)>td,
+        .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: #f9f9f9;
+        }
+
+        /* Hover rows */
+        .table-hover>tbody>tr:hover>td,
+        .table-hover>tbody>tr:hover>th {
+            background-color: #f5f5f5;
+        }
+
+        /* Condensed */
+        .table-condensed>thead>tr>th,
+        .table-condensed>tbody>tr>th,
+        .table-condensed>tfoot>tr>th,
+        .table-condensed>thead>tr>td,
+        .table-condensed>tbody>tr>td,
+        .table-condensed>tfoot>tr>td {
+            padding: 5px;
+        }
+
+        /* Responsive wrapper */
+        .table-responsive {
+            min-height: .01%;
+            overflow-x: auto;
+        }
+
 
         page {
             background: #fff;
