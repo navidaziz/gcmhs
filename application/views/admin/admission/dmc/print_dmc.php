@@ -95,7 +95,7 @@ $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
 
 ?>
 <h3><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h3>
-<h4>Class: <?php echo $exam->Class_title ?> Section: <?php echo $exam->section_title ?></h4>
+<h4>Class: <?php echo $exam_info->Class_title ?> Section: <?php echo $exam_info->section_title ?></h4>
 <table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
         <tr>
