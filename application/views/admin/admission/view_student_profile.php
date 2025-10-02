@@ -702,7 +702,7 @@ $section_id = $students[0]->section_id;
                                 <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
                                 <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
 
-                                <th><a target="_blank" href="<?php echo site_url("admission/print_dmc/" . $record->exam_id . "/" . $students[0]->student_id) ?>" class="btn btn-success btn-sm">Print DMC</a></th>
+                                <th><a target="_blank" href="<?php echo site_url(ADMIN_DIR . "admission/print_dmc/" . $record->exam_id . "/" . $students[0]->student_id) ?>" class="btn btn-success btn-sm">Print DMC</a></th>
 
                             </tr>
                         <?php } ?>
