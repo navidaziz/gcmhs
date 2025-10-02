@@ -60,11 +60,11 @@
         .marks-table th {
             background: #f2f2f2;
             text-align: center;
-            font-size: 12px;
+            font-size: 15px;
         }
 
         .marks-table td {
-            font-size: 12px;
+            font-size: 15px;
             text-align: center;
         }
 
@@ -75,7 +75,7 @@
 
         .remarks {
             margin-top: 15px;
-            font-size: 13px;
+            font-size: 15px;
             text-align: justify;
         }
 
