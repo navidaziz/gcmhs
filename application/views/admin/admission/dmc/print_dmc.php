@@ -317,7 +317,7 @@
 
         <!-- ATTENDANCE -->
         <h4>Attendance History</h4>
-        <table class="table table-bordered attendance-table">
+        <table class="ta ble table-bo rdered atte ndance-table">
             <thead>
                 <tr>
                     <th>Month / Days</th>
