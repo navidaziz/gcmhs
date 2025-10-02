@@ -686,6 +686,7 @@ $section_id = $students[0]->section_id;
                             <th>Total Marks</th>
                             <th>Per.</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -700,6 +701,8 @@ $section_id = $students[0]->section_id;
                                 <th style="text-align: center;"><?php echo htmlspecialchars($record->total_marks); ?></th>
                                 <th style="text-align: center;"><?php echo round((($record->obtain_mark * 100) / $record->total_marks), 2) . "%"; ?></th>
                                 <th><button class="btn btn-success btn-sm" onclick="get_student_dmc('<?php echo $students[0]->student_id ?>', '<?php echo $record->exam_id; ?>')">DMC</button></th>
+
+                                <th><a href="<?php echo site_url("admission/print_dmc/" . $record->exam_id) ?>" class="btn btn-success btn-sm">Print DMC</a></th>
 
                             </tr>
                         <?php } ?>
