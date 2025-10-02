@@ -325,7 +325,7 @@
 
         <!-- ATTENDANCE -->
         <h4>Attendance History</h4>
-        <table class="table table-bordered">
+        <table class="table table-bordered table_small">
             <thead>
                 <tr>
                     <th>Month / Days</th>
