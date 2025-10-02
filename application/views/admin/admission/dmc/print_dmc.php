@@ -125,6 +125,26 @@
             background: #e9e9e9;
             font-weight: bold;
         }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                /* Chrome/Safari */
+                print-color-adjust: exact !important;
+                /* Firefox */
+                color-adjust: exact !important;
+                /* New standard */
+            }
+
+            .table_small th {
+                background-color: #f2f2f2 !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+
+            .table_small tfoot th {
+                background-color: #e9e9e9 !important;
+            }
+        }
     </style>
 </head>
 
