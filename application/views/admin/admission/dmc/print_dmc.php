@@ -325,7 +325,7 @@
 
         <!-- ATTENDANCE -->
         <h4>Attendance History</h4>
-        <table class="table_small">
+        <table class="table_small" style="width: 100%;">
             <thead>
                 <tr>
                     <th></th>
