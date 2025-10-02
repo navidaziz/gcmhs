@@ -129,13 +129,14 @@
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
+                /* Chrome, Safari */
                 print-color-adjust: exact !important;
+                /* Firefox */
             }
 
-            .table_small th,
-            .table_small td {
-                background-color: auto;
+            td[style] {
                 -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
