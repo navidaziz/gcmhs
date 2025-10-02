@@ -1,4 +1,60 @@
 <!-- ================= Student Info ================= -->
+<?php
+// Example: get student record
+$student = $this->db->where('student_id', $student_id)->get('students')->row();
+$query = "SELECT
+ex.year,
+ex.term,
+c.class_title,
+sec.section_title
+FROM students_exams_subjects_marks AS exr
+INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id
+INNER JOIN classes AS c ON c.class_id = exr.class_id
+INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+WHERE exr.student_id = ? AND exr.exam_id = ?
+GROUP BY exr.exam_id";
+
+$exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
+$query = "SELECT
+sub.subject_title,
+sub.short_title,
+exr.obtain_mark,
+exr.total_marks,
+exr.percentage,
+CASE
+WHEN exr.obtain_mark = 'A' THEN 'Absent'
+WHEN exr.percentage >= 80 THEN 'A+'
+WHEN exr.percentage >= 70 THEN 'A'
+WHEN exr.percentage >= 60 THEN 'B'
+WHEN exr.percentage >= 50 THEN 'C'
+WHEN exr.percentage >= 40 THEN 'D'
+WHEN exr.percentage > 33 THEN 'E'
+ELSE 'F'
+END AS grade
+FROM students_exams_subjects_marks AS exr
+INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id
+INNER JOIN classes AS c ON c.class_id = exr.class_id
+INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
+WHERE exr.student_id = ? AND exr.exam_id = ?";
+
+$result = $this->db->query($query, [$student_id, $exam_id])->result();
+$query = "SELECT *
+FROM students_attendance
+WHERE student_id = ?
+AND YEAR(date) = ?
+AND MONTH(date) = ?
+AND DAY(date) = ?";
+
+$students_attendance = $this->db->query($query, [
+    $student->student_id,
+    $currentYear,
+    $monthNum,
+    $day
+])->row();
+
+?>
+
 <h2 class="text-center" style="margin-bottom:20px;">Detailed Marks Certificate</h2>
 
 <table class="table table-bordered table-striped" style="width: 100%; margin-bottom: 20px; font-size: 13px;">
