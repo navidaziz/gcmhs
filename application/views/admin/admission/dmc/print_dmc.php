@@ -112,7 +112,7 @@
 
         .student-info th,
         .student-info td {
-            font-size: 12px;
+            font-size: 16px;
             padding: 5px;
         }
 
@@ -123,7 +123,7 @@
         }
 
         .marks-table td {
-            font-size: 14px;
+            font-size: 16px;
             text-align: center;
         }
 
@@ -133,7 +133,7 @@
         }
 
         .remarks {
-            margin-top: 15px;
+            margin-top: 18px;
             font-size: 14px;
             text-align: justify;
         }
