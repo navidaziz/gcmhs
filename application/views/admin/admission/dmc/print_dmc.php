@@ -201,8 +201,8 @@
                             <img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="Logo" style="width:100px; ">
                         </td>
                         <td style="text-align:center;">
-                            <h3>Government Centennial Model High School Boys Chitral</h3>
-                            <h4><strong>Detailed Marks Certificate</strong></h4>
+                            <h2>Government Centennial Model High School Boys Chitral</h2>
+                            <h3><strong>Detailed Marks Certificate</strong></h3>
 
                             <?php
                             // === QUERY: Exam Info ===
@@ -222,8 +222,8 @@
                             $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
                             ?>
 
-                            <h4><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h4>
-                            <h4>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h4>
+                            <h3><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h3>
+                            <h3>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h3>
                         </td>
                     </tr>
                 </table>
@@ -401,7 +401,7 @@
                 <!-- REMARKS -->
                 <div class="remarks">
                     <h4>Performance Analysis</h4>
-                    <p><?php echo $remarks; ?></p>
+                    <p style="font-size: 16px;"><?php echo $remarks; ?></p>
                 </div>
 
                 <!-- ATTENDANCE -->
