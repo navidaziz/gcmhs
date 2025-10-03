@@ -475,7 +475,9 @@
                         ?>
                     </tbody>
                 </table>
-
+                <br />
+                <br />
+                <br />
                 <!-- SIGNATURES -->
                 <div class="signature">
                     <div>Class Teacher</div>
