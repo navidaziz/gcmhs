@@ -1142,7 +1142,7 @@ foreach ($data as $row) {
   $september = isset($row['months'][9]) ? $row['months'][9] : 0;
   $october = isset($row['months'][10]) ? $row['months'][10] : 0;
 
-  $novermber = isset($row['months'][10]) ? $row['months'][10] : 0;
+  $novermber = isset($row['months'][11]) ? $row['months'][11] : 0;
 
   $improveJune = $june - $may;
   $improveAug  = $august - $june;
