@@ -1133,6 +1133,8 @@ echo "<tr style='background:#f2f2f2;'>
         <th>Improvement (Oct - Sep)</th>
         <th>Novermber</th>
         <th>Improvement (Nov - Oct)</th>
+        <th>December</th>
+        <th>Improvement (December - Nov)</th>
       </tr>";
 
 foreach ($data as $row) {
