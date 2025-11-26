@@ -1111,7 +1111,7 @@ function formatImprovement($value)
   if ($value < 0) {
     return "<span style='color:green;font-weight:bold;'>&#9660; " . round($value, 2) . "</span>"; // ▲
   } elseif ($value > 0) {
-    return "<span style='color:red;font-weight:bold;'>&#9650; " . round($value, 2) . "</span>"; // ▼
+    return "<span style='color:red;font-weight:bold;'>&#9650; " . round($value, 2) . "+/span>"; // ▼
   } else {
     return "<span style='color:gray;'>–</span>";
   }
