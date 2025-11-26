@@ -1131,6 +1131,8 @@ echo "<tr style='background:#f2f2f2;'>
         <th>Improvement (Sep - Aug)</th>
         <th>October</th>
         <th>Improvement (Oct - Sep)</th>
+        <th>Novermber</th>
+        <th>Improvement (Nov - Oct)</th>
       </tr>";
 
 foreach ($data as $row) {
@@ -1140,10 +1142,13 @@ foreach ($data as $row) {
   $september = isset($row['months'][9]) ? $row['months'][9] : 0;
   $october = isset($row['months'][10]) ? $row['months'][10] : 0;
 
+  $novermber = isset($row['months'][10]) ? $row['months'][10] : 0;
+
   $improveJune = $june - $may;
   $improveAug  = $august - $june;
   $improveSep  = $september - $august;
   $improveOct  = $october - $september;
+  $improveNov  = $novermber - $october;
   echo "<tr>
             <td>" . $row['class'] . "</td>
             <td>" . $row['section'] . "</td>
@@ -1156,6 +1161,8 @@ foreach ($data as $row) {
             <td>" . formatImprovement($improveSep) . "</td>
              <td>" . $october . "</td>
             <td>" . formatImprovement($improveOct) . "</td>
+             <td>" . $novermber . "</td>
+            <td>" . formatImprovement($improveNov) . "</td>
           </tr>";
 }
 
