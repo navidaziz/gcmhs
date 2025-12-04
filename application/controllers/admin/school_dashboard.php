@@ -47,7 +47,7 @@ class School_dashboard extends Admin_Controller
 		for ($month = 1; $month <= 1; $month++) {
 			echo "<tr><td>" . date('F', mktime(0, 0, 0, $month, 10)) . "</td>";
 			for ($day = 1; $day <= 31; $day++) {
-				$query = $this->db->query("SELECT * FROM `student_attendances` 
+				$query = $this->db->query("SELECT * FROM `students_attendance` 
 				WHERE DAY(`date`) = $day AND MONTH(`date`) = $month 
 				AND YEAR(`date`) = " . date('Y'));
 				$attendance = $query->result();
