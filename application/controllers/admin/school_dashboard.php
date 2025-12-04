@@ -34,6 +34,9 @@ class School_dashboard extends Admin_Controller
 
 	public function missing_attendance()
 	{
+
+		$class_id = 5;
+		$section_id = 1;
 		echo "<table border='1' cellpadding='5' cellspacing='0'>";
 
 		// Header row
@@ -57,7 +60,9 @@ class School_dashboard extends Admin_Controller
                 WHERE DAY(`date`) = $day 
                 AND MONTH(`date`) = $month
                 AND YEAR(`date`) = $year
-            ");
+				AND class_id = $class_id
+				AND section_id = $section_id
+				");
 
 				$count = $query->num_rows();
 
