@@ -48,8 +48,8 @@ class School_dashboard extends Admin_Controller
 			echo "<tr><td>" . date('F', mktime(0, 0, 0, $month, 10)) . "</td>";
 			for ($day = 1; $day <= 31; $day++) {
 				$query = $this->db->query("SELECT * FROM `student_attendances` 
-				WHERE DAY(`attendance_date`) = $day AND MONTH(`attendance_date`) = $month 
-				AND YEAR(`attendance_date`) = " . date('Y'));
+				WHERE DAY(`date`) = $day AND MONTH(`date`) = $month 
+				AND YEAR(`date`) = " . date('Y'));
 				$attendance = $query->result();
 				if (!empty($attendance)) {
 					echo "<td style='background-color: red; color: white;'>" . count($attendance) . "</td>";
