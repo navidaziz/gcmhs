@@ -70,7 +70,7 @@ class School_dashboard extends Admin_Controller
         INNER JOIN sections AS s ON s.section_id = cs.section_id
         WHERE s.status = 1 AND c.status = 1 AND c.class_id IN (2,3,4,5,6)
         GROUP BY c.class_id, s.section_id
-    ";
+    	";
 
 		$classes = $this->db->query($sql)->result_array(); // PHP 4 compatible, returns array
 

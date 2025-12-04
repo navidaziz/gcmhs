@@ -29,7 +29,10 @@
                                         and teacher_id='" . $this->session->userdata('teacher_id') . "'";
                 $class_teacher = $this->db->query($query)->result();
                 if ($class_teacher) {
-                    echo '<a  href="add_student_attendance/' . $class_teacher[0]->class_id . '/' . $class_teacher[0]->section_id . '" >
+                    echo '
+                    
+                    
+                    <a  href="add_student_attendance/' . $class_teacher[0]->class_id . '/' . $class_teacher[0]->section_id . '" >
                     <div class="btn btn-warning btn-sm" style="margin:2px">Add ';
                     echo $class_teacher[0]->Class_title . " - " . $class_teacher[0]->section_title;
                     echo ' Attendance <br />'; ?>
@@ -68,6 +71,12 @@
 
                     </table>
                 <?php echo '</div></a>
+
+                <div>
+                <div class="alert-danger">
+                <a href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">
+                </div>
+                </div>
                 ';
                 }
                 ?>

@@ -653,4 +653,11 @@ class Teacher_dashboard extends Admin_Controller
             $this->load->view(ADMIN_DIR . "student_management/get_change_class_no_form", $this->data);
         }
     }
+
+    public function missing_attendance_list($class_id, $section_id)
+    {
+        $this->data['class_id'] = $class_id = (int) $class_id;
+        $this->data['section_id'] = $section_id = (int) $section_id;
+        $this->load->view(ADMIN_DIR . "teacher_dashboard/missing_attendance_list", $this->data);
+    }
 }
