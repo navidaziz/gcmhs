@@ -47,7 +47,11 @@ class School_dashboard extends Admin_Controller
 			'2025-08-22',
 			'2025-08-23',
 			'2025-08-25',
-			'2025-09-06'
+			'2025-09-06',
+			'2025-06-06',
+			'2025-06-07',
+			'2025-06-09',
+			'2025-06-27'
 		);
 
 		// Load classes and sections
