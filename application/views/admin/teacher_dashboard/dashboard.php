@@ -73,7 +73,8 @@
                 <?php echo '</div></a>
 
                 <div>
-                <div class="alert-danger">
+                <div class="btn btn-danger btn-sm" style="margin:2px">
+                    <strong>Missing Attendance Dates</strong><br />
                 <a href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">View Missing Attendance</a>
                 </div>
                 </div>
