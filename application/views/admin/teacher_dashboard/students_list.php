@@ -87,7 +87,7 @@
         <input type="hidden" name="class_subject_id" value="<?php echo $class_subject_id; ?>" />
         <h6 style="color:red; border: 1px dashed red; border-radius: 5px; padding: 3px;">Note: For Absent students just write 00.</h6>
 
-        Subject Test / Exam Total Marks <input readonly inputmode="numeric" type="number" id="total_marks" value="100" name="total_marks" style="width: 70px;" />
+        Subject Test / Exam Total Marks <input inputmode="numeric" type="number" id="total_marks" name="total_marks" style="width: 70px;" />
         <table id="example" class="table1" cellspacing="0" width="100%" style="font-size:11px; text-align: left !important; ">
 
           <thead>
@@ -95,10 +95,9 @@
 
               <th>#</th>
               <th>C No.</th>
-              <!-- <th>Add No.</th> -->
+              <th>Add No.</th>
               <th>Name</th>
-              <th>MCQs</th>
-              <th>Semester</th>
+              <th>MCQs Results</th>
               <th>Marks</th>
             </tr>
           </thead>
@@ -111,7 +110,7 @@
 
                 <td><?php echo $count; ?></td>
                 <td><?php echo $student->student_class_no; ?></td>
-                <!-- <td><?php echo $student->student_admission_no; ?></td> -->
+                <td><?php echo $student->student_admission_no; ?></td>
                 <td> <a data-content="Father Name: <?php echo $student->student_father_name; ?>. Father NIC:  
                                         <?php echo $student->father_nic; ?>. Father Mobile No: <?php echo $student->father_mobile_number; ?> <br />
                                         " tabindex="<?php echo $count; ?>" role="button" data-toggle="popover" data-trigger="focus" class="pop-top" data-title="Top" data-toggle="popover" data-original-title="" title="<?php echo $student->student_name; ?>">
@@ -127,27 +126,11 @@
                   AND student_id = ?";
                   $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
                   if ($mcqs_result) {
-                    $mcqResult = $mcqs_result->obtain_mark;
-                    //echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
+                    echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
                   } else {
-                    //echo "N/A";
-                    $mcqResult = 'A';
+                    echo "N/A";
                   }
-
                   ?>
-                  <?php echo $mcqResult; ?>
-                  <?php if ($mcqResult !== 'A') { ?>
-
-                    <input style="width: 50px;" min="0" max="30" type="hidden" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="<?php echo $mcqResult; ?>" /> +
-
-                  <?php } else { ?>
-
-                    <input style="width: 50px;" min="0" max="30" type="hidden" name="mcq_marks" id="mcq_marks_<?php echo $student->student_id; ?>" value="0" /> +
-
-                  <?php } ?>
-                </th>
-                <th>
-                  <input style="width: 50px;" min="0" max="70" type="number" name="semester_result" id="semester_result_<?php echo $student->student_id; ?>" onkeyup="add_mcqs_semester_result('<?php echo $student->student_id; ?>')" />
                 </th>
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
@@ -182,34 +165,3 @@
   </div>
   <!-- /MESSENGER -->
 </div>
-<script>
-  function add_mcqs_semester_result(student_id) {
-
-    var mcq_marks = parseInt($('#mcq_marks_' + student_id).val());
-    var semester_result = parseInt($('#semester_result_' + student_id).val());
-
-    if (!isNaN(mcq_marks) && !isNaN(semester_result)) {
-      var total = mcq_marks + semester_result;
-      $('#student_marks_' + student_id).val(total);
-    } else {
-      $('#student_marks_' + student_id).val("");
-    }
-  }
-  // $(document).ready(function() {
-  //   $(".result_entry").on('keyup', function() {
-  //     var value = $(this).val();
-  //     if (isNaN(value)) {
-  //       if (value.toUpperCase() != 'A') {
-  //         $(this).val("");
-  //       } else {
-  //         $(this).val("A");
-  //       }
-  //     }
-  //     if (value == '00') {
-  //       $(this).prop("type", "text");
-  //       $(this).val("A");
-
-  //     }
-  //   });
-  // });
-</script>
