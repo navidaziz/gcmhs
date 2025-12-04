@@ -22,8 +22,6 @@ class School_dashboard extends Admin_Controller
 
 	public function index()
 	{
-
-
 		$this->data["view"] = ADMIN_DIR . "school_dashboard/dashboard";
 		$this->load->view(ADMIN_DIR . "dashboard_layout", $this->data);
 	}
@@ -32,5 +30,11 @@ class School_dashboard extends Admin_Controller
 	{
 		$this->data["view"] = ADMIN_DIR . "school_dashboard/students_attendance_list";
 		$this->load->view(ADMIN_DIR . "dashboard_layout", $this->data);
+	}
+
+	public function missing_attendance()
+	{
+		$this->load->library('calendar');
+		echo $this->calendar->generate();
 	}
 }
