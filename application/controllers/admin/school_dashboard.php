@@ -86,7 +86,7 @@ class School_dashboard extends Admin_Controller
 			}
 
 			// Loop through months April to December, skip July
-			for ($month = 4; $month <= 12; $month++) {
+			for ($month = 5; $month <= 12; $month++) {
 				if ($month == 7) continue; // Skip July
 
 				$missing_days = array();
