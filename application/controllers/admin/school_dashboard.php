@@ -65,61 +65,64 @@ class School_dashboard extends Admin_Controller
             AND section_id = '$section_id'
         ";
 			$teacher_row = $this->db->query($sql_teacher)->row_array();
-			$teacher_name = ($teacher_row) ? $teacher_row['teacher_name'] : "N/A";
+			if ($teacher_row) {
+				$teacher_name = ($teacher_row) ? $teacher_row['teacher_name'] : "N/A";
 
-			echo "<b>$class_title - $section_title - $teacher_name</b><br>";
+				echo "<b>$class_title - $section_title - $teacher_name</b><br>";
 
-			// Load all attendance for the class/section/year
-			$sql_att = "
+				// Load all attendance for the class/section/year
+				$sql_att = "
             SELECT DATE(`date`) AS att_date
             FROM students_attendance
             WHERE class_id = $class_id
             AND section_id = $section_id
             AND YEAR(`date`) = $year
-        ";
-			$att_rows = $this->db->query($sql_att)->result_array();
+			";
+				$att_rows = $this->db->query($sql_att)->result_array();
 
-			// Create a lookup array for fast search
-			$attendance_map = array();
-			for ($j = 0; $j < count($att_rows); $j++) {
-				$attendance_map[$att_rows[$j]['att_date']] = true;
-			}
+				// Create a lookup array for fast search
+				$attendance_map = array();
+				for ($j = 0; $j < count($att_rows); $j++) {
+					$attendance_map[$att_rows[$j]['att_date']] = true;
+				}
 
-			// Loop through months April to December, skip July
-			for ($month = 5; $month <= 12; $month++) {
-				if ($month == 7) continue; // Skip July
+				// Loop through months April to December, skip July
+				for ($month = 5; $month <= 12; $month++) {
+					if ($month == 7) continue; // Skip July
 
-				$missing_days = array();
+					$missing_days = array();
 
-				// Loop through days
-				for ($day = 1; $day <= 31; $day++) {
-					if (!checkdate($month, $day, $year)) continue;
+					// Loop through days
+					for ($day = 1; $day <= 31; $day++) {
+						if (!checkdate($month, $day, $year)) continue;
 
-					$date = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
+						$date = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
 
-					// Stop at today
-					if ($date > $today) break;
+						// Stop at today
+						if ($date > $today) break;
 
-					// Skip Sundays
-					$w = date('w', mktime(0, 0, 0, $month, $day, $year));
-					if ($w == 0) continue;
+						// Skip Sundays
+						$w = date('w', mktime(0, 0, 0, $month, $day, $year));
+						if ($w == 0) continue;
 
-					// Check if attendance exists
-					if (!isset($attendance_map[$date])) {
-						$missing_days[] = $day;
+						// Check if attendance exists
+						if (!isset($attendance_map[$date])) {
+							$missing_days[] = $day;
+						}
+					}
+
+					$month_name = date('F', mktime(0, 0, 0, $month, 1, $year));
+
+					if (count($missing_days) > 0) {
+						echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): " . implode(', ', $missing_days) . "<br>";
+					} else {
+						echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): No Missing Days<br>";
 					}
 				}
 
-				$month_name = date('F', mktime(0, 0, 0, $month, 1, $year));
 
-				if (count($missing_days) > 0) {
-					echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): " . implode(', ', $missing_days) . "<br>";
-				} else {
-					echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): No Missing Days<br>";
-				}
+				echo "<hr>";
 			}
-
-			echo "<hr>";
 		}
 	}
 }
