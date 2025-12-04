@@ -53,7 +53,7 @@ class School_dashboard extends Admin_Controller
 
 				// Query attendance for a particular day
 				$query = $this->db->query("
-                SELECT id FROM students_attendance
+                SELECT * FROM students_attendance
                 WHERE DAY(`date`) = $day 
                 AND MONTH(`date`) = $month
                 AND YEAR(`date`) = $year
