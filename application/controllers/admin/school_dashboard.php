@@ -38,6 +38,17 @@ class School_dashboard extends Admin_Controller
 		$year = date('Y');
 		$today = date('Y-m-d');
 
+		// Dates to ignore (format YYYY-MM-DD)
+		$ignore_dates = array(
+			'2025-08-14',
+			'2025-08-19',
+			'2025-08-20',
+			'2025-08-21',
+			'2025-08-22',
+			'2025-08-23',
+			'2025-08-25'
+		);
+
 		// Load classes and sections
 		$sql = "
         SELECT c.class_id, c.Class_title, s.section_id, s.section_title
@@ -110,6 +121,9 @@ class School_dashboard extends Admin_Controller
 							$missing_days[] = $day;
 						}
 					}
+
+					// Skip ignored dates
+					if (in_array($date, $ignore_dates)) continue;
 
 					$month_name = date('F', mktime(0, 0, 0, $month, 1, $year));
 
