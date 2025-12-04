@@ -32,7 +32,8 @@ SELECT c.class_id, c.Class_title, s.section_id, s.section_title
 FROM classes AS c
 INNER JOIN class_sections AS cs ON cs.class_id = c.class_id
 INNER JOIN sections AS s ON s.section_id = cs.section_id
-WHERE s.status = 1 AND c.status = 1 AND c.class_id IN (2,3,4,5,6)
+WHERE s.status = 1 AND c.status = 1 AND c.class_id IN (" . $class_id . ")
+AND s.section_id = " . $section_id . "
 GROUP BY c.class_id, s.section_id
 ";
 
