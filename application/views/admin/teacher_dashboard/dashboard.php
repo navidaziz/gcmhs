@@ -74,7 +74,7 @@
 
                 <div>
                 <div class="alert-danger">
-                <a href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">
+                <a href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">View Missing Attendance</a>
                 </div>
                 </div>
                 ';
