@@ -41,7 +41,15 @@ class School_dashboard extends Admin_Controller
 
 			$class_id = $class->class_id;
 			$section_id = $class->section_id;
-			echo "<h4>" . $class->Class_title . " - " . $class->section_title . "</h4>";
+			echo "<h4>" . $class->Class_title . " - " . $class->section_title . "";
+			$query = "SELECT `teacher_name` FROM `classes_time_tables` 
+                                      WHERE class_teacher=1 and class_id='" . $class->class_id . "' 
+                                      AND section_id='" . $class->section_id . "';";
+			$class_teacher = $this->db->query($query)->row();
+			if ($class_teacher) {
+				echo $class_teacher->teacher_name;
+			}
+			echo "</h4>";
 			echo "<hr />";
 			echo "<table border='1' cellpadding='5' cellspacing='0'>";
 
@@ -71,26 +79,26 @@ class School_dashboard extends Admin_Controller
 
 					// Check if Sunday
 					if (date('w', $timestamp) == 0) {
-						echo "<td style='background-color:#d9d9d9; color:red;'>Sun</td>";
+						echo "<td style='background-color:#d9d9d9; color:red;'></td>";
 						continue;
 					}
 
 					// Query attendance
 					$query = $this->db->query("
-                SELECT * FROM students_attendance
-                WHERE DAY(`date`) = $day
-                AND MONTH(`date`) = $month
-                AND YEAR(`date`) = $year
-                AND class_id = $class_id
-                AND section_id = $section_id
-            ");
+						SELECT * FROM students_attendance
+						WHERE DAY(`date`) = $day
+						AND MONTH(`date`) = $month
+						AND YEAR(`date`) = $year
+						AND class_id = $class_id
+						AND section_id = $section_id
+					");
 
 					$count = $query->num_rows();
 
 					if ($count > 0) {
-						echo "<td style='background-color:red; color:white;'>$count</td>";
+						echo "<td style='background-color:green; color:white;'></td>";
 					} else {
-						echo "<td>-</td>";
+						echo "<td style='background-color:red; color:white;'><a href=''>Add</a></td>";
 					}
 				}
 
