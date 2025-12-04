@@ -34,9 +34,9 @@ class School_dashboard extends Admin_Controller
 
 	public function missing_attendance()
 	{
-
 		$class_id = 5;
 		$section_id = 1;
+
 		echo "<table border='1' cellpadding='5' cellspacing='0'>";
 
 		// Header row
@@ -48,34 +48,47 @@ class School_dashboard extends Admin_Controller
 
 		$year = date('Y');
 
-		for ($month = 4; $month <= 12; $month++) {   // change to any range you want
+		for ($month = 4; $month <= 12; $month++) {
+
 			echo "<tr>";
 			echo "<td>" . date('F', mktime(0, 0, 0, $month, 1)) . "</td>";
 
 			for ($day = 1; $day <= 31; $day++) {
 
-				// Query attendance for a particular day
+				// Skip invalid days (e.g., Feb 30, April 31)
+				if (!checkdate($month, $day, $year)) {
+					echo "<td style='background-color:#eee;'>X</td>";
+					continue;
+				}
+
+				$timestamp = strtotime("$year-$month-$day");
+
+				// Check if Sunday
+				if (date('w', $timestamp) == 0) {
+					echo "<td style='background-color:#d9d9d9; color:red;'>Sun</td>";
+					continue;
+				}
+
+				// Query attendance
 				$query = $this->db->query("
                 SELECT * FROM students_attendance
-                WHERE DAY(`date`) = $day 
+                WHERE DAY(`date`) = $day
                 AND MONTH(`date`) = $month
                 AND YEAR(`date`) = $year
-				AND class_id = $class_id
-				AND section_id = $section_id
-				");
+                AND class_id = $class_id
+                AND section_id = $section_id
+            ");
 
 				$count = $query->num_rows();
 
 				if ($count > 0) {
-					// Attendance exists → show count with red background
 					echo "<td style='background-color:red; color:white;'>$count</td>";
 				} else {
-					// No attendance → show dash
 					echo "<td>-</td>";
 				}
 			}
 
-			echo "</tr>";  // close row for this month
+			echo "</tr>";
 		}
 
 		echo "</table>";
