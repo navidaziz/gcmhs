@@ -45,7 +45,7 @@ class School_dashboard extends Admin_Controller
 
 		$year = date('Y');
 
-		for ($month = 1; $month <= 12; $month++) {   // change to any range you want
+		for ($month = 4; $month <= 12; $month++) {   // change to any range you want
 			echo "<tr>";
 			echo "<td>" . date('F', mktime(0, 0, 0, $month, 1)) . "</td>";
 
