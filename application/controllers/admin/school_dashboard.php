@@ -106,9 +106,11 @@ class School_dashboard extends Admin_Controller
 					// Loop through days
 					for ($day = 1; $day <= 31; $day++) {
 						if (!checkdate($month, $day, $year)) continue;
+						// Skip ignored dates
+
 
 						$date = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
-
+						if (in_array($date, $ignore_dates)) continue;
 						// Stop at today
 						if ($date > $today) break;
 
@@ -122,8 +124,7 @@ class School_dashboard extends Admin_Controller
 						}
 					}
 
-					// Skip ignored dates
-					if (in_array($date, $ignore_dates)) continue;
+
 
 					$month_name = date('F', mktime(0, 0, 0, $month, 1, $year));
 
