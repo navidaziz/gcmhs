@@ -658,6 +658,9 @@ class Teacher_dashboard extends Admin_Controller
     {
         $this->data['class_id'] = $class_id = (int) $class_id;
         $this->data['section_id'] = $section_id = (int) $section_id;
-        $this->load->view(ADMIN_DIR . "teacher_dashboard/missing_attendance_list", $this->data);
+        //$this->load->view(ADMIN_DIR . "teacher_dashboard/missing_attendance_list", $this->data);
+
+        $this->data["view"] = ADMIN_DIR . "teacher_dashboard/missing_attendance_list";
+        $this->load->view(ADMIN_DIR . "layout", $this->data);
     }
 }
