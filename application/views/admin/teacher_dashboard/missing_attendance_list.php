@@ -105,7 +105,7 @@ for ($i = 0; $i < count($classes); $i++) {
         $month_name = date('F', mktime(0, 0, 0, $month, 1, $year));
 
         if (count($missing_days) > 0) {
-            echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): " . implode(', ', $missing_days) . "<br>";
+            echo "<h4>" . $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): </h4>";
 
             echo '<ul class="list-group">';
             foreach ($missing_days as $md) {
