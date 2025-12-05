@@ -114,7 +114,7 @@ for ($i = 0; $i < count($classes); $i++) {
                 $full_date = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($md, 2, '0', STR_PAD_LEFT);
 
                 // Build proper URL
-                $url = site_url(ADMIN_DIR . "add_student_attendance_form/$class_id/$section_id/$full_date");
+                $url = site_url(ADMIN_DIR . "teacher_dashboard/add_student_attendance_form/$class_id/$section_id/$full_date");
 
                 echo '<a href="' . $url . '"><li class="list-group-item">' . $full_date . '</li></a>';
             }
