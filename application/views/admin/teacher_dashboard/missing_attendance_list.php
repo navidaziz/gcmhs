@@ -1,3 +1,20 @@
+<div class="row" style="height: 38px !important;">
+    <div class="col-sm-12">
+        <div class="page-header" style="min-height: 30px !important">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="<?php echo site_url(ADMIN_DIR . $this->session->userdata("role_homepage_uri")); ?>"><?php echo $this->lang->line('Home'); ?></a>
+                </li>
+                <li>Missin Attendances</li>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+
+
 <?php
 $year = date('Y');
 $today = date('Y-m-d');
