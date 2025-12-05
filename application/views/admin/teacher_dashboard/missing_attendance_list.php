@@ -106,6 +106,19 @@ for ($i = 0; $i < count($classes); $i++) {
 
         if (count($missing_days) > 0) {
             echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): " . implode(', ', $missing_days) . "<br>";
+
+            echo '<ul class="list-group">';
+            foreach ($missing_days as $md) {
+
+                // Build proper date format
+                $full_date = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($md, 2, '0', STR_PAD_LEFT);
+
+                // Build proper URL
+                $url = site_url(ADMIN_DIR . "/$class_id/$section_id/$full_date");
+
+                echo '<a href="' . $url . '"><li class="list-group-item">' . $full_date . '</li></a>';
+            }
+            echo '</ul>';
         } else {
             echo $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . " ($month_name): No Missing Days<br>";
         }
