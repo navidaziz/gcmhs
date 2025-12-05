@@ -75,7 +75,7 @@
                 <div>
                 <div class="btn btn-danger btn-sm" style="margin:2px">
                     <strong>Missing Attendance Dates</strong><br />
-                <a class="btn btn-danger" href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">View Missing Attendance</a>
+                <a class="btn btn-warning" href="' . site_url(ADMIN_DIR . "teacher_dashboard/missing_attendance_list/" . $class_teacher[0]->class_id . "/" . $class_teacher[0]->section_id) . '">View Missing Attendance</a>
                 </div>
                 </div>
                 ';
