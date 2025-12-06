@@ -97,7 +97,7 @@
               <th>C No.</th>
               <th>Add No.</th>
               <th>Name</th>
-              <th>MCQs Results</th>
+              <!-- <th>MCQs Results</th> -->
               <th>Marks</th>
             </tr>
           </thead>
@@ -118,20 +118,20 @@
 
                     <i class="fa fa-info-circle pull-right" aria-hidden="true" style="margin-right: 15px;"></i>
                   </a></td>
-                <th>
+                <!-- <th>
                   <?php
-                  $query = "SELECT * FROM `students_exams_subjects_marks` 
-                  WHERE exam_id = 20 
-                  AND class_subjec_id = ?
-                  AND student_id = ?";
-                  $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
-                  if ($mcqs_result) {
-                    echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
-                  } else {
-                    echo "N/A";
-                  }
+                  // $query = "SELECT * FROM `students_exams_subjects_marks` 
+                  // WHERE exam_id = 20 
+                  // AND class_subjec_id = ?
+                  // AND student_id = ?";
+                  // $mcqs_result = $this->db->query($query, [$class_subject_id, $student->student_id])->row();
+                  // if ($mcqs_result) {
+                  //   echo $mcqs_result->obtain_mark . "/" . $mcqs_result->total_marks;
+                  // } else {
+                  //   echo "N/A";
+                  // }
                   ?>
-                </th>
+                </th> -->
                 <td><input inputmode="numeric" class="result_entry" required="required" onkeyup="validate_data('<?php echo $student->student_id; ?>')" style="width: 50px;" min="0" max="100" tabindex="<?php echo $count; ?>" id="student_marks_<?php echo $student->student_id; ?>" name="student_marks[<?php echo $student->student_id; ?>][marks]" value="" /></td>
               </tr>
             <?php
