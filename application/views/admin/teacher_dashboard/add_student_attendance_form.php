@@ -140,7 +140,7 @@
                                 <tr <?php if ($student->status != 1) { ?>style="text-decoration: line-through !important; <?php } ?>">
                                     <td><?php //echo $student->student_class_no; 
 
-                                        echo $count; ?></td>
+                                        echo $count++; ?></td>
                                     <td><?php echo $student->student_admission_no; ?></td>
                                     <td style="text-align: center;">
                                         <?php if ($student->status == 1) { ?>
