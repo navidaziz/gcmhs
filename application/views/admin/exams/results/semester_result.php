@@ -72,8 +72,17 @@
                             <th>Total Marks</th>
                             <th>Marks Obtained</th>
                             <th>Percentage</th>
-                            <th><?php echo $exam->weightage; ?>% Weightage</th>
-                            <th><?php echo $exam->previous_semester_id; ?></th>
+                            <th>
+                                <small><?php echo $exam->term; ?></small><br />
+                                <?php echo $exam->weightage; ?>% Weightage
+                            </th>
+                            <th><?php
+                                $query = "SELECT * FROM exams WHERE exam_id = ?";
+                                $pre_semester = $this->db->query($query, [$exam->previous_semester_id])->row();
+                                ?>
+                                <small><?php echo $pre_semester->term; ?></small><br />
+                                <?php echo $pre_semester->weightage; ?>% Weightage
+                            </th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
