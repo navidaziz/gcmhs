@@ -43,7 +43,7 @@ function remarks($percentage, $promote)
 function pass_fail($number)
 {
 	$fail = 33;
-	if ($number < $fail) {
+	if (ROUND($number) < $fail) {
 		return 'Fail';
 	} else {
 		return 'Pass';
