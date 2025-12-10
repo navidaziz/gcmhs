@@ -73,6 +73,7 @@
                             <th>Marks Obtained</th>
                             <th>Percentage</th>
                             <th><?php echo $exam->weightage; ?>% Weightage</th>
+                            <th><?php echo $exam->previous_semester_id; ?></th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
