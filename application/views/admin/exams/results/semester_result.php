@@ -72,7 +72,7 @@
                             <th>Total Marks</th>
                             <th>Marks Obtained</th>
                             <th>Percentage</th>
-                            <th>55% Weightage</th>
+                            <th><?php echo $exam->weightage; ?>% Weightage</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
