@@ -57,7 +57,7 @@
                 <table id="example" class="table table-bordered table-striped table_small">
                     <thead>
                         <tr>
-                            <th colspan="<?php echo (count($subjects) + 9); ?>" class="text-center">
+                            <th colspan="<?php echo (count($subjects) + 11); ?>" class="text-center">
                                 <h1>Award List - Class <?php echo $class->Class_title; ?> (<?php echo $section->section_title; ?>) - <?php echo $exam->term . " " . $exam->year ?></h1>
                             </th>
                         </tr>
@@ -83,6 +83,7 @@
                                 <small><?php echo $pre_semester->term; ?></small><br />
                                 <?php echo $pre_semester->weightage; ?>% Weightage
                             </th>
+                            <th>Cumulative Percentage</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
@@ -158,6 +159,9 @@
                                     ?>
 
                                 </td>
+                                <td><?php
+                                    $comu_percentage =   $current_semester_weightage + $current_semester_weightage;
+                                    echo $comu_percentage . "%" ?></td>
                                 <td></td>
                             </tr>
                         <?php endforeach; ?>
