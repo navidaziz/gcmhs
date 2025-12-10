@@ -88,34 +88,45 @@ function get_total_marks()
 
 function get_grade($percentage)
 {
-	$percentage =  (int) $percentage;
-	if ($percentage >= 0 and $percentage <= 39) {
+	$percentage = (int) $percentage;
+
+	if ($percentage < 0) {
+		return "Invalid";
+	}
+	if ($percentage < 33) {
 		return "F";
 	}
-	if ($percentage >= 40 and $percentage <= 49) {
+	if ($percentage <= 39) {
+		return "E";
+	}
+	if ($percentage <= 49) {
 		return "D";
 	}
-	if ($percentage >= 50 and $percentage <= 54) {
+	if ($percentage <= 54) {
 		return "C";
 	}
-	if ($percentage >= 55 and $percentage <= 59) {
+	if ($percentage <= 59) {
 		return "C+";
 	}
-	if ($percentage >= 60 and $percentage <= 64) {
+	if ($percentage <= 64) {
 		return "B-";
 	}
-	if ($percentage >= 65 and $percentage <= 69) {
+	if ($percentage <= 69) {
 		return "B";
 	}
-	if ($percentage >= 70 and $percentage <= 74) {
+	if ($percentage <= 74) {
 		return "B+";
 	}
-	if ($percentage >= 75 and $percentage <= 79) {
+	if ($percentage <= 79) {
 		return "A-";
 	}
-	if ($percentage >= 80 and $percentage <= 100) {
+	if ($percentage <= 100) {
 		return "A+";
 	}
+
+	return "Invalid";
+}
+
 
 
 	/*if($percentage>=0 and $percentage<=39){ return "F (FAIL)"; }
@@ -127,7 +138,7 @@ function get_grade($percentage)
 	if($percentage>=70 and $percentage<=74){ return "B+ (VERY GOOD)"; }
 	if($percentage>=75 and $percentage<=79){ return "A- (EXCELLENT)"; }
 	if($percentage>=80 and $percentage<=100){ return "A+ (EXCELLENT)"; }*/
-}
+
 
 /**
  * function to check module menu status and 
