@@ -141,7 +141,7 @@
                                     <?php $query = "SELECT SUM(obtain_mark) as obtain_mark, SUM(total_marks) as total_marks
                                     FROM `students_exams_subjects_marks`
                                     WHERE student_id = ? AND exam_id = ? ";
-                                    $pre_result = $this->db->query($query, [$student->student_id, $exam->previous_semester_id]);
+                                    $pre_result = $this->db->query($query, [$student->student_id, $exam->previous_semester_id])->row();
                                     echo $pre_result->obtain_mark;
                                     echo "/";
                                     echo $pre_result->total_marks;
