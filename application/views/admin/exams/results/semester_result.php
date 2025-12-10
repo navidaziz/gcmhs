@@ -142,9 +142,19 @@
                                     FROM `students_exams_subjects_marks`
                                     WHERE student_id = ? AND exam_id = ? ";
                                     $pre_result = $this->db->query($query, [$student->student_id, $exam->previous_semester_id])->row();
-                                    echo "-" . $pre_result->obtain_mark;
-                                    echo "/";
-                                    echo $pre_result->total_marks;
+                                    // echo "-" . $pre_result->obtain_mark;
+                                    // echo "/";
+                                    // echo $pre_result->total_marks;
+                                    $pre_semester_percentage = ($pre_result->obtain_mark * 100) / $pre_result->total_marks;
+
+
+                                    $pre_semester_weightage = $pre_semester->weightage;
+                                    $pre_semester_weightage = $pre_semester_weightage / 100;
+                                    $pre_semester_percentage = $pre_semester_percentage / 100;
+                                    $current_semester_weightage = round(($pre_semester_weightage * $pre_semester_percentage) * 100, 2);
+                                    echo $current_semester_weightage;
+
+
                                     ?>
 
                                 </td>
