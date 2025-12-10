@@ -101,11 +101,11 @@
                                             // echo $marks->percentage;
                                             echo $marks->obtain_mark;
                                             $obtained_marked += $marks->percentage;
-                                            $total_marked += 100;
+                                            $total_marked += $marks->total_marks;
                                         } else {
                                             echo 'A';
                                             $obtained_marked += $marks->percentage;
-                                            $total_marked += 100;
+                                            $total_marked += $marks->total_marks;
                                         }
                                     }
                                     echo '</td>';
