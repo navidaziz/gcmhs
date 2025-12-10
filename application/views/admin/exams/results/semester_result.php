@@ -165,7 +165,11 @@
 
                                 </td>
                                 <td><?php
-                                    $comu_percentage =   $current_semester_weightage + $pre_semester_weightage_per;
+                                    if ($exam->previous_semester_id) {
+                                        $comu_percentage =   $current_semester_weightage + $pre_semester_weightage_per;
+                                    } else {
+                                        $comu_percentage =   $current_semester_weightage;
+                                    }
                                     echo $comu_percentage . "%" ?></td>
                                 <th><?php echo get_grade($comu_percentage); ?></th>
                                 <th><?php echo pass_fail($comu_percentage); ?></th>
