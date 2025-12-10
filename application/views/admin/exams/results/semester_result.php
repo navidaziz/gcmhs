@@ -123,7 +123,7 @@
                                     $current_semester_percentage_weightage = $current_semester_percentage_weightage / 100;
                                     $current_semester_percentage = $percentage / 100;
                                     $current_semester_weightage = round(($current_semester_percentage_weightage * $current_semester_percentage) * 100, 2);
-                                    echo $current_semester_weightage . '%';
+                                    echo $current_semester_weightage;
                                     ?>
 
                                 </th>
