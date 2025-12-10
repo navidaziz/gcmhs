@@ -113,6 +113,7 @@
                                         $marks = $result->row();
                                         if ($marks->obtain_mark !== 'A') {
                                             //echo $marks->percentage;
+                                            echo $marks->obtain_mark;
                                             $obtained_marked += $marks->obtain_mark;
                                             //$total_marked += 100;
                                             $total_marked += $marks->total_marks;
