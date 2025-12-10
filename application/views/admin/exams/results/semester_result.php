@@ -152,15 +152,15 @@
                                     $pre_semester_weightage = $pre_semester->weightage;
                                     $pre_semester_weightage = $pre_semester_weightage / 100;
                                     $pre_semester_percentage = $pre_semester_percentage / 100;
-                                    $current_semester_weightage = round(($pre_semester_weightage * $pre_semester_percentage) * 100, 2);
-                                    echo $current_semester_weightage;
+                                    $pre_semester_weightage_per = round(($pre_semester_weightage * $pre_semester_percentage) * 100, 2);
+                                    echo $pre_semester_weightage_per;
 
 
                                     ?>
 
                                 </td>
                                 <td><?php
-                                    $comu_percentage =   $current_semester_weightage + $current_semester_weightage;
+                                    $comu_percentage =   $current_semester_weightage + $pre_semester_weightage_per;
                                     echo $comu_percentage . "%" ?></td>
                                 <td></td>
                             </tr>
