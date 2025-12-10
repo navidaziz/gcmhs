@@ -119,7 +119,7 @@
                                                                 echo $percentage; ?>%</td>
                                 <th>
                                     <?php
-                                    $current_semester_percentage_weightage = 55;
+                                    $current_semester_percentage_weightage = $exam->weightage;
                                     $current_semester_percentage_weightage = $current_semester_percentage_weightage / 100;
                                     $current_semester_percentage = $percentage / 100;
                                     $current_semester_weightage = round(($current_semester_percentage_weightage * $current_semester_percentage) * 100, 2);
