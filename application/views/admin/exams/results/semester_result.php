@@ -98,14 +98,13 @@
                                     if ($result->num_rows() > 0) {
                                         $marks = $result->row();
                                         if ($marks->obtain_mark !== 'A') {
-                                            // echo $marks->percentage;
-                                            echo $marks->obtain_mark;
+                                            echo $marks->percentage;
                                             $obtained_marked += $marks->percentage;
-                                            $total_marked += $marks->total_marks;
+                                            $total_marked += 100;
                                         } else {
                                             echo 'A';
                                             $obtained_marked += $marks->percentage;
-                                            $total_marked += $marks->total_marks;
+                                            $total_marked += 100;
                                         }
                                     }
                                     echo '</td>';
