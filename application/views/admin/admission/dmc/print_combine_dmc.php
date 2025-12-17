@@ -382,7 +382,7 @@
 
                                             <td><?php
                                                 $per_weightage = round((($row->percentage * 45) / 100), 2);
-                                                $ist_semester_weight_percentage[$count] = $per_weightage;
+                                                $ist_semester_weight_percentage[] = $per_weightage;
                                                 $per_weightage_total += $per_weightage;
                                                 echo ($row->obtain_mark === 'A') ? '-' :  $per_weightage . '%'; ?></td>
 
