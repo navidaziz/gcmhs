@@ -363,6 +363,7 @@
                                     <?php
                                     $count = 1;
                                     $per_weightage_total = 0;
+                                    $ist_semester_weight_percentage = [];
                                     foreach ($pre_result as $row): ?>
                                         <tr>
                                             <th><?php echo $count++; ?></th>
@@ -466,6 +467,7 @@
                                     <?php
                                     $count = 1;
                                     $per_weightage_total = 0;
+
                                     foreach ($result as $row): ?>
                                         <tr>
 
