@@ -450,6 +450,9 @@
                                             $exam_info = $this->db->query($query, [$exam_id])->row();
                                             ?><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?>
                                         </th>
+                                        <th rowspan="2">
+                                            Aggregate Weightage I+II
+                                        </th>
                                     </tr>
                                     <tr>
 
