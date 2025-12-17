@@ -344,7 +344,7 @@
 
                                     <tr>
                                         <th rowspan="2">S #</th>
-                                        <th style="width: 500px;" rowspan="2">SUBJECTS</th>
+                                        <th rowspan="2">SUBJECTS</th>
                                         <th style="text-align: center;" colspan="3">
                                             <?php
                                             $query = "SELECT  * FROM exams  WHERE exam_id = ?";
@@ -366,7 +366,7 @@
                                     foreach ($pre_result as $row): ?>
                                         <tr>
                                             <th><?php echo $count++; ?></th>
-                                            <td><?php echo $row->subject_title; ?></td>
+                                            <td style="width: 500px;"><?php echo $row->subject_title; ?></td>
                                             <td><?php echo $row->total_marks; ?></td>
                                             <td>
                                                 <?php
