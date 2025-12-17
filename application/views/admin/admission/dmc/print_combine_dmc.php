@@ -443,8 +443,7 @@
                                 <thead>
 
                                     <tr>
-                                        <th rowspan="2">S #</th>
-                                        <th rowspan="2">SUBJECTS</th>
+
                                         <th style="text-align: center;" colspan="3">
                                             <?php
                                             $query = "SELECT  * FROM exams  WHERE exam_id = ?";
@@ -465,8 +464,7 @@
                                     $per_weightage_total = 0;
                                     foreach ($result as $row): ?>
                                         <tr>
-                                            <th><?php echo $count++; ?></th>
-                                            <td><?php echo $row->subject_title; ?></td>
+
                                             <td><?php echo $row->total_marks; ?></td>
                                             <td>
                                                 <?php
