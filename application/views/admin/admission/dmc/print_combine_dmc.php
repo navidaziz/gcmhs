@@ -312,28 +312,28 @@
                             <?php
                             // === QUERY: Subjects & Marks (Previous Semester) ===
                             $query = "SELECT 
-    sub.subject_title,
-    sub.short_title,
-    exr.obtain_mark,
-    exr.total_marks,
-    exr.percentage,
-    CASE 
-        WHEN exr.obtain_mark = 'A' THEN 'Absent'
-        WHEN exr.percentage >= 80 THEN 'A+'
-        WHEN exr.percentage >= 70 THEN 'A'
-        WHEN exr.percentage >= 60 THEN 'B'
-        WHEN exr.percentage >= 50 THEN 'C'
-        WHEN exr.percentage >= 40 THEN 'D'
-        WHEN exr.percentage > 33 THEN 'E'
-        ELSE 'F'
-    END AS grade
-FROM students_exams_subjects_marks AS exr 
-INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-INNER JOIN classes AS c ON c.class_id = exr.class_id 
-INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
-WHERE exr.student_id = ? AND exr.exam_id = ?
-ORDER BY sub.subject_id;";
+                            sub.subject_title,
+                            sub.short_title,
+                            exr.obtain_mark,
+                            exr.total_marks,
+                            exr.percentage,
+                            CASE 
+                                WHEN exr.obtain_mark = 'A' THEN 'Absent'
+                                WHEN exr.percentage >= 80 THEN 'A+'
+                                WHEN exr.percentage >= 70 THEN 'A'
+                                WHEN exr.percentage >= 60 THEN 'B'
+                                WHEN exr.percentage >= 50 THEN 'C'
+                                WHEN exr.percentage >= 40 THEN 'D'
+                                WHEN exr.percentage > 33 THEN 'E'
+                                ELSE 'F'
+                            END AS grade
+                        FROM students_exams_subjects_marks AS exr 
+                        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                        INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                        INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
+                        WHERE exr.student_id = ? AND exr.exam_id = ?
+                        ORDER BY sub.subject_id;";
 
                             $previous_semester_result = $this->db
                                 ->query($query, [$student_id, $exam_info->previous_semester_id])
@@ -417,7 +417,8 @@ ORDER BY sub.subject_id;";
                                         <th>G. TOTAL</th>
                                         <th><?php echo $previous_total_marks; ?></th>
                                         <th><?php echo $previous_total_obtained; ?></th>
-                                        <th><?php echo $previous_weightage_total; ?></th>
+                                        <th><?php //echo $previous_weightage_total; 
+                                            ?></th>
                                     </tr>
 
                                     <tr>
@@ -541,7 +542,8 @@ ORDER BY sub.subject_id;";
                                     <tr>
                                         <th><?php echo $current_total_marks; ?></th>
                                         <th><?php echo $current_total_obtained; ?></th>
-                                        <th><?php echo $current_weightage_total; ?></th>
+                                        <th><?php //echo $current_weightage_total; 
+                                            ?></th>
                                         <th><?php echo $previous_weightage + $current_weightage_total; ?></th>
                                     </tr>
 
