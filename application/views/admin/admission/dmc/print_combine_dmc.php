@@ -396,16 +396,7 @@
                                         </tr>
 
                                     <?php
-                                        if ($row->obtain_mark !== 'A') {
-                                            $previous_total_obtained += $row->obtain_mark;
-                                            $previous_total_marks += $row->total_marks;
 
-                                            if ($row->percentage < 50) {
-                                                $weak_subjects[] = $row->subject_title;
-                                            } elseif ($row->percentage >= 70) {
-                                                $strong_subjects[] = $row->subject_title;
-                                            }
-                                        }
                                         $serial_no++;
                                     endforeach;
                                     ?>
@@ -523,13 +514,10 @@
                                         </tr>
 
                                     <?php
-                                        if ($row->obtain_mark !== 'A') {
-                                            $current_total_obtained += $row->obtain_mark;
-                                            $current_total_marks += $row->total_marks;
-
-                                            if ($row->percentage < 50) {
+                                        if ($$aggregate_weightage) {
+                                            if ($aggregate_weightage < 50) {
                                                 $weak_subjects[] = $row->subject_title;
-                                            } elseif ($row->percentage >= 70) {
+                                            } elseif ($aggregate_weightage >= 70) {
                                                 $strong_subjects[] = $row->subject_title;
                                             }
                                         }
