@@ -467,7 +467,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $count = 1;
+                                    $count = 0;
                                     $per_weightage_total = 0;
 
                                     foreach ($result as $row): ?>
