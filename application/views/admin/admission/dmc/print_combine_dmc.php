@@ -8,7 +8,7 @@
     <style>
         body {
             background: #ccc;
-            font-family: "Times New Roman", serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* Base table */
