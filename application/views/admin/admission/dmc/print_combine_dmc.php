@@ -201,7 +201,7 @@
                             <img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="Logo" style="width:100px; ">
                         </td>
                         <td style="text-align:center;">
-                            <h2>Government Centennial Model High School Boys Chitral</h2>
+                            <h6>Government Centennial Model High School Boys Chitral</h6>
                             <h3><strong>Detailed Marks Certificate</strong></h3>
 
                             <?php
@@ -310,62 +310,67 @@
                     <tr>
                         <td style="width: 50%;">
                             <?php
-                            // === QUERY: Subjects & Marks ===
+                            // === QUERY: Subjects & Marks (Previous Semester) ===
                             $query = "SELECT 
-                            sub.subject_title,
-                            sub.short_title,
-                            exr.obtain_mark,
-                            exr.total_marks,
-                            exr.percentage,
-                            CASE 
-                                WHEN exr.obtain_mark = 'A' THEN 'Absent'
-                                WHEN exr.percentage >= 80 THEN 'A+'
-                                WHEN exr.percentage >= 70 THEN 'A'
-                                WHEN exr.percentage >= 60 THEN 'B'
-                                WHEN exr.percentage >= 50 THEN 'C'
-                                WHEN exr.percentage >= 40 THEN 'D'
-                                WHEN exr.percentage > 33 THEN 'E'
-                                ELSE 'F'
-                            END AS grade
-                            FROM students_exams_subjects_marks AS exr 
-                            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-                            INNER JOIN classes AS c ON c.class_id = exr.class_id 
-                            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-                            INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-                            WHERE exr.student_id = ? AND exr.exam_id = ?
-                            ORDER BY sub.subject_id;";
+    sub.subject_title,
+    sub.short_title,
+    exr.obtain_mark,
+    exr.total_marks,
+    exr.percentage,
+    CASE 
+        WHEN exr.obtain_mark = 'A' THEN 'Absent'
+        WHEN exr.percentage >= 80 THEN 'A+'
+        WHEN exr.percentage >= 70 THEN 'A'
+        WHEN exr.percentage >= 60 THEN 'B'
+        WHEN exr.percentage >= 50 THEN 'C'
+        WHEN exr.percentage >= 40 THEN 'D'
+        WHEN exr.percentage > 33 THEN 'E'
+        ELSE 'F'
+    END AS grade
+FROM students_exams_subjects_marks AS exr 
+INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+INNER JOIN classes AS c ON c.class_id = exr.class_id 
+INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
+WHERE exr.student_id = ? AND exr.exam_id = ?
+ORDER BY sub.subject_id;";
 
-                            $pre_result = $this->db->query($query, [$student_id, $exam_info->previous_semester_id])->result();
-
+                            $previous_semester_result = $this->db
+                                ->query($query, [$student_id, $exam_info->previous_semester_id])
+                                ->result();
                             ?>
+
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
-
                                     <tr>
                                         <th rowspan="2">S #</th>
                                         <th rowspan="2">SUBJECTS</th>
                                         <th style="text-align: center;" colspan="3">
                                             <?php
-                                            $query = "SELECT  * FROM exams  WHERE exam_id = ?";
-                                            $exam_info = $this->db->query($query, [$exam_info->previous_semester_id])->row();
-                                            ?><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?>
+                                            $query = "SELECT * FROM exams WHERE exam_id = ?";
+                                            $previous_exam_info = $this->db
+                                                ->query($query, [$exam_info->previous_semester_id])
+                                                ->row();
+                                            ?>
+                                            <?php echo $previous_exam_info->year ?> | <?php echo $previous_exam_info->term ?>
                                         </th>
                                     </tr>
                                     <tr>
-
                                         <th>Total Marks</th>
                                         <th>Marks Obtained</th>
                                         <th>Weightage <br />45%</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <?php
-                                    $count = 1;
-                                    $per_weightage_total = 0;
-                                    $ist_semester_weight_percentage = [];
-                                    foreach ($pre_result as $row): ?>
+                                    $serial_no = 1;
+                                    $previous_weightage_total = 0;
+                                    $first_semester_weightages = [];
+
+                                    foreach ($previous_semester_result as $row): ?>
                                         <tr>
-                                            <th><?php echo $count; ?></th>
+                                            <th><?php echo $serial_no; ?></th>
                                             <td style="width: 500px;"><?php echo $row->subject_title; ?></td>
                                             <td><?php echo $row->total_marks; ?></td>
                                             <td>
@@ -378,19 +383,21 @@
                                                 }
                                                 ?>
                                             </td>
+                                            <td>
+                                                <?php
+                                                $previous_weightage = round((($row->percentage * 45) / 100), 2);
+                                                $first_semester_weightages[] = $previous_weightage;
+                                                $previous_weightage_total += $previous_weightage;
 
-                                            <td><?php
-                                                $per_weightage = round((($row->percentage * 45) / 100), 2);
-                                                $ist_semester_weight_percentage[] = $per_weightage;
-                                                $per_weightage_total += $per_weightage;
-                                                echo ($row->obtain_mark === 'A') ? '-' :  $per_weightage . '%'; ?></td>
-
+                                                echo ($row->obtain_mark === 'A') ? '-' : $previous_weightage . '%';
+                                                ?>
+                                            </td>
                                         </tr>
 
-                                        <?php
+                                    <?php
                                         if ($row->obtain_mark !== 'A') {
-                                            $first_total_obtained += $row->obtain_mark;
-                                            $first_total_marks += $row->total_marks;
+                                            $previous_total_obtained += $row->obtain_mark;
+                                            $previous_total_marks += $row->total_marks;
 
                                             if ($row->percentage < 50) {
                                                 $weak_subjects[] = $row->subject_title;
@@ -398,47 +405,46 @@
                                                 $strong_subjects[] = $row->subject_title;
                                             }
                                         }
-                                        ?>
-                                    <?php
-                                        $count++;
-                                    endforeach; ?>
+                                        $serial_no++;
+                                    endforeach;
+                                    ?>
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <th rowspan="4"></th>
                                         <th>G. TOTAL</th>
-                                        <th><?php echo $first_total_marks; ?></th>
-                                        <th><?php echo $first_total_obtained; ?></th>
-                                        <th><?php echo $per_weightage_total; ?></th>
-
-
+                                        <th><?php echo $previous_total_marks; ?></th>
+                                        <th><?php echo $previous_total_obtained; ?></th>
+                                        <th><?php echo $previous_weightage_total; ?></th>
                                     </tr>
+
                                     <tr>
                                         <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $first_total_marks > 0 ? round(($first_total_obtained / $first_total_marks) * 100, 2) : 0;
-
+                                            $overall_percentage = $previous_total_marks > 0
+                                                ? round(($previous_total_obtained / $previous_total_marks) * 100, 2)
+                                                : 0;
                                             echo $overall_percentage . '%';
                                             ?>
                                         </th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $first_total_marks > 0 ? round(($first_total_obtained / $first_total_marks) * 45, 2) : 0;
-
-                                            echo $overall_percentage . '%';
+                                            $overall_weighted_percentage = $previous_total_marks > 0
+                                                ? round(($previous_total_obtained / $previous_total_marks) * 45, 2)
+                                                : 0;
+                                            echo $overall_weighted_percentage . '%';
                                             ?>
                                         </th>
                                     </tr>
+
                                     <tr>
                                         <th colspan="2">GRADE</th>
-                                        <th>
-                                            <?php
-                                            echo get_grade($overall_percentage);
-                                            ?>
-                                        </th>
+                                        <th><?php echo get_grade($overall_percentage); ?></th>
                                         <th></th>
                                     </tr>
+
                                     <tr>
                                         <th colspan="2">POSITION</th>
                                         <th></th>
@@ -447,6 +453,7 @@
                                 </tfoot>
                             </table>
                         </td>
+
                         <td style="vertical-align: top; width: 50%;">
 
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
