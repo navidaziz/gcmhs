@@ -172,7 +172,7 @@
                                     }
                                     echo $comu_percentage . "%" ?></td>
                                 <th><?php echo get_grade($comu_percentage); ?></th>
-                                <th><?php echo pass_fail($comu_percentage); ?></th>
+                                <th><?php //echo pass_fail($comu_percentage); ?></th>
                                 <td></td>
                             </tr>
                         <?php endforeach; ?>
