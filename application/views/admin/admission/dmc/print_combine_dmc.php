@@ -521,6 +521,7 @@
 
                                     </tr>
                                     <tr>
+                                        <th colspan="2"></th>
                                         <th>
                                             <?php
                                             $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 45, 2) : 0;
@@ -530,6 +531,7 @@
                                         <th></th>
                                     </tr>
                                     <tr>
+                                        <th colspan="2"></th>
                                         <th>
                                             <?php
                                             echo get_grade($overall_percentage);
