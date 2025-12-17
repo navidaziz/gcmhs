@@ -345,12 +345,12 @@
                                     <tr>
                                         <th rowspan="2">S #</th>
                                         <th rowspan="2">SUBJECTS</th>
-                                        <td colspan="3">
+                                        <th style="text-align: center;" colspan="3">
                                             <?php
                                             $query = "SELECT  * FROM exams  WHERE exam_id = ?";
                                             $exam_info = $this->db->query($query, [$exam_info->previous_semester_id])->row();
                                             ?><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?>
-                                        </td>
+                                        </th>
                                     </tr>
                                     <tr>
 
@@ -366,6 +366,7 @@
                                         <tr>
                                             <th><?php echo $count++; ?></th>
                                             <td><?php echo $row->subject_title; ?></td>
+                                            <td><?php echo $row->total_marks; ?></td>
                                             <td>
                                                 <?php
                                                 if ($row->obtain_mark === 'A') {
@@ -376,9 +377,11 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td><?php echo $row->total_marks; ?></td>
-                                            <td><?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?></td>
-                                            <th><?php echo $row->grade; ?></th>
+
+                                            <td><?php
+                                                $per_weightage = round((($row->percentage * 45) / 100), 2);
+                                                echo ($row->obtain_mark === 'A') ? '-' :  $per_weightage . '%'; ?></td>
+
                                         </tr>
 
                                         <?php
