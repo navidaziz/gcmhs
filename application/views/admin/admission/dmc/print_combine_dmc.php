@@ -218,6 +218,7 @@
                             INNER JOIN sections AS sec ON sec.section_id = exr.section_id
                             INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
                             WHERE exr.student_id = ? AND exr.exam_id = ? 
+                            ORDER BY sub.subject_id
                             GROUP BY exr.exam_id";
 
                             $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
@@ -293,6 +294,7 @@
                 INNER JOIN classes AS c ON c.class_id = exr.class_id 
                 INNER JOIN sections AS sec ON sec.section_id = exr.section_id
                 INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+                ORDER BY sub.subject_id
                 WHERE exr.student_id = ? AND exr.exam_id = ?;";
 
                 $result = $this->db->query($query, [$student_id, $exam_id])->result();
