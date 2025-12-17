@@ -500,8 +500,6 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th rowspan="4"></th>
-                                        <th>G. TOTAL</th>
                                         <th><?php echo $total_marks; ?></th>
                                         <th><?php echo $total_obtained; ?></th>
                                         <th><?php echo $per_weightage_total; ?></th>
@@ -509,7 +507,6 @@
 
                                     </tr>
                                     <tr>
-                                        <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
                                             $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 45, 2) : 0;
@@ -519,7 +516,6 @@
                                         <th></th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2">GRADE</th>
                                         <th>
                                             <?php
                                             echo get_grade($overall_percentage);
@@ -528,7 +524,6 @@
                                         <th></th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2">POSITION</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
