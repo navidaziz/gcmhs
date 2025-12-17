@@ -458,35 +458,35 @@ ORDER BY sub.subject_id;";
 
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
-
                                     <tr>
-
                                         <th style="text-align: center;" colspan="3">
                                             <?php
-                                            $query = "SELECT  * FROM exams  WHERE exam_id = ?";
-                                            $exam_info = $this->db->query($query, [$exam_id])->row();
-                                            ?><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?>
+                                            $query = "SELECT * FROM exams WHERE exam_id = ?";
+                                            $current_exam_info = $this->db->query($query, [$exam_id])->row();
+                                            ?>
+                                            <?php echo $current_exam_info->year ?> | <?php echo $current_exam_info->term ?>
                                         </th>
                                         <th rowspan="2">
-                                            Aggregate Weightage I+II
+                                            Aggregate Weightage I + II
                                         </th>
                                     </tr>
-                                    <tr>
 
+                                    <tr>
                                         <th>Total Marks</th>
                                         <th>Marks Obtained</th>
                                         <th>Weightage <br />55%</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <?php
-                                    $count = 0;
-                                    $per_weightage_total = 0;
+                                    $subject_index = 0;
+                                    $current_weightage_total = 0;
 
-                                    foreach ($result as $row): ?>
+                                    foreach ($current_semester_result as $row): ?>
                                         <tr>
-
                                             <td><?php echo $row->total_marks; ?></td>
+
                                             <td>
                                                 <?php
                                                 if ($row->obtain_mark === 'A') {
@@ -498,21 +498,29 @@ ORDER BY sub.subject_id;";
                                                 ?>
                                             </td>
 
-                                            <td><?php
-                                                $per_weightage = round((($row->percentage * 55) / 100), 2);
-                                                $per_weightage_total += $per_weightage;
-                                                echo ($row->obtain_mark === 'A') ? '-' :  $per_weightage . '%'; ?></td>
-                                            <td><?php
-                                                $total = $ist_semester_weight_percentage[$count] + $per_weightage;
+                                            <td>
+                                                <?php
+                                                $current_weightage = round((($row->percentage * 55) / 100), 2);
+                                                $current_weightage_total += $current_weightage;
 
-                                                echo "{$ist_semester_weight_percentage[$count]} + {$per_weightage} = {$total}%";
-                                                ?></td>
+                                                echo ($row->obtain_mark === 'A') ? '-' : $current_weightage . '%';
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                $aggregate_weightage =
+                                                    $first_semester_weightages[$subject_index] + $current_weightage;
+
+                                                echo "{$first_semester_weightages[$subject_index]} + {$current_weightage} = {$aggregate_weightage}%";
+                                                ?>
+                                            </td>
                                         </tr>
 
-                                        <?php
+                                    <?php
                                         if ($row->obtain_mark !== 'A') {
-                                            $total_obtained += $row->obtain_mark;
-                                            $total_marks += $row->total_marks;
+                                            $current_total_obtained += $row->obtain_mark;
+                                            $current_total_marks += $row->total_marks;
 
                                             if ($row->percentage < 50) {
                                                 $weak_subjects[] = $row->subject_title;
@@ -520,43 +528,44 @@ ORDER BY sub.subject_id;";
                                                 $strong_subjects[] = $row->subject_title;
                                             }
                                         }
-                                        ?>
-                                    <?php
-                                        $count++;
-                                    endforeach; ?>
+                                        $subject_index++;
+                                    endforeach;
+                                    ?>
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
-                                        <th><?php echo $total_marks; ?></th>
-                                        <th><?php echo $total_obtained; ?></th>
-                                        <th><?php echo $per_weightage_total; ?></th>
-
-
+                                        <th><?php echo $current_total_marks; ?></th>
+                                        <th><?php echo $current_total_obtained; ?></th>
+                                        <th><?php echo $current_weightage_total; ?></th>
                                     </tr>
+
                                     <tr>
                                         <th></th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
-                                            echo $overall_percentage . '%';
+                                            $current_overall_percentage = $current_total_marks > 0
+                                                ? round(($current_total_obtained / $current_total_marks) * 100, 2)
+                                                : 0;
+                                            echo $current_overall_percentage . '%';
                                             ?>
                                         </th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 55, 2) : 0;
-                                            echo $overall_percentage . '%';
+                                            $current_overall_weighted_percentage = $current_total_marks > 0
+                                                ? round(($current_total_obtained / $current_total_marks) * 55, 2)
+                                                : 0;
+                                            echo $current_overall_weighted_percentage . '%';
                                             ?>
                                         </th>
                                     </tr>
+
                                     <tr>
                                         <th></th>
-                                        <th>
-                                            <?php
-                                            echo get_grade($overall_percentage);
-                                            ?>
-                                        </th>
+                                        <th><?php echo get_grade($current_overall_percentage); ?></th>
                                         <th></th>
                                     </tr>
+
                                     <tr>
                                         <th></th>
                                         <th></th>
@@ -564,8 +573,8 @@ ORDER BY sub.subject_id;";
                                     </tr>
                                 </tfoot>
                             </table>
-
                         </td>
+
 
                     </tr>
                 </table>
