@@ -437,7 +437,7 @@
                                 </tfoot>
                             </table>
                         </td>
-                        <td style="width: 50%;">
+                        <td style="vertical-align: top; width: 50%;">
 
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
