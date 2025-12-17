@@ -229,7 +229,7 @@
                 </table>
 
                 <!-- STUDENT INFO -->
-                <table class="table table-bordered" style="margin-top:10px; font-size:9px; width:100%;">
+                <table class="table table-bordered student-info" style="margin-top:10px;">
                     <tr>
                         <th>Class No</th>
                         <th>Admission No</th>
@@ -287,12 +287,12 @@
                 WHEN exr.percentage > 33 THEN 'E'
                 ELSE 'F'
             END AS grade
-        FROM students_exams_subjects_marks AS exr 
-        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-        INNER JOIN classes AS c ON c.class_id = exr.class_id 
-        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-        INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-        WHERE exr.student_id = ? AND exr.exam_id = ?;";
+                FROM students_exams_subjects_marks AS exr 
+                INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+                WHERE exr.student_id = ? AND exr.exam_id = ?;";
 
                 $result = $this->db->query($query, [$student_id, $exam_id])->result();
 
@@ -306,7 +306,7 @@
 
 
                 <!-- MARKS TABLE -->
-                <table class="table table-bordered marks-table" style="margin-top:10px;">
+                <table class="table table-bordered marks-table" style="margin-top:10px; font-size:12px !important">
                     <thead>
                         <tr>
                             <th>#</th>
