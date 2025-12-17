@@ -377,7 +377,7 @@
                                                 <?php
                                                 if ($row->obtain_mark === 'A') {
                                                     echo "<span style='color:red;font-weight:bold;'>Absent</span>";
-                                                    $absent_subjects[] = $row->subject_title;
+                                                    // $absent_subjects[] = $row->subject_title;
                                                 } else {
                                                     echo $row->obtain_mark;
                                                 }
@@ -574,7 +574,11 @@
                                         <th> - </th>
                                         <th>
 
-                                            <?php echo get_grade($overall_weighted_percentage + $current_overall_weighted_percentage); ?>
+                                            <?php
+
+                                            $overall_grade = get_grade($overall_weighted_percentage + $current_overall_weighted_percentage);
+                                            echo $overall_grade;
+                                            ?>
                                         </th>
                                     </tr>
 
@@ -593,7 +597,8 @@
 
                 <?php
                 // === Remarks generation ===
-                $remarks = "The student achieved an overall percentage of <b>{$overall_percentage}%</b>, securing an overall grade of <b>{$overall_grade}</b>. ";
+                $over_all_agg = $overall_weighted_percentage + $current_overall_weighted_percentage;
+                $remarks = "The student achieved an overall percentage of <b>{$over_all_agg}%</b>, securing an overall grade of <b>{$overall_grade}</b>. ";
                 if (!empty($strong_subjects)) {
                     $remarks .= "Strong performance was observed in <b>" . implode(", ", $strong_subjects) . "</b>. ";
                 }
