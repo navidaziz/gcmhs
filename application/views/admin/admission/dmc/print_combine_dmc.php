@@ -514,7 +514,10 @@
                                         </tr>
 
                                     <?php
-                                        if ($$aggregate_weightage) {
+                                        if ($aggregate_weightage) {
+                                            $current_total_obtained += $row->obtain_mark;
+                                            $current_total_marks += $row->total_marks;
+
                                             if ($aggregate_weightage < 50) {
                                                 $weak_subjects[] = $row->subject_title;
                                             } elseif ($aggregate_weightage >= 70) {
