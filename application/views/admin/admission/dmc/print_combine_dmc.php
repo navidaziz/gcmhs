@@ -344,7 +344,7 @@
 
                                     <tr>
                                         <th rowspan="2">S #</th>
-                                        <th rowspan="2">SUBJECTS</th>
+                                        <th style="width: 500px;" rowspan="2">SUBJECTS</th>
                                         <th style="text-align: center;" colspan="3">
                                             <?php
                                             $query = "SELECT  * FROM exams  WHERE exam_id = ?";
