@@ -371,7 +371,7 @@
                                     foreach ($previous_semester_result as $row): ?>
                                         <tr>
                                             <th><?php echo $serial_no; ?></th>
-                                            <td style="width: 600px;"><?php echo $row->subject_title; ?></td>
+                                            <td style="width: 700px;"><?php echo $row->subject_title; ?></td>
                                             <td><?php echo $row->total_marks; ?></td>
                                             <td>
                                                 <?php
