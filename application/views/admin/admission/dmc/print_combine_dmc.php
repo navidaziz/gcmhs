@@ -366,7 +366,7 @@
                                     $ist_semester_weight_percentage = [];
                                     foreach ($pre_result as $row): ?>
                                         <tr>
-                                            <th><?php echo $count++; ?></th>
+                                            <th><?php echo $count; ?></th>
                                             <td style="width: 500px;"><?php echo $row->subject_title; ?></td>
                                             <td><?php echo $row->total_marks; ?></td>
                                             <td>
@@ -400,7 +400,9 @@
                                             }
                                         }
                                         ?>
-                                    <?php endforeach; ?>
+                                    <?php
+                                        $count++;
+                                    endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -506,7 +508,9 @@
                                             }
                                         }
                                         ?>
-                                    <?php endforeach; ?>
+                                    <?php
+                                        $count++;
+                                    endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
