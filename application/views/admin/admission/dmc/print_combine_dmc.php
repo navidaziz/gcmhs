@@ -417,12 +417,18 @@
                                         <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
+                                            $overall_percentage = $first_total_marks > 0 ? round(($first_total_obtained / $first_total_marks) * 100, 2) : 0;
+
+                                            echo $overall_percentage . '%';
+                                            ?>
+                                        </th>
+                                        <th>
+                                            <?php
                                             $overall_percentage = $first_total_marks > 0 ? round(($first_total_obtained / $first_total_marks) * 45, 2) : 0;
 
                                             echo $overall_percentage . '%';
                                             ?>
                                         </th>
-                                        <th></th>
                                     </tr>
                                     <tr>
                                         <th colspan="2">GRADE</th>
@@ -524,11 +530,16 @@
                                         <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 45, 2) : 0;
+                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
                                             echo $overall_percentage . '%';
                                             ?>
                                         </th>
-                                        <th></th>
+                                        <th>
+                                            <?php
+                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 55, 2) : 0;
+                                            echo $overall_percentage . '%';
+                                            ?>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="2">GRADE</th>
