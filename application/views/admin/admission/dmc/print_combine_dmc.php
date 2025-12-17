@@ -201,8 +201,8 @@
                             <img src="<?php echo site_url("assets/log_outline.png"); ?>" alt="Logo" style="width:100px; ">
                         </td>
                         <td style="text-align:center;">
-                            <h6>Government Centennial Model High School Boys Chitral</h6>
-                            <h3><strong>Detailed Marks Certificate</strong></h3>
+                            <h2>Government Centennial Model High School Boys Chitral</h2>
+                            <h6><strong>Detailed Marks Certificate</strong></h6>
 
                             <?php
                             // === QUERY: Exam Info ===
