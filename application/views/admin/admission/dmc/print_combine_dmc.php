@@ -484,7 +484,9 @@ ORDER BY sub.subject_id;";
                                     $subject_index = 0;
                                     $current_weightage_total = 0;
 
-                                    foreach ($current_semester_result as $row): ?>
+                                    foreach ($current_semester_result as $row):
+                                        var_dump($row);
+                                    ?>
                                         <tr>
                                             <td><?php echo $row->total_marks; ?></td>
 
