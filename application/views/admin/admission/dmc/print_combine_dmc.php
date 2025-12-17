@@ -296,7 +296,7 @@
                 WHERE exr.student_id = ? AND exr.exam_id = ?
                 ORDER BY sub.subject_id;";
 
-                $result = $this->db->query($query, [$student_id, $exam_id])->result();
+                $current_semester_result = $this->db->query($query, [$student_id, $exam_id])->result();
 
                 $first_total_obtained = 0;
                 $first_total_marks = 0;
