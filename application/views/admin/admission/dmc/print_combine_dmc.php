@@ -524,7 +524,7 @@
 
                     </tr>
                 </table>
-
+                we are here
 
                 <?php
                 // === Remarks generation ===
