@@ -231,6 +231,7 @@
 
                 <!-- STUDENT INFO -->
                 <table class="table table-bordered student-info" style="margin-top:10px;">
+
                     <tr>
                         <th>Class No</th>
                         <th>Admission No</th>
@@ -312,6 +313,9 @@
                             <!-- MARKS TABLE -->
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
+                                    <tr>
+                                        <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
+                                    </tr>
                                     <tr>
                                         <th>#</th>
                                         <th>Subject</th>
@@ -417,6 +421,9 @@
                             ?>
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
+                                    <tr>
+                                        <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
+                                    </tr>
                                     <tr>
                                         <th>#</th>
                                         <th>Subject</th>
