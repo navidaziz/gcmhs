@@ -314,6 +314,10 @@
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
                                     <tr>
+                                        <?php
+                                        $query = "SELECT  * FROM exams  WHERE exam_id = ?";
+                                        $exam_info = $this->db->query($query, [$exam_id])->row();
+                                        ?>
                                         <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
                                     </tr>
                                     <tr>
@@ -422,6 +426,10 @@
                             <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                 <thead>
                                     <tr>
+                                        <?php
+                                        $query = "SELECT  * FROM exams  WHERE exam_id = ?";
+                                        $exam_info = $this->db->query($query, [$exam_info->previous_semester_id])->row();
+                                        ?>
                                         <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
                                     </tr>
                                     <tr>
