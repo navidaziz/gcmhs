@@ -272,21 +272,21 @@
                 <?php
                 // === QUERY: Subjects & Marks ===
                 $query = "SELECT 
-            sub.subject_title,
-            sub.short_title,
-            exr.obtain_mark,
-            exr.total_marks,
-            exr.percentage,
-            CASE 
-                WHEN exr.obtain_mark = 'A' THEN 'Absent'
-                WHEN exr.percentage >= 80 THEN 'A+'
-                WHEN exr.percentage >= 70 THEN 'A'
-                WHEN exr.percentage >= 60 THEN 'B'
-                WHEN exr.percentage >= 50 THEN 'C'
-                WHEN exr.percentage >= 40 THEN 'D'
-                WHEN exr.percentage > 33 THEN 'E'
-                ELSE 'F'
-            END AS grade
+                sub.subject_title,
+                sub.short_title,
+                exr.obtain_mark,
+                exr.total_marks,
+                exr.percentage,
+                CASE 
+                    WHEN exr.obtain_mark = 'A' THEN 'Absent'
+                    WHEN exr.percentage >= 80 THEN 'A+'
+                    WHEN exr.percentage >= 70 THEN 'A'
+                    WHEN exr.percentage >= 60 THEN 'B'
+                    WHEN exr.percentage >= 50 THEN 'C'
+                    WHEN exr.percentage >= 40 THEN 'D'
+                    WHEN exr.percentage > 33 THEN 'E'
+                    ELSE 'F'
+                END AS grade
                 FROM students_exams_subjects_marks AS exr 
                 INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
                 INNER JOIN classes AS c ON c.class_id = exr.class_id 
@@ -384,8 +384,108 @@
                             </table>
                         </td>
                         <td style="width: 50%;">
+                            <?php
+                            // === QUERY: Subjects & Marks ===
+                            $query = "SELECT 
+                            sub.subject_title,
+                            sub.short_title,
+                            exr.obtain_mark,
+                            exr.total_marks,
+                            exr.percentage,
+                            CASE 
+                                WHEN exr.obtain_mark = 'A' THEN 'Absent'
+                                WHEN exr.percentage >= 80 THEN 'A+'
+                                WHEN exr.percentage >= 70 THEN 'A'
+                                WHEN exr.percentage >= 60 THEN 'B'
+                                WHEN exr.percentage >= 50 THEN 'C'
+                                WHEN exr.percentage >= 40 THEN 'D'
+                                WHEN exr.percentage > 33 THEN 'E'
+                                ELSE 'F'
+                            END AS grade
+                            FROM students_exams_subjects_marks AS exr 
+                            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                            INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                            INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+                            WHERE exr.student_id = ? AND exr.exam_id = ?;";
 
+                            $pre_result = $this->db->query($query, [$student_id, $exam_info->previous_semester_id])->result();
 
+                            ?>
+                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Subject</th>
+                                        <th>Marks Obtained</th>
+                                        <th>Total Marks</th>
+                                        <th>Percentage</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $count = 1;
+                                    foreach ($pre_result as $row): ?>
+                                        <tr>
+                                            <th><?php echo $count++; ?></th>
+                                            <td><?php echo $row->subject_title; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($row->obtain_mark === 'A') {
+                                                    echo "<span style='color:red;font-weight:bold;'>Absent</span>";
+                                                    $absent_subjects[] = $row->subject_title;
+                                                } else {
+                                                    echo $row->obtain_mark;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?php echo $row->total_marks; ?></td>
+                                            <td><?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?></td>
+                                            <th><?php echo $row->grade; ?></th>
+                                        </tr>
+
+                                        <?php
+                                        if ($row->obtain_mark !== 'A') {
+                                            $total_obtained += $row->obtain_mark;
+                                            $total_marks += $row->total_marks;
+
+                                            if ($row->percentage < 50) {
+                                                $weak_subjects[] = $row->subject_title;
+                                            } elseif ($row->percentage >= 70) {
+                                                $strong_subjects[] = $row->subject_title;
+                                            }
+                                        }
+                                        ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th><?php echo $total_obtained; ?></th>
+                                        <th><?php echo $total_marks; ?></th>
+                                        <th>
+                                            <?php
+                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
+                                            echo $overall_percentage . '%';
+                                            ?>
+                                        </th>
+                                        <th>
+                                            <?php
+                                            if ($overall_percentage >= 80) $overall_grade = 'A+';
+                                            elseif ($overall_percentage >= 70) $overall_grade = 'A';
+                                            elseif ($overall_percentage >= 60) $overall_grade = 'B';
+                                            elseif ($overall_percentage >= 50) $overall_grade = 'C';
+                                            elseif ($overall_percentage >= 40) $overall_grade = 'D';
+                                            elseif ($overall_percentage > 33) $overall_grade = 'E';
+                                            else $overall_grade = 'F';
+                                            echo $overall_grade;
+                                            ?>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </td>
                     </tr>
                 </table>
