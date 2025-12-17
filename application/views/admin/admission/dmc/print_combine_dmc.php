@@ -402,7 +402,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th rowspan="3"></th>
+                                        <th rowspan="4"></th>
                                         <th>G. TOTAL</th>
                                         <th><?php echo $total_marks; ?></th>
                                         <th><?php echo $total_obtained; ?></th>
