@@ -229,7 +229,7 @@
                 </table>
 
                 <!-- STUDENT INFO -->
-                <table class="table table-bordered student-info" style="margin-top:10px;">
+                <table class="table table-bordered student-info" style="margin-top:10px; font-size: 12px;">
 
                     <tr>
                         <th>Class No</th>
