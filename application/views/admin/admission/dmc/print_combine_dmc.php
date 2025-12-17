@@ -400,11 +400,11 @@
                                             $previous_total_obtained += $row->obtain_mark;
                                             $previous_total_marks += $row->total_marks;
 
-                                            if ($row->percentage < 50) {
-                                                $weak_subjects[] = $row->subject_title;
-                                            } elseif ($row->percentage >= 70) {
-                                                $strong_subjects[] = $row->subject_title;
-                                            }
+                                            // if ($row->percentage < 50) {
+                                            //     $weak_subjects[] = $row->subject_title;
+                                            // } elseif ($row->percentage >= 70) {
+                                            //     $strong_subjects[] = $row->subject_title;
+                                            // }
                                         }
                                         $serial_no++;
                                     endforeach;
@@ -517,6 +517,12 @@
                                                 $aggregate_weightage =
                                                     $first_semester_weightages[$subject_index] + $current_weightage;
 
+                                                if ($aggregate_weightage < 50) {
+                                                    $weak_subjects[] = $row->subject_title;
+                                                } elseif ($aggregate_weightage >= 70) {
+                                                    $strong_subjects[] = $row->subject_title;
+                                                }
+
                                                 echo "{$first_semester_weightages[$subject_index]} + {$current_weightage} = {$aggregate_weightage}%";
                                                 ?>
                                             </td>
@@ -526,12 +532,6 @@
                                         if ($row->obtain_mark !== 'A') {
                                             $current_total_obtained += $row->obtain_mark;
                                             $current_total_marks += $row->total_marks;
-
-                                            if ($row->percentage < 50) {
-                                                $weak_subjects[] = $row->subject_title;
-                                            } elseif ($row->percentage >= 70) {
-                                                $strong_subjects[] = $row->subject_title;
-                                            }
                                         }
                                         $subject_index++;
                                     endforeach;
