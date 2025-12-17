@@ -385,7 +385,7 @@ ORDER BY sub.subject_id;";
                                             </td>
                                             <td>
                                                 <?php
-                                                echo $row->percentag . " - ";
+                                                echo $row->percentage . " - ";
                                                 $previous_weightage = round((($row->percentage * 45) / 100), 2);
                                                 $first_semester_weightages[] = $previous_weightage;
                                                 $previous_weightage_total += $previous_weightage;
@@ -501,6 +501,7 @@ ORDER BY sub.subject_id;";
 
                                             <td>
                                                 <?php
+                                                echo $row->percentage . " - ";
                                                 $current_weightage = round((($row->percentage * 55) / 100), 2);
                                                 $current_weightage_total += $current_weightage;
 
