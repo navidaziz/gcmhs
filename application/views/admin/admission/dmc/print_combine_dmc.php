@@ -569,7 +569,10 @@ ORDER BY sub.subject_id;";
                                     <tr>
                                         <th></th>
                                         <th><?php echo get_grade($current_overall_percentage); ?></th>
-                                        <th></th>
+                                        <th>
+
+                                            <?php echo get_grade($overall_weighted_percentage + $current_overall_weighted_percentage); ?>
+                                        </th>
                                     </tr>
 
                                     <tr>
