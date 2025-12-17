@@ -223,7 +223,6 @@
                             $exam_info = $this->db->query($query, [$student_id, $exam_id])->row();
                             ?>
 
-                            <h3><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?> </h3>
                             <h3>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h3>
                         </td>
                     </tr>
@@ -299,8 +298,8 @@
 
                 $result = $this->db->query($query, [$student_id, $exam_id])->result();
 
-                $total_obtained = 0;
-                $total_marks = 0;
+                $first_total_obtained = 0;
+                $first_total_marks = 0;
                 $weak_subjects = [];
                 $strong_subjects = [];
                 $absent_subjects = [];
@@ -390,8 +389,8 @@
 
                                         <?php
                                         if ($row->obtain_mark !== 'A') {
-                                            $total_obtained += $row->obtain_mark;
-                                            $total_marks += $row->total_marks;
+                                            $first_total_obtained += $row->obtain_mark;
+                                            $first_total_marks += $row->total_marks;
 
                                             if ($row->percentage < 50) {
                                                 $weak_subjects[] = $row->subject_title;
@@ -408,8 +407,8 @@
                                     <tr>
                                         <th rowspan="4"></th>
                                         <th>G. TOTAL</th>
-                                        <th><?php echo $total_marks; ?></th>
-                                        <th><?php echo $total_obtained; ?></th>
+                                        <th><?php echo $first_total_marks; ?></th>
+                                        <th><?php echo $first_total_obtained; ?></th>
                                         <th><?php echo $per_weightage_total; ?></th>
 
 
@@ -418,7 +417,8 @@
                                         <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 45, 2) : 0;
+                                            $overall_percentage = $first_total_marks > 0 ? round(($first_total_obtained / $first_total_marks) * 45, 2) : 0;
+
                                             echo $overall_percentage . '%';
                                             ?>
                                         </th>
