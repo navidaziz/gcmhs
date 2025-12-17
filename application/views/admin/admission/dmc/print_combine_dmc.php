@@ -209,6 +209,7 @@
                             $query = "SELECT 
                             ex.year,
                             ex.term,
+                            ex.previous_semester_id,
                             c.Class_title,
                             sec.section_title
                             FROM students_exams_subjects_marks AS exr 
