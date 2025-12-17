@@ -362,6 +362,7 @@
                                 <tbody>
                                     <?php
                                     $count = 1;
+                                    $per_weightage_total = 0;
                                     foreach ($pre_result as $row): ?>
                                         <tr>
                                             <th><?php echo $count++; ?></th>
@@ -380,6 +381,7 @@
 
                                             <td><?php
                                                 $per_weightage = round((($row->percentage * 45) / 100), 2);
+                                                $per_weightage_total += $per_weightage;
                                                 echo ($row->obtain_mark === 'A') ? '-' :  $per_weightage . '%'; ?></td>
 
                                         </tr>
@@ -400,28 +402,37 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th><?php echo $total_obtained; ?></th>
+                                        <th rowspan="3"></th>
+                                        <th>G. TOTAL</th>
                                         <th><?php echo $total_marks; ?></th>
+                                        <th><?php echo $total_obtained; ?></th>
+                                        <th><?php echo $per_weightage_total; ?></th>
+
+
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">PERCENTAGE</th>
                                         <th>
                                             <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
+                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 45, 2) : 0;
                                             echo $overall_percentage . '%';
                                             ?>
                                         </th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">GRADE</th>
                                         <th>
                                             <?php
-                                            if ($overall_percentage >= 80) $overall_grade = 'A+';
-                                            elseif ($overall_percentage >= 70) $overall_grade = 'A';
-                                            elseif ($overall_percentage >= 60) $overall_grade = 'B';
-                                            elseif ($overall_percentage >= 50) $overall_grade = 'C';
-                                            elseif ($overall_percentage >= 40) $overall_grade = 'D';
-                                            elseif ($overall_percentage > 33) $overall_grade = 'E';
-                                            else $overall_grade = 'F';
-                                            echo $overall_grade;
+                                            echo get_grade($overall_percentage);
                                             ?>
                                         </th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">POSITION</th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
