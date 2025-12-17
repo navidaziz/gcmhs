@@ -542,6 +542,7 @@ ORDER BY sub.subject_id;";
                                         <th><?php echo $current_total_marks; ?></th>
                                         <th><?php echo $current_total_obtained; ?></th>
                                         <th><?php echo $current_weightage_total; ?></th>
+                                        <th><?php echo $previous_weightage + $current_weightage_total; ?></th>
                                     </tr>
 
                                     <tr>
@@ -562,6 +563,7 @@ ORDER BY sub.subject_id;";
                                             echo $current_overall_weighted_percentage . '%';
                                             ?>
                                         </th>
+                                        <th><?php echo  $overall_weighted_percentage + $current_overall_weighted_percentage . '%'; ?></th>
                                     </tr>
 
                                     <tr>
