@@ -310,90 +310,6 @@
                 <table>
                     <tr>
                         <td style="width: 50%;">
-                            <!-- MARKS TABLE -->
-                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
-                                <thead>
-                                    <tr>
-                                        <?php
-                                        $query = "SELECT  * FROM exams  WHERE exam_id = ?";
-                                        $exam_info = $this->db->query($query, [$exam_id])->row();
-                                        ?>
-                                        <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Subject</th>
-                                        <th>Marks Obtained</th>
-                                        <th>Total Marks</th>
-                                        <th>Percentage</th>
-                                        <th>Grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $count = 1;
-                                    foreach ($result as $row): ?>
-                                        <tr>
-                                            <th><?php echo $count++; ?></th>
-                                            <td><?php echo $row->subject_title; ?></td>
-                                            <td>
-                                                <?php
-                                                if ($row->obtain_mark === 'A') {
-                                                    echo "<span style='color:red;font-weight:bold;'>Absent</span>";
-                                                    $absent_subjects[] = $row->subject_title;
-                                                } else {
-                                                    echo $row->obtain_mark;
-                                                }
-                                                ?>
-                                            </td>
-                                            <td><?php echo $row->total_marks; ?></td>
-                                            <td><?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?></td>
-                                            <th><?php echo $row->grade; ?></th>
-                                        </tr>
-
-                                        <?php
-                                        if ($row->obtain_mark !== 'A') {
-                                            $total_obtained += $row->obtain_mark;
-                                            $total_marks += $row->total_marks;
-
-                                            if ($row->percentage < 50) {
-                                                $weak_subjects[] = $row->subject_title;
-                                            } elseif ($row->percentage >= 70) {
-                                                $strong_subjects[] = $row->subject_title;
-                                            }
-                                        }
-                                        ?>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th><?php echo $total_obtained; ?></th>
-                                        <th><?php echo $total_marks; ?></th>
-                                        <th>
-                                            <?php
-                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
-                                            echo $overall_percentage . '%';
-                                            ?>
-                                        </th>
-                                        <th>
-                                            <?php
-                                            if ($overall_percentage >= 80) $overall_grade = 'A+';
-                                            elseif ($overall_percentage >= 70) $overall_grade = 'A';
-                                            elseif ($overall_percentage >= 60) $overall_grade = 'B';
-                                            elseif ($overall_percentage >= 50) $overall_grade = 'C';
-                                            elseif ($overall_percentage >= 40) $overall_grade = 'D';
-                                            elseif ($overall_percentage > 33) $overall_grade = 'E';
-                                            else $overall_grade = 'F';
-                                            echo $overall_grade;
-                                            ?>
-                                        </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </td>
-                        <td style="width: 50%;">
                             <?php
                             // === QUERY: Subjects & Marks ===
                             $query = "SELECT 
@@ -505,6 +421,91 @@
                                 </tfoot>
                             </table>
                         </td>
+                        <td style="width: 50%;">
+                            <!-- MARKS TABLE -->
+                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <?php
+                                        $query = "SELECT  * FROM exams  WHERE exam_id = ?";
+                                        $exam_info = $this->db->query($query, [$exam_id])->row();
+                                        ?>
+                                        <th colspan="7"><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?></th>
+                                    </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Subject</th>
+                                        <th>Marks Obtained</th>
+                                        <th>Total Marks</th>
+                                        <th>Percentage</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $count = 1;
+                                    foreach ($result as $row): ?>
+                                        <tr>
+                                            <th><?php echo $count++; ?></th>
+                                            <td><?php echo $row->subject_title; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($row->obtain_mark === 'A') {
+                                                    echo "<span style='color:red;font-weight:bold;'>Absent</span>";
+                                                    $absent_subjects[] = $row->subject_title;
+                                                } else {
+                                                    echo $row->obtain_mark;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?php echo $row->total_marks; ?></td>
+                                            <td><?php echo ($row->obtain_mark === 'A') ? '-' : $row->percentage . '%'; ?></td>
+                                            <th><?php echo $row->grade; ?></th>
+                                        </tr>
+
+                                        <?php
+                                        if ($row->obtain_mark !== 'A') {
+                                            $total_obtained += $row->obtain_mark;
+                                            $total_marks += $row->total_marks;
+
+                                            if ($row->percentage < 50) {
+                                                $weak_subjects[] = $row->subject_title;
+                                            } elseif ($row->percentage >= 70) {
+                                                $strong_subjects[] = $row->subject_title;
+                                            }
+                                        }
+                                        ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th><?php echo $total_obtained; ?></th>
+                                        <th><?php echo $total_marks; ?></th>
+                                        <th>
+                                            <?php
+                                            $overall_percentage = $total_marks > 0 ? round(($total_obtained / $total_marks) * 100, 2) : 0;
+                                            echo $overall_percentage . '%';
+                                            ?>
+                                        </th>
+                                        <th>
+                                            <?php
+                                            if ($overall_percentage >= 80) $overall_grade = 'A+';
+                                            elseif ($overall_percentage >= 70) $overall_grade = 'A';
+                                            elseif ($overall_percentage >= 60) $overall_grade = 'B';
+                                            elseif ($overall_percentage >= 50) $overall_grade = 'C';
+                                            elseif ($overall_percentage >= 40) $overall_grade = 'D';
+                                            elseif ($overall_percentage > 33) $overall_grade = 'E';
+                                            else $overall_grade = 'F';
+                                            echo $overall_grade;
+                                            ?>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </td>
+
                     </tr>
                 </table>
 
