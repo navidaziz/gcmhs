@@ -448,7 +448,7 @@
                                         <th style="text-align: center;" colspan="3">
                                             <?php
                                             $query = "SELECT  * FROM exams  WHERE exam_id = ?";
-                                            $exam_info = $this->db->query($query, [$exam_info->exam_id])->row();
+                                            $exam_info = $this->db->query($query, [$exam_id])->row();
                                             ?><?php echo $exam_info->year ?> | <?php echo $exam_info->term ?>
                                         </th>
                                     </tr>
@@ -456,7 +456,7 @@
 
                                         <th>Total Marks</th>
                                         <th>Marks Obtained</th>
-                                        <th>Weightage <br />45%</th>
+                                        <th>Weightage <br />55%</th>
                                     </tr>
                                 </thead>
                                 <tbody>
