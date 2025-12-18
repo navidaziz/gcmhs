@@ -707,7 +707,7 @@
                 <!-- REMARKS -->
                 <div class="remarks">
                     <h4>Performance Analysis on Aggregate</h4>
-                    <p style="font-size: 16px;"><?php echo $remarks; ?></p>
+                    <p style="font-size: 12px;"><i><?php echo $remarks; ?></i></p>
                 </div>
 
 
