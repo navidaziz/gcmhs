@@ -308,7 +308,7 @@
 
                 <table>
                     <tr>
-                        <td style="width: 50%;">
+                        <td style="vertical-align: top; width: 50%;">
                             <?php
                             // === QUERY: Subjects & Marks (Previous Semester) ===
                             $query = "SELECT 
