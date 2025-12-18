@@ -183,6 +183,15 @@
             background: #e9e9e9;
             font-weight: bold;
         }
+
+        .checkbox {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #000;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
     </style>
 </head>
 
