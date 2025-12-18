@@ -218,6 +218,8 @@
 
                 <?php foreach ($students as $student) {
                     $student_id = $student->student_id;
+                    $query = "SELECT * FROM students WHERE student_id ='" . $student_id . "'";
+                    $student = $this->db->query($query)->row();
                 ?>
                     <!-- HEADER -->
                     <table class="header-table" style="width:100%;">
