@@ -706,7 +706,7 @@
 
                 <!-- REMARKS -->
                 <div class="rema rks">
-                    <h4>Performance Analysis on Aggregate</h4>
+                    <h5 style="text-align: left;">Performance Analysis on Aggregate</h5>
                     <p style="font-size: 12px;"><i><?php echo $remarks; ?></i></p>
                 </div>
 
