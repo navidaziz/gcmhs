@@ -710,7 +710,77 @@
                     <p style="font-size: 16px;"><?php echo $remarks; ?></p>
                 </div>
 
+                <!-- ATTENDANCE -->
+                <h4>Attendance History</h4>
+                <table class="table_small" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <?php for ($day = 1; $day <= 31; $day++) { ?>
+                                <th><?php echo $day; ?></th>
+                            <?php } ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $monthNames = [
+                            '01' => 'Jan',
+                            '02' => 'Feb',
+                            '03' => 'Mar',
+                            '04' => 'Apr',
+                            '05' => 'May',
+                            '06' => 'Jun',
+                            '07' => 'July',
+                            '08' => 'Aug',
+                            '09' => 'Sep',
+                            '10' => 'Oct',
+                            '11' => 'Nov',
+                            '12' => 'Dec'
+                        ];
+                        $currentYear = date('Y');
 
+                        foreach ($monthNames as $monthNum => $monthName) {
+                            $daysInMonth = date('t', mktime(0, 0, 0, $monthNum, 1, $currentYear));
+                            echo "<tr><th>{$monthName}</th>";
+                            for ($day = 1; $day <= 31; $day++) {
+                                if ($day > $daysInMonth) {
+                                    echo '<td></td>';
+                                    continue;
+                                }
+                                $query = "SELECT * FROM `students_attendance` WHERE `student_id` = ? 
+                          AND YEAR(`date`) = ? AND MONTH(`date`) = ? AND DAY(`date`) = ?";
+                                $students_attendance = $this->db->query($query, [
+                                    $student->student_id,
+                                    $currentYear,
+                                    $monthNum,
+                                    $day
+                                ])->row();
+                                echo '<td style="';
+                                if (!empty($students_attendance)) {
+                                    if ($students_attendance->attendance == 'A') {
+                                        echo 'background:#D8534E;'; // absent
+                                    } elseif ($students_attendance->attendance == 'P') {
+                                        if (empty($students_attendance->attendance2) || $students_attendance->attendance2 == 'P') {
+                                            echo 'background:#96AE5F;'; // present
+                                        } elseif ($students_attendance->attendance2 == 'A') {
+                                            echo 'background:#F0AD4E;'; // partial
+                                        }
+                                    }
+                                }
+                                echo '"><small style="font-size:8px !important">';
+                                if (!empty($students_attendance)) {
+                                    echo $students_attendance->attendance;
+                                    if (!empty($students_attendance->attendance2)) {
+                                        echo "-" . htmlspecialchars($students_attendance->attendance2);
+                                    }
+                                }
+                                echo '</small></td>';
+                            }
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
                 <br />
                 <br />
                 <br />
