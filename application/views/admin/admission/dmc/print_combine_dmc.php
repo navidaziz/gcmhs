@@ -471,10 +471,10 @@
                                 </tr>
                                 <tr>
                                     <?php
-                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                    echo $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
-                                                WHERE student_id = '10005' 
+                                                WHERE student_id = '" . $student_id . "' 
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-03-01' 
                                                 AND '" . date('Y', strtotime($exam_info->start_date)) . "-06-30';";
                                     $first_semeter_attendance = $this->db->query($query)->row();
@@ -485,10 +485,10 @@
                                 </tr>
                                 <tr>
                                     <?php
-                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                    echo $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
-                                                WHERE student_id = '10005' 
+                                                WHERE student_id = '" . $student_id . "' 
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-08-01' 
                                                 AND '" . date('Y', strtotime($exam_info->start_date)) . "-12-30';";
                                     $second_semeter_attendance = $this->db->query($query)->row();
