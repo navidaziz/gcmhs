@@ -639,6 +639,12 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="final-row">
+                                Final Result:
+                                <span class="checkbox"></span> Promoted
+                                &nbsp;&nbsp;&nbsp;
+                                <span class="checkbox"></span> Not Promoted
+                            </div>
                         </td>
 
 
