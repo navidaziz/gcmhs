@@ -232,6 +232,7 @@
                                 <h5><strong>Progress Report</strong></h5>
 
                                 <?php
+                                echo $exam_id;
                                 // === QUERY: Exam Info ===
                                 $query = "SELECT 
                             ex.year,
