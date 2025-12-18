@@ -349,168 +349,169 @@
                                 ->query($query, [$student_id, $exam_info->previous_semester_id])
                                 ->result();
                             ?>
-
-                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2">S #</th>
-                                        <th rowspan="2">SUBJECTS</th>
-                                        <th style="text-align: center;" colspan="3">
-                                            <?php
-                                            $query = "SELECT * FROM exams WHERE exam_id = ?";
-                                            $previous_exam_info = $this->db
-                                                ->query($query, [$exam_info->previous_semester_id])
-                                                ->row();
-                                            ?>
-                                            <?php echo $previous_exam_info->year ?> | <?php echo $previous_exam_info->term ?>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>Total Marks</th>
-                                        <th>Marks Obtained</th>
-                                        <th>Weightage <br />45%</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <?php
-                                    $serial_no = 1;
-                                    $previous_weightage_total = 0;
-                                    $first_semester_weightages = [];
-
-                                    foreach ($previous_semester_result as $row): ?>
+                            <div style="border: 2px solid black; padding: 5px;">
+                                <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
+                                    <thead>
                                         <tr>
-                                            <th><?php echo $serial_no; ?></th>
-                                            <td style="width: 500px;"><?php echo $row->subject_title; ?></td>
-                                            <td><?php echo $row->total_marks; ?></td>
-                                            <td>
+                                            <th rowspan="2">S #</th>
+                                            <th rowspan="2">SUBJECTS</th>
+                                            <th style="text-align: center;" colspan="3">
                                                 <?php
-                                                if ($row->obtain_mark === 'A') {
-                                                    echo "<span style='color:red;font-weight:bold;'>Absent</span>";
-                                                    // $absent_subjects[] = $row->subject_title;
-                                                } else {
-                                                    echo $row->obtain_mark;
-                                                }
+                                                $query = "SELECT * FROM exams WHERE exam_id = ?";
+                                                $previous_exam_info = $this->db
+                                                    ->query($query, [$exam_info->previous_semester_id])
+                                                    ->row();
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                //echo $row->percentage . " - ";
-                                                $previous_weightage = round((($row->percentage * 45) / 100), 2);
-                                                $first_semester_weightages[] = $previous_weightage;
-                                                $previous_weightage_total += $previous_weightage;
+                                                <?php echo $previous_exam_info->year ?> | <?php echo $previous_exam_info->term ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Marks</th>
+                                            <th>Marks Obtained</th>
+                                            <th>Weightage <br />45%</th>
+                                        </tr>
+                                    </thead>
 
-                                                echo ($row->obtain_mark === 'A') ? '-' : $previous_weightage . '%';
-                                                ?>
-                                            </td>
+                                    <tbody>
+                                        <?php
+                                        $serial_no = 1;
+                                        $previous_weightage_total = 0;
+                                        $first_semester_weightages = [];
+
+                                        foreach ($previous_semester_result as $row): ?>
+                                            <tr>
+                                                <th><?php echo $serial_no; ?></th>
+                                                <td style="width: 500px;"><?php echo $row->subject_title; ?></td>
+                                                <td><?php echo $row->total_marks; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($row->obtain_mark === 'A') {
+                                                        echo "<span style='color:red;font-weight:bold;'>Absent</span>";
+                                                        // $absent_subjects[] = $row->subject_title;
+                                                    } else {
+                                                        echo $row->obtain_mark;
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    //echo $row->percentage . " - ";
+                                                    $previous_weightage = round((($row->percentage * 45) / 100), 2);
+                                                    $first_semester_weightages[] = $previous_weightage;
+                                                    $previous_weightage_total += $previous_weightage;
+
+                                                    echo ($row->obtain_mark === 'A') ? '-' : $previous_weightage . '%';
+                                                    ?>
+                                                </td>
+                                            </tr>
+
+                                        <?php
+                                            if ($row->obtain_mark !== 'A') {
+                                                $previous_total_obtained += $row->obtain_mark;
+                                                $previous_total_marks += $row->total_marks;
+
+                                                // if ($row->percentage < 50) {
+                                                //     $weak_subjects[] = $row->subject_title;
+                                                // } elseif ($row->percentage >= 70) {
+                                                //     $strong_subjects[] = $row->subject_title;
+                                                // }
+                                            }
+                                            $serial_no++;
+                                        endforeach;
+                                        ?>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th rowspan="4"></th>
+                                            <th>G. TOTAL</th>
+                                            <th><?php echo $previous_total_marks; ?></th>
+                                            <th><?php echo $previous_total_obtained; ?></th>
+                                            <th><?php //echo $previous_weightage_total; 
+                                                ?></th>
                                         </tr>
 
-                                    <?php
-                                        if ($row->obtain_mark !== 'A') {
-                                            $previous_total_obtained += $row->obtain_mark;
-                                            $previous_total_marks += $row->total_marks;
+                                        <tr>
+                                            <th colspan="2">PERCENTAGE</th>
+                                            <th>
+                                                <?php
+                                                $overall_percentage = $previous_total_marks > 0
+                                                    ? round(($previous_total_obtained / $previous_total_marks) * 100, 2)
+                                                    : 0;
+                                                echo $overall_percentage . '%';
+                                                ?>
+                                            </th>
+                                            <th>
+                                                <?php
+                                                $overall_weighted_percentage = $previous_total_marks > 0
+                                                    ? round(($previous_total_obtained / $previous_total_marks) * 45, 2)
+                                                    : 0;
+                                                echo $overall_weighted_percentage . '%';
+                                                ?>
+                                            </th>
+                                        </tr>
 
-                                            // if ($row->percentage < 50) {
-                                            //     $weak_subjects[] = $row->subject_title;
-                                            // } elseif ($row->percentage >= 70) {
-                                            //     $strong_subjects[] = $row->subject_title;
-                                            // }
-                                        }
-                                        $serial_no++;
-                                    endforeach;
-                                    ?>
-                                </tbody>
+                                        <tr>
+                                            <th colspan="2">GRADE</th>
+                                            <th><?php echo get_grade($overall_percentage); ?></th>
+                                            <th></th>
+                                        </tr>
 
-                                <tfoot>
+                                        <tr>
+                                            <th colspan="2">POSITION</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                     <tr>
-                                        <th rowspan="4"></th>
-                                        <th>G. TOTAL</th>
-                                        <th><?php echo $previous_total_marks; ?></th>
-                                        <th><?php echo $previous_total_obtained; ?></th>
-                                        <th><?php //echo $previous_weightage_total; 
-                                            ?></th>
+                                        <th>ATTENDANCE</th>
+                                        <th>SEMESTER-I</th>
+                                        <th>SEMESTER-II</th>
                                     </tr>
-
                                     <tr>
-                                        <th colspan="2">PERCENTAGE</th>
-                                        <th>
-                                            <?php
-                                            $overall_percentage = $previous_total_marks > 0
-                                                ? round(($previous_total_obtained / $previous_total_marks) * 100, 2)
-                                                : 0;
-                                            echo $overall_percentage . '%';
-                                            ?>
-                                        </th>
-                                        <th>
-                                            <?php
-                                            $overall_weighted_percentage = $previous_total_marks > 0
-                                                ? round(($previous_total_obtained / $previous_total_marks) * 45, 2)
-                                                : 0;
-                                            echo $overall_weighted_percentage . '%';
-                                            ?>
-                                        </th>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">GRADE</th>
-                                        <th><?php echo get_grade($overall_percentage); ?></th>
-                                        <th></th>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">POSITION</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
-                                <tr>
-                                    <th>ATTENDANCE</th>
-                                    <th>SEMESTER-I</th>
-                                    <th>SEMESTER-II</th>
-                                </tr>
-                                <tr>
-                                    <?php
-                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                        <?php
+                                        $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-03-01' 
                                                 AND '" . date('Y', strtotime($exam_info->exam_data)) . "-06-30';";
-                                    $first_semeter_attendance = $this->db->query($query)->row();
+                                        $first_semeter_attendance = $this->db->query($query)->row();
 
-                                    $first_punctuality = $first_semeter_attendance->total_attendance > 0
-                                        ? round(($first_semeter_attendance->attended / $first_semeter_attendance->total_attendance) * 100, 2)
-                                        : 0;
-                                    ?>
-                                    <th>Total Working Days</th>
-                                    <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
-                                    <td><?php echo $first_semeter_attendance->attended; ?></td>
-                                </tr>
-                                <tr>
-                                    <?php
-                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                        $first_punctuality = $first_semeter_attendance->total_attendance > 0
+                                            ? round(($first_semeter_attendance->attended / $first_semeter_attendance->total_attendance) * 100, 2)
+                                            : 0;
+                                        ?>
+                                        <th>Total Working Days</th>
+                                        <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
+                                        <td><?php echo $first_semeter_attendance->attended; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-08-01' 
                                                 AND '" . date('Y', strtotime($exam_info->exam_data)) . "-12-30';";
-                                    $second_semeter_attendance = $this->db->query($query)->row();
-                                    $second_punctuality = $second_semeter_attendance->total_attendance > 0
-                                        ? round(($second_semeter_attendance->attended / $second_semeter_attendance->total_attendance) * 100, 2)
-                                        : 0;
+                                        $second_semeter_attendance = $this->db->query($query)->row();
+                                        $second_punctuality = $second_semeter_attendance->total_attendance > 0
+                                            ? round(($second_semeter_attendance->attended / $second_semeter_attendance->total_attendance) * 100, 2)
+                                            : 0;
 
-                                    ?>
-                                    <th>Days Attended </th>
-                                    <td><?php echo $second_semeter_attendance->total_attendance; ?></td>
-                                    <td><?php echo $second_semeter_attendance->attended; ?></td>
-                                </tr>
-                            </table>
+                                        ?>
+                                        <th>Days Attended </th>
+                                        <td><?php echo $second_semeter_attendance->total_attendance; ?></td>
+                                        <td><?php echo $second_semeter_attendance->attended; ?></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </td>
 
                         <td style="vertical-align: top; width: 50%;">
-                            <div style="border: 2px solid black;">
+                            <div style="border: 2px solid black; padding: 5px;">
                                 <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                     <thead>
                                         <tr>
