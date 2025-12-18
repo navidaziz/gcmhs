@@ -489,13 +489,7 @@
                                         $first_punctuality = $first_semeter_attendance->total_attendance > 0
                                             ? round(($first_semeter_attendance->attended / $first_semeter_attendance->total_attendance) * 100, 2)
                                             : 0;
-                                        ?>
-                                        <th>Total Working Days</th>
-                                        <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
-                                        <td><?php echo $first_semeter_attendance->attended; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <?php
+
                                         $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
@@ -506,10 +500,15 @@
                                         $second_punctuality = $second_semeter_attendance->total_attendance > 0
                                             ? round(($second_semeter_attendance->attended / $second_semeter_attendance->total_attendance) * 100, 2)
                                             : 0;
-
                                         ?>
-                                        <th>Days Attended </th>
+                                        <th>Total Working Days</th>
+                                        <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
                                         <td><?php echo $second_semeter_attendance->total_attendance; ?></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Days Attended </th>
+                                        <td><?php echo $first_semeter_attendance->attended; ?></td>
                                         <td><?php echo $second_semeter_attendance->attended; ?></td>
                                     </tr>
                                 </table>
