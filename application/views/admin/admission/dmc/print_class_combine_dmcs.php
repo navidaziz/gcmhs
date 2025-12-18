@@ -205,6 +205,14 @@
             color: #000;
         }
     </style>
+
+
+    <style>
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+    </style>
 </head>
 
 <body>
@@ -748,6 +756,7 @@
                         <div>Parents Signature</div>
                     </div>
                 </page>
+                <div class="page-break"></div>
             <?php } ?>
 
         </body>
