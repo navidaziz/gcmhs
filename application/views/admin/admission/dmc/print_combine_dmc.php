@@ -479,6 +479,10 @@
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-03-01' 
                                                 AND '" . date('Y', strtotime($exam_info->exam_data)) . "-06-30';";
                                     $first_semeter_attendance = $this->db->query($query)->row();
+
+                                    $first_punctuality = $first_semeter_attendance->total_attendance > 0
+                                        ? round(($first_semeter_attendance->attended / $first_semeter_attendance->total_attendance) * 100, 2)
+                                        : 0;
                                     ?>
                                     <th>Total Working Days</th>
                                     <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
@@ -493,6 +497,10 @@
                                                 AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-08-01' 
                                                 AND '" . date('Y', strtotime($exam_info->exam_data)) . "-12-30';";
                                     $second_semeter_attendance = $this->db->query($query)->row();
+                                    $second_punctuality = $second_semeter_attendance->total_attendance > 0
+                                        ? round(($second_semeter_attendance->attended / $second_semeter_attendance->total_attendance) * 100, 2)
+                                        : 0;
+
                                     ?>
                                     <th>Days Attended </th>
                                     <td><?php echo $second_semeter_attendance->total_attendance; ?></td>
@@ -646,7 +654,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Punctuality</td>
-                                        <td></td>
+                                        <td><?php echo $first_punctuality . "%";  ?></td>
                                         <td></td>
                                     </tr>
                                     <tr>
