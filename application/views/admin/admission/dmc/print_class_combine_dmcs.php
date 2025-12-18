@@ -407,6 +407,10 @@
                                         <tbody>
                                             <?php
                                             $serial_no = 1;
+                                            $previous_total_marks = 0;
+                                            $previous_total_obtained = 0;
+                                            $current_total_marks = 0;
+                                            $current_total_obtained = 0;
                                             $previous_weightage_total = 0;
                                             $first_semester_weightages = [];
 
