@@ -232,7 +232,6 @@
                             ex.term,
                             ex.exam_data,
                             ex.previous_semester_id,
-                            ex.promotion_percentage,
                             c.Class_title,
                             sec.section_title
                             FROM students_exams_subjects_marks AS exr 
@@ -693,12 +692,18 @@
                                 </table>
                                 <div class="final-row">
                                     Final Result:
-                                    <?php if ($current_overall_percentage >= $exam_info->promotion_percentage) { ?>
-                                        <span><strong> Promoted</strong></span>
+                                    <?php if ($current_overall_percentage >= 25) { ?>
+                                        <span>&#9745;</span>
                                     <?php } else { ?>
-                                        <span><strong> Not Promoted</strong></span>
+                                        <span>&#9746;</span>
                                     <?php } ?>
-
+                                    Promoted
+                                    &nbsp;&nbsp;&nbsp;
+                                    <?php if ($current_overall_percentage < 25) { ?>
+                                        <span>&#9745;</span>
+                                    <?php } else { ?>
+                                        <span>&#9746;</span>
+                                    <?php } ?> Not Promoted
                                 </div>
                             </div>
                         </td>
