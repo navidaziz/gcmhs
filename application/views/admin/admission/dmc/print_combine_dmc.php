@@ -194,6 +194,15 @@
             vertical-align: middle;
             margin: 0 5px;
         }
+
+        .checkbox.checked::after {
+            content: "✔";
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            font-size: 14px;
+            color: #000;
+        }
     </style>
 </head>
 
@@ -682,9 +691,18 @@
                                 </table>
                                 <div class="final-row">
                                     Final Result:
-                                    <span class="checkbox"></span> Promoted
+                                    <?php if ($current_overall_percentage >= 25) { ?>
+                                        <span class="checkbox checked"></span>
+                                    <?php } else { ?>
+                                        <span class="checkbox"></span>
+                                    <?php } ?>
+                                    Promoted
                                     &nbsp;&nbsp;&nbsp;
-                                    <span class="checkbox"></span> Not Promoted
+                                    <?php if ($current_overall_percentage < 25) { ?>
+                                        <span class="checkbox checked"></span>
+                                    <?php } else { ?>
+                                        <span class="checkbox"></span>
+                                    <?php } ?> Not Promoted
                                 </div>
                             </div>
                         </td>
