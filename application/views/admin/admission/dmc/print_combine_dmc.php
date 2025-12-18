@@ -610,7 +610,7 @@
                                     </tr>
 
                                     <tr>
-                                        <th></th>
+                                        <th style="height:16px"></th>
                                         <th></th>
                                         <th></th>
                                     </tr>
