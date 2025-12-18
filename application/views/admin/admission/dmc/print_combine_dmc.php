@@ -195,7 +195,7 @@
             margin: 0 5px;
         }
 
-        .checkbox.checked {
+        .checked {
             display: inline-block;
             width: 16px;
             height: 16px;
@@ -693,14 +693,14 @@
                                 <div class="final-row">
                                     Final Result:
                                     <?php if ($current_overall_percentage >= 25) { ?>
-                                        <span class="checkbox checked"></span>
+                                        <span class="checked"></span>
                                     <?php } else { ?>
                                         <span class="checkbox"></span>
                                     <?php } ?>
                                     Promoted
                                     &nbsp;&nbsp;&nbsp;
                                     <?php if ($current_overall_percentage < 25) { ?>
-                                        <span class="checkbox checked"></span>
+                                        <span class="checked"></span>
                                     <?php } else { ?>
                                         <span class="checkbox"></span>
                                     <?php } ?> Not Promoted
