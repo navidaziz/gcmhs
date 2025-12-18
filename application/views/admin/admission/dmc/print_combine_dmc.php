@@ -655,7 +655,7 @@
                                     <tr>
                                         <td>Punctuality</td>
                                         <td><?php echo $first_punctuality . "%";  ?></td>
-                                        <td></td>
+                                        <td><?php echo $second_punctuality . "%";  ?></td>
                                     </tr>
                                     <tr>
                                         <td>Responsibility</td>
