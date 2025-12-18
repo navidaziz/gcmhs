@@ -482,7 +482,7 @@
                                     ?>
                                     <th>Total Working Days</th>
                                     <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
-                                    <td><?php echo $second_semester_attendance->total_attendance; ?></td>
+                                    <td><?php echo $second_semester_attendance->attended; ?></td>
                                 </tr>
                                 <tr>
                                     <?php
@@ -495,7 +495,7 @@
                                     $second_semeter_attendance = $this->db->query($query)->row();
                                     ?>
                                     <th>Days Attended </th>
-                                    <td><?php echo $second_semeter_attendance->attended; ?></td>
+                                    <td><?php echo $second_semeter_attendance->total_attendance; ?></td>
                                     <td><?php echo $second_semeter_attendance->attended; ?></td>
                                 </tr>
                             </table>
