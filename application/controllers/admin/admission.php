@@ -1534,7 +1534,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$query = "SELECT s.student_id  FROM `students_exams_subjects_marks` as sm
 		INNER JOIN students as s ON(s.student_id = sm.student_id)
 		WHERE sm.class_id ='" . $class_id . "' 
-		AND smsection_id = '" . $section_id . "'";
+		AND sm.section_id = '" . $section_id . "'";
 		$this->data['students'] =  $this->db->query($query)->result();
 
 		$this->data["title"] = "Class DMC - " . $exam->exam_title;
