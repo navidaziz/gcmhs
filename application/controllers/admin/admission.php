@@ -1517,7 +1517,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data['student_id'] = $student_id = (int) $student_id;
 		$query = "SELECT * FROM exams WHERE exam_id ='" . $exam_id . "'";
 		$this->data['exam'] = $exam = $this->db->query($query)->row();
-		$query = "SELECT * FROM students WHERE student_id ='" . $student_id . "' LIMIT 10";
+		$query = "SELECT * FROM students WHERE student_id ='" . $student_id . "'";
 		$this->data['student'] = $student = $this->db->query($query)->row();
 
 		$this->data["title"] = $student->student_name . " DMC - " . $exam->exam_title;
@@ -1534,7 +1534,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$query = "SELECT s.student_id  FROM `students_exams_subjects_marks` as sm
 		INNER JOIN students as s ON(s.student_id = sm.student_id)
 		WHERE sm.class_id ='" . $class_id . "' 
-		AND sm.section_id = '" . $section_id . "'";
+		AND sm.section_id = '" . $section_id . "' LIMIT 10";
 		$this->data['students'] =  $this->db->query($query)->result();
 
 		$this->data["title"] = "Class DMC - " . $exam->exam_title;
