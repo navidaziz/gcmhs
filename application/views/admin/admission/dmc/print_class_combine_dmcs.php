@@ -214,13 +214,14 @@
         </head>
 
         <body>
-            <page size="A4">
 
-                <?php foreach ($students as $student) {
-                    $student_id = $student->student_id;
-                    $query = "SELECT * FROM students WHERE student_id ='" . $student_id . "'";
-                    $student = $this->db->query($query)->row();
-                ?>
+
+            <?php foreach ($students as $student) {
+                $student_id = $student->student_id;
+                $query = "SELECT * FROM students WHERE student_id ='" . $student_id . "'";
+                $student = $this->db->query($query)->row();
+            ?>
+                <page size="A4">
                     <!-- HEADER -->
                     <table class="header-table" style="width:100%;">
                         <tr>
@@ -305,28 +306,28 @@
                     <?php
                     // === QUERY: Subjects & Marks ===
                     $query = "SELECT 
-                sub.subject_title,
-                sub.short_title,
-                exr.obtain_mark,
-                exr.total_marks,
-                exr.percentage,
-                CASE 
-                    WHEN exr.obtain_mark = 'A' THEN 'Absent'
-                    WHEN exr.percentage >= 80 THEN 'A+'
-                    WHEN exr.percentage >= 70 THEN 'A'
-                    WHEN exr.percentage >= 60 THEN 'B'
-                    WHEN exr.percentage >= 50 THEN 'C'
-                    WHEN exr.percentage >= 40 THEN 'D'
-                    WHEN exr.percentage > 33 THEN 'E'
-                    ELSE 'F'
-                END AS grade
-                FROM students_exams_subjects_marks AS exr 
-                INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-                INNER JOIN classes AS c ON c.class_id = exr.class_id 
-                INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-                INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
-                WHERE exr.student_id = ? AND exr.exam_id = ?
-                ORDER BY sub.subject_id;";
+                                sub.subject_title,
+                                sub.short_title,
+                                exr.obtain_mark,
+                                exr.total_marks,
+                                exr.percentage,
+                                CASE 
+                                    WHEN exr.obtain_mark = 'A' THEN 'Absent'
+                                    WHEN exr.percentage >= 80 THEN 'A+'
+                                    WHEN exr.percentage >= 70 THEN 'A'
+                                    WHEN exr.percentage >= 60 THEN 'B'
+                                    WHEN exr.percentage >= 50 THEN 'C'
+                                    WHEN exr.percentage >= 40 THEN 'D'
+                                    WHEN exr.percentage > 33 THEN 'E'
+                                    ELSE 'F'
+                                END AS grade
+                                FROM students_exams_subjects_marks AS exr 
+                                INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                                INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                                INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                                INNER JOIN subjects as sub ON sub.subject_id = exr.subject_id
+                                WHERE exr.student_id = ? AND exr.exam_id = ?
+                                ORDER BY sub.subject_id;";
 
                     $current_semester_result = $this->db->query($query, [$student_id, $exam_id])->result();
 
@@ -746,8 +747,9 @@
                         <div>School Head</div>
                         <div>Parents Signature</div>
                     </div>
-                <?php } ?>
-            </page>
+                </page>
+            <?php } ?>
+
         </body>
 
 </html>
