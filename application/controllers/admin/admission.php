@@ -1517,7 +1517,7 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data['student_id'] = $student_id = (int) $student_id;
 		$query = "SELECT * FROM exams WHERE exam_id ='" . $exam_id . "'";
 		$this->data['exam'] = $exam = $this->db->query($query)->row();
-		$query = "SELECT * FROM students WHERE student_id ='" . $student_id . "'";
+		$query = "SELECT * FROM students WHERE student_id ='" . $student_id . "' LIMIT 10";
 		$this->data['student'] = $student = $this->db->query($query)->row();
 
 		$this->data["title"] = $student->student_name . " DMC - " . $exam->exam_title;
