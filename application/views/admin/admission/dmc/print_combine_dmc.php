@@ -218,6 +218,7 @@
                             $query = "SELECT 
                             ex.year,
                             ex.term,
+                            ex.start_date,
                             ex.previous_semester_id,
                             c.Class_title,
                             sec.section_title
