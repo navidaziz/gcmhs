@@ -693,16 +693,16 @@
                                 <div class="final-row">
                                     Final Result:
                                     <?php if ($current_overall_percentage >= 25) { ?>
-                                        <span class="checked"></span>
+                                        <span>&#9745;</span>
                                     <?php } else { ?>
-                                        <span class="checkbox"></span>
+                                        <span>&#9746;</span>
                                     <?php } ?>
                                     Promoted
                                     &nbsp;&nbsp;&nbsp;
                                     <?php if ($current_overall_percentage < 25) { ?>
-                                        <span class="checked"></span>
+                                        <span>&#9745;</span>
                                     <?php } else { ?>
-                                        <span class="checkbox"></span>
+                                        <span>&#9746;</span>
                                     <?php } ?> Not Promoted
                                 </div>
                             </div>
