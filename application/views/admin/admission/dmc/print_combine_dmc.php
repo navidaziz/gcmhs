@@ -195,7 +195,7 @@
             margin: 0 5px;
         }
 
-        .checkbox.checked::after {
+        .checkbox.checked {
             content: "✔";
             position: absolute;
             top: -2px;
