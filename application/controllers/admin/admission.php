@@ -1523,6 +1523,23 @@ WHERE `tests`.`test_id` = `test_questions`.`test_id`
 		$this->data["title"] = $student->student_name . " DMC - " . $exam->exam_title;
 		$this->load->view(ADMIN_DIR . "admission/dmc/print_combine_dmc", $this->data);
 	}
+	public function print_class_combine_dmcs($exam_id, $class_id, $section_id)
+	{
+
+		$this->data['exam_id'] = $exam_id = (int) $exam_id;
+		$this->data['class_id'] = $class_id = (int) $class_id;
+		$this->data['section_id'] = $section_id = (int) $section_id;
+		$query = "SELECT * FROM exams WHERE exam_id ='" . $exam_id . "'";
+		$this->data['exam'] = $exam = $this->db->query($query)->row();
+		$query = "SELECT s.student_id  FROM `students_exams_subjects_marks` as sm
+		INNER JOIN students as s ON(s.student_id = sm.student_id)
+		WHERE sm.class_id ='" . $class_id . "' 
+		AND smsection_id = '" . $section_id . "'";
+		$this->data['students'] =  $this->db->query($query)->result();
+
+		$this->data["title"] = "Class DMC - " . $exam->exam_title;
+		$this->load->view(ADMIN_DIR . "admission/dmc/print_class_combine_dmcs", $this->data);
+	}
 
 
 	public function dmc($exam_id, $class_id, $section_id, $order = NULL)
