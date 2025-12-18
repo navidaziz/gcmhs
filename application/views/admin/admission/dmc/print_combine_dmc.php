@@ -196,11 +196,12 @@
         }
 
         .checkbox.checked {
-            content: "✔";
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            font-size: 14px;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #000;
+            vertical-align: middle;
+            margin: 0 5px;
             color: #000;
         }
     </style>
