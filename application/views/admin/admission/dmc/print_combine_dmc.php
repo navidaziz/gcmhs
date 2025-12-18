@@ -716,9 +716,8 @@
                 <br />
                 <!-- SIGNATURES -->
                 <div class="signature">
-                    <div>Class Teacher</div>
-                    <div>Exam Controller</div>
-                    <div>Principal</div>
+                    <div>School Head</div>
+                    <div>Parents Signature</div>
                 </div>
             </page>
         </body>
