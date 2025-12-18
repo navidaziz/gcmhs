@@ -350,6 +350,7 @@
                                 ->result();
                             ?>
                             <div style="border: 2px solid black; padding: 5px;">
+
                                 <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                     <thead>
                                         <tr>
