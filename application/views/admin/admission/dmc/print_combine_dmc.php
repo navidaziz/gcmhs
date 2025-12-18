@@ -470,15 +470,32 @@
                                     <th>SEMESTER-II</th>
                                 </tr>
                                 <tr>
+                                    <?php
+                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                                SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
+                                                FROM students_attendance 
+                                                WHERE student_id = '10005' 
+                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-03-01' 
+                                                AND '" . date('Y', strtotime($exam_info->start_date)) . "-06-30';";
+                                    $first_semeter_attendance = $this->db->query($query)->row();
+                                    ?>
                                     <th>Total Working Days</th>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $first_semeter_attendance->total_attendance; ?></td>
+                                    <td><?php echo $second_semester_attendance->total_attendance; ?></td>
                                 </tr>
                                 <tr>
-
+                                    <?php
+                                    $query = "SELECT COUNT(*) AS total_attendance, 
+                                                SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
+                                                FROM students_attendance 
+                                                WHERE student_id = '10005' 
+                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-08-01' 
+                                                AND '" . date('Y', strtotime($exam_info->start_date)) . "-12-30';";
+                                    $second_semeter_attendance = $this->db->query($query)->row();
+                                    ?>
                                     <th>Days Attended </th>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $second_semeter_attendance->attended; ?></td>
+                                    <td><?php echo $second_semeter_attendance->attended; ?></td>
                                 </tr>
                             </table>
                         </td>
