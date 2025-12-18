@@ -327,13 +327,13 @@
                                 WHEN exr.percentage > 33 THEN 'E'
                                 ELSE 'F'
                             END AS grade
-                        FROM students_exams_subjects_marks AS exr 
-                        INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
-                        INNER JOIN classes AS c ON c.class_id = exr.class_id 
-                        INNER JOIN sections AS sec ON sec.section_id = exr.section_id
-                        INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
-                        WHERE exr.student_id = ? AND exr.exam_id = ?
-                        ORDER BY sub.subject_id;";
+                            FROM students_exams_subjects_marks AS exr 
+                            INNER JOIN exams AS ex ON ex.exam_id = exr.exam_id 
+                            INNER JOIN classes AS c ON c.class_id = exr.class_id 
+                            INNER JOIN sections AS sec ON sec.section_id = exr.section_id
+                            INNER JOIN subjects AS sub ON sub.subject_id = exr.subject_id
+                            WHERE exr.student_id = ? AND exr.exam_id = ?
+                            ORDER BY sub.subject_id;";
 
                             $previous_semester_result = $this->db
                                 ->query($query, [$student_id, $exam_info->previous_semester_id])
@@ -453,6 +453,24 @@
                                         <th></th>
                                     </tr>
                                 </tfoot>
+                            </table>
+                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
+                                <tr>
+                                    <th>ATTENDANCE</th>
+                                    <th>SEMESTER-I</th>
+                                    <th>SEMESTER-II</th>
+                                </tr>
+                                <tr>
+                                    <th>Total Working Days</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+
+                                    <th>Days Attended </th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </table>
                         </td>
 
@@ -588,6 +606,38 @@
                                         <th></th>
                                     </tr>
                                 </tfoot>
+                            </table>
+
+                            <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:left;">TRAITS</th>
+                                        <th>SEMESTER-I</th>
+                                        <th>SEMESTER-II</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Punctuality</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Responsibility</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sociability</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tidy &amp; Neatness</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </td>
 
