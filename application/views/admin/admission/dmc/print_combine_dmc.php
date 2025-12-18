@@ -218,7 +218,7 @@
                             $query = "SELECT 
                             ex.year,
                             ex.term,
-                            ex.start_date,
+                            ex.exam_data,
                             ex.previous_semester_id,
                             c.Class_title,
                             sec.section_title
@@ -476,8 +476,8 @@
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
-                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-03-01' 
-                                                AND '" . date('Y', strtotime($exam_info->start_date)) . "-06-30';";
+                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-03-01' 
+                                                AND '" . date('Y', strtotime($exam_info->exam_data)) . "-06-30';";
                                     $first_semeter_attendance = $this->db->query($query)->row();
                                     ?>
                                     <th>Total Working Days</th>
@@ -490,8 +490,8 @@
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
-                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->start_date)) . "-08-01' 
-                                                AND '" . date('Y', strtotime($exam_info->start_date)) . "-12-30';";
+                                                AND `date` BETWEEN '" . date('Y', strtotime($exam_info->exam_data)) . "-08-01' 
+                                                AND '" . date('Y', strtotime($exam_info->exam_data)) . "-12-30';";
                                     $second_semeter_attendance = $this->db->query($query)->row();
                                     ?>
                                     <th>Days Attended </th>
