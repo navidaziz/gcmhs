@@ -614,7 +614,7 @@
                                             <th><?php echo $current_total_obtained; ?></th>
                                             <th><?php //echo $current_weightage_total; 
                                                 ?></th>
-                                            <th><?php echo $previous_weightage + $current_weightage_total; ?></th>
+                                            <th><?php echo $previous_total_obtained + $current_total_obtained . "/" . $previous_total_marks + $current_total_marks; ?></th>
                                         </tr>
 
                                         <tr>
