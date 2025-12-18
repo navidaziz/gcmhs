@@ -472,7 +472,7 @@
                                 </tr>
                                 <tr>
                                     <?php
-                                    echo $query = "SELECT COUNT(*) AS total_attendance, 
+                                    $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
@@ -486,7 +486,7 @@
                                 </tr>
                                 <tr>
                                     <?php
-                                    echo $query = "SELECT COUNT(*) AS total_attendance, 
+                                    $query = "SELECT COUNT(*) AS total_attendance, 
                                                 SUM(CASE WHEN attendance = 'P' THEN 1 ELSE 0 END) AS attended 
                                                 FROM students_attendance 
                                                 WHERE student_id = '" . $student_id . "' 
