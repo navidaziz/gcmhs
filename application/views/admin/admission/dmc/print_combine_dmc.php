@@ -18,6 +18,7 @@
             margin-bottom: 20px;
             background-color: transparent;
             border-collapse: collapse;
+
         }
 
         .table>thead>tr>th,
@@ -30,6 +31,7 @@
             line-height: 1.42857143;
             vertical-align: top;
             border-top: 1px solid #ddd;
+            font-size: 12px !important;
         }
 
         .table>thead>tr>th {
