@@ -213,7 +213,7 @@
                         </td>
                         <td style="text-align:center;">
                             <h2>Government Centennial Model High School Boys Chitral</h2>
-                            <h6><strong>Detailed Marks Certificate</strong></h6>
+                            <h5><strong>Progress Report</strong></h5>
 
                             <?php
                             // === QUERY: Exam Info ===
@@ -236,6 +236,9 @@
                             ?>
 
                             <h3>Class: <?php echo $exam_info->Class_title ?> | Section: <?php echo $exam_info->section_title ?></h3>
+                        </td>
+                        <td>
+                            <img src="https://cdn.vectorstock.com/i/1000v/31/70/kpese-elementary-secondary-education-department-vector-24843170.jpg" alt="Logo" style="width:100px; ">
                         </td>
                     </tr>
                 </table>
