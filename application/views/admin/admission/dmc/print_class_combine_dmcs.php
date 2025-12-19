@@ -758,7 +758,10 @@
                     <br />
                     <!-- SIGNATURES -->
                     <div class="signature">
-                        <div>School Head</div>
+                        <div>
+                            <img src="<?php echo site_url("assets/school_head_signature.jpeg"); ?>" alt="Logo" style="width:100px; ">
+                            School Head
+                        </div>
                         <div>Parents Signature</div>
                     </div>
 
