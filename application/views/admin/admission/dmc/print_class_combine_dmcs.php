@@ -752,8 +752,6 @@
                         <p style="font-size: 12px;"><i><?php echo $remarks; ?></i></p>
                     </div>
 
-
-                    <br />
                     <br />
                     <br />
                     <!-- SIGNATURES -->
@@ -767,8 +765,9 @@
                     </div>
 
                 </page>
+                <p style="text-align: center;"><i><small>“Computer-generated report card. Errors and omissions excepted.”</small></i></p>
                 <div class="page-break">
-                    <p style="text-align: center;"><i><small>“Computer-generated report card. Errors and omissions excepted.”</small></i></p>
+
                 </div>
             <?php } ?>
 
