@@ -759,7 +759,7 @@
                     <!-- SIGNATURES -->
                     <div class="signature">
                         <div>
-                            <img src="<?php echo site_url("assets/school_head.png"); ?>" alt="signature" style="width:100px; margin-top:-20px ">
+                            <img src="<?php echo site_url("assets/school_head.png"); ?>" alt="signature" style="width:100px; margin-top:-50px ">
                             School Head
                         </div>
                         <div>Parents Signature</div>
