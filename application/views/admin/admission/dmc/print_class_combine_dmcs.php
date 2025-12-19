@@ -758,9 +758,9 @@
                     <br />
                     <!-- SIGNATURES -->
                     <div class="signature">
-                        <img src="<?php echo site_url("assets/school_head.png"); ?>" alt="signature" style="width:100px;  ">
-
                         <div>
+                            <img src="<?php echo site_url("assets/school_head.png"); ?>" alt="signature" style="width:100px; margin-top:-200px ">
+                            <br />
                             School Head
                         </div>
                         <div>Parents Signature</div>
