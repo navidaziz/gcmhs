@@ -761,8 +761,11 @@
                         <div>School Head</div>
                         <div>Parents Signature</div>
                     </div>
+
                 </page>
-                <div class="page-break"></div>
+                <div class="page-break">
+                    <p style="text-align: center;"><i><small>“Computer-generated report card. Errors and omissions excepted.”</small></i></p>
+                </div>
             <?php } ?>
 
         </body>
