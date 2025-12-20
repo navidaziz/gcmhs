@@ -648,6 +648,9 @@
                                             </tr>
 
                                             <tr>
+                                                <?php if (!$previous_semester_result) { ?>
+                                                    <th></th>
+                                                <?php } ?>
                                                 <th></th>
                                                 <th>
                                                     <?php
@@ -669,6 +672,9 @@
                                             </tr>
 
                                             <tr>
+                                                <?php if (!$previous_semester_result) { ?>
+                                                    <th></th>
+                                                <?php } ?>
                                                 <th></th>
                                                 <th><?php echo get_grade($current_overall_percentage); ?></th>
                                                 <th> - </th>
@@ -683,6 +689,9 @@
                                             </tr>
 
                                             <tr>
+                                                <?php if (!$previous_semester_result) { ?>
+                                                    <th></th>
+                                                <?php } ?>
                                                 <th style="height:16px"></th>
                                                 <th></th>
                                                 <th></th>
