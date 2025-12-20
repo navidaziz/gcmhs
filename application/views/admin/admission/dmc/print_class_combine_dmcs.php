@@ -551,7 +551,7 @@
                                         <thead>
                                             <tr>
                                                 <?php if (!$previous_semester_result) { ?>
-                                                    <th>Subjects</th>
+                                                    <th rowspan="2">Subjects</th>
                                                 <?php } ?>
                                                 <th style="text-align: center;" colspan="3">
                                                     <?php
