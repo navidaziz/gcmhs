@@ -736,13 +736,19 @@
 
                 <br />
                 <br />
-                <br />
                 <!-- SIGNATURES -->
                 <div class="signature">
-                    <div>School Head</div>
+                    <div>
+                        <img src="<?php echo site_url("assets/school_head.png"); ?>" alt="signature" style="width:100px; margin-top:-200px ">
+                        <br />
+                        School Head
+                    </div>
                     <div>Parents Signature</div>
                 </div>
+
             </page>
+            <p style="text-align: center;"><i><small>“Computer-generated report card. Errors and omissions excepted.”</small></i></p>
+
         </body>
 
 </html>

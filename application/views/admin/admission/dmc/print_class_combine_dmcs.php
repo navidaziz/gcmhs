@@ -578,6 +578,9 @@
 
                                             ?>
                                                 <tr>
+                                                    <?php if (!$previous_semester_result) { ?>
+                                                        <td><?php echo $row->subject_title; ?></td>
+                                                    <?php } ?>
                                                     <td><?php echo $row->total_marks; ?></td>
 
                                                     <td>
