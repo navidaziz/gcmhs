@@ -550,6 +550,9 @@
                                     <table class="table table-bordered" style="margin-top:10px; font-size:12px !important">
                                         <thead>
                                             <tr>
+                                                <?php if (!$previous_semester_result) { ?>
+                                                    <th>Subjects</th>
+                                                <?php } ?>
                                                 <th style="text-align: center;" colspan="3">
                                                     <?php
                                                     $query = "SELECT * FROM exams WHERE exam_id = ?";
@@ -633,7 +636,7 @@
                                         <tfoot>
                                             <tr>
                                                 <?php if (!$previous_semester_result) { ?>
-
+                                                    <th></th>
                                                 <?php } ?>
                                                 <th><?php echo $current_total_marks; ?></th>
                                                 <th><?php echo $current_total_obtained; ?></th>
