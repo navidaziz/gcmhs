@@ -632,6 +632,9 @@
 
                                         <tfoot>
                                             <tr>
+                                                <?php if (!$previous_semester_result) { ?>
+
+                                                <?php } ?>
                                                 <th><?php echo $current_total_marks; ?></th>
                                                 <th><?php echo $current_total_obtained; ?></th>
                                                 <th><?php //echo $current_weightage_total; 
